@@ -8,8 +8,6 @@ namespace DO
 {
     public class Test
     {
-        
-
         private string testId;
         private string testerId;
         private string traineeId;

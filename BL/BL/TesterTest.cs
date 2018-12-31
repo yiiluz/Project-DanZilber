@@ -38,6 +38,22 @@ namespace BO
             isPassed = test.IsPassed;
             testerNotes = test.TesterNotes;
         }
+        public TesterTest(DO.Test test)
+        {
+            testId = test.TestId;
+            exTrainee = new ExternalTrainee(test.TraineeId);
+            dateOfTest = test.DateOfTest;
+            hourOfTest = test.HourOfTest;
+            carType = (CarTypeEnum)test.CarType;
+            startTestAddress = new Address(test.StartTestAddress.City, test.StartTestAddress.Street, test.StartTestAddress.BuildingNumber);
+            distanceKeeping = test.DistanceKeeping;
+            reverseParking = test.ReverseParking;
+            mirrorsCheck = test.MirrorsCheck;
+            signals = test.Signals;
+            correctSpeed = test.CorrectSpeed;
+            isPassed = test.IsPassed;
+            testerNotes = test.TesterNotes;
+        }
 
         public string TestId { get => testId; set => testId = value; }
         public ExternalTrainee ExTrainee { get => exTrainee; set => exTrainee = value; }

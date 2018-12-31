@@ -24,7 +24,7 @@ namespace DL
         {
             if (DateSource.tests.Find(x => x.TestId == t.TestId) != null)
             {
-                throw new DuplicateWaitObjectException("ERROR! The test already exists in the system ");
+                throw new DuplicateWaitObjectException("ERROR! The test or the test serial already exists in the system ");
             }
             else if (DateSource.testers.Find(x => x.Id == t.TesterId) == null)
             {

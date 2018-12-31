@@ -34,7 +34,7 @@ namespace BO
             TypeCarToTest = (CarTypeEnum)other.TypeCarToTest;
             AvailableWorkTime = other.AvailableWorkTime;
             foreach (var item in other.TestList)
-                TestList.Add(new Test(item));
+                TestList.Add(new TesterTest(item));
         }
         public Tester(Tester other) : base(other.Id)
         {
@@ -52,15 +52,38 @@ namespace BO
             foreach (var item in other.TestList)
                 TestList.Add(item);
         }
-        public int GetNumOfTestThisWeek()
+        /// <summary>
+        /// Get DateTime & hour, and returns true if tester availiable at this time.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="hour"></param>
+        /// <returns></returns>
+        public bool IsAvailiableOnDate(DateTime date, int hour)
+        {
+            bool flag = true;
+            foreach (var item in TestList)
+            {
+                if (item.DateOfTest == date && item.HourOfTest == hour)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            return flag;
+        }
+        /// <summary>
+        /// Get num of tests for week
+        /// </summary>
+        /// <param name="DateTime of wanted week"
+        /// <returns>number of tests</returns>
+        public int GetNumOfTestForSpecificWeek(DateTime a)
         {
             int num = 0;
             foreach (var item in TestList)
-                if (item.DateOfTest.AddDays(-(int)item.DateOfTest.DayOfWeek) == (DateTime.Now).AddDays(-(int)DateTime.Now.DayOfWeek))
+                if (item.DateOfTest.AddDays(-(int)item.DateOfTest.DayOfWeek) == a.AddDays(-(int)a.DayOfWeek))
                     num++;
             return num;
         }
-        public bool IsTesterAvailiableOnDate(DateTime t);
         public double Seniority { get => seniority; set => seniority = value; }
         public double MaxDistance { get => maxDistance; set => maxDistance = value; }
         public int MaxTestsPerWeek { get => maxTestsPerWeek; set => maxTestsPerWeek = value; }

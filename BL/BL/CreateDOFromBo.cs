@@ -50,9 +50,9 @@ namespace BO
                 trainee.ExistingLicenses.Add((DO.CarTypeEnum)item);
             return trainee;
         }
-        public static DO.Test CreateDOTest(BO.Test other)
+        public static DO.Test CreateDOTest(BO.Test other, string id)
         {
-            var test = new DO.Test();
+            var test = new DO.Test(id);
             test.TesterId = other.ExTester.Id;
             test.TraineeId = other.ExTrainee.Id;
             test.DateOfTest = other.DateOfTest;
