@@ -228,7 +228,7 @@ namespace BL
                 Tester tester = GetTesterByID(t.ExTester.Id);
                 if (!tester.IsAvailiableOnDate(t.DateOfTest, t.HourOfTest))
                     errors += "Tester is not availiable for this specific date and hour.\n";
-                if (trainee.IsAlreadyDidTest)
+                if (trainee.IsAlreadyDidTest) 
                 {
                     int minDaysBetweenTests = -1;
                     try
