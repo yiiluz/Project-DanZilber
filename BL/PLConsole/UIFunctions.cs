@@ -16,6 +16,90 @@ namespace PLConsole
                 s.AvailableWorkTime[day, i] = true;
             }
         }
+        private void ExistingLicenses(Trainee t)
+        {
+            Console.WriteLine("Enter the number of licenses the trainee has");
+            int car1;
+            bool ok = int.TryParse(Console.ReadLine(), out car1);
+            if (ok)
+            {
+                int car2;
+                for (int i = 0; i < car1; i++)
+                {
+                    Console.WriteLine("for Motor Cycle enter: 1 \n for Private Car enter: 2 \n for Truck 12 Tons enter: 3 \n for Truck Un limited enter: 4 \n for bus enter: 5 \n");
+                    ok = int.TryParse(Console.ReadLine(), out car2);
+                    if (ok)
+                    {
+                        switch (car2)
+                        {
+                            case 1:
+                                t.ExistingLicenses.Add(CarTypeEnum.MotorCycle);
+                                break;
+                            case 2:
+                                t.ExistingLicenses.Add(CarTypeEnum.PrivateCar);
+                                break;
+                            case 3:
+                                t.ExistingLicenses.Add(CarTypeEnum.Truck12Tons);
+                                break;
+                            case 4:
+                                t.ExistingLicenses.Add(CarTypeEnum.TruckUnlimited);
+                                break;
+                            case 5:
+                                t.ExistingLicenses.Add(CarTypeEnum.Bus);
+                                break;
+                            default: throw new FormatException("ERROR! Invalid vehicle selection");
+                        }
+                    }
+                    else { throw new FormatException("Invalid number of licenses"); }
+                }
+            }
+        }
+        private void Gearbox(Trainee t)
+        {
+            Console.WriteLine("Insert 1 if automatic or 2 if manual: \n");
+            int car1;
+            bool car = int.TryParse(Console.ReadLine(), out car1);
+            switch (car1)
+            {
+                case 1:
+                    t.CurrGearType = GearboxTypeEnum.auto;
+                    break;
+                case 2:
+                    t.CurrGearType = GearboxTypeEnum.manual;
+                    break;
+                default: throw new FormatException("Invalid Gear box selection");
+            }
+        }
+        private void Traineelicense(Trainee t)
+        {
+            Console.WriteLine("Enter the type of car license the trainee is studying\n");
+            Console.WriteLine("for Motor Cycle enter: 1 \n for Private Car enter: 2 \n for Truck 12 Tons enter: 3 \n for Truck Un limited enter: 4 \n for bus enter: 5 \n");
+            int car1;
+            bool car = int.TryParse(Console.ReadLine(), out car1);
+            if (car)
+            {
+                switch (car1)
+                {
+                    case 1:
+                        t.CurrCarType = CarTypeEnum.MotorCycle;
+                        break;
+                    case 2:
+                        t.CurrCarType = CarTypeEnum.PrivateCar;
+                        break;
+                    case 3:
+                        t.CurrCarType = CarTypeEnum.Truck12Tons;
+                        break;
+                    case 4:
+                        t.CurrCarType = CarTypeEnum.TruckUnlimited;
+                        break;
+                    case 5:
+                        t.CurrCarType = CarTypeEnum.Bus;
+                        break;
+                    default: throw new FormatException("ERROR! Invalid vehicle selection");
+                }
+            }
+            else { throw new FormatException("ERROR!Invalid vehicle selection"); }
+        }
         private Person AddPerson()
         {
             Console.WriteLine("Enter tester ID\n");
@@ -148,97 +232,41 @@ namespace PLConsole
             trainee.PhoneNumber = person.PhoneNumber;
             trainee.Address = person.Address;
             trainee.DateOfBirth = person.DateOfBirth;
-            Console.WriteLine("is Already Did Test?\n Enter yes or no \n");
-            string yesOrNov = Console.ReadLine();
-            if (yesOrNov == "yes")
+            Console.WriteLine("Enter the teacher name \n");
+            string teacherName = Console.ReadLine();
+            if (teacherName.All(char.IsLetter)) { trainee.TeacherName = teacherName; }
+            else { throw new FormatException("ERROR! Teacher name is invalid"); }
+            Console.WriteLine("Enter the name of the school: \n");
+            string schoolName = Console.ReadLine();
+            if (schoolName.All(char.IsLetter)) { trainee.SchoolName = schoolName; }
+            else { throw new FormatException("ERROR! School name is invalid"); }
+            Console.WriteLine("is Already Did Test?\n Enter 1 for yes \n Enter 2 for no \n");
+            int yesOrNov;
+            bool ok = int.TryParse(Console.ReadLine(), out yesOrNov);
+            if (ok && yesOrNov == 1)
             {
+                int car1;
                 Console.WriteLine("Enter the date of the last test \n");
                 string lastTest = Console.ReadLine();
                 DateTime lastTest2;
                 if (DateTime.TryParse(lastTest, out lastTest2)) { trainee.LastTest = lastTest2; }
                 else { throw new FormatException("The last test date is invalid \n"); }
-            }
-            Console.WriteLine("Enter the type of car license the student is studying\n");
-            Console.WriteLine("for Motor Cycle enter: 1 \n for Private Car enter: 2 \n for Truck 12 Tons enter: 3 \n for Truck Un limited enter: 4 \n for bus enter: 5 \n");
-            int car1;
-            bool car = int.TryParse(Console.ReadLine(), out car1);
-            if (car)
-            {
-                switch (car1)
-                {
-                    case 1:
-                        trainee.CurrCarType = CarTypeEnum.MotorCycle;
-                        break;
-                    case 2:
-                        trainee.CurrCarType = CarTypeEnum.PrivateCar;
-                        break;
-                    case 3:
-                        trainee.CurrCarType = CarTypeEnum.Truck12Tons;
-                        break;
-                    case 4:
-                        trainee.CurrCarType = CarTypeEnum.TruckUnlimited;
-                        break;
-                    case 5:
-                        trainee.CurrCarType = CarTypeEnum.Bus;
-                        break;
-                    default: throw new FormatException("ERROR! Invalid vehicle selection");
-                }
-                Console.WriteLine("Insert 1 if automatic or 2 if manual: \n");
-                car = int.TryParse(Console.ReadLine(), out car1);
-                switch (car1)
-                {
-                    case 1:
-                        trainee.CurrGearType = GearboxTypeEnum.auto;
-                        break;
-                    case 2:
-                        trainee.CurrGearType = GearboxTypeEnum.manual;
-                        break;
-                    default: throw new FormatException("Invalid Gear box selection");
-                }
-                Console.WriteLine("Enter the number of lessons the trainee has finished \n");
-                car = int.TryParse(Console.ReadLine(), out car1);
-                if (car) { trainee.NumOfFinishedLessons = car1; }
-                else { throw new FormatException("The number of classes is invalid"); }
                 Console.WriteLine("Enter the number of tests a trainee has done \n");
-                car = int.TryParse(Console.ReadLine(), out car1);
-                if (car) { trainee.NumOfTests = car1; }
+                ok = int.TryParse(Console.ReadLine(), out car1);
+                if (ok) { trainee.NumOfTests = car1; }
                 else { throw new FormatException("The number of tests is invalid"); }
-                Console.WriteLine("Enter the number of licenses the trainee has");
-                car = int.TryParse(Console.ReadLine(), out car1);
-                if (car)
-                {
-                    int car2;
-                    for (int i = 0; i < car1; i++)
-                    {
-                        Console.WriteLine("for Motor Cycle enter: 1 \n for Private Car enter: 2 \n for Truck 12 Tons enter: 3 \n for Truck Un limited enter: 4 \n for bus enter: 5 \n");
-                        car = int.TryParse(Console.ReadLine(), out car2);
-                        if (car)
-                        {
-                            switch (car2)
-                            {
-                                case 1:
-                                    trainee.ExistingLicenses.Add(CarTypeEnum.MotorCycle);
-                                    break;
-                                case 2:
-                                    trainee.ExistingLicenses.Add(CarTypeEnum.PrivateCar);
-                                    break;
-                                case 3:
-                                    trainee.ExistingLicenses.Add(CarTypeEnum.Truck12Tons);
-                                    break;
-                                case 4:
-                                    trainee.ExistingLicenses.Add(CarTypeEnum.TruckUnlimited);
-                                    break;
-                                case 5:
-                                    trainee.ExistingLicenses.Add(CarTypeEnum.Bus);
-                                    break;
-                                default: throw new FormatException("ERROR! Invalid vehicle selection");
-                            }
-                        }
-                        else { throw new FormatException("Invalid number of licenses"); }
-
-                    }
-                }
+                trainee.IsAlreadyDidTest = true;
             }
+            else if (ok && yesOrNov == 2) { trainee.IsAlreadyDidTest = false; }
+            else { throw new FormatException("There was an illegal response to the question of whether the trainee had already done a test"); }
+            Traineelicense(trainee);
+            Gearbox(trainee);
+            Console.WriteLine("Enter the number of lessons the trainee has finished \n");
+            int car1;
+            ok = int.TryParse(Console.ReadLine(), out car1);
+            if (ok) { trainee.NumOfFinishedLessons = car1; }
+            else { throw new FormatException("The number of classes is invalid"); }
+            ExistingLicenses(trainee);
             return trainee;
         }
         public Tester UpdateTesterDetails(IBL bL)
@@ -247,10 +275,9 @@ namespace PLConsole
             string id = Console.ReadLine();
             if (id.All(char.IsDigit) && id.Length == 9)
             {
-                int index = bL.GetTestersList().FindIndex(x => x.Id == id);
-                if (index > -1)
+                try
                 {
-                    Tester tester = new Tester(bL.GetTestersList()[index]);
+                    Tester tester = bL.GetTesterByID(id);
                     int choice;
                     do
                     {
@@ -265,7 +292,7 @@ namespace PLConsole
                                 case 1:
                                     Console.WriteLine("Enter the new phone number: \n");
                                     string phone = Console.ReadLine();
-                                    if (phone.Length == 10 && phone.Any(char.IsDigit)) { tester.PhoneNumber = phone; }
+                                    if (phone.Length == 10 && phone.All(char.IsDigit)) { tester.PhoneNumber = phone; }
                                     else { throw new FormatException("ERROR! the number is illegal"); }
                                     break;
                                 case 2:
@@ -302,36 +329,7 @@ namespace PLConsole
                                     else { throw new FormatException("The maximum number of tests is invalid"); }
                                     break;
                                 case 6:
-                                    Console.WriteLine("Enter the new type of car in which the tester specializes\n");
-                                    Console.WriteLine("for Motor Cycle enter: 1 \n for Private Car enter: 2 \n for Truck 12 Tons enter: 3 \n for Truck Un limited enter: 4 \n for bus enter: 5 \n");
-                                    int car;
-                                    ok = int.TryParse(Console.ReadLine(), out car);
-                                    if (ok)
-                                    {
-                                        switch (car)
-                                        {
-                                            case 1:
-                                                tester.TypeCarToTest = CarTypeEnum.MotorCycle;
-                                                break;
-                                            case 2:
-                                                tester.TypeCarToTest = CarTypeEnum.PrivateCar;
-                                                break;
-                                            case 3:
-                                                tester.TypeCarToTest = CarTypeEnum.Truck12Tons;
-                                                break;
-                                            case 4:
-                                                tester.TypeCarToTest = CarTypeEnum.TruckUnlimited;
-                                                break;
-                                            case 5:
-                                                tester.TypeCarToTest = CarTypeEnum.Bus;
-                                                break;
-                                            default: throw new FormatException("ERROR! Invalid vehicle selection");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        throw new FormatException("ERROR! Invalid vehicle selection");
-                                    }
+
                                     break;
                                 case 7:
                                     Console.WriteLine("How many days a week does Taster agree to work?");
@@ -363,25 +361,114 @@ namespace PLConsole
                     } while (choice != 8);
                     return tester;
                 }
-                else { throw new KeyNotFoundException("There is no tester with this ID in the system"); }
+                catch (KeyNotFoundException s)
+                {
+                    throw s;
+                }
+                throw new KeyNotFoundException("There is no tester with this ID in the system");
             }
-            throw new FormatException("Invalid ID");
+            else
+            {
+                throw new FormatException("Invalid ID");
+            }
         }
+
         public Trainee UpdateTraineeDetails(IBL bL)
         {
             Console.WriteLine("Enter the Trainee ID you want to update");
             string id = Console.ReadLine();
+            int choice;
             if (id.All(char.IsDigit) && id.Length == 9)
             {
-                int index = bL.GetTraineeList().FindIndex(x => x.Id == id);
-                if (index > -1)
+                try
                 {
-                    Trainee trainee = new Trainee(bL.GetTraineeList()[index]);
-
+                    Trainee trainee = bL.GetTraineeByID(id);
+                    do
+                    {
+                        Console.WriteLine("To update an phone number enter: 1 \n To update an address enter: 2 \n  Updating Teacher Name Press: 3 \n" +
+                        "To update School Name enter: 4 \n To update the last test date enter: 5 \n Update the license level that the trainee is studying enter: 6 \n" +
+                        " To update the type of gear Box enter: 7 \n To update the number of lessons finished by the trainee enter: 8 \n" +
+                        "To update the number of tests trainee done enter: 9 \nTo update the number of licenses the student has, enter: 10 \n  EXIT enter: 11 \n");
+                        bool ok = int.TryParse(Console.ReadLine(), out choice);
+                        if (ok)
+                        {
+                            switch (choice)
+                            {
+                                case 1:
+                                    Console.WriteLine("Enter the new phone number: \n");
+                                    string phone = Console.ReadLine();
+                                    if (phone.Length == 10 && phone.Any(char.IsDigit)) { trainee.PhoneNumber = phone; }
+                                    else { throw new FormatException("ERROR! the number is illegal"); }
+                                    break;
+                                case 2:
+                                    Console.WriteLine("Enter address:\n");
+                                    Console.WriteLine("enter city:\n");
+                                    string City = Console.ReadLine();
+                                    Console.WriteLine("enter street:\n");
+                                    string Street = Console.ReadLine();
+                                    Console.WriteLine("enter building Number:\n");
+                                    string building = Console.ReadLine();
+                                    int building2;
+                                    if (City.All(char.IsLetter) && Street.All(char.IsLetter) && int.TryParse(building, out building2)) { trainee.Address = new Address(City, Street, building2); }
+                                    else { throw new FormatException("ERROR! invalid address"); }
+                                    break;
+                                case 3:
+                                    Console.WriteLine("Enter the teacher name \n");
+                                    string teacherName = Console.ReadLine();
+                                    if (teacherName.All(char.IsLetter)) { trainee.TeacherName = teacherName; }
+                                    else { throw new FormatException("ERROR! Teacher name is invalid"); }
+                                    break;
+                                case 4:
+                                    Console.WriteLine("Enter the name of the school: \n");
+                                    string schoolName = Console.ReadLine();
+                                    if (schoolName.All(char.IsLetter)) { trainee.SchoolName = schoolName; }
+                                    else { throw new FormatException("ERROR! School name is invalid"); }
+                                    break;
+                                case 5:
+                                    Console.WriteLine("Enter the date of the last test \n");
+                                    string lastTest = Console.ReadLine();
+                                    DateTime lastTest2;
+                                    if (DateTime.TryParse(lastTest, out lastTest2)) { trainee.LastTest = lastTest2; }
+                                    else { throw new FormatException("The last test date is invalid \n"); }
+                                    trainee.IsAlreadyDidTest = true;
+                                    break;
+                                case 6:
+                                    Traineelicense(trainee);
+                                    break;
+                                case 7:
+                                    Gearbox(trainee);
+                                    break;
+                                case 8:
+                                    Console.WriteLine("Enter the number of lessons the trainee has finished \n");
+                                    int NumOfFinishedLessons;
+                                    ok = int.TryParse(Console.ReadLine(), out NumOfFinishedLessons);
+                                    if (ok) { trainee.NumOfFinishedLessons = NumOfFinishedLessons; }
+                                    else { throw new FormatException("The number of classes is invalid"); }
+                                    break;
+                                case 9:
+                                    Console.WriteLine("Enter the number of tests a trainee has done \n");
+                                    int car1;
+                                    ok = int.TryParse(Console.ReadLine(), out car1);
+                                    if (ok) { trainee.NumOfTests = car1; }
+                                    else { throw new FormatException("The number of tests is invalid"); }
+                                    break;
+                                case 10:
+                                    ExistingLicenses(trainee);
+                                    break;
+                                default: throw new FormatException("Invalid trainee information update selection");
+                            }
+                        }
+                    } while (choice != 11);
+                    return trainee;
                 }
-                return
-        }
+                catch (Exception s)
+                {
+                    throw s;
+                }
+            }
+            throw new FormatException("Invalid ID input");
         }
     }
+}
 
 

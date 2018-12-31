@@ -20,7 +20,7 @@ namespace BO
         private List<CarTypeEnum> existingLicenses = new List<CarTypeEnum>();
         private List<TraineeTest> testList = new List<TraineeTest>();
 
-        public Trainee(DO.Trainee other) : base(other.Id)
+        private Trainee(DO.Trainee other) : base(other.Id)
         {
             LastName = other.LastName;
             FirstName = other.FirstName;

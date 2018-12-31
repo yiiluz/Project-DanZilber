@@ -14,6 +14,8 @@ namespace BO
         private GearboxTypeEnum currGearType;
         private int numOfFinishedLessons;
         private int numOfTests;
+        private string schoolName;
+        private string teacherName;
         private bool isAlreadyDidTest;
         private List<CarTypeEnum> existingLicenses = new List<CarTypeEnum>();
 
@@ -49,6 +51,8 @@ namespace BO
         public int NumOfTests { get => numOfTests; set => numOfTests = value; }
         public bool IsAlreadyDidTest { get => isAlreadyDidTest; set => isAlreadyDidTest = value; }
         public List<CarTypeEnum> ExistingLicenses { get => existingLicenses; set => existingLicenses = value; }
+        public string SchoolName { get => schoolName; set => schoolName = value; }
+        public string TeacherName { get => teacherName; set => teacherName = value; }
 
 
         /// <summary>
