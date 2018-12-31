@@ -22,7 +22,7 @@ namespace DL
         internal static List<Tester> testers;
         internal static List<Trainee> trainees;
         internal static Dictionary<String, ConfigurationParameter> Configuration = new Dictionary<string, ConfigurationParameter>();
-        internal static Dictionary<String, bool[,]> Schedules;
+        internal static Dictionary<String, bool[,]> Schedules = new Dictionary<string, bool[,]>();
         
         /// <summary>
         /// private default ctor

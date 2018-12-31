@@ -58,7 +58,7 @@ namespace PLConsole
         {
             Console.WriteLine("Insert 1 if automatic or 2 if manual: \n");
             int car1;
-           bool car = int.TryParse(Console.ReadLine(), out car1);
+            bool car = int.TryParse(Console.ReadLine(), out car1);
             switch (car1)
             {
                 case 1:
@@ -243,7 +243,7 @@ namespace PLConsole
             Console.WriteLine("is Already Did Test?\n Enter 1 for yes \n Enter 2 for no \n");
             int yesOrNov;
             bool ok = int.TryParse(Console.ReadLine(), out yesOrNov);
-            if (ok && yesOrNov ==1)
+            if (ok && yesOrNov == 1)
             {
                 int car1;
                 Console.WriteLine("Enter the date of the last test \n");
@@ -257,18 +257,18 @@ namespace PLConsole
                 else { throw new FormatException("The number of tests is invalid"); }
                 trainee.IsAlreadyDidTest = true;
             }
-            else if(ok && yesOrNov == 2) { trainee.IsAlreadyDidTest = false; }
+            else if (ok && yesOrNov == 2) { trainee.IsAlreadyDidTest = false; }
             else { throw new FormatException("There was an illegal response to the question of whether the trainee had already done a test"); }
             Traineelicense(trainee);
             Gearbox(trainee);
             Console.WriteLine("Enter the number of lessons the trainee has finished \n");
             int car1;
-                 ok = int.TryParse(Console.ReadLine(), out car1);
-                if (ok) { trainee.NumOfFinishedLessons = car1; }
-                else { throw new FormatException("The number of classes is invalid"); }
+            ok = int.TryParse(Console.ReadLine(), out car1);
+            if (ok) { trainee.NumOfFinishedLessons = car1; }
+            else { throw new FormatException("The number of classes is invalid"); }
             ExistingLicenses(trainee);
             return trainee;
-        }                 
+        }
         public Tester UpdateTesterDetails(IBL bL)
         {
             Console.WriteLine("Enter the Tester ID you want to update");
@@ -276,99 +276,103 @@ namespace PLConsole
             if (id.All(char.IsDigit) && id.Length == 9)
             {
                 try
-                {                                        
-                        Tester tester = bL.GetTesterByID(id);
-                        int choice;
-                        do
+                {
+                    Tester tester = bL.GetTesterByID(id);
+                    int choice;
+                    do
+                    {
+                        Console.WriteLine("To update an phone number enter: 1 \n To update an address enter: 2 \n To update tester seniority enter: 3 \n" +
+                        "Updating the maximum distance that the Tester agrees to come enter: 4 \n To update the maximum number of tests that the Tester agrees to do per week enter: 5 \n" +
+                        "To update the types of vehicles that specialize in tasters enter: 6 \n To update working hours of the tester enter: 7 \n Exit enter:8 \n");
+                        bool ok = int.TryParse(Console.ReadLine(), out choice);
+                        if (ok)
                         {
-                            Console.WriteLine("To update an phone number enter: 1 \n To update an address enter: 2 \n To update tester seniority enter: 3 \n" +
-                            "Updating the maximum distance that the Tester agrees to come enter: 4 \n To update the maximum number of tests that the Tester agrees to do per week enter: 5 \n" +
-                            "To update the types of vehicles that specialize in tasters enter: 6 \n To update working hours of the tester enter: 7 \n Exit enter:8 \n");
-                            bool ok = int.TryParse(Console.ReadLine(), out choice);
-                            if (ok)
+                            switch (choice)
                             {
-                                switch (choice)
-                                {
-                                    case 1:
-                                        Console.WriteLine("Enter the new phone number: \n");
-                                        string phone = Console.ReadLine();
+                                case 1:
+                                    Console.WriteLine("Enter the new phone number: \n");
+                                    string phone = Console.ReadLine();
                                     if (phone.Length == 10 && phone.All(char.IsDigit)) { tester.PhoneNumber = phone; }
-                                        else { throw new FormatException("ERROR! the number is illegal"); }
-                                        break;
-                                    case 2:
-                                        Console.WriteLine("Enter address:\n");
-                                        Console.WriteLine("enter city:\n");
-                                        string City = Console.ReadLine();
-                                        Console.WriteLine("enter street:\n");
-                                        string Street = Console.ReadLine();
-                                        Console.WriteLine("enter building Number:\n");
-                                        string building = Console.ReadLine();
-                                        int building2;
-                                        if (City.All(char.IsLetter) && Street.All(char.IsLetter) && int.TryParse(building, out building2)) { tester.Address = new Address(City, Street, building2); }
-                                        else { throw new FormatException("ERROR! invalid address"); }
-                                        break;
-                                    case 3:
-                                        Console.WriteLine("Enter the number of years of seniority updated \n");
-                                        double seniority;
-                                        ok = double.TryParse(Console.ReadLine(), out seniority);
-                                        if (ok) { tester.Seniority = seniority; }
-                                        else { throw new FormatException("The number of years of seniority is not correct!"); }
-                                        break;
-                                    case 4:
-                                        Console.WriteLine("Insert the maximum distance that the Tester agrees to come \n");
-                                        double distance;
-                                        ok = double.TryParse(Console.ReadLine(), out distance);
-                                        if (ok) { tester.MaxDistance = distance; }
-                                        else { throw new FormatException("ERROR! Invalid distance"); }
-                                        break;
-                                    case 5:
-                                        Console.WriteLine("Enter the maximum number of tests that Tester agrees to do per week \n");
-                                        int numOfTests;
-                                        ok = int.TryParse(Console.ReadLine(), out numOfTests);
-                                        if (ok) { tester.MaxTestsPerWeek = numOfTests; }
-                                        else { throw new FormatException("The maximum number of tests is invalid"); }
-                                        break;
-                                    case 6:
-                                       
-                                        break;
-                                    case 7:
-                                        Console.WriteLine("How many days a week does Taster agree to work?");
-                                        int numOfDays, day, hourBigen, hourEnd;
-                                        bool ok1, ok2;
-                                        ok = int.TryParse(Console.ReadLine(), out numOfDays);
-                                        if (ok)
+                                    else { throw new FormatException("ERROR! the number is illegal"); }
+                                    break;
+                                case 2:
+                                    Console.WriteLine("Enter address:\n");
+                                    Console.WriteLine("enter city:\n");
+                                    string City = Console.ReadLine();
+                                    Console.WriteLine("enter street:\n");
+                                    string Street = Console.ReadLine();
+                                    Console.WriteLine("enter building Number:\n");
+                                    string building = Console.ReadLine();
+                                    int building2;
+                                    if (City.All(char.IsLetter) && Street.All(char.IsLetter) && int.TryParse(building, out building2)) { tester.Address = new Address(City, Street, building2); }
+                                    else { throw new FormatException("ERROR! invalid address"); }
+                                    break;
+                                case 3:
+                                    Console.WriteLine("Enter the number of years of seniority updated \n");
+                                    double seniority;
+                                    ok = double.TryParse(Console.ReadLine(), out seniority);
+                                    if (ok) { tester.Seniority = seniority; }
+                                    else { throw new FormatException("The number of years of seniority is not correct!"); }
+                                    break;
+                                case 4:
+                                    Console.WriteLine("Insert the maximum distance that the Tester agrees to come \n");
+                                    double distance;
+                                    ok = double.TryParse(Console.ReadLine(), out distance);
+                                    if (ok) { tester.MaxDistance = distance; }
+                                    else { throw new FormatException("ERROR! Invalid distance"); }
+                                    break;
+                                case 5:
+                                    Console.WriteLine("Enter the maximum number of tests that Tester agrees to do per week \n");
+                                    int numOfTests;
+                                    ok = int.TryParse(Console.ReadLine(), out numOfTests);
+                                    if (ok) { tester.MaxTestsPerWeek = numOfTests; }
+                                    else { throw new FormatException("The maximum number of tests is invalid"); }
+                                    break;
+                                case 6:
+
+                                    break;
+                                case 7:
+                                    Console.WriteLine("How many days a week does Taster agree to work?");
+                                    int numOfDays, day, hourBigen, hourEnd;
+                                    bool ok1, ok2;
+                                    ok = int.TryParse(Console.ReadLine(), out numOfDays);
+                                    if (ok)
+                                    {
+                                        for (int i = 0; i < numOfDays; i++)
                                         {
-                                            for (int i = 0; i < numOfDays; i++)
+                                            Console.WriteLine("Enter the days that the Tester agrees to work \n");
+                                            Console.WriteLine("For Sunday Press 1 \n for Monday Press 2 \n for Tuesday Press 3 \n" +
+                                                "for Wednesday Press 4 \n for Thursday Press 5 \n");
+                                            ok = int.TryParse(Console.ReadLine(), out day);
+                                            Console.WriteLine("Enter the time that the tester wants to start work \n");
+                                            ok1 = int.TryParse(Console.ReadLine(), out hourBigen);
+                                            Console.WriteLine("Enter the time that the tester wants to finish working");
+                                            ok2 = int.TryParse(Console.ReadLine(), out hourEnd);
+                                            if (ok && ok1 && ok2 && hourBigen > 8 && hourEnd < 16 && hourEnd > hourBigen)
                                             {
-                                                Console.WriteLine("Enter the days that the Tester agrees to work \n");
-                                                Console.WriteLine("For Sunday Press 1 \n for Monday Press 2 \n for Tuesday Press 3 \n" +
-                                                    "for Wednesday Press 4 \n for Thursday Press 5 \n");
-                                                ok = int.TryParse(Console.ReadLine(), out day);
-                                                Console.WriteLine("Enter the time that the tester wants to start work \n");
-                                                ok1 = int.TryParse(Console.ReadLine(), out hourBigen);
-                                                Console.WriteLine("Enter the time that the tester wants to finish working");
-                                                ok2 = int.TryParse(Console.ReadLine(), out hourEnd);
-                                                if (ok && ok1 && ok2 && hourBigen > 8 && hourEnd < 16 && hourEnd > hourBigen)
-                                                {
-                                                    TestWorkHours(day, hourBigen, hourEnd, tester);
-                                                }
+                                                TestWorkHours(day, hourBigen, hourEnd, tester);
                                             }
                                         }
-                                        break;
-                                    default: throw new FormatException("The tester information update selection is invalid");
-                                }
+                                    }
+                                    break;
+                                default: throw new FormatException("The tester information update selection is invalid");
                             }
-                        } while (choice != 8);
-                        return tester;                  
+                        }
+                    } while (choice != 8);
+                    return tester;
                 }
                 catch (KeyNotFoundException s)
                 {
                     throw s;
                 }
-                else { throw new KeyNotFoundException("There is no tester with this ID in the system"); }
+                throw new KeyNotFoundException("There is no tester with this ID in the system");
             }
-            throw new FormatException("Invalid ID");
+            else
+            {
+                throw new FormatException("Invalid ID");
+            }
         }
+
         public Trainee UpdateTraineeDetails(IBL bL)
         {
             Console.WriteLine("Enter the Trainee ID you want to update");
@@ -380,7 +384,7 @@ namespace PLConsole
                 {
                     Trainee trainee = bL.GetTraineeByID(id);
                     do
-                    {                      
+                    {
                         Console.WriteLine("To update an phone number enter: 1 \n To update an address enter: 2 \n  Updating Teacher Name Press: 3 \n" +
                         "To update School Name enter: 4 \n To update the last test date enter: 5 \n Update the license level that the trainee is studying enter: 6 \n" +
                         " To update the type of gear Box enter: 7 \n To update the number of lessons finished by the trainee enter: 8 \n" +
@@ -390,7 +394,8 @@ namespace PLConsole
                         {
                             switch (choice)
                             {
-                                case 1: Console.WriteLine("Enter the new phone number: \n");
+                                case 1:
+                                    Console.WriteLine("Enter the new phone number: \n");
                                     string phone = Console.ReadLine();
                                     if (phone.Length == 10 && phone.Any(char.IsDigit)) { trainee.PhoneNumber = phone; }
                                     else { throw new FormatException("ERROR! the number is illegal"); }
@@ -427,9 +432,11 @@ namespace PLConsole
                                     else { throw new FormatException("The last test date is invalid \n"); }
                                     trainee.IsAlreadyDidTest = true;
                                     break;
-                                case 6: Traineelicense(trainee);
+                                case 6:
+                                    Traineelicense(trainee);
                                     break;
-                                case 7: Gearbox(trainee);
+                                case 7:
+                                    Gearbox(trainee);
                                     break;
                                 case 8:
                                     Console.WriteLine("Enter the number of lessons the trainee has finished \n");
@@ -445,7 +452,8 @@ namespace PLConsole
                                     if (ok) { trainee.NumOfTests = car1; }
                                     else { throw new FormatException("The number of tests is invalid"); }
                                     break;
-                                case 10: ExistingLicenses(trainee);
+                                case 10:
+                                    ExistingLicenses(trainee);
                                     break;
                                 default: throw new FormatException("Invalid trainee information update selection");
                             }
@@ -456,9 +464,9 @@ namespace PLConsole
                 catch (Exception s)
                 {
                     throw s;
-                }              
-            }                  
-            throw new FormatException("Invalid ID input");                     
+                }
+            }
+            throw new FormatException("Invalid ID input");
         }
     }
 }

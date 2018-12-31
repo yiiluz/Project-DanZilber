@@ -25,7 +25,7 @@ namespace BO
             tester.TypeCarToTest = (DO.CarTypeEnum)other.TypeCarToTest;
             tester.AvailableWorkTime = other.AvailableWorkTime;
             foreach (var item in other.TestList)
-                tester.TestList.Add(CreateDOTest(item));
+                tester.TestList.Add(item);
             return tester;
         }
         public static DO.Trainee CreateDoTrainee(BO.Trainee other)

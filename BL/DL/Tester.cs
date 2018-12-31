@@ -13,7 +13,6 @@ namespace DO
         private int maxTestsPerWeek;
         private CarTypeEnum typeCarToTest;
         private bool[,] availableWorkTime = new bool[5, 6];
-        private List<Test> testList = new List<Test>();
         /// <summary>
         /// default ctor
         /// </summary>
@@ -34,32 +33,13 @@ namespace DO
             MaxTestsPerWeek = other.MaxTestsPerWeek;
             TypeCarToTest = other.TypeCarToTest;
             AvailableWorkTime = other.AvailableWorkTime;
-            foreach (var item in TestList)
-                TestList.Add(item);
         }
         public double Seniority { get => seniority; set => seniority = value; }
         public double MaxDistance { get => maxDistance; set => maxDistance = value; }
         public int MaxTestsPerWeek { get => maxTestsPerWeek; set => maxTestsPerWeek = value; }
         public CarTypeEnum TypeCarToTest { get => typeCarToTest; set => typeCarToTest = value; }
         public bool[,] AvailableWorkTime { get => availableWorkTime; set => availableWorkTime = value; }
-        public List<Test> TestList { get => testList; set => testList = value; }
 
-        public bool IsTesterAvailiableOnDate(DateTime t, int hour)
-        {
-            if (AvailableWorkTime[t.DayOfYear, hour] == false)
-            {
-                return false;
-            }
-            return testList.FindIndex(x => x.DateOfTest.DayOfWeek == t.DayOfWeek && x.HourOfTest == hour) == -1;
-        }
-        public int GetNumOfTestThisWeek()
-        {
-            int num = 0;
-            foreach (var item in TestList)
-                if (item.DateOfTest.AddDays(-(int)item.DateOfTest.DayOfWeek) == (DateTime.Now).AddDays(-(int)DateTime.Now.DayOfWeek))
-                    num++;
-            return num;
-        }
         /// <summary>
         /// overide ToString
         /// </summary>
