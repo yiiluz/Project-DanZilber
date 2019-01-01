@@ -60,7 +60,7 @@ namespace DO
             string existingLic = "";
             foreach (var item in ExistingLicenses)
                 existingLic += item + ", ";
-            existingLic.Remove(existingLic.Length - 2, existingLic.Length);
+            existingLic = existingLic.Remove(existingLic.Length - 2, 2);
             string tmp = "Trainee name: " + FirstName + " " + LastName + ".\nID: " + Id + ".\nGender: " + Gender + ".\nDate Of Birth: " + DateOfBirth.ToShortDateString() +
                 ".\nPhone number: " + PhoneNumber + ".\nAddress: " + Address + ".\nExisting linsences: " + existingLic +
                 ".\nType of current Gearbox: " + CurrGearType + ".\nType of current Car: " + CurrCarType + ".\nSchool name: " + SchoolName +

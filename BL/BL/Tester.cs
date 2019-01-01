@@ -20,22 +20,22 @@ namespace BO
         /// </summary>
         /// <param name="id"></param>
         public Tester(string id) : base(id) { }
-        public Tester(DO.Tester other) : base(other.Id)
-        {
-            LastName = other.LastName;
-            FirstName = other.FirstName;
-            PhoneNumber = other.PhoneNumber;
-            Gender = (GenderEnum)other.Gender;
-            Address = new Address(other.Address.City, other.Address.Street, other.Address.BuildingNumber);
-            DateOfBirth = other.DateOfBirth;
-            Seniority = other.Seniority;
-            MaxDistance = other.MaxDistance;
-            MaxTestsPerWeek = other.MaxTestsPerWeek;
-            TypeCarToTest = (CarTypeEnum)other.TypeCarToTest;
-            AvailableWorkTime = other.AvailableWorkTime;
-            foreach (var item in other.TestList)
-                TestList.Add(new TesterTest(item));
-        }
+        //public Tester(DO.Tester other) : base(other.Id)
+        //{
+        //    LastName = other.LastName;
+        //    FirstName = other.FirstName;
+        //    PhoneNumber = other.PhoneNumber;
+        //    Gender = (GenderEnum)other.Gender;
+        //    Address = new Address(other.Address.City, other.Address.Street, other.Address.BuildingNumber);
+        //    DateOfBirth = other.DateOfBirth;
+        //    Seniority = other.Seniority;
+        //    MaxDistance = other.MaxDistance;
+        //    MaxTestsPerWeek = other.MaxTestsPerWeek;
+        //    TypeCarToTest = (CarTypeEnum)other.TypeCarToTest;
+        //    AvailableWorkTime = other.AvailableWorkTime;
+        //    //foreach (var item in other.TestList)
+        //    //    TestList.Add(new TesterTest(item));
+        //}
         public Tester(Tester other) : base(other.Id)
         {
             LastName = other.LastName;
@@ -63,7 +63,7 @@ namespace BO
             bool flag = true;
             foreach (var item in TestList)
             {
-                if (item.DateOfTest == date && item.HourOfTest == hour)
+                if (item.DateOfTest == date && item.HourOfTest == hour && AvailableWorkTime[(int)date.DayOfWeek, hour-9])
                 {
                     flag = false;
                     break;
@@ -99,7 +99,7 @@ namespace BO
         public override string ToString()
         {
             string tmp = "Tester name: " + FirstName + " " + LastName + ".\nID: " + Id + ".\nGender: " + Gender + ".\nDate Of Birth: " + DateOfBirth.ToShortDateString() +
-                ".\nPhone number: " + PhoneNumber + ".\nAddress: " + Address + ".\nSeniority: " + Seniority + ".\nType of car: " + TypeCarToTest +
+                ".\nPhone number: " + PhoneNumber + ".\nAddress: " + Address + "Seniority: " + Seniority + ".\nType of car: " + TypeCarToTest +
                 ".\nMax tests per week: " + MaxTestsPerWeek + ".\nMax distance for test: " + MaxDistance + ".\n";
             return tmp;
         }

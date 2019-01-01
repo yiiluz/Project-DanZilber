@@ -13,8 +13,6 @@ namespace BO
             DO.Tester tester = new DO.Tester(other.Id);
             tester.LastName = other.LastName;
             tester.FirstName = other.FirstName;
-            tester.SchoolName = other.SchoolName;
-            tester.TeacherName = other.TeacherName;
             tester.PhoneNumber = other.PhoneNumber;
             tester.Gender = (DO.GenderEnum)other.Gender;
             tester.Address = new DO.Address(other.Address.City, other.Address.Street, other.Address.BuildingNumber);
@@ -24,8 +22,6 @@ namespace BO
             tester.MaxTestsPerWeek = other.MaxTestsPerWeek;
             tester.TypeCarToTest = (DO.CarTypeEnum)other.TypeCarToTest;
             tester.AvailableWorkTime = other.AvailableWorkTime;
-            foreach (var item in other.TestList)
-                tester.TestList.Add(item);
             return tester;
         }
         public static DO.Trainee CreateDoTrainee(BO.Trainee other)
@@ -68,6 +64,46 @@ namespace BO
             test.TesterNotes = other.TesterNotes;
             test.IsTesterUpdateStatus = other.IsTesterUpdateStatus;
             return test;
+        }
+        public static Tester GetBOTester(DO.Tester other)
+        {
+            BO.Tester temp = new Tester(other.Id);
+            temp.LastName = other.LastName;
+            temp.FirstName = other.FirstName;
+            temp.PhoneNumber = other.PhoneNumber;
+            temp.Gender = (GenderEnum)other.Gender;
+            temp.Address = new Address(other.Address.City, other.Address.Street, other.Address.BuildingNumber);
+            temp.DateOfBirth = other.DateOfBirth;
+            temp.Seniority = other.Seniority;
+            temp.MaxDistance = other.MaxDistance;
+            temp.MaxTestsPerWeek = other.MaxTestsPerWeek;
+            temp.TypeCarToTest = (CarTypeEnum)other.TypeCarToTest;
+            temp.AvailableWorkTime = other.AvailableWorkTime;
+            //foreach (var item in other.TestList)
+            //    TestList.Add(new TesterTest(item));
+            return temp;
+        }
+        public static BO.Trainee CreateBOTrainee(DO.Trainee other)
+        {
+            Trainee temp = new Trainee(other.Id);
+            temp.LastName = other.LastName;
+            temp.FirstName = other.FirstName;
+            temp.SchoolName = other.SchoolName;
+            temp.TeacherName = other.TeacherName;
+            temp.PhoneNumber = other.PhoneNumber;
+            temp.Gender = (GenderEnum)other.Gender;
+            temp.Address = new Address(other.Address.City, other.Address.Street, other.Address.BuildingNumber);
+            temp.DateOfBirth = other.DateOfBirth;
+            temp.LastTest = new DateTime(other.LastTest.Ticks);
+            temp.CurrCarType = (CarTypeEnum)other.CurrCarType;
+            temp.CurrGearType = (GearboxTypeEnum)other.CurrGearType;
+            temp.NumOfFinishedLessons = other.NumOfFinishedLessons;
+            temp.NumOfTests = other.NumOfTests;
+            temp.IsAlreadyDidTest = other.IsAlreadyDidTest;
+            temp.ExistingLicenses = new List<CarTypeEnum>();
+            foreach (var item in other.ExistingLicenses)
+                temp.ExistingLicenses.Add((CarTypeEnum)item);
+            return temp;
         }
     }
 }

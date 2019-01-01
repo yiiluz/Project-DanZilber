@@ -67,7 +67,7 @@ namespace DO
         }
         public override string ToString()
         {
-            string tmp = "City: " + City + ".\nStreet: " + Street + ". Building number: " + BuildingNumber + ".\n";
+            string tmp = "City: " + City + ". Street: " + Street + ". Building number: " + BuildingNumber + ".\n";
             return tmp;
         }
     }

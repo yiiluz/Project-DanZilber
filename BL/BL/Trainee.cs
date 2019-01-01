@@ -20,26 +20,26 @@ namespace BO
         private List<CarTypeEnum> existingLicenses = new List<CarTypeEnum>();
         private List<TraineeTest> testList = new List<TraineeTest>();
 
-        private Trainee(DO.Trainee other) : base(other.Id)
-        {
-            LastName = other.LastName;
-            FirstName = other.FirstName;
-            SchoolName = other.SchoolName;
-            TeacherName = other.TeacherName;
-            PhoneNumber = other.PhoneNumber;
-            Gender = (GenderEnum)other.Gender;
-            Address = new Address(other.Address.City, other.Address.Street, other.Address.BuildingNumber);
-            DateOfBirth = other.DateOfBirth;
-            LastTest = new DateTime(other.LastTest.Ticks);
-            CurrCarType = (CarTypeEnum)other.CurrCarType;
-            CurrGearType = (GearboxTypeEnum)other.CurrGearType;
-            NumOfFinishedLessons = other.NumOfFinishedLessons;
-            NumOfTests = other.NumOfTests;
-            IsAlreadyDidTest = other.IsAlreadyDidTest;
-            ExistingLicenses = new List<CarTypeEnum>();
-            foreach (var item in other.ExistingLicenses)
-                ExistingLicenses.Add((CarTypeEnum)item);
-        }
+        //public Trainee(DO.Trainee other) : base(other.Id)
+        //{
+        //    LastName = other.LastName;
+        //    FirstName = other.FirstName;
+        //    SchoolName = other.SchoolName;
+        //    TeacherName = other.TeacherName;
+        //    PhoneNumber = other.PhoneNumber;
+        //    Gender = (GenderEnum)other.Gender;
+        //    Address = new Address(other.Address.City, other.Address.Street, other.Address.BuildingNumber);
+        //    DateOfBirth = other.DateOfBirth;
+        //    LastTest = new DateTime(other.LastTest.Ticks);
+        //    CurrCarType = (CarTypeEnum)other.CurrCarType;
+        //    CurrGearType = (GearboxTypeEnum)other.CurrGearType;
+        //    NumOfFinishedLessons = other.NumOfFinishedLessons;
+        //    NumOfTests = other.NumOfTests;
+        //    IsAlreadyDidTest = other.IsAlreadyDidTest;
+        //    ExistingLicenses = new List<CarTypeEnum>();
+        //    foreach (var item in other.ExistingLicenses)
+        //        ExistingLicenses.Add((CarTypeEnum)item);
+        //}
         /// <summary>
         /// default ctor
         /// </summary>
@@ -86,9 +86,9 @@ namespace BO
             string existingLic = "";
             foreach (var item in ExistingLicenses)
                 existingLic += item + ", ";
-            existingLic.Remove(existingLic.Length - 2, existingLic.Length);
+            existingLic = existingLic.Remove(existingLic.Length - 2, 2);
             string tmp = "Trainee name: " + FirstName + " " + LastName + ".\nID: " + Id + ".\nGender: " + Gender + ".\nDate Of Birth: " + DateOfBirth.ToShortDateString() +
-                ".\nPhone number: " + PhoneNumber + ".\nAddress: " + Address + ".\nExisting linsences: " + existingLic +
+                ".\nPhone number: " + PhoneNumber + ".\nAddress: " + Address + "Existing linsences: " + existingLic +
                 ".\nType of current Gearbox: " + CurrGearType + ".\nType of current Car: " + CurrCarType + ".\nSchool name: " + SchoolName +
                 ".\nTeacher name: " + TeacherName + ".\nSum of pased lessons: " + numOfFinishedLessons + ".\n";
             return tmp;

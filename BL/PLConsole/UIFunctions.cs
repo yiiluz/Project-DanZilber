@@ -11,7 +11,7 @@ namespace PLConsole
     {
         private void TestWorkHours(int day, int hourBigen, int hourEnd, Tester s)
         {
-            for (int i = hourBigen; i <= hourEnd; i++)
+            for (int i = hourBigen-9; i <= hourEnd-9; i++)
             {
                 s.AvailableWorkTime[day, i] = true;
             }
@@ -26,7 +26,7 @@ namespace PLConsole
                 int car2;
                 for (int i = 0; i < car1; i++)
                 {
-                    Console.WriteLine("for Motor Cycle enter: 1 \n for Private Car enter: 2 \n for Truck 12 Tons enter: 3 \n for Truck Un limited enter: 4 \n for bus enter: 5 \n");
+                    Console.WriteLine("for Motor Cycle enter: 1\nfor Private Car enter: 2\nfor Truck 12 Tons enter: 3\nfor Truck Un limited enter: 4\nfor bus enter: 5");
                     ok = int.TryParse(Console.ReadLine(), out car2);
                     if (ok)
                     {
@@ -56,7 +56,7 @@ namespace PLConsole
         }
         private void Gearbox(Trainee t)
         {
-            Console.WriteLine("Insert 1 if automatic or 2 if manual: \n");
+            Console.WriteLine("Insert 1 if automatic or 2 if manual:");
             int car1;
             bool car = int.TryParse(Console.ReadLine(), out car1);
             switch (car1)
@@ -72,8 +72,8 @@ namespace PLConsole
         }
         private void Traineelicense(Trainee t)
         {
-            Console.WriteLine("Enter the type of car license the trainee is studying\n");
-            Console.WriteLine("for Motor Cycle enter: 1 \n for Private Car enter: 2 \n for Truck 12 Tons enter: 3 \n for Truck Un limited enter: 4 \n for bus enter: 5 \n");
+            Console.WriteLine("Enter the type of car license the trainee is studying");
+            Console.WriteLine("for Motor Cycle enter: 1\n for Private Car enter: 2\n for Truck 12 Tons enter: 3\n for Truck Un limited enter: 4\n for bus enter: 5");
             int car1;
             bool car = int.TryParse(Console.ReadLine(), out car1);
             if (car)
@@ -102,40 +102,41 @@ namespace PLConsole
         }
         private Person AddPerson()
         {
-            Console.WriteLine("Enter tester ID\n");
+            Console.WriteLine("Enter ID");
             string id = Console.ReadLine();
             Person person;
             if (id.Length == 9 && id.All(char.IsDigit))
             {
                 person = new Person(id);
-                Console.WriteLine("Enrer first name\n");
+                Console.WriteLine("Enrer first name");
                 string name = Console.ReadLine();
                 if (name.All(char.IsLetter)) { person.FirstName = name; }
                 else { throw new FormatException("ERROR! Invalid first name"); }
-                Console.WriteLine("Enter lest name\n");
+                Console.WriteLine("Enter lest name");
                 name = Console.ReadLine();
                 if (name.All(char.IsLetter)) { person.LastName = name; }
                 else { throw new FormatException("ERROR! Invalid lest name"); }
-                Console.WriteLine("Enter phone number\n");
+                Console.WriteLine("Enter phone number");
                 string number = Console.ReadLine();
                 if (number.Length == 10 && number.All(char.IsDigit)) { person.PhoneNumber = number; }
                 else { throw new FormatException("ERROR! Invalid phone number"); }
-                Console.WriteLine("Enter Gender:\nMale enter 1\n Fmale enter 2\n");
-                int gender = Console.Read();
+                Console.WriteLine("Enter Gender:\nMale enter 1\nFmale enter 2");
+                int gender;
+                bool ok = int.TryParse(Console.ReadLine(), out gender);
                 if (gender == 1) { person.Gender = GenderEnum.Male; }
                 else if (gender == 2) { person.Gender = GenderEnum.Female; }
-                else { throw new FormatException("Are you not closed on your sexual identity?"); }
-                Console.WriteLine("Enter address:\n");
-                Console.WriteLine("enter city:\n");
+                else { throw new FormatException("Gender input was wrong"); }
+                Console.WriteLine("Enter address:");
+                Console.WriteLine("enter city:");
                 string City = Console.ReadLine();
-                Console.WriteLine("enter street:\n");
+                Console.WriteLine("enter street:");
                 string Street = Console.ReadLine();
-                Console.WriteLine("enter building Number:\n");
+                Console.WriteLine("enter building Number:");
                 string building = Console.ReadLine();
                 int building2;
-                if (City.All(char.IsLetter) && Street.All(char.IsLetter) && int.TryParse(building, out building2)) { person.Address = new Address(City, Street, building2); }
+                if (int.TryParse(building, out building2)) { person.Address = new Address(City, Street, building2); }
                 else { throw new FormatException("ERROR! invalid address"); }
-                Console.WriteLine("Enter Date of Birth:\n");
+                Console.WriteLine("Enter Date of Birth:");
                 DateTime dateOfBirth;
                 string dateOfBirth2 = Console.ReadLine();
                 if (DateTime.TryParse(dateOfBirth2, out dateOfBirth)) { person.DateOfBirth = dateOfBirth; }
@@ -159,17 +160,17 @@ namespace PLConsole
             double num2;
             if (double.TryParse(num, out num2)) { tester.Seniority = num2; }
             else { throw new FormatException("ERROR! The input for the trial number, is incorrect"); }
-            Console.WriteLine("Insert the maximum distance the tester agrees to come\n");
+            Console.WriteLine("Insert the maximum distance the tester agrees to come");
             num = Console.ReadLine();
             if (double.TryParse(num, out num2)) { tester.MaxDistance = num2; }
             else { throw new FormatException("ERROR! The distance is not correct"); }
-            Console.WriteLine("Enter the maximum number of tests the tester agrees to do per week\n");
+            Console.WriteLine("Enter the maximum number of tests the tester agrees to do per week");
             string MaxTestsPerWeek = Console.ReadLine();
             int MaxTestsPerWeek2;
             if (int.TryParse(MaxTestsPerWeek, out MaxTestsPerWeek2)) { tester.MaxTestsPerWeek = MaxTestsPerWeek2; }
             else { throw new FormatException("The maximum number of lessons per week was reached"); }
-            Console.WriteLine("Enter the type of car in which the tester specializes\n");
-            Console.WriteLine("for Motor Cycle enter: 1 \n for Private Car enter: 2 \n for Truck 12 Tons enter: 3 \n for Truck Un limited enter: 4 \n for bus enter: 5 \n");
+            Console.WriteLine("Enter the type of car in which the tester specializes");
+            Console.WriteLine("for Motor Cycle enter: 1\nfor Private Car enter: 2\nfor Truck 12 Tons enter: 3\nfor Truck Un limited enter: 4\nfor bus enter: 5");
             int car;
             bool OK = int.TryParse(Console.ReadLine(), out car);
             if (OK)
@@ -206,11 +207,11 @@ namespace PLConsole
             {
                 for (int i = 0; i < numOfDays; i++)
                 {
-                    Console.WriteLine("Enter the days that the Tester agrees to work \n");
-                    Console.WriteLine("For Sunday Press 1 \n for Monday Press 2 \n for Tuesday Press 3 \n" +
-                        "for Wednesday Press 4 \n for Thursday Press 5 \n");
+                    Console.WriteLine("Enter the days that the Tester agrees to work");
+                    Console.WriteLine("For Sunday Press 1\nfor Monday Press 2\nfor Tuesday Press 3\n" +
+                        "for Wednesday Press 4\n for Thursday Press 5");
                     ok = int.TryParse(Console.ReadLine(), out day);
-                    Console.WriteLine("Enter the time that the tester wants to start work \n");
+                    Console.WriteLine("Enter the time that the tester wants to start work");
                     ok1 = int.TryParse(Console.ReadLine(), out hourBigen);
                     Console.WriteLine("Enter the time that the tester wants to finish working");
                     ok2 = int.TryParse(Console.ReadLine(), out hourEnd);
@@ -224,6 +225,7 @@ namespace PLConsole
         }
         public Trainee AddTrainee()
         {
+            int car1;
             Person person = new Person(AddPerson());
             Trainee trainee = new Trainee(person.Id);
             trainee.FirstName = person.FirstName;
@@ -232,26 +234,26 @@ namespace PLConsole
             trainee.PhoneNumber = person.PhoneNumber;
             trainee.Address = person.Address;
             trainee.DateOfBirth = person.DateOfBirth;
-            Console.WriteLine("Enter the teacher name \n");
+            Console.WriteLine("Enter the teacher name\n");
             string teacherName = Console.ReadLine();
             if (teacherName.All(char.IsLetter)) { trainee.TeacherName = teacherName; }
             else { throw new FormatException("ERROR! Teacher name is invalid"); }
-            Console.WriteLine("Enter the name of the school: \n");
+            Console.WriteLine("Enter the name of the school:");
             string schoolName = Console.ReadLine();
             if (schoolName.All(char.IsLetter)) { trainee.SchoolName = schoolName; }
             else { throw new FormatException("ERROR! School name is invalid"); }
-            Console.WriteLine("is Already Did Test?\n Enter 1 for yes \n Enter 2 for no \n");
+            Console.WriteLine("is Already Did Test?\nEnter 1 for yes\nEnter 2 for no\n");
             int yesOrNov;
             bool ok = int.TryParse(Console.ReadLine(), out yesOrNov);
             if (ok && yesOrNov == 1)
             {
-                int car1;
-                Console.WriteLine("Enter the date of the last test \n");
+                
+                Console.WriteLine("Enter the date of the last test");
                 string lastTest = Console.ReadLine();
                 DateTime lastTest2;
                 if (DateTime.TryParse(lastTest, out lastTest2)) { trainee.LastTest = lastTest2; }
-                else { throw new FormatException("The last test date is invalid \n"); }
-                Console.WriteLine("Enter the number of tests a trainee has done \n");
+                else { throw new FormatException("The last test date is invalid "); }
+                Console.WriteLine("Enter the number of tests a trainee has done");
                 ok = int.TryParse(Console.ReadLine(), out car1);
                 if (ok) { trainee.NumOfTests = car1; }
                 else { throw new FormatException("The number of tests is invalid"); }
@@ -261,8 +263,7 @@ namespace PLConsole
             else { throw new FormatException("There was an illegal response to the question of whether the trainee had already done a test"); }
             Traineelicense(trainee);
             Gearbox(trainee);
-            Console.WriteLine("Enter the number of lessons the trainee has finished \n");
-            int car1;
+            Console.WriteLine("Enter the number of lessons the trainee has finished");
             ok = int.TryParse(Console.ReadLine(), out car1);
             if (ok) { trainee.NumOfFinishedLessons = car1; }
             else { throw new FormatException("The number of classes is invalid"); }
@@ -341,10 +342,10 @@ namespace PLConsole
                                         for (int i = 0; i < numOfDays; i++)
                                         {
                                             Console.WriteLine("Enter the days that the Tester agrees to work \n");
-                                            Console.WriteLine("For Sunday Press 1 \n for Monday Press 2 \n for Tuesday Press 3 \n" +
-                                                "for Wednesday Press 4 \n for Thursday Press 5 \n");
+                                            Console.WriteLine("For Sunday Press 1\n for Monday Press 2\n for Tuesday Press 3\n" +
+                                                "for Wednesday Press 4\n for Thursday Press 5\n");
                                             ok = int.TryParse(Console.ReadLine(), out day);
-                                            Console.WriteLine("Enter the time that the tester wants to start work \n");
+                                            Console.WriteLine("Enter the time that the tester wants to start work\n");
                                             ok1 = int.TryParse(Console.ReadLine(), out hourBigen);
                                             Console.WriteLine("Enter the time that the tester wants to finish working");
                                             ok2 = int.TryParse(Console.ReadLine(), out hourEnd);
