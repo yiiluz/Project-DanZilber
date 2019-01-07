@@ -11,11 +11,12 @@ namespace DO
 
         private DateTime lastTest = new DateTime();
         private CarTypeEnum currCarType;
-        private GearboxTypeEnum currGearType;
         private int numOfFinishedLessons;
         private int numOfTests;
         private bool isAlreadyDidTest;
         private List<CarTypeEnum> existingLicenses = new List<CarTypeEnum>();
+
+        
 
         /// <summary>
         /// default ctor
@@ -35,16 +36,16 @@ namespace DO
             DateOfBirth = other.DateOfBirth;
             LastTest = new DateTime(other.LastTest.Ticks);
             CurrCarType = other.CurrCarType;
-            CurrGearType = other.CurrGearType;
             NumOfFinishedLessons = other.NumOfFinishedLessons;
             NumOfTests = other.NumOfTests;
             IsAlreadyDidTest = other.IsAlreadyDidTest;
             ExistingLicenses = new List<CarTypeEnum>(other.ExistingLicenses);
         }
 
+        
+
         public DateTime LastTest { get => lastTest; set => lastTest = value; }
         public CarTypeEnum CurrCarType { get => currCarType; set => currCarType = value; }
-        public GearboxTypeEnum CurrGearType { get => currGearType; set => currGearType = value; }
         public int NumOfFinishedLessons { get => numOfFinishedLessons; set => numOfFinishedLessons = value; }
         public int NumOfTests { get => numOfTests; set => numOfTests = value; }
         public bool IsAlreadyDidTest { get => isAlreadyDidTest; set => isAlreadyDidTest = value; }
@@ -63,7 +64,7 @@ namespace DO
             existingLic = existingLic.Remove(existingLic.Length - 2, 2);
             string tmp = "Trainee name: " + FirstName + " " + LastName + ".\nID: " + Id + ".\nGender: " + Gender + ".\nDate Of Birth: " + DateOfBirth.ToShortDateString() +
                 ".\nPhone number: " + PhoneNumber + ".\nAddress: " + Address + ".\nExisting linsences: " + existingLic +
-                ".\nType of current Gearbox: " + CurrGearType + ".\nType of current Car: " + CurrCarType + ".\nSchool name: " + SchoolName +
+                 ".\nType of current Car: " + CurrCarType + ".\nSchool name: " + SchoolName +
                 ".\nTeacher name: " + TeacherName + ".\nSum of pased lessons: " + numOfFinishedLessons + ".\n";
             return tmp;
         }

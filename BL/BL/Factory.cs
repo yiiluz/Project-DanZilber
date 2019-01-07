@@ -8,9 +8,11 @@ namespace BL
 {
     public class Factory
     {
-        private static IBL bl = new BLImplementation();
+        private static IBL bl;
         public static IBL GetBLObj()
         {
+            if (bl == null)
+                bl = new BLImplementation();
             return bl;
         }
 

@@ -192,9 +192,7 @@ namespace DL
                 {
                     if (item.Value.Readable == true)
                     {
-                        DateSource.ConfigurationParameter conf = new DateSource.ConfigurationParameter();
-                        conf = item.Value;
-                        return conf.Value;
+                        return item.Value.Value;
                     }
                     else
                     {

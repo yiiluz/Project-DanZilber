@@ -53,6 +53,7 @@
     <Compile Include="Test.cs" />
     <Compile Include="Tester.cs" />
     <Compile Include="TesterTest.cs" />
+    <Compile Include="TestResult.cs" />
     <Compile Include="Trainee.cs" />
     <Compile Include="TraineeTest.cs" />
   </ItemGroup>

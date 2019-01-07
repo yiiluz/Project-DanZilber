@@ -11,7 +11,6 @@ namespace BO
 
         private DateTime lastTest = new DateTime();
         private CarTypeEnum currCarType;
-        private GearboxTypeEnum currGearType;
         private int numOfFinishedLessons;
         private int numOfTests;
         private string schoolName;
@@ -58,7 +57,24 @@ namespace BO
             DateOfBirth = other.DateOfBirth;
             LastTest = new DateTime(other.LastTest.Ticks);
             CurrCarType = other.CurrCarType;
-            CurrGearType = other.CurrGearType;
+            NumOfFinishedLessons = other.NumOfFinishedLessons;
+            NumOfTests = other.NumOfTests;
+            IsAlreadyDidTest = other.IsAlreadyDidTest;
+            ExistingLicenses = new List<CarTypeEnum>(other.ExistingLicenses);
+        }
+
+        public Trainee(string id, Trainee other) : base(id)
+        {
+            LastName = other.LastName;
+            FirstName = other.FirstName;
+            SchoolName = other.SchoolName;
+            TeacherName = other.TeacherName;
+            PhoneNumber = other.PhoneNumber;
+            Gender = other.Gender;
+            Address = new Address(other.Address);
+            DateOfBirth = other.DateOfBirth;
+            LastTest = new DateTime(other.LastTest.Ticks);
+            CurrCarType = other.CurrCarType;
             NumOfFinishedLessons = other.NumOfFinishedLessons;
             NumOfTests = other.NumOfTests;
             IsAlreadyDidTest = other.IsAlreadyDidTest;
@@ -67,7 +83,6 @@ namespace BO
 
         public DateTime LastTest { get => lastTest; set => lastTest = value; }
         public CarTypeEnum CurrCarType { get => currCarType; set => currCarType = value; }
-        public GearboxTypeEnum CurrGearType { get => currGearType; set => currGearType = value; }
         public int NumOfFinishedLessons { get => numOfFinishedLessons; set => numOfFinishedLessons = value; }
         public int NumOfTests { get => numOfTests; set => numOfTests = value; }
         public bool IsAlreadyDidTest { get => isAlreadyDidTest; set => isAlreadyDidTest = value; }
@@ -84,12 +99,19 @@ namespace BO
         public override string ToString()
         {
             string existingLic = "";
-            foreach (var item in ExistingLicenses)
-                existingLic += item + ", ";
-            existingLic = existingLic.Remove(existingLic.Length - 2, 2);
+            if (ExistingLicenses.Count != 0)
+            {
+                foreach (var item in ExistingLicenses)
+                    existingLic += item + ", ";
+                existingLic = existingLic.Remove(existingLic.Length - 2, 2);
+            }
+            else
+            {
+                existingLic = "Non";
+            }
             string tmp = "Trainee name: " + FirstName + " " + LastName + ".\nID: " + Id + ".\nGender: " + Gender + ".\nDate Of Birth: " + DateOfBirth.ToShortDateString() +
                 ".\nPhone number: " + PhoneNumber + ".\nAddress: " + Address + "Existing linsences: " + existingLic +
-                ".\nType of current Gearbox: " + CurrGearType + ".\nType of current Car: " + CurrCarType + ".\nSchool name: " + SchoolName +
+                ".\nType of current Car: " + CurrCarType + ".\nSchool name: " + SchoolName +
                 ".\nTeacher name: " + TeacherName + ".\nSum of pased lessons: " + numOfFinishedLessons + ".\n";
             return tmp;
         }

@@ -37,7 +37,6 @@ namespace BO
             trainee.DateOfBirth = other.DateOfBirth;
             trainee.LastTest = new DateTime(other.LastTest.Ticks);
             trainee.CurrCarType = (DO.CarTypeEnum)other.CurrCarType;
-            trainee.CurrGearType = (DO.GearboxTypeEnum)other.CurrGearType;
             trainee.NumOfFinishedLessons = other.NumOfFinishedLessons;
             trainee.NumOfTests = other.NumOfTests;
             trainee.IsAlreadyDidTest = other.IsAlreadyDidTest;
@@ -96,7 +95,6 @@ namespace BO
             temp.DateOfBirth = other.DateOfBirth;
             temp.LastTest = new DateTime(other.LastTest.Ticks);
             temp.CurrCarType = (CarTypeEnum)other.CurrCarType;
-            temp.CurrGearType = (GearboxTypeEnum)other.CurrGearType;
             temp.NumOfFinishedLessons = other.NumOfFinishedLessons;
             temp.NumOfTests = other.NumOfTests;
             temp.IsAlreadyDidTest = other.IsAlreadyDidTest;

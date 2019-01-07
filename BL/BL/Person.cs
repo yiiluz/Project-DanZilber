@@ -38,6 +38,9 @@ namespace BO
         public GenderEnum Gender { get => gender; set => gender = value; }
         public Address Address { get => address; set => address = value; }
         public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
+        public string City { get => address.City; set => address.City = value; }
+        public string Street { get => address.Street; set => address.Street = value; }
+        public int BuildingNumber { get => address.BuildingNumber; set => address.BuildingNumber = value; }
         public string Id { get => id; }
     }
 }

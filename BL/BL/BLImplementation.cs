@@ -105,7 +105,7 @@ namespace BL
                 try
                 {
                     minAge = (int)instance.GetConfig("Tester minimum age");
-                    maxAge = (int)instance.GetConfig("Tester maximun age");
+                    maxAge = (int)instance.GetConfig("Tester maximum age");
                 }
                 catch (AccessViolationException e)
                 {
@@ -160,7 +160,7 @@ namespace BL
                 {
                     instance.AddTrainee(CreateDOFromBO.CreateDoTrainee(t));
                 }
-                catch (KeyNotFoundException e)
+                catch (DuplicateWaitObjectException e)
                 {
                     throw e;
                 }
@@ -171,24 +171,28 @@ namespace BL
         /// <param name="trainee id"></param>
         public void RemoveTrainee(string id)
         {
-            bool exist = GetTraineeList().Exists(x => x.Id == id);
-            if (!exist)
+
+            Trainee trainee;
+            try
+            {
+                trainee = GetTraineeByID(id);
+            }
+            catch (KeyNotFoundException e)
             {
                 throw new KeyNotFoundException("Can't remove this trainee becauze he is not on the system.");
             }
-            else
-            {
-                foreach (var item in GetTestsList())
+            foreach (var item in GetTestsList())
+                if (item.ExTrainee.Id == trainee.Id)
                     RemoveTest(item.TestId);
-                try
-                {
-                    instance.RemoveTrainee(id);
-                }
-                catch (KeyNotFoundException e)
-                {
-                    throw e;
-                }
+            try
+            {
+                instance.RemoveTrainee(id);
             }
+            catch (KeyNotFoundException e)
+            {
+                throw e;
+            }
+
         }
         /// <summary>
         /// Update trainee
@@ -236,16 +240,18 @@ namespace BL
         /// <param name="test"></param>
         public void AddTest(Test t)
         {
+            t.IsTesterUpdateStatus = false;
+
             //check if trainee & tester already on system.
             bool traineeExist = GetTraineeList().Exists(x => x.Id == t.ExTrainee.Id);
-            bool testerExist = GetTestersList().Exists(x => x.Id == t.ExTester.Id);
+            //bool testerExist = GetTestersList().Exists(x => x.Id == t.ExTester.Id);
             string errors = "ERROR!\n";
-            if (!testerExist || !traineeExist)
+            if (/*!testerExist ||*/ !traineeExist)
             {
                 if (!traineeExist)
                     errors += "The trainee linked to test is not exist on the system.\n";
-                if (!testerExist)
-                    errors += "The tester linked to test is not exist on the system.\n";
+                //if (!testerExist)
+                //    errors += "The tester linked to test is not exist on the system.\n";
                 throw new KeyNotFoundException(errors);
             }
             //if trainee and tester on the system
@@ -253,9 +259,9 @@ namespace BL
             {
                 //get the trainee and tester objects
                 Trainee trainee = GetTraineeByID(t.ExTrainee.Id);
-                Tester tester = GetTesterByID(t.ExTester.Id);
-                if (!tester.IsAvailiableOnDate(t.DateOfTest, t.HourOfTest))
-                    errors += "Tester is not availiable for this specific date and hour.\n";
+                //Tester tester = GetTesterByID(t.ExTester.Id);
+                //if (!tester.IsAvailiableOnDate(t.DateOfTest, t.HourOfTest))
+                //    errors += "Tester is not availiable for this specific date and hour.\n";
                 if (trainee.IsAlreadyDidTest)
                 {
                     int minDaysBetweenTests = -1;
@@ -276,7 +282,7 @@ namespace BL
                         bool flag = false;
                         foreach (var item in trainee.TestList) //check if the new test too close to other
                         {
-                            if (t.CarType == item.CarType && Math.Abs((t.DateOfTest - item.DateOfTest).Days) < 7)
+                            if (t.CarType == item.CarType && Math.Abs((t.DateOfTest - item.DateOfTest).Days) < minDaysBetweenTests)
                             {
                                 flag = true;
                                 break;
@@ -303,12 +309,13 @@ namespace BL
                 {
                     errors += "Trainee did not passed enough lessons for test.\n";
                 }
-                if (tester.MaxTestsPerWeek + 1 > tester.GetNumOfTestForSpecificWeek(t.DateOfTest)) //if the tester already did maximun tests in the new test week
-                    errors += "Tester allready have maximum tests for this week.\n";
+                //if (tester.MaxTestsPerWeek + 1 > tester.GetNumOfTestForSpecificWeek(t.DateOfTest)) //if the tester already did maximun tests in the new test week
+                //    errors += "Tester allready have maximum tests for this week.\n";
                 if (trainee.ExistingLicenses.Exists(x => x == t.CarType)) //if trainee already have license on the test type car
                     errors += "Trainee already have that kind of license.\n";
-                if (trainee.CurrCarType != tester.TypeCarToTest) //if the tester car type to test different from current trainee car type
-                    errors += "Type car of tester to test different than the needed test.\n";
+                //if (trainee.CurrCarType != tester.TypeCarToTest) //if the tester car type to test different from current trainee car type
+                //    errors += "Type car of tester to test different than the needed test.\n";
+
                 if (errors == "ERROR!\n") //if there was no errors
                 {
                     int serial = -1;
@@ -343,6 +350,7 @@ namespace BL
                         }
                         if (flag) //if everything was good
                         {
+                            
                             try
                             {
                                 instance.AddTest(CreateDOFromBO.CreateDOTest(t, Convert.ToString(serial))); //add the test
@@ -358,17 +366,21 @@ namespace BL
                                 return;
                             }
                             //update trainee deteils
-                            if (trainee.IsAlreadyDidTest && t.DateOfTest > trainee.LastTest) //update last test date
-                                trainee.LastTest = t.DateOfTest;
-                            if (t.IsPassed) //update license
-                                trainee.ExistingLicenses.Add(t.CarType);
-                            trainee.NumOfTests++; //update num of tests
                             if (t.DateOfTest < DateTime.Now) //if the test was
                             {
-                                trainee.IsAlreadyDidTest = true;
-                                trainee.LastTest = t.DateOfTest;
+                                if (!trainee.IsAlreadyDidTest)
+                                {
+                                    trainee.IsAlreadyDidTest = true;
+                                    try
+                                    {
+                                        UpdateTraineeDetails(trainee);
+                                    }
+                                    catch (KeyNotFoundException e)
+                                    {
+                                        throw new MemberAccessException(e.Message + "\nCan't update trainee.");
+                                    }
+                                }
                             }
-                            instance.UpdateTraineeDetails(CreateDOFromBO.CreateDoTrainee(trainee));
                             //finish update trainee
                         }
                     }
@@ -383,9 +395,10 @@ namespace BL
         /// <param name="test id"></param>
         public void RemoveTest(string id)
         {
+            Test test;
             try
             {
-                var test = GetTestByID(id);
+                test = GetTestByID(id);
             }
             catch (KeyNotFoundException e)
             {
@@ -399,155 +412,64 @@ namespace BL
             {
                 throw e;
             }
+            Trainee trainee;
+            try
+            {
+                trainee = GetTraineeByID(test.ExTrainee.Id);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new KeyNotFoundException("Can't update trainee num of tests because trainee not on system.");
+            }
         }
         /// <summary>
         /// Update test deteils
         /// </summary>
         /// <param name="test"></param>
-        public void UpdateTest(Test t) /////////
+        public void UpdateTest(string id, TestResult t) /////////
         {
-            //check if trainee & tester already on system.
-            bool traineeExist = GetTraineeList().Exists(x => x.Id == t.ExTrainee.Id);
-            bool testerExist = GetTestersList().Exists(x => x.Id == t.ExTester.Id);
-            string errors = "ERROR!\n";
-            if (!testerExist || !traineeExist)
+            Test test;
+            //get test obj
+            try
             {
-                if (!traineeExist)
-                    errors += "The trainee linked to test is not exist on the system.\n";
-                if (!testerExist)
-                    errors += "The tester linked to test is not exist on the system.\n";
-                throw new KeyNotFoundException(errors);
+                test = GetTestByID(id);
             }
-            //if trainee and tester on the system
-            else
+            catch (KeyNotFoundException e)
             {
-                //get the trainee and tester objects
-                Trainee trainee = GetTraineeByID(t.ExTrainee.Id);
-                Tester tester = GetTesterByID(t.ExTester.Id);
-                if (!tester.IsAvailiableOnDate(t.DateOfTest, t.HourOfTest))
-                    errors += "Tester is not availiable for this specific date and hour.\n";
-                if (trainee.IsAlreadyDidTest)
-                {
-                    int minDaysBetweenTests = -1;
-                    try
-                    {
-                        minDaysBetweenTests = (int)instance.GetConfig("Minimum days between tests");
-                    }
-                    catch (AccessViolationException e)
-                    {
-                        errors += (e.Message + "\n");
-                    }
-                    catch (KeyNotFoundException e)
-                    {
-                        errors += (e.Message + "\n");
-                    }
-                    if (minDaysBetweenTests != -1) //if success on bring in the configuration of "Minimum days between tests"
-                    {
-                        bool flag = false;
-                        foreach (var item in trainee.TestList) //check if the new test too close to other
-                        {
-                            if (t.CarType == item.CarType && Math.Abs((t.DateOfTest - item.DateOfTest).Days) < 7)
-                            {
-                                flag = true;
-                                break;
-                            }
-                        }
-                        if (flag)
-                            errors += "The date of test is closed than alowed to other trainee test on the same car type.\n";
-                    }
-                }
-                int minLesson = -1;
+                throw e;
+            }
+            Trainee trainee;
+            //get trainee obj
+            try
+            {
+                trainee = GetTraineeByID(test.ExTrainee.Id);
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw e;
+            }
+            //if trainee has passed the test
+            if (t.IsPassed)
+            {
+                trainee.ExistingLicenses.Add(test.CarType);
                 try
                 {
-                    minLesson = (int)instance.GetConfig("Minimum lessons");
-                }
-                catch (AccessViolationException e)
-                {
-                    errors += (e.Message + "\n");
+                    UpdateTraineeDetails(trainee);
                 }
                 catch (KeyNotFoundException e)
                 {
-                    errors += (e.Message + "\n");
+                    throw new MemberAccessException(e.Message + "\nCan't update trainee license.");
                 }
-                if (minLesson != -1 && trainee.NumOfFinishedLessons < minLesson) //if trainee didnt did enough lessons
-                {
-                    errors += "Trainee did not passed enough lessons for test.\n";
-                }
-                if (tester.MaxTestsPerWeek + 1 > tester.GetNumOfTestForSpecificWeek(t.DateOfTest)) //if the tester already did maximun tests in the new test week
-                    errors += "Tester allready have maximum tests for this week.\n";
-                if (trainee.ExistingLicenses.Exists(x => x == t.CarType)) //if trainee already have license on the test type car
-                    errors += "Trainee already have that kind of license.\n";
-                if (trainee.CurrCarType != tester.TypeCarToTest) //if the tester car type to test different from current trainee car type
-                    errors += "Type car of tester to test different than the needed test.\n";
-                if (errors == "ERROR!\n") //if there was no errors
-                {
-                    int serial = -1;
-                    try
-                    {
-                        serial = (int)instance.GetConfig("Serial Number Test"); //get the serial number of the test
-                    }
-                    catch (AccessViolationException e)
-                    {
-                        errors += (e.Message + "\n");
-                    }
-                    catch (KeyNotFoundException e)
-                    {
-                        errors += (e.Message + "\n");
-                    }
-                    if (serial > 0)
-                    {
-                        bool flag = true;
-                        try
-                        {
-                            instance.SetConfig("Serial Number Test", ++serial); //update the test serial number
-                        }
-                        catch (AccessViolationException e)
-                        {
-                            errors += (e.Message + "\n");
-                            flag = false;
-                        }
-                        catch (KeyNotFoundException e)
-                        {
-                            errors += (e.Message + "\n");
-                            flag = false;
-                        }
-                        if (flag) //if everything was good
-                        {
-                            try
-                            {
-                                var test = GetTestByID(t.TestId);
-                            }
-                            catch (KeyNotFoundException e)
-                            {
-                                throw e;
-                            }
-                            try
-                            {
-                                instance.UpdateTest(CreateDOFromBO.CreateDOTest(t, t.TestId));
-                            }
-                            catch (KeyNotFoundException e)
-                            {
-                                throw e;
-                            }
-                            //update trainee deteils
-                            if (trainee.IsAlreadyDidTest && t.DateOfTest > trainee.LastTest) //update last test date
-                                trainee.LastTest = t.DateOfTest;
-                            if (t.IsPassed) //update license
-                                trainee.ExistingLicenses.Add(t.CarType);
-                            trainee.NumOfTests++; //update num of tests
-                            if (t.DateOfTest < DateTime.Now) //if the test was
-                            {
-                                trainee.IsAlreadyDidTest = true;
-                                trainee.LastTest = t.DateOfTest;
-                            }
-                            instance.UpdateTraineeDetails(CreateDOFromBO.CreateDoTrainee(trainee));
-                            //finish update trainee
-                        }
-                    }
-                }
-                if (errors != "ERROR!\n")
-                    throw new ArgumentOutOfRangeException(errors);
-                
+            }
+            //update the test results
+            test.UpdateTestDeteils(t);
+            try
+            {
+                instance.UpdateTest(CreateDOFromBO.CreateDOTest(test, id));
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw e;
             }
         }
         /// <summary>
@@ -644,14 +566,21 @@ namespace BL
             }
         }
 
-
-        public IEnumerable<Tester> GetAvailableTeacher(DateTime time, int hour)
+        /// <summary>
+        /// Get list of testers that availiable on specific date, sorted distance from original hour
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="hour"></param>
+        /// <param name="carType"></param>
+        /// <returns></returns>
+        public List<Tester> GetAvailableTestersForSpecificDay(DateTime time, int hour, CarTypeEnum carType)
         {
-            var AvailableTesters = from item in GetTestersList()
-                                   orderby item.LastName, item.FirstName
-                                   where item.IsAvailiableOnDate(time, hour) == true
+            var availableTesters = from item in GetTestersList()
+                                       //orderby item.LastName, item.FirstName
+                                   where (item.TypeCarToTest == carType && item.GetClosetHour(time, hour) != -1)
+                                   orderby Math.Abs(item.GetClosetHour(time, hour))
                                    select new Tester(item);
-            return AvailableTesters;
+            return availableTesters.ToList();
         }
         public IEnumerable<Test> GetTestsPartialListByPredicate(Func<DO.Test, bool> func)
         {
