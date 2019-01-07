@@ -9,6 +9,62 @@ namespace PLConsole
 {
     class UIFunctions
     {
+        private void StartTestAddress(Test s)
+        {
+            Console.WriteLine("Enter address:\n");
+            Console.WriteLine("enter city:\n");
+            string City = Console.ReadLine();
+            Console.WriteLine("enter street:\n");
+            string Street = Console.ReadLine();
+            Console.WriteLine("enter building Number:\n");
+            string building = Console.ReadLine();
+            int building2;
+            if (City.All(char.IsLetter) && Street.All(char.IsLetter) && int.TryParse(building, out building2)) { s.StartTestAddress = new Address(City, Street, building2); }
+            else { throw new FormatException("ERROR! invalid address"); }
+
+        }
+        private void TestDate(Test s)
+        {
+            Console.WriteLine("Enter the test date");
+            DateTime testDate;
+            bool ok = DateTime.TryParse(Console.ReadLine(), out testDate);
+            if (ok) { s.DateOfTest = testDate; }
+            else { throw new FormatException("Invalid test date"); }
+            int hourTest;
+            ok = int.TryParse(Console.ReadLine(), out hourTest);
+            if (ok && hourTest > 8 && hourTest < 16) { s.HourOfTest = hourTest; }
+            else { throw new FormatException("Hour test illegal"); }
+        }
+        private void TestCar(Test s )
+        {
+            Console.WriteLine("Enter the vehicle level");
+            Console.WriteLine("for Motor Cycle enter: 1 \n for Private Car enter: 2 \n for Truck 12 Tons enter: 3 \n for Truck Un limited enter: 4 \n for bus enter: 5 \n");
+            int car;
+            bool ok = int.TryParse(Console.ReadLine(), out car);
+            if (ok)
+            {
+                switch (car)
+                {
+                    case 1:
+                        s.CarType = CarTypeEnum.MotorCycle;
+                        break;
+                    case 2:
+                        s.CarType = CarTypeEnum.PrivateCar;
+                        break;
+                    case 3:
+                        s.CarType = CarTypeEnum.Truck12Tons;
+                        break;
+                    case 4:
+                        s.CarType = CarTypeEnum.TruckUnlimited;
+                        break;
+                    case 5:
+                        s.CarType = CarTypeEnum.Bus;
+                        break;
+                    default: throw new FormatException("Invalid vehicle level");
+                }
+            }
+            else { throw new FormatException("Invalid vehicle level"); }
+        }
         private void TestWorkHours(int day, int hourBigen, int hourEnd, Tester s)
         {
             for (int i = hourBigen; i <= hourEnd; i++)
@@ -342,9 +398,9 @@ namespace PLConsole
                                         {
                                             Console.WriteLine("Enter the days that the Tester agrees to work \n");
                                             Console.WriteLine("For Sunday Press 1 \n for Monday Press 2 \n for Tuesday Press 3 \n" +
-                                                "for Wednesday Press 4 \n for Thursday Press 5 \n");
+                                                "for Wednesday Press 4 \n for Thursday Press 5 ");
                                             ok = int.TryParse(Console.ReadLine(), out day);
-                                            Console.WriteLine("Enter the time that the tester wants to start work \n");
+                                            Console.WriteLine("Enter the time that the tester wants to start work ");
                                             ok1 = int.TryParse(Console.ReadLine(), out hourBigen);
                                             Console.WriteLine("Enter the time that the tester wants to finish working");
                                             ok2 = int.TryParse(Console.ReadLine(), out hourEnd);
@@ -467,6 +523,67 @@ namespace PLConsole
                 }
             }
             throw new FormatException("Invalid ID input");
+        }
+        public Test AddTest()
+        {
+            Test test = new Test();
+            TestDate(test);
+            TestCar(test);
+            StartTestAddress(test);
+            Console.WriteLine("Enter the trainee ID card");
+            string traineeId = Console.ReadLine();
+            if(traineeId.Length == 9 && traineeId.All(char.IsDigit)) { test.ExTrainee = new ExternalTrainee(traineeId)}
+            else { throw new FormatException("Incorrect input for trainee ID"); }
+            Console.WriteLine("Enter the tester ID card");
+            string testerID = Console.ReadLine();
+            if (testerID.Length == 9 && traineeId.All(char.IsDigit)) { test.ExTester = new ExternalTester(testerID); }
+            else { throw new FormatException("Incorrect input for tester ID"); }
+            Console.WriteLine("Press 1 if he has kept the distance, 2 if not");
+            int keep;
+            bool ok = int.TryParse(Console.ReadLine(), out keep);
+            if(ok && keep == 1) { test.DistanceKeeping = true; }
+            else if(ok && keep == 2) { test.DistanceKeeping = false;}
+            else { throw new FormatException("The valid input for keeping a distance is only 1 or 2"); }
+            Console.WriteLine("Parking Reverse? Yes Press 1. not press 2");
+            int Reverse;
+            ok = int.TryParse(Console.ReadLine(), out Reverse);
+            if(ok && Reverse == 1) { test.ReverseParking = true; }
+            else if(ok && Reverse == 2) { test.ReverseParking = false; }
+            else { throw new FormatException("Invalid input for reverse"); }
+            Console.WriteLine("Checking the mirror: Yes Press 1 not press 2");
+            int mirror;
+            ok = int.TryParse(Console.ReadLine(), out mirror);
+            if(ok && mirror == 1) { test.MirrorsCheck = true; }
+            else if(ok && mirror ==2) { test.MirrorsCheck = false; }
+            else { throw new FormatException("Invalid input for mirror check"); }
+            Console.WriteLine("single? Yes Press 1 not press 2");
+            int single;
+            ok = int.TryParse(Console.ReadLine(), out single);
+            if (ok && mirror == 1) {test.Signals = true; }
+            else if (ok && mirror == 2) { test.Signals = false; }
+            else { throw new FormatException("Invalid input for signals"); }
+            Console.WriteLine("Correct Speed? Yes Press 1 not press 2");
+            int speed;
+            ok = int.TryParse(Console.ReadLine(), out speed);
+            if (ok && mirror == 1) { test.CorrectSpeed = true; }
+            else if (ok && mirror == 2) { test.CorrectSpeed = false; }
+            else { throw new FormatException("Invalid input for speed"); }
+            Console.WriteLine("Passed? Yes Press 1 not press 2");
+            int passed;
+            ok = int.TryParse(Console.ReadLine(), out passed);
+            if (ok && mirror == 1) { test.IsPassed = true; }
+            else if (ok && mirror == 2) { test.IsPassed = false; }
+            else { throw new FormatException("Invalid input for is Passed"); }
+            Console.WriteLine("Insert comments");
+            string comments = Console.ReadLine();
+            test.TesterNotes = comments;
+            Console.WriteLine("Tester status updated? Yes Press 1 not press 2");
+            int update;
+            ok = int.TryParse(Console.ReadLine(), out update);
+            if (ok && mirror == 1) { test.IsTesterUpdateStatus = true; }
+            else if (ok && mirror == 2) { test.IsTesterUpdateStatus = false; }
+            else { throw new FormatException("Invalid input for update"); }
+            return test;
         }
     }
 }
