@@ -65,7 +65,6 @@ namespace BO
             TesterNotes = other.TesterNotes;
             IsTesterUpdateStatus = true;
         }
-        public Test() { }
 
         public ExternalTrainee ExTrainee { get => exTrainee; set => exTrainee = value; }
         public ExternalTester ExTester { get => exTester; set => exTester = value; }
