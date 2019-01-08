@@ -168,6 +168,46 @@ namespace UIWpf
             testWindow.ShowDialog();
         }
 
+        private void Button_Click_RemoveTest(object sender, RoutedEventArgs e)
+        {
+            GetSerialWindow getSerialWindow = new GetSerialWindow();
+            getSerialWindow.ShowDialog();
+            if (getSerialWindow.IsClosedByButton)
+            {
+                try
+                {
+                    bl.RemoveTest(getSerialWindow.TxtBx_Serial.Text);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    MessageBox.Show(ex.Message, "Serial not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                MessageBox.Show("Test with Serial " + getSerialWindow.TxtBx_Serial.Text + " successfuly deleted.", "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void Button_Click_PrintTest(object sender, RoutedEventArgs e)
+        {
+            GetSerialWindow getSerialWindow = new GetSerialWindow();
+            getSerialWindow.ShowDialog();
+            if (getSerialWindow.IsClosedByButton)
+            {
+                Test test = null;
+                try
+                {
+                    test = bl.GetTestByID(getSerialWindow.TxtBx_Serial.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Serial not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                string tmp = test.ToString();
+                MessageBox.Show(test.ToString(), "Test Deteils", MessageBoxButton.OK);
+            }
+        }
+
         //*********************************************************************************************
     }
 }

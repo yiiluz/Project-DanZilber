@@ -21,7 +21,7 @@ namespace BO
             tester.MaxDistance = other.MaxDistance;
             tester.MaxTestsPerWeek = other.MaxTestsPerWeek;
             tester.TypeCarToTest = (DO.CarTypeEnum)other.TypeCarToTest;
-            tester.AvailableWorkTime = other.AvailableWorkTime;
+            tester.AvailableWorkTime = other.AvailiableWorkTime;
             return tester;
         }
         public static DO.Trainee CreateDoTrainee(BO.Trainee other)
@@ -77,7 +77,7 @@ namespace BO
             temp.MaxDistance = other.MaxDistance;
             temp.MaxTestsPerWeek = other.MaxTestsPerWeek;
             temp.TypeCarToTest = (CarTypeEnum)other.TypeCarToTest;
-            temp.AvailableWorkTime = other.AvailableWorkTime;
+            temp.AvailiableWorkTime = other.AvailableWorkTime;
             //foreach (var item in other.TestList)
             //    TestList.Add(new TesterTest(item));
             return temp;

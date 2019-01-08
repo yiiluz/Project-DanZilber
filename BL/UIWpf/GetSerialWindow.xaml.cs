@@ -15,29 +15,29 @@ using System.Windows.Shapes;
 namespace UIWpf
 {
     /// <summary>
-    /// Interaction logic for GetIDWindow.xaml
+    /// Interaction logic for GetSerialWindow.xaml
     /// </summary>
-    public partial class GetIDWindow : Window
+    public partial class GetSerialWindow : Window
     {
         private bool isClosedByButton = false;
         public bool IsClosedByButton { get => isClosedByButton; }
-        public GetIDWindow()
+        public GetSerialWindow()
         {
             InitializeComponent();
         }
 
         private void TxtBx_ID_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (TxtBx_ID.Background != Brushes.White)
-                TxtBx_ID.Background = Brushes.White;
+            if (TxtBx_Serial.Background != Brushes.White)
+                TxtBx_Serial.Background = Brushes.White;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (TxtBx_ID.Text.Length != TxtBx_ID.MaxLength)
-                TxtBx_ID.Background = Brushes.Red;
-            else if (!TxtBx_ID.Text.All(char.IsDigit))
-                TxtBx_ID.Background = Brushes.Red;
+            if (TxtBx_Serial.Text.Length != TxtBx_Serial.MaxLength)
+                TxtBx_Serial.Background = Brushes.Red;
+            else if (!TxtBx_Serial.Text.All(char.IsDigit))
+                TxtBx_Serial.Background = Brushes.Red;
             else
             {
                 isClosedByButton = true;
@@ -57,14 +57,15 @@ namespace UIWpf
 
         private void Image_MouseEnter(object sender, MouseEventArgs e)
         {
-            UserImage.Height += 15;
-            UserImage.Width += 15;
+            CarImage.Height *= 1.05;
+            CarImage.Width *=  1.05;
         }
 
         private void Image_MouseLeave(object sender, MouseEventArgs e)
         {
-            UserImage.Height -= 15;
-            UserImage.Width -= 15;
+            CarImage.Height /= 1.05;
+            CarImage.Width /= 1.05;
         }
     }
 }
+

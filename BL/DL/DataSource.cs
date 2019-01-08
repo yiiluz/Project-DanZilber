@@ -33,7 +33,7 @@ namespace DL
             testers = new List<Tester>();
             trainees = new List<Trainee>();
             Configuration.Add("Tester minimum age", new ConfigurationParameter() { Readable = true, Writable = false, Value = 40 });
-            Configuration.Add("Minimun days between tests", new ConfigurationParameter() { Readable = true, Writable = false, Value = 14 });
+            Configuration.Add("Minimum days between tests", new ConfigurationParameter() { Readable = true, Writable = false, Value = 14 });
             Configuration.Add("Trainee minimum age", new ConfigurationParameter() { Readable = true, Writable = false, Value = 18 });
             Configuration.Add("Minimum lessons", new ConfigurationParameter() { Readable = true, Writable = false, Value = 20 });
             Configuration.Add("Tester maximum age", new ConfigurationParameter() { Readable = true, Writable = false, Value = 67 });
@@ -54,7 +54,7 @@ namespace DL
             tester.TypeCarToTest = CarTypeEnum.MotorCycle;
             tester.MaxDistance = 50;
             for (int i = 0; i < 5; ++i)
-                for (int j = 0; j < 6; ++j)
+                for (int j = 5; j < 6; ++j)
                     tester.AvailableWorkTime[i, j] = true;
             Tester tester1 = new Tester("222222222");
             tester1.FirstName = "yitzhak";
@@ -63,7 +63,7 @@ namespace DL
             tester1.TypeCarToTest = CarTypeEnum.MotorCycle;
             tester1.MaxDistance = 50;
             for (int i = 0; i < 5; ++i)
-                for (int j = 0; j < 6; ++j)
+                for (int j = 4; j < 6; ++j)
                     tester1.AvailableWorkTime[i, j] = true;
             Tester tester2 = new Tester("333333333");
             tester2.FirstName = "yaakov";
@@ -72,8 +72,8 @@ namespace DL
             tester2.TypeCarToTest = CarTypeEnum.MotorCycle;
             tester2.MaxDistance = 50;
             for (int i = 0; i < 5; ++i)
-                for (int j = 0; j < 6; ++j)
-                    tester.AvailableWorkTime[i, j] = true;
+                for (int j = 3; j < 6; ++j)
+                    tester2.AvailableWorkTime[i, j] = true;
             testers.Add(tester);
             testers.Add(tester1);
             testers.Add(tester2);
@@ -82,6 +82,7 @@ namespace DL
             trainee.FirstName = "moshe";
             trainee.DateOfBirth = new DateTime(1990, 01, 01);
             trainee.CurrCarType = CarTypeEnum.MotorCycle;
+            trainee.NumOfFinishedLessons = 100;
             trainees.Add(trainee);
             //************************************************************************
             if (data == null)

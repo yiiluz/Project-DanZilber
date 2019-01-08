@@ -16,7 +16,8 @@ namespace BO
         //void RemoveTest(Test t);
         void RemoveTest(string testId);
         void UpdateTraineeDetails(Trainee T);
-        void AddTest(Test t);
+        string AddTest(Test t);
+        List<Test> GetOptionalTests(Test dataSourse, Trainee trainee);
         void UpdateTest(string id, TestResult t);
         List<Tester> GetTestersList();
         List<Trainee> GetTraineeList();

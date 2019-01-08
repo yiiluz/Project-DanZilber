@@ -6,9 +6,12 @@
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
         Title="Tests System - Main Window" Height="500" Width="800" Icon="ICON.png">
+
     <Window.Resources >
         <LinearGradientBrush x:Key="LableColorStyle" StartPoint="0,0.5" EndPoint="1,0.5">
-            <GradientStop Offset="0" Color="AliceBlue"/>
+            <GradientStop Offset="0" Color="CadetBlue"/>
+            <GradientStop Offset="0.5" Color="Aquamarine"/>
+            <GradientStop Offset="1" Color="CadetBlue"/>
         </LinearGradientBrush>
         <Style x:Key="LabelsStyle" TargetType="Label">
             <Setter Property="Background" Value="{StaticResource LableColorStyle}"/>
@@ -38,34 +41,38 @@
             <GradientStop Color="#FF1B9CA9" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="4*"/>
-        </Grid.RowDefinitions>
-        <Label Content="Hello! Wellcome to Tests, Trainees and Testers system!" Grid.Column="0" Grid.Row="0"
-               Grid.ColumnSpan="3" Margin="2" Style="{StaticResource LabelsStyle}"/>
-        <Label Content="Trainee" Grid.Column="0" Grid.Row="1" Style="{StaticResource LabelsStyle}"/>
-        <Label Content="Tester" Grid.Column="1" Grid.Row="1" Style="{StaticResource LabelsStyle}"/>
-        <Label Content="Test" Grid.Column="2" Grid.Row="1" Style="{StaticResource LabelsStyle}"/>
-        <Button Content="Add Trainee" Grid.Column="0" Grid.Row="2" Style="{StaticResource ButtonStyle}" Click="Button_Click_AddTrainee"/>
-        <Button Content="Update Trainee" Grid.Column="0" Grid.Row="3" Style="{StaticResource ButtonStyle}" Click="Button_Click_UpdateTrainee"/>
-        <Button Content="Remove Trainee" Grid.Row="4" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="Button_Click_RemoveTrainee"/>
-        <Button Content="Print Trainee" Grid.Row="5" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="Button_Click_PrintTraineeByID"/>
-        <Button Content="Add Tester" Grid.Column="1" Grid.Row="2" Style="{StaticResource ButtonStyle}" Click="Button_Click_AddTester"/>
-        <Button Content="Update Tester" Grid.Column="1" Grid.Row="3" Style="{StaticResource ButtonStyle}" Click="Button_Click_UpdateTester"/>
-        <Button Content="Remove Tester" Grid.Column="1" Grid.Row="4" Style="{StaticResource ButtonStyle}" Click="Button_Click_RemoveTester"/>
-        <Button Content="Print Tester" Grid.Column="1" Grid.Row="5" Style="{StaticResource ButtonStyle}" Click="Button_Click_PrintTesterByID"/>
-        <Button Content="Add Test" Grid.Column="2" Grid.Row="2"  Style="{StaticResource ButtonStyle}" Click="Button_Click_AddTest"/>
-    </Grid>
+    <Border Padding="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Hello! Wellcome to Tests, Trainees and Testers system!" Grid.Column="0" Grid.Row="0"
+               Grid.ColumnSpan="3" Margin="0 0 0 10" Style="{StaticResource LabelsStyle}"/>
+            <Label Content="Trainee" Grid.Column="0" Grid.Row="1" Style="{StaticResource LabelsStyle}"/>
+            <Label Content="Tester" Grid.Column="1" Grid.Row="1" Style="{StaticResource LabelsStyle}"/>
+            <Label Content="Test" Grid.Column="2" Grid.Row="1" Style="{StaticResource LabelsStyle}"/>
+            <Button Content="Add Trainee" Grid.Column="0" Grid.Row="2" Style="{StaticResource ButtonStyle}" Click="Button_Click_AddTrainee"/>
+            <Button Content="Update Trainee" Grid.Column="0" Grid.Row="3" Style="{StaticResource ButtonStyle}" Click="Button_Click_UpdateTrainee"/>
+            <Button Content="Remove Trainee" Grid.Row="4" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="Button_Click_RemoveTrainee"/>
+            <Button Content="Print Trainee" Grid.Row="5" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="Button_Click_PrintTraineeByID"/>
+            <Button Content="Add Tester" Grid.Column="1" Grid.Row="2" Style="{StaticResource ButtonStyle}" Click="Button_Click_AddTester"/>
+            <Button Content="Update Tester" Grid.Column="1" Grid.Row="3" Style="{StaticResource ButtonStyle}" Click="Button_Click_UpdateTester"/>
+            <Button Content="Remove Tester" Grid.Column="1" Grid.Row="4" Style="{StaticResource ButtonStyle}" Click="Button_Click_RemoveTester"/>
+            <Button Content="Print Tester" Grid.Column="1" Grid.Row="5" Style="{StaticResource ButtonStyle}" Click="Button_Click_PrintTesterByID"/>
+            <Button Content="Add Test" Grid.Column="2" Grid.Row="2"  Style="{StaticResource ButtonStyle}" Click="Button_Click_AddTest"/>
+            <Button Content="Remove Test" Grid.Column="2" Grid.Row="4" Style="{StaticResource ButtonStyle}" Click="Button_Click_RemoveTest"/>
+            <Button Content="Print Test" Grid.Column="2" Grid.Row="5" Style="{StaticResource ButtonStyle}" Click="Button_Click_PrintTest"/>
+        </Grid>
+    </Border>
 </Window>
