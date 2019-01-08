@@ -23,7 +23,7 @@ namespace BO
         {
             for (int i = 0; i < 5; ++i)
                 for (int j = 0; j < 6; ++j)
-                    AvailableWorkTime[i, j] = false;
+                    AvailiableWorkTime[i, j] = false;
         }
         //public Tester(DO.Tester other) : base(other.Id)
         //{
@@ -53,7 +53,7 @@ namespace BO
             MaxDistance = other.MaxDistance;
             MaxTestsPerWeek = other.MaxTestsPerWeek;
             TypeCarToTest = other.TypeCarToTest;
-            AvailableWorkTime = other.AvailableWorkTime;
+            AvailiableWorkTime = other.AvailiableWorkTime;
             foreach (var item in other.TestList)
                 TestList.Add(item);
         }
@@ -69,29 +69,43 @@ namespace BO
             MaxDistance = other.MaxDistance;
             MaxTestsPerWeek = other.MaxTestsPerWeek;
             TypeCarToTest = other.TypeCarToTest;
-            AvailableWorkTime = other.AvailableWorkTime;
+            AvailiableWorkTime = other.AvailiableWorkTime;
             foreach (var item in other.TestList)
                 TestList.Add(item);
         }
         /// <summary>
         /// Get DateTime & hour, and returns true if tester availiable at this time.
         /// </summary>
-        /// <param name="date"></param>
         /// <param name="hour"></param>
         /// <returns></returns>
-        public bool IsAvailiableOnDate(DateTime date, int hour)
+        public bool IsAvailiableOnDate(DateTime date)
         {
-            bool flag = true;
-            foreach (var item in TestList)
+            if (date.DayOfWeek == DayOfWeek.Friday || date.DayOfWeek == DayOfWeek.Saturday || GetNumOfTestForSpecificWeek(date) + 1 > MaxTestsPerWeek)
+                return false;
+            bool isWorkUnlistOneHourOnThisDate = false;
+            bool[] tmp = new bool[6];
+            for (int i = 0; i < 6; ++i)
             {
-                if (item.DateOfTest == date && item.HourOfTest == hour || GetNumOfTestForSpecificWeek(date) + 1 > MaxTestsPerWeek || AvailableWorkTime[(int)date.DayOfWeek, hour - 9])
+                tmp[i] = AvailiableWorkTime[(int)date.DayOfWeek, i];
+                if (tmp[i])
+                    isWorkUnlistOneHourOnThisDate = true;
+            }
+            if (isWorkUnlistOneHourOnThisDate)
+            {
+                foreach (var item in TestList)
                 {
-                    flag = false;
-                    break;
+                    if (item.DateOfTest == date)
+                    {
+                        tmp[item.HourOfTest - 9] = false;
+                    }
+                }
+                for (int i = 0; i < 6; ++i) //if after filtering there is availiable hour
+                {
+                    if (tmp[i])
+                        return true;
                 }
             }
-
-            return flag;
+            return false;//if tester cant work at this day
         }
         /// <summary>
         /// Get num of tests for week
@@ -106,36 +120,38 @@ namespace BO
                     num++;
             return num;
         }
-        public int GetClosetHour(DateTime date, int hour)
+        public List<int> GetClosetHour(DateTime date, int hour)
         {
-            if (IsAvailiableOnDate(date, hour))
-                return hour;
-            //set matrix of bool that contain the available times of the date week
+            if (!IsAvailiableOnDate(date))
+                return new List<int>();
             bool[] temp = new bool[6];
+            //set matrix of bool that contain the available times of the date week
             for (int i = 0; i < 6; ++i)
-                temp[i] = AvailableWorkTime[(int)date.DayOfWeek, i];
+                temp[i] = AvailiableWorkTime[(int)date.DayOfWeek, i];
             foreach (var x in TestList)
             {
-                for (int j = 0; j < 6; ++j)
-                {
-                    if (!IsAvailiableOnDate(date, j + 9))
-                            temp[j] = false;
-                }
+                if (x.DateOfTest == date)
+                    temp[x.HourOfTest - 9] = false;
             }
             hour -= 9;
-            for (int i = hour; i < 6; ++i)
-                if (temp[i])
-                    return i + 9;
-            for (int i = hour -1; i <= 0; --i)
-                if (temp[i])
-                    return i + 9;
-            return -1;//if day is full
+            List<int> AvailiableHours = new List<int>();
+            for (int t = 0; t < 6; ++t)
+            {
+                if (hour + t < 6)
+                    if (temp[hour + t])
+                        AvailiableHours.Add(hour + t + 9);
+                if (hour - t >= 0)
+                    if (temp[hour - t])
+                        AvailiableHours.Add(hour - t + 9);
+            }
+            AvailiableHours.Sort();
+            return AvailiableHours;//if day is full
         }
         public double Seniority { get => seniority; set => seniority = value; }
         public double MaxDistance { get => maxDistance; set => maxDistance = value; }
         public int MaxTestsPerWeek { get => maxTestsPerWeek; set => maxTestsPerWeek = value; }
         public CarTypeEnum TypeCarToTest { get => typeCarToTest; set => typeCarToTest = value; }
-        public bool[,] AvailableWorkTime { get => availableWorkTime; set => availableWorkTime = value; }
+        public bool[,] AvailiableWorkTime { get => availableWorkTime; set => availableWorkTime = value; }
         public List<TesterTest> TestList { get => testList; set => testList = value; }
 
 

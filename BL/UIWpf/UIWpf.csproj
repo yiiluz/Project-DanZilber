@@ -58,6 +58,9 @@
     <Compile Include="GetIDWindow.xaml.cs">
       <DependentUpon>GetIDWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GetSerialWindow.xaml.cs">
+      <DependentUpon>GetSerialWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TesterWindow.xaml.cs">
       <DependentUpon>TesterWindow.xaml</DependentUpon>
     </Compile>
@@ -68,6 +71,10 @@
       <DependentUpon>TraineeWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="GetIDWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GetSerialWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -134,6 +141,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UserIcon2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="carIcon.png" />
+    <Resource Include="CarIcon2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

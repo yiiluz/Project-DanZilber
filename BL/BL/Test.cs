@@ -74,5 +74,12 @@ namespace BO
         public Address StartTestAddress { get => startTestAddress; set => startTestAddress = value; }
         public bool IsTesterUpdateStatus { get => isTesterUpdateStatus; set => isTesterUpdateStatus = value; }
         public string TestId { get => testId; set => testId = value; }
+
+        public override string ToString()
+        {
+            string tmp = "Test ID: " + TestId + ".\nTester ID: " + ExTester.Id + ".\nTrainee ID: " + ExTrainee.Id + ".\nDate of Test: " +
+                DateOfTest.ToShortDateString() + ".\nTest-start address: " + StartTestAddress + ".\n" + (IsPassed ? "Trainee passed" : "Trainee didn't passed") + ".\n";
+            return tmp;
+        }
     }
 }

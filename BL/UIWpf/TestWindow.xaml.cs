@@ -19,38 +19,16 @@ namespace UIWpf
     /// </summary>
     public partial class TestWindow : Window
     {
-        class TesterWithHour
-        {
-            public Tester tester;
-            public int hour;
-            public TesterWithHour(Tester t, int h)
-            {
-                tester = t;
-                hour = h;
-            }
-        }
         Test test = new Test();
         //List<Tester> lst;
         public TestWindow()
         {
             InitializeComponent();
             this.DataContext = test;
+            test.DateOfTest = DateTime.Today;
         }
 
-        private void Button_Click_Add(object sender, RoutedEventArgs e)
-        {
-            
-            //Trainee trainee = MainWindow.bl.GetTraineeByID(IDTxt.Text);
-            //var lst = from item in MainWindow.bl.GetAvailableTestersForSpecificDay(test.DateOfTest, test.HourOfTest, trainee.CurrCarType)
-            //          orderby Math.Abs(item.GetClosetHour(test.DateOfTest, test.HourOfTest))
-            //          select new TesterWithHour(item, item.GetClosetHour(test.DateOfTest, test.HourOfTest));
-            ////TestersList.ItemsSource = lst;
-            ////TestersList.IsEnabled = true;
-            //test.ExTrainee = new ExternalTrainee(MainWindow.bl.GetTraineeByID(IDTxt.Text));
-            //test.ExTester = new ExternalTester(((TesterWithHour)TestersList.SelectedItem).tester);
-            //MainWindow.bl.AddTest(test);
 
-        }
 
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
@@ -117,7 +95,7 @@ namespace UIWpf
 
         private void TxtBx_Hour_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!TxtBx_Hour.Text.All(char.IsDigit) || (int.Parse(TxtBx_Hour.Text) <= 15 && int.Parse(TxtBx_Hour.Text) >= 9))
+            if (!TxtBx_Hour.Text.All(char.IsDigit) || (int.Parse(TxtBx_Hour.Text) > 14 || (int.Parse(TxtBx_Hour.Text)) < 9))
                 TxtBx_Hour.Background = Brushes.Red;
             else
                 TxtBx_Hour.BorderBrush = Brushes.Green;
@@ -128,5 +106,68 @@ namespace UIWpf
             TxtBx_Hour.Background = Brushes.White;
             TxtBx_Hour.BorderBrush = Brushes.Gray;
         }
+
+        private void Button_Click_Add(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string serialOfTest = MainWindow.bl.AddTest(CombBx_TestsList.SelectedItem as Test);
+                MessageBox.Show("Test added successfuly. Test ID: " + serialOfTest, "Add Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                Close();
+            }
+            catch (Exception ex)
+            {
+                var result = MessageBox.Show("Internal ERROR: " + ex.Message + ". Do you want to try agein?", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                if (result == MessageBoxResult.No)
+                {
+                    MessageBox.Show("The test has'nt Added.", "Operation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+
+
+        private void Button_Click_GetTestersList(object sender, RoutedEventArgs e)
+        {
+            if (
+                (TxtBx_Hour.Text.All(char.IsDigit) && (int.Parse(TxtBx_Hour.Text) < 15 && (int.Parse(TxtBx_Hour.Text)) >= 9)) &&
+                (TxtBx_BuildNum.Text.All(char.IsDigit) && (TxtBx_BuildNum.Text.Length != 0)) &&
+                (TxtBx_Street.Text.Length != 0 || TxtBx_Street.Text.All(x => x == ' ' || char.IsLetter(x))) &&
+                (TxtBx_City.Text.Length != 0 || TxtBx_City.Text.All(x => x == ' ' || char.IsLetter(x))) &&
+                (TxtBx_ID.Text.All(char.IsDigit) && (TxtBx_ID.Text.Length == 9))
+                )
+            {
+                Trainee trainee = null;
+                try
+                {
+                    trainee = MainWindow.bl.GetTraineeByID(TxtBx_ID.Text);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    var result = MessageBox.Show("Trainee ID does Not Exist. Do you want to try agein?", "ID Not exist", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    if (result == MessageBoxResult.No)
+                    {
+                        MessageBox.Show("The test has'nt Added.", "Operation Canceld", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Close();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                var lst = MainWindow.bl.GetOptionalTests(this.test, trainee);
+                CombBx_TestsList.ItemsSource = lst;
+                CombBx_TestsList.IsEnabled = true;
+            }
+            else
+            {
+                MessageBox.Show("The input is not correct. The bad inputs marked at Red.", "Wrong Input", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
     }
+
 }
