@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class Test
+    public class Test : TestResult
     {
         private string testId = "";
         private ExternalTrainee exTrainee;
@@ -15,48 +15,55 @@ namespace BO
         private int hourOfTest;
         private CarTypeEnum carType;
         private Address startTestAddress = new Address();
-        private bool distanceKeeping;
-        private bool reverseParking;
-        private bool mirrorsCheck;
-        private bool signals;
-        private bool correctSpeed;
-        private bool isPassed;
-        private string testerNotes;
         private bool isTesterUpdateStatus;
+
+        public Test() { }
         public Test(DO.Test other)
         {
             TestId = other.TestId;
-            exTrainee = new ExternalTrainee(other.TraineeId);/////////////////////////////////////
-            exTester = new ExternalTester(other.TesterId);////////////////////////////////////////
-            dateOfTest = other.DateOfTest;
-            hourOfTest = other.HourOfTest;
-            carType = (CarTypeEnum)other.CarType;
-            startTestAddress = new Address(other.StartTestAddress.City, other.StartTestAddress.Street, other.StartTestAddress.BuildingNumber);
-            distanceKeeping = other.DistanceKeeping;
-            reverseParking = other.ReverseParking;
-            mirrorsCheck = other.MirrorsCheck;
-            signals = other.Signals;
-            correctSpeed = other.CorrectSpeed;
-            isPassed = other.IsPassed;
-            testerNotes = other.TesterNotes;
-            isTesterUpdateStatus = other.IsTesterUpdateStatus;
+            ExTrainee = new ExternalTrainee(other.TraineeId);/////////////////////////////////////
+            ExTester = new ExternalTester(other.TesterId);////////////////////////////////////////
+            DateOfTest = other.DateOfTest;
+            HourOfTest = other.HourOfTest;
+            CarType = (CarTypeEnum)other.CarType;
+            StartTestAddress = new Address(other.StartTestAddress.City, other.StartTestAddress.Street, other.StartTestAddress.BuildingNumber);
+            DistanceKeeping = other.DistanceKeeping;
+            ReverseParking = other.ReverseParking;
+            MirrorsCheck = other.MirrorsCheck;
+            Signals = other.Signals;
+            CorrectSpeed = other.CorrectSpeed;
+            IsPassed = other.IsPassed;
+            TesterNotes = other.TesterNotes;
+            IsTesterUpdateStatus = other.IsTesterUpdateStatus;
         }
         public Test(Test other)
         {
-            exTrainee = other.ExTrainee;
-            exTester = other.ExTester;
-            dateOfTest = other.DateOfTest;
-            hourOfTest = other.HourOfTest;
-            carType = other.CarType;
-            startTestAddress = new Address(other.StartTestAddress.City, other.StartTestAddress.Street, other.StartTestAddress.BuildingNumber);
-            distanceKeeping = other.DistanceKeeping;
-            reverseParking = other.ReverseParking;
-            mirrorsCheck = other.MirrorsCheck;
-            signals = other.Signals;
-            correctSpeed = other.CorrectSpeed;
-            isPassed = other.IsPassed;
-            testerNotes = other.TesterNotes;
-            isTesterUpdateStatus = other.isTesterUpdateStatus;
+            ExTrainee = other.ExTrainee;
+            ExTester = other.ExTester;
+            DateOfTest = other.DateOfTest;
+            HourOfTest = other.HourOfTest;
+            CarType = other.CarType;
+            StartTestAddress = new Address(other.StartTestAddress.City, other.StartTestAddress.Street, other.StartTestAddress.BuildingNumber);
+            DistanceKeeping = other.DistanceKeeping;
+            ReverseParking = other.ReverseParking;
+            MirrorsCheck = other.MirrorsCheck;
+            Signals = other.Signals;
+            CorrectSpeed = other.CorrectSpeed;
+            IsPassed = other.IsPassed;
+            TesterNotes = other.TesterNotes;
+            IsTesterUpdateStatus = other.isTesterUpdateStatus;
+        }
+
+        public void UpdateTestDeteils(TestResult other)
+        {
+            DistanceKeeping = other.DistanceKeeping;
+            ReverseParking = other.ReverseParking;
+            MirrorsCheck = other.MirrorsCheck;
+            Signals = other.Signals;
+            CorrectSpeed = other.CorrectSpeed;
+            IsPassed = other.IsPassed;
+            TesterNotes = other.TesterNotes;
+            IsTesterUpdateStatus = true;
         }
         public Test() { }
 
@@ -66,13 +73,6 @@ namespace BO
         public int HourOfTest { get => hourOfTest; set => hourOfTest = value; }
         public CarTypeEnum CarType { get => carType; set => carType = value; }
         public Address StartTestAddress { get => startTestAddress; set => startTestAddress = value; }
-        public bool DistanceKeeping { get => distanceKeeping; set => distanceKeeping = value; }
-        public bool ReverseParking { get => reverseParking; set => reverseParking = value; }
-        public bool MirrorsCheck { get => mirrorsCheck; set => mirrorsCheck = value; }
-        public bool Signals { get => signals; set => signals = value; }
-        public bool CorrectSpeed { get => correctSpeed; set => correctSpeed = value; }
-        public bool IsPassed { get => isPassed; set => isPassed = value; }
-        public string TesterNotes { get => testerNotes; set => testerNotes = value; }
         public bool IsTesterUpdateStatus { get => isTesterUpdateStatus; set => isTesterUpdateStatus = value; }
         public string TestId { get => testId; set => testId = value; }
     }

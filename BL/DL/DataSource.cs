@@ -46,6 +46,44 @@ namespace DL
         /// <returns></returns>
         public static DateSource GetDSObject()
         {
+            //*********************************************************************
+            Tester tester = new Tester("111111111");
+            tester.FirstName = "avraham";
+            tester.DateOfBirth = new DateTime(1970, 01, 01);
+            tester.MaxTestsPerWeek = 2;
+            tester.TypeCarToTest = CarTypeEnum.MotorCycle;
+            tester.MaxDistance = 50;
+            for (int i = 0; i < 5; ++i)
+                for (int j = 0; j < 6; ++j)
+                    tester.AvailableWorkTime[i, j] = true;
+            Tester tester1 = new Tester("222222222");
+            tester1.FirstName = "yitzhak";
+            tester1.DateOfBirth = new DateTime(1970, 01, 01);
+            tester1.MaxTestsPerWeek = 2;
+            tester1.TypeCarToTest = CarTypeEnum.MotorCycle;
+            tester1.MaxDistance = 50;
+            for (int i = 0; i < 5; ++i)
+                for (int j = 0; j < 6; ++j)
+                    tester1.AvailableWorkTime[i, j] = true;
+            Tester tester2 = new Tester("333333333");
+            tester2.FirstName = "yaakov";
+            tester2.DateOfBirth = new DateTime(1970, 01, 01);
+            tester2.MaxTestsPerWeek = 2;
+            tester2.TypeCarToTest = CarTypeEnum.MotorCycle;
+            tester2.MaxDistance = 50;
+            for (int i = 0; i < 5; ++i)
+                for (int j = 0; j < 6; ++j)
+                    tester.AvailableWorkTime[i, j] = true;
+            testers.Add(tester);
+            testers.Add(tester1);
+            testers.Add(tester2);
+
+            Trainee trainee = new Trainee("444444444");
+            trainee.FirstName = "moshe";
+            trainee.DateOfBirth = new DateTime(1990, 01, 01);
+            trainee.CurrCarType = CarTypeEnum.MotorCycle;
+            trainees.Add(trainee);
+            //************************************************************************
             if (data == null)
             {
                 data = new DateSource();

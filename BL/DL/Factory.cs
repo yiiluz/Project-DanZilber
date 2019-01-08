@@ -8,7 +8,7 @@ namespace DL
 {
     public class Factory
     {
-        private static IDAL dlWithLists = DLObject.GetDLObject();
+        private static IDAL dlWithLists;
 
         /// <summary>
         /// Factory class to get specific type of data layer object.
@@ -18,6 +18,8 @@ namespace DL
         /// <returns></returns>
         public static IDAL GetDLObj(string type)
         {
+            if (dlWithLists == null)
+                dlWithLists = DLObject.GetDLObject();
             if (type == "lists") //DataSource
                 return dlWithLists;
             throw new NotImplementedException("there is no such type of dl");
