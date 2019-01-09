@@ -122,7 +122,7 @@ namespace UIWpf
         }
         private void Button_Click_GetTestersListByDate(object sender, RoutedEventArgs e)
         {
-            //
+            
             if (
                 (TxtBx_HourByDate.Text.All(char.IsDigit) && (int.Parse(TxtBx_HourByDate.Text) < 15 && (int.Parse(TxtBx_HourByDate.Text)) >= 9)) &&
                 (TxtBx_BuildNum.Text.All(char.IsDigit) && (TxtBx_BuildNum.Text.Length != 0)) &&
