@@ -25,6 +25,24 @@ namespace BO
                 for (int j = 0; j < 6; ++j)
                     AvailiableWorkTime[i, j] = false;
         }
+        private void Days(int day,string t)
+        {
+            switch (day)
+            {
+                case 0: t += "SunDay: ";
+                    break;
+                case 1: t += "Monday: ";
+                    break;
+                case 2: t += "Tuesday: ";
+                    break;
+                case 3: t += "Wednesday: ";
+                    break;
+                case 4: t += "Thursday: ";
+                    break;
+                default:
+                    break;                   
+            }
+        }
         //public Tester(DO.Tester other) : base(other.Id)
         //{
         //    LastName = other.LastName;
@@ -163,7 +181,35 @@ namespace BO
         {
             string tmp = "Tester name: " + FirstName + " " + LastName + ".\nID: " + Id + ".\nGender: " + Gender + ".\nDate Of Birth: " + DateOfBirth.ToShortDateString() +
                 ".\nPhone number: " + PhoneNumber + ".\nAddress: " + Address + "Seniority: " + Seniority + ".\nType of car: " + TypeCarToTest +
-                ".\nMax tests per week: " + MaxTestsPerWeek + ".\nMax distance for test: " + MaxDistance + ".\n";
+                ".\nMax tests per week: " + MaxTestsPerWeek + ".\nMax distance for test: " + MaxDistance + ".\nDays and working hours:\n";
+            for (int i= 0; i <5; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        tmp += "SunDay: ";
+                        break;
+                    case 1:
+                        tmp += "Monday: ";
+                        break;
+                    case 2:
+                        tmp += "Tuesday: ";
+                        break;
+                    case 3:
+                        tmp += "Wednesday: ";
+                        break;
+                    case 4:tmp += "Thursday: ";
+                        break;
+                    default:
+                        break;
+                }
+                for (int j= 0; j < 6; j++)
+                {
+                    if (availableWorkTime[i, j]) { int x = j + 9; tmp +=x +"  "; }
+                   
+                }
+                tmp += "\n";
+            }
             return tmp;
         }
     }
