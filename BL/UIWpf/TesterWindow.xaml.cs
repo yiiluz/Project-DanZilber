@@ -30,11 +30,16 @@ namespace UIWpf
             CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
             CombBx_TypeCarToTest.SelectedItem = BO.CarTypeEnum.MotorCycle;
             CombBx_Gender.SelectedItem = BO.GenderEnum.Male;
+            foreach (var item in HoursWork.Children.OfType<CheckBox>())
+            {
+                int row = Grid.GetRow(item);
+                int column = Grid.GetColumn(item);
+                item.IsChecked = tester.AvailiableWorkTime[row, column];
+            }
         }
-       
         private void AddHours(Tester t)
         {
-            
+
         }
         public TesterWindow(Tester t)
         {
@@ -46,41 +51,16 @@ namespace UIWpf
             Button_OK.Content = "Update";
             CombBx_TypeCarToTest.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
             CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
-            a9.DataContext = tester.AvailableWorkTime[0, 0];
-            a10.DataContext = tester.AvailableWorkTime[0, 1];
-            a11.DataContext = tester.AvailableWorkTime[0, 2];
-            a12.DataContext = tester.AvailableWorkTime[0, 3];
-            a13.DataContext = tester.AvailableWorkTime[0, 4];
-            a14.DataContext = tester.AvailableWorkTime[0, 5];
-            b9.DataContext = tester.AvailableWorkTime[1, 0];
-            b10.DataContext = tester.AvailableWorkTime[1, 1];
-            b11.DataContext = tester.AvailableWorkTime[1, 2];
-            b12.DataContext = tester.AvailableWorkTime[1, 3];
-            b13.DataContext = tester.AvailableWorkTime[1, 4];
-            b14.DataContext = tester.AvailableWorkTime[1, 5];
-            c9.DataContext = tester.AvailableWorkTime[2, 0];
-            c10.DataContext = tester.AvailableWorkTime[2, 1];
-            c11.DataContext = tester.AvailableWorkTime[2, 2];
-            c12.DataContext = tester.AvailableWorkTime[2, 3];
-            c13.DataContext = tester.AvailableWorkTime[2, 4];
-            c14.DataContext = tester.AvailableWorkTime[2, 5];
-            d9.DataContext = tester.AvailableWorkTime[3, 0];
-            d10.DataContext = tester.AvailableWorkTime[3, 1];
-            d11.DataContext = tester.AvailableWorkTime[3, 2];
-            d12.DataContext = tester.AvailableWorkTime[3, 3];
-            d13.DataContext = tester.AvailableWorkTime[3, 4];
-            d14.DataContext = tester.AvailableWorkTime[3, 5];
-            e9.DataContext = tester.AvailableWorkTime[4, 0];
-            e10.DataContext = tester.AvailableWorkTime[4, 1];
-            e11.DataContext = tester.AvailableWorkTime[4, 2];
-            e12.DataContext = tester.AvailableWorkTime[4, 3];
-            e13.DataContext = tester.AvailableWorkTime[4, 4];
-            e14.DataContext = tester.AvailableWorkTime[4, 5];
+            foreach (var item in HoursWork.Children.OfType<CheckBox>())
+            {
+                int row = Grid.GetRow(item);
+                int column = Grid.GetColumn(item);
+                item.IsChecked = tester.AvailiableWorkTime[row, column];
+            }
         }
-        
+
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
-            int num;
             double maxD;
             if (
                 (!TxtBx_ID.Text.All(char.IsDigit) || (TxtBx_ID.Text.Length != 9)) ||
@@ -97,11 +77,18 @@ namespace UIWpf
                 MessageBox.Show("You must fill all fields as needed.", "Can't " + operation, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            foreach (var item in HoursWork.Children.OfType<CheckBox>())
+            {
+                int row = Grid.GetRow(item);
+                int column = Grid.GetColumn(item);
+                tester.AvailiableWorkTime[row, column] = (bool)item.IsChecked;
+            }
             switch (operation)
             {
                 case "Add":
-                    Tester testerToAdd = new Tester(TxtBx_ID.Text, tester);
                     
+                    Tester testerToAdd = new Tester(TxtBx_ID.Text, tester);
+
                     try
                     {
                         MainWindow.bl.AddTester(testerToAdd);

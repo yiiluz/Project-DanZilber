@@ -13,6 +13,7 @@ namespace BL
         /// static variable of DL
         /// </summary>
         private static IDAL instance = null;
+        private AllConfiguretion allConfiguretion; 
         /// <summary>
         /// default ctor. initialize the instance of DL
         /// </summary>
@@ -21,6 +22,7 @@ namespace BL
             try
             {
                 instance = DL.Factory.GetDLObj("lists");
+                allConfiguretion =  AllConfiguretion.ConfigurationFactory();
             }
             catch (NotImplementedException e)
             {
@@ -37,13 +39,9 @@ namespace BL
             int minAge, maxAge;
             try
             {
-                minAge = (int)instance.GetConfig("Tester minimum age");
-                maxAge = (int)instance.GetConfig("Tester maximum age");
-            }
-            catch (AccessViolationException e)
-            {
-                throw e;
-            }
+                minAge = (int)allConfiguretion.GetConfiguretion("Tester minimum age");
+                maxAge = (int)allConfiguretion.GetConfiguretion("Tester maximum age");
+            }          
             catch (KeyNotFoundException e)
             {
                 throw e;
@@ -104,13 +102,9 @@ namespace BL
                 int minAge, maxAge;
                 try
                 {
-                    minAge = (int)instance.GetConfig("Tester minimum age");
-                    maxAge = (int)instance.GetConfig("Tester maximum age");
-                }
-                catch (AccessViolationException e)
-                {
-                    throw e;
-                }
+                    minAge = (int)allConfiguretion.GetConfiguretion("Tester minimum age");
+                    maxAge = (int)allConfiguretion.GetConfiguretion("Tester maximum age");
+                }               
                 catch (KeyNotFoundException e)
                 {
                     throw e;
@@ -141,12 +135,8 @@ namespace BL
             int minAge;
             try
             {
-                minAge = (int)instance.GetConfig("Trainee minimum age");
-            }
-            catch (AccessViolationException e)
-            {
-                throw e;
-            }
+                minAge = (int)allConfiguretion.GetConfiguretion("Trainee minimum age");
+            }           
             catch (KeyNotFoundException e)
             {
                 throw e;
@@ -208,12 +198,8 @@ namespace BL
                 int minAge;
                 try
                 {
-                    minAge = (int)instance.GetConfig("Trainee minimum age");
-                }
-                catch (AccessViolationException e)
-                {
-                    throw e;
-                }
+                    minAge = (int)allConfiguretion.GetConfiguretion("Trainee minimum age");
+                }               
                 catch (KeyNotFoundException e)
                 {
                     throw e;
@@ -267,12 +253,8 @@ namespace BL
                     int minDaysBetweenTests = -1;
                     try
                     {
-                        minDaysBetweenTests = (int)instance.GetConfig("Minimum days between tests");
-                    }
-                    catch (AccessViolationException e)
-                    {
-                        errors += (e.Message + "\n");
-                    }
+                        minDaysBetweenTests = (int)allConfiguretion.GetConfiguretion("Minimum days between tests");
+                    }                  
                     catch (KeyNotFoundException e)
                     {
                         errors += (e.Message + "\n");
@@ -295,12 +277,8 @@ namespace BL
                 int minLesson = -1;
                 try
                 {
-                    minLesson = (int)instance.GetConfig("Minimum lessons");
-                }
-                catch (AccessViolationException e)
-                {
-                    errors += (e.Message + "\n");
-                }
+                    minLesson = (int)allConfiguretion.GetConfiguretion("Minimum lessons");
+                }              
                 catch (KeyNotFoundException e)
                 {
                     errors += (e.Message + "\n");
@@ -321,7 +299,7 @@ namespace BL
                     int serial = -1;
                     try
                     {
-                        serial = (int)instance.GetConfig("Serial Number Test"); //get the serial number of the test
+                        serial = (int)allConfiguretion.GetConfiguretion("Serial Number Test"); //get the serial number of the test
                     }
                     catch (AccessViolationException e)
                     {

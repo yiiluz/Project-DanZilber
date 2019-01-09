@@ -118,53 +118,60 @@
         <ComboBox x:Name="CombBx_Gender" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" SelectedValue="{Binding Path=Gender}"/>
         <Button x:Name="Button_OK" Content="Add" Grid.Column="1" Grid.Row="19" Grid.ColumnSpan="3" Margin="2" Click="Button_Click_Add"/>
         <Button Content="Cancel" Grid.Column="0" Grid.Row="19" Margin="1.8,0,2.4,1.8" Height="30" VerticalAlignment="Bottom" Click="Button_Click_Cancel"/>
-        <Label x:Name="label" Content="Enter the days and hours of work the Tester wants to work on:" Grid.Row="12" Grid.ColumnSpan="3" HorizontalContentAlignment="Stretch"/>
-        <StackPanel x:Name="hourswork" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="4" Grid.Row="13" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-            <StackPanel x:Name="Sunday" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                <Label x:Name="day1" FontSize="12" VerticalAlignment="Top" Content="Sunday:   "/>
-                <CheckBox x:Name="a9" VerticalAlignment="Center" FontSize="12" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}" Content=" 9:00   "/>
-                <CheckBox x:Name="a10" VerticalAlignment="Center" FontSize="12" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  Content="10:00   "/>
-                <CheckBox x:Name="a11" VerticalAlignment="Center" FontSize="12" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  Content="11:00   "/>
-                <CheckBox x:Name="a12" VerticalAlignment="Center" FontSize="12" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  Content="12:00   "/>
-                <CheckBox x:Name="a13" VerticalAlignment="Center" FontSize="12" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  Content="13:00   "/>
-                <CheckBox x:Name="a14" VerticalAlignment="Center" FontSize="12" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  Content="14:00   "/>
-            </StackPanel>
-            <StackPanel x:Name="Monday" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch" >
-                <Label x:Name="day2" FontSize="12" VerticalAlignment="Top" Content="Monday:   "/>
-                <CheckBox  x:Name="b9" VerticalAlignment="Center" FontSize="12" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"   Content="9:00   "/>
-                <CheckBox x:Name="b10" VerticalAlignment="Center" FontSize="12" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  Content="10:00   "/>
-                <CheckBox  x:Name="b11" VerticalAlignment="Center" FontSize="12" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  Content="11:00   "/>
-                <CheckBox  x:Name="b12"  VerticalAlignment="Center" FontSize="12" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  Content="12:00   "/>
-                <CheckBox x:Name="b13"  VerticalAlignment="Center" FontSize="12" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}" Content="13:00   "/>
-                <CheckBox x:Name="b14"  VerticalAlignment="Center" FontSize="12" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  Content="14:00   "/>
-            </StackPanel>
-            <StackPanel x:Name="Tuesday" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch" >
-                <Label x:Name="day3" FontSize="12" VerticalAlignment="Top" Content="Tuesday:  "/>
-                <CheckBox x:Name="c9"  VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="9:00    "/>
-                <CheckBox x:Name="c10" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="10:00   "/>
-                <CheckBox x:Name="c11" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="11:00   "/>
-                <CheckBox x:Name="c12" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="12:00   "/>
-                <CheckBox x:Name="c13" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="13:00   "/>
-                <CheckBox x:Name="c14" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="14:00   "/>
-            </StackPanel>
-            <StackPanel x:Name="Wednesday" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch" >
-                <Label x:Name="day4" FontSize="12" VerticalAlignment="Top" Content="Wednesday:"/>
-                <CheckBox x:Name="d9" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="9:00    "/>
-                <CheckBox x:Name="d10" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="10:00   "/>
-                <CheckBox x:Name="d11" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="11:00   "/>
-                <CheckBox x:Name="d12" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="12:00   "/>
-                <CheckBox x:Name="d13" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="13:00   "/>
-                <CheckBox x:Name="d14" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="14:00   "/>
-            </StackPanel>
-            <StackPanel x:Name="Thursday" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch" >
-                <Label x:Name="day5" FontSize="12" VerticalAlignment="top" Content="Thursday: "/>
-                <CheckBox x:Name="e9" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="9:00    "/>
-                <CheckBox x:Name="e10" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="10:00   "/>
-                <CheckBox x:Name="e11" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="11:00   "/>
-                <CheckBox x:Name="e12" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="12:00   "/>
-                <CheckBox x:Name="e13" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="13:00   "/>
-                <CheckBox x:Name="e14" VerticalAlignment="Center" IsChecked="{Binding Path=AvailableWorkTime ,Mode=TwoWay}"  FontSize="12" Content="14:00   "/>
-            </StackPanel>
-        </StackPanel>
+        <Label x:Name="label" Content="Enter the days and hours of work the Tester wants to work on:" Grid.Row="12" Grid.ColumnSpan="6" HorizontalContentAlignment="Stretch"/>
+        <Label x:Name="Sunday" Content="Sunday: " Grid.Row="13" Grid.Column="0"/>
+        <Label x:Name="Monday" Content="Monday:" Grid.Row="14" Grid.Column="0"/>
+        <Label x:Name="Tuesday" Content="Tuesday :" Grid.Row="15" Grid.Column="0"/>
+        <Label x:Name="Wednesday" Content="Wednesday: " Grid.Row="16" Grid.Column="0"/>
+        <Label x:Name="Thursday" Content="Thursday: " Grid.Row="17" Grid.Column="0"/>
+        <Grid x:Name="HoursWork" Grid.Column="1" Grid.Row="13" Grid.ColumnSpan="6"  Grid.RowSpan="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox Grid.Column="0" Grid.Row="0" Content="9:00"  FontSize="10" />
+            <CheckBox Grid.Column="0" Grid.Row="1" Content="9:00"  FontSize="10" />
+            <CheckBox Grid.Column="0" Grid.Row="2" Content="9:00"  FontSize="10" />
+            <CheckBox Grid.Column="0" Grid.Row="3" Content="9:00"  FontSize="10" />
+            <CheckBox Grid.Column="0" Grid.Row="4" Content="9:00"  FontSize="10" />
+            <CheckBox Grid.Column="1" Grid.Row="0" Content="10:00" FontSize="10" />
+            <CheckBox Grid.Column="1" Grid.Row="1" Content="10:00" FontSize="10" />
+            <CheckBox Grid.Column="1" Grid.Row="2" Content="10:00" FontSize="10" />
+            <CheckBox Grid.Column="1" Grid.Row="3" Content="10:00" FontSize="10" />
+            <CheckBox Grid.Column="1" Grid.Row="4" Content="10:00" FontSize="10" />
+            <CheckBox Grid.Column="2" Grid.Row="0" Content="11:00" FontSize="10" />
+            <CheckBox Grid.Column="2" Grid.Row="1" Content="11:00" FontSize="10" />
+            <CheckBox Grid.Column="2" Grid.Row="2" Content="11:00" FontSize="10" />
+            <CheckBox Grid.Column="2" Grid.Row="3" Content="11:00" FontSize="10" />
+            <CheckBox Grid.Column="2" Grid.Row="4" Content="11:00" FontSize="10" />
+            <CheckBox Grid.Column="3" Grid.Row="0" Content="12:00" FontSize="10" />
+            <CheckBox Grid.Column="3" Grid.Row="1" Content="12:00" FontSize="10" />
+            <CheckBox Grid.Column="3" Grid.Row="2" Content="12:00" FontSize="10" />
+            <CheckBox Grid.Column="3" Grid.Row="3" Content="12:00" FontSize="10" />
+            <CheckBox Grid.Column="3" Grid.Row="4" Content="12:00" FontSize="10" />
+            <CheckBox Grid.Column="4" Grid.Row="0" Content="13:00" FontSize="10" />
+            <CheckBox Grid.Column="4" Grid.Row="1" Content="13:00" FontSize="10" />
+            <CheckBox Grid.Column="4" Grid.Row="2" Content="13:00" FontSize="10" />
+            <CheckBox Grid.Column="4" Grid.Row="3" Content="13:00" FontSize="10" />
+            <CheckBox Grid.Column="4" Grid.Row="4" Content="13:00" FontSize="10" />
+            <CheckBox Grid.Column="5" Grid.Row="0" Content="14:00" FontSize="10" />
+            <CheckBox Grid.Column="5" Grid.Row="1" Content="14:00" FontSize="10" />
+            <CheckBox Grid.Column="5" Grid.Row="2" Content="14:00" FontSize="10" />
+            <CheckBox Grid.Column="5" Grid.Row="3" Content="14:00" FontSize="10" />
+            <CheckBox Grid.Column="5" Grid.Row="4" Content="14:00" FontSize="10" />
+        </Grid>
+
+
     </Grid>
 </Window>
