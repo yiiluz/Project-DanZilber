@@ -11,19 +11,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BO;
 
 namespace UIWpf
 {
     /// <summary>
     /// Interaction logic for AdminWindow.xaml
     /// </summary>
-    public partial class TesterWindow : Window
+    public partial class AdminWindow : Window
     {
-        Tester tester;
-        public TesterWindow(Tester tester)
+        public AdminWindow()
         {
-            this.tester = tester;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
         }
@@ -45,6 +42,20 @@ namespace UIWpf
         {
             this.BackImage.Height -= 5;
             this.BackImage.Width -= 5;
+        }
+
+        private void Button_Tester_Click(object sender, RoutedEventArgs e)
+        {
+            AdminTesterWindow adminTesterWindow = new AdminTesterWindow();
+            adminTesterWindow.Show();
+            this.Close();
+        }
+
+        private void Button_Trainee_Click(object sender, RoutedEventArgs e)
+        {
+            AdminTraineeWindow adminTraineeWindow = new AdminTraineeWindow();
+            adminTraineeWindow.Show();
+            this.Close();
         }
     }
 }

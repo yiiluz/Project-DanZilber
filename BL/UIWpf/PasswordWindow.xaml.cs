@@ -15,34 +15,32 @@ using System.Windows.Shapes;
 namespace UIWpf
 {
     /// <summary>
-    /// Interaction logic for GetSerialWindow.xaml
+    /// Interaction logic for PasswordWindow.xaml
     /// </summary>
-    public partial class GetSerialWindow : Window
+    public partial class PasswordWindow : Window
     {
-        private bool isClosedByButton = false;
-        public bool IsClosedByButton { get => isClosedByButton; }
-        public GetSerialWindow()
+        private string password = "Project5779";
+        private MainWindow main;
+        public PasswordWindow(MainWindow main)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            this.main = main;
             InitializeComponent();
-        }
 
-        private void TxtBx_ID_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (TxtBx_Serial.Background != Brushes.White)
-                TxtBx_Serial.Background = Brushes.White;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (TxtBx_Serial.Text.Length != TxtBx_Serial.MaxLength)
-                TxtBx_Serial.Background = Brushes.Red;
-            else if (!TxtBx_Serial.Text.All(char.IsDigit))
-                TxtBx_Serial.Background = Brushes.Red;
+            if (passwordBox.Password == password)
+            {
+                AdminWindow adminWindow = new AdminWindow();
+                adminWindow.Show();
+                main.Close();
+                Close();
+            }
             else
             {
-                isClosedByButton = true;
-                Close();
+                MessageBox.Show("Wrong Password! Try agein", "Security Alarm", MessageBoxButton.OK, MessageBoxImage.Stop);
             }
         }
 
@@ -58,15 +56,14 @@ namespace UIWpf
 
         private void Image_MouseEnter(object sender, MouseEventArgs e)
         {
-            CarImage.Height *= 1.05;
-            CarImage.Width *=  1.05;
+            LockImage.Height += 15;
+            LockImage.Width += 15;
         }
 
         private void Image_MouseLeave(object sender, MouseEventArgs e)
         {
-            CarImage.Height /= 1.05;
-            CarImage.Width /= 1.05;
+            LockImage.Height -= 15;
+            LockImage.Width -= 15;
         }
     }
 }
-

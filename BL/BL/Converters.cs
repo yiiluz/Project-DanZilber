@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class CreateDOFromBO
+    public class Converters
     {
+        static IBL bl = BL.Factory.GetBLObj();
         public static DO.Tester CreateDOTester(BO.Tester other)
         {
             DO.Tester tester = new DO.Tester(other.Id);
@@ -21,7 +22,6 @@ namespace BO
             tester.MaxDistance = other.MaxDistance;
             tester.MaxTestsPerWeek = other.MaxTestsPerWeek;
             tester.TypeCarToTest = (DO.CarTypeEnum)other.TypeCarToTest;
-            tester.AvailableWorkTime = other.AvailiableWorkTime;
             return tester;
         }
         public static DO.Trainee CreateDoTrainee(BO.Trainee other)
@@ -35,14 +35,10 @@ namespace BO
             trainee.Gender = (DO.GenderEnum)other.Gender;
             trainee.Address = new DO.Address(other.Address.City, other.Address.Street, other.Address.BuildingNumber);
             trainee.DateOfBirth = other.DateOfBirth;
-            trainee.LastTest = new DateTime(other.LastTest.Ticks);
             trainee.CurrCarType = (DO.CarTypeEnum)other.CurrCarType;
             trainee.NumOfFinishedLessons = other.NumOfFinishedLessons;
             trainee.NumOfTests = other.NumOfTests;
             trainee.IsAlreadyDidTest = other.IsAlreadyDidTest;
-            trainee.ExistingLicenses = new List<DO.CarTypeEnum>();
-            foreach (var item in other.ExistingLicenses)
-                trainee.ExistingLicenses.Add((DO.CarTypeEnum)item);
             return trainee;
         }
         public static DO.Test CreateDOTest(BO.Test other, string id)
@@ -77,13 +73,11 @@ namespace BO
             temp.MaxDistance = other.MaxDistance;
             temp.MaxTestsPerWeek = other.MaxTestsPerWeek;
             temp.TypeCarToTest = (CarTypeEnum)other.TypeCarToTest;
-            temp.AvailiableWorkTime = other.AvailableWorkTime;
-            //foreach (var item in other.TestList)
-            //    TestList.Add(new TesterTest(item));
             return temp;
         }
         public static BO.Trainee CreateBOTrainee(DO.Trainee other)
         {
+            
             Trainee temp = new Trainee(other.Id);
             temp.LastName = other.LastName;
             temp.FirstName = other.FirstName;
@@ -93,14 +87,18 @@ namespace BO
             temp.Gender = (GenderEnum)other.Gender;
             temp.Address = new Address(other.Address.City, other.Address.Street, other.Address.BuildingNumber);
             temp.DateOfBirth = other.DateOfBirth;
-            temp.LastTest = new DateTime(other.LastTest.Ticks);
             temp.CurrCarType = (CarTypeEnum)other.CurrCarType;
             temp.NumOfFinishedLessons = other.NumOfFinishedLessons;
             temp.NumOfTests = other.NumOfTests;
             temp.IsAlreadyDidTest = other.IsAlreadyDidTest;
             temp.ExistingLicenses = new List<CarTypeEnum>();
-            foreach (var item in other.ExistingLicenses)
-                temp.ExistingLicenses.Add((CarTypeEnum)item);
+            foreach (var item in bl.GetTestsPartialListByPredicate(x => x.TraineeId == temp.Id))
+            {
+                if (item.DateOfTest > temp.LastTest)
+                    temp.LastTest = item.DateOfTest;
+                if (item.IsPassed)
+                    temp.ExistingLicenses.Add((CarTypeEnum)item.CarType);
+            }
             return temp;
         }
     }

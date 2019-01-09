@@ -57,7 +57,8 @@ namespace BL
             {
                 try
                 {
-                    instance.AddTester(CreateDOFromBO.CreateDOTester(t));
+                    instance.AddTester(Converters.CreateDOTester(t));
+                    instance.AddTesterSchedule(t.Id, t.AvailiableWorkTime);
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -71,12 +72,22 @@ namespace BL
         /// <param name="tester id"></param>
         public void RemoveTester(string id)
         {
-            bool exist = GetTestersList().Exists(x => x.Id == id);
+            bool exist;
+            try
+            {
+                exist = GetTestersList().Exists(x => x.Id == id);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException("Internal Error. Can't Remove tester with id " + id + ex.Message);
+            }
             if (!exist)
             {
                 throw new KeyNotFoundException("Can't remove this tester becauze he is not on the system.");
             }
-            else try
+            else
+            {
+                try
                 {
                     instance.RemoveTester(id);
                     foreach (var item in GetTestsList())
@@ -84,11 +95,13 @@ namespace BL
                         if (item.ExTester.Id == id)
                             RemoveTest(item.TestId);
                     }
+                    instance.RemoveTesterSchedule(id);
                 }
                 catch (KeyNotFoundException e)
                 {
                     throw e;
                 }
+            }
         }
         /// <summary>
         /// Update tester
@@ -96,7 +109,15 @@ namespace BL
         /// <param name="tester"></param>
         public void UpdateTesterDetails(Tester t)
         {
-            bool exist = GetTestersList().Exists(x => x.Id == t.Id);
+            bool exist;
+            try
+            {
+                exist = GetTestersList().Exists(x => x.Id == t.Id);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException("Internal Error. Can't Update tester Deteails with id " + t.Id + ex.Message);
+            }
             if (!exist)
                 throw new KeyNotFoundException("Can't update this tester becauze he is not on the system.");
             else
@@ -122,7 +143,8 @@ namespace BL
                 }
                 try
                 {
-                    instance.UpdateTesterDetails(CreateDOFromBO.CreateDOTester(t));
+                    instance.UpdateTesterDetails(Converters.CreateDOTester(t));
+                    instance.UpdateTesterSchedule(t.Id, t.AvailiableWorkTime);
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -158,7 +180,7 @@ namespace BL
             }
             else try
                 {
-                    instance.AddTrainee(CreateDOFromBO.CreateDoTrainee(t));
+                    instance.AddTrainee(Converters.CreateDoTrainee(t));
                 }
                 catch (DuplicateWaitObjectException e)
                 {
@@ -225,7 +247,7 @@ namespace BL
                 }
                 try
                 {
-                    instance.UpdateTraineeDetails(CreateDOFromBO.CreateDoTrainee(t));
+                    instance.UpdateTraineeDetails(Converters.CreateDoTrainee(t));
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -242,10 +264,18 @@ namespace BL
         {
             t.IsTesterUpdateStatus = false;
             string testId = "";
+            string errors = "ERROR!\n";
             //check if trainee & tester already on system.
             bool traineeExist = GetTraineeList().Exists(x => x.Id == t.ExTrainee.Id);
-            bool testerExist = GetTestersList().Exists(x => x.Id == t.ExTester.Id);
-            string errors = "ERROR!\n";
+            bool testerExist = false;
+            try
+            {
+                testerExist = GetTestersList().Exists(x => x.Id == t.ExTester.Id);
+            }
+            catch(KeyNotFoundException ex)
+            {
+                errors += ex.Message;
+            }
             if (!testerExist || !traineeExist)
             {
                 if (!traineeExist)
@@ -260,8 +290,6 @@ namespace BL
                 //get the trainee and tester objects
                 Trainee trainee = GetTraineeByID(t.ExTrainee.Id);
                 Tester tester = GetTesterByID(t.ExTester.Id);
-                //if (!tester.IsAvailiableOnDate(t.DateOfTest, t.HourOfTest))
-                //    errors += "Tester is not availiable for this specific date and hour.\n";
                 if (trainee.IsAlreadyDidTest)
                 {
                     int minDaysBetweenTests = -1;
@@ -353,7 +381,7 @@ namespace BL
 
                             try
                             {
-                                instance.AddTest(CreateDOFromBO.CreateDOTest(t, Convert.ToString(serial))); //add the test
+                                instance.AddTest(Converters.CreateDOTest(t, Convert.ToString(serial))); //add the test
                                 testId = serial.ToString();
                             }
                             catch (DuplicateWaitObjectException e)
@@ -467,7 +495,7 @@ namespace BL
             test.UpdateTestDeteils(t);
             try
             {
-                instance.UpdateTest(CreateDOFromBO.CreateDOTest(test, id));
+                instance.UpdateTest(Converters.CreateDOTest(test, id));
             }
             catch (KeyNotFoundException e)
             {
@@ -482,7 +510,18 @@ namespace BL
         {
             List<Tester> lst = new List<Tester>();
             foreach (var item in instance.GetTestersList())
-                lst.Add(CreateDOFromBO.GetBOTester(item));
+            {
+                Tester temp = Converters.GetBOTester(item);
+                try
+                {
+                    temp.AvailiableWorkTime = instance.GetTesterSchedule(temp.Id);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    throw new KeyNotFoundException("Internal Error. Can't import Testers list. " + ex.Message);
+                }
+                lst.Add(temp);
+            }
             //var lst = from item in instance.GetTestersList() select CreateDOFromBO.GetBOTester(item);
             foreach (var x in lst)
             {
@@ -499,7 +538,7 @@ namespace BL
         {
             List<Trainee> lst = new List<Trainee>();
             foreach (var item in instance.GetTraineeList())
-                lst.Add(CreateDOFromBO.CreateBOTrainee(item));
+                lst.Add(Converters.CreateBOTrainee(item));
             // var lst = from item in instance.GetTraineeList() select CreateDOFromBO.CreateBOTrainee(item);
             foreach (var x in lst)
             {
@@ -552,11 +591,20 @@ namespace BL
         /// <returns></returns>
         public Tester GetTesterByID(string id)
         {
-            if (!(GetTestersList().Exists(x => x.Id == id)))
+            List<Tester> lst = null;
+            try
+            {
+                lst = GetTestersList();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException("Can't import tester with id " + id + ex.Message);
+            }
+            if (!(lst.Exists(x => x.Id == id)))
                 throw new KeyNotFoundException("Tester id not exist on system.\n");
             else
             {
-                return new Tester(GetTestersList().Find(x => x.Id == id));
+                return new Tester(lst.Find(x => x.Id == id));
             }
         }
         /// <summary>

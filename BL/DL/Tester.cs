@@ -12,7 +12,6 @@ namespace DO
         private double maxDistance;
         private int maxTestsPerWeek;
         private CarTypeEnum typeCarToTest;
-        private bool[,] availableWorkTime = new bool[5, 6];
         /// <summary>
         /// default ctor
         /// </summary>
@@ -32,13 +31,11 @@ namespace DO
             MaxDistance = other.MaxDistance;
             MaxTestsPerWeek = other.MaxTestsPerWeek;
             TypeCarToTest = other.TypeCarToTest;
-            AvailableWorkTime = other.AvailableWorkTime;
         }
         public double Seniority { get => seniority; set => seniority = value; }
         public double MaxDistance { get => maxDistance; set => maxDistance = value; }
         public int MaxTestsPerWeek { get => maxTestsPerWeek; set => maxTestsPerWeek = value; }
         public CarTypeEnum TypeCarToTest { get => typeCarToTest; set => typeCarToTest = value; }
-        public bool[,] AvailableWorkTime { get => availableWorkTime; set => availableWorkTime = value; }
 
         /// <summary>
         /// overide ToString

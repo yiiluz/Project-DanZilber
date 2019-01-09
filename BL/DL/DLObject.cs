@@ -15,80 +15,79 @@ namespace DL
             if (instance == null)
             {
                 instance = new DLObject();
-                DateSource a = DateSource.GetDSObject();
+                DataSource a = DataSource.GetDSObject();
             }
             return instance;
         }
 
         void IDAL.AddTest(Test t)
         {
-            if (DateSource.tests.Find(x => x.TestId == t.TestId) != null)
+            if (DataSource.tests.Find(x => x.TestId == t.TestId) != null)
             {
                 throw new DuplicateWaitObjectException("ERROR! The test or the test serial already exists in the system ");
             }
-            else if (DateSource.testers.Find(x => x.Id == t.TesterId) == null)
+            else if (DataSource.testers.Find(x => x.Id == t.TesterId) == null)
             {
                 throw new KeyNotFoundException("ERROR! The tester does not exist in the system ");
             }
-            else if (DateSource.trainees.Find(x => x.Id == t.TraineeId) == null)
+            else if (DataSource.trainees.Find(x => x.Id == t.TraineeId) == null)
             {
                 throw new KeyNotFoundException("ERROR! The trainee does not exist in the system ");
             }
             else
             {
-                DateSource.tests.Add(t);
+                DataSource.tests.Add(t);
             }
         }
 
         void IDAL.AddTester(Tester t)
         {
-            if (DateSource.testers.Find(x => x.Id == t.Id) != null)
+            if (DataSource.testers.Find(x => x.Id == t.Id) != null)
             {
                 throw new DuplicateWaitObjectException("This tester is already registered in the system");
             }
             else
             {
-                DateSource.testers.Add(t);
-                DateSource.Schedules.Add(t.Id, t.AvailableWorkTime);
+                DataSource.testers.Add(t);
             }
         }
 
         void IDAL.AddTrainee(Trainee t)
         {
-            if (DateSource.trainees.Find(x => x.Id == t.Id) != null)
+            if (DataSource.trainees.Find(x => x.Id == t.Id) != null)
             {
                 throw new DuplicateWaitObjectException("This trainee is already registered in the system");
             }
             else
             {
-                DateSource.trainees.Add(t);
+                DataSource.trainees.Add(t);
             }
         }
 
         List<Tester> IDAL.GetTestersList()
         {
-            List<Tester> testers2 = new List<Tester>(DateSource.testers);
+            List<Tester> testers2 = new List<Tester>(DataSource.testers);
             return testers2;
 
         }
 
         List<Test> IDAL.GetTestsList()
         {
-            List<Test> tests2 = new List<Test>(DateSource.tests);
+            List<Test> tests2 = new List<Test>(DataSource.tests);
             return tests2;
         }
 
         List<Trainee> IDAL.GetTraineeList()
         {
-            List<Trainee> trainees2 = new List<Trainee>(DateSource.trainees);
+            List<Trainee> trainees2 = new List<Trainee>(DataSource.trainees);
             return trainees2;
         }
 
         void IDAL.RemoveTester(string id)
         {
-            if (DateSource.testers.Exists(x => x.Id == id))
+            if (DataSource.testers.Exists(x => x.Id == id))
             {
-                DateSource.testers.Remove(DateSource.testers.Find(x => x.Id == id));
+                DataSource.testers.Remove(DataSource.testers.Find(x => x.Id == id));
             }
             else
             {
@@ -98,9 +97,9 @@ namespace DL
 
         void IDAL.RemoveTrainee(string id)
         {
-            if (DateSource.trainees.Find(x => x.Id == id) != null)
+            if (DataSource.trainees.Find(x => x.Id == id) != null)
             {
-                DateSource.trainees.Remove(DateSource.trainees.Find(x => x.Id == id));
+                DataSource.trainees.Remove(DataSource.trainees.Find(x => x.Id == id));
             }
             else
             {
@@ -110,10 +109,10 @@ namespace DL
 
         void IDAL.UpdateTest(Test t)
         {
-            int index = DateSource.tests.FindIndex(x => x.TestId == t.TestId);
+            int index = DataSource.tests.FindIndex(x => x.TestId == t.TestId);
             if (index > -1)
             {
-                DateSource.tests[index] = t;
+                DataSource.tests[index] = t;
             }
             else
             {
@@ -123,10 +122,10 @@ namespace DL
 
         void IDAL.UpdateTesterDetails(Tester T)
         {
-            int index = DateSource.testers.FindIndex(x => x.Id == T.Id);
+            int index = DataSource.testers.FindIndex(x => x.Id == T.Id);
             if (index > -1)
             {
-                DateSource.testers[index] = T;
+                DataSource.testers[index] = T;
             }
             else
             {
@@ -136,10 +135,10 @@ namespace DL
 
         void IDAL.UpdateTraineeDetails(Trainee T)
         {
-            int index = DateSource.trainees.FindIndex(x => x.Id == T.Id);
+            int index = DataSource.trainees.FindIndex(x => x.Id == T.Id);
             if (index > -1)
             {
-                DateSource.trainees[index] = T;
+                DataSource.trainees[index] = T;
             }
             else
             {
@@ -148,9 +147,9 @@ namespace DL
         }
         void IDAL.RemoveTest(string id)
         {
-            if (DateSource.tests.Exists(x => x.TestId == id))
+            if (DataSource.tests.Exists(x => x.TestId == id))
             {
-                DateSource.tests.Remove(DateSource.tests.Find(x => x.TestId == id));
+                DataSource.tests.Remove(DataSource.tests.Find(x => x.TestId == id));
             }
             else
             {
@@ -160,7 +159,7 @@ namespace DL
         Dictionary<string, Object> IDAL.GetConfig()
         {
             Dictionary<string, Object> keyValues = new Dictionary<string, Object>();
-            foreach (var item in DateSource.Configuration)
+            foreach (var item in DataSource.Configuration)
             {
                 if (item.Value.Readable == true)
                 {
@@ -171,7 +170,7 @@ namespace DL
         }
         void IDAL.SetConfig(string parm, Object value)
         {
-            foreach (var item in DateSource.Configuration)
+            foreach (var item in DataSource.Configuration)
             {
                 if (item.Key == parm)
                 {
@@ -186,7 +185,7 @@ namespace DL
         }
         Object IDAL.GetConfig(string s)
         {
-            foreach (var item in DateSource.Configuration)
+            foreach (var item in DataSource.Configuration)
             {
                 if (item.Key == s)
                 {
@@ -202,5 +201,53 @@ namespace DL
             }
             throw new KeyNotFoundException("ERROR! There is no configuration feature with this name");
         }
+        public bool[,] GetTesterSchedule(string id)
+        {
+            bool[,] tmp;
+            try
+            {
+                tmp = DataSource.Schedules[id];
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new KeyNotFoundException("Schedule not exist for id " + id + ".");
+            }
+            return tmp;
+        }
+        public void UpdateTesterSchedule(string id, bool[,] sched)
+        {
+            try
+            {
+                DataSource.Schedules[id] = sched;
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new KeyNotFoundException("Can't Update Schedule. Schedule not exist for id " + id + ".");
+            }
+        }
+        public void AddTesterSchedule(string id, bool[,] sched)
+        {
+            try
+            {
+                DataSource.Schedules.Add(id, sched);
+            }
+            catch (Exception)
+            {
+                throw new KeyNotFoundException("Internal error. Can't add Schedule for id " + id + ".");
+            }
+        }
+
+        public void RemoveTesterSchedule(string id)
+        {
+            try
+            {
+                DataSource.Schedules.Remove(id);
+            }
+            catch (Exception)
+            {
+                throw new KeyNotFoundException("Internal Error. Can't delete Schedule for id " + id + ".");
+            }
+        }
     }
 }
+

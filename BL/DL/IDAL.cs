@@ -23,6 +23,10 @@ namespace DL
         Dictionary<String, Object> GetConfig();
         Object GetConfig(String s);
         void SetConfig(String parm, Object value);
+        void AddTesterSchedule(string id, bool[,] sched);
+        void UpdateTesterSchedule(string id, bool[,] sched);
+        bool[,] GetTesterSchedule(string id);
+        void RemoveTesterSchedule(string id);
     }
 
 }

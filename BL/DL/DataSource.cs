@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DO;
 namespace DL
 {
-    internal class DateSource
+    internal class DataSource
     {
         /// <summary>
         /// class to represent single configuratuon parameter
@@ -17,7 +17,7 @@ namespace DL
             public bool Writable;
             public object Value;
         }
-        private static DateSource data = null;
+        private static DataSource data = null;
         internal static List<Test> tests;
         internal static List<Tester> testers;
         internal static List<Trainee> trainees;
@@ -27,7 +27,7 @@ namespace DL
         /// <summary>
         /// private default ctor
         /// </summary>
-        static DateSource()
+        static DataSource()
         {
             tests = new List<Test>();
             testers = new List<Tester>();
@@ -44,7 +44,7 @@ namespace DL
         /// Get object by singelton model
         /// </summary>
         /// <returns></returns>
-        public static DateSource GetDSObject()
+        public static DataSource GetDSObject()
         {
             //*********************************************************************
             Tester tester = new Tester("111111111");
@@ -53,31 +53,36 @@ namespace DL
             tester.MaxTestsPerWeek = 2;
             tester.TypeCarToTest = CarTypeEnum.MotorCycle;
             tester.MaxDistance = 50;
+            bool[,] tmp = new bool[5,6];
             for (int i = 0; i < 5; ++i)
                 for (int j = 5; j < 6; ++j)
-                    tester.AvailableWorkTime[i, j] = true;
+                    tmp[i, j] = true;
             Tester tester1 = new Tester("222222222");
             tester1.FirstName = "yitzhak";
             tester1.DateOfBirth = new DateTime(1970, 01, 01);
             tester1.MaxTestsPerWeek = 2;
             tester1.TypeCarToTest = CarTypeEnum.MotorCycle;
             tester1.MaxDistance = 50;
+            bool[,] tmp1 = new bool[5, 6];
             for (int i = 0; i < 5; ++i)
                 for (int j = 4; j < 6; ++j)
-                    tester1.AvailableWorkTime[i, j] = true;
+                    tmp1[i, j] = true;
             Tester tester2 = new Tester("333333333");
             tester2.FirstName = "yaakov";
             tester2.DateOfBirth = new DateTime(1970, 01, 01);
             tester2.MaxTestsPerWeek = 2;
             tester2.TypeCarToTest = CarTypeEnum.MotorCycle;
             tester2.MaxDistance = 50;
+            bool[,] tmp2 = new bool[5, 6];
             for (int i = 0; i < 5; ++i)
                 for (int j = 3; j < 6; ++j)
-                    tester2.AvailableWorkTime[i, j] = true;
+                    tmp2[i, j] = true;
             testers.Add(tester);
             testers.Add(tester1);
             testers.Add(tester2);
-
+            Schedules.Add(tester.Id, tmp);
+            Schedules.Add(tester1.Id, tmp1);
+            Schedules.Add(tester2.Id, tmp2);
             Trainee trainee = new Trainee("444444444");
             trainee.FirstName = "moshe";
             trainee.DateOfBirth = new DateTime(1990, 01, 01);
@@ -87,7 +92,7 @@ namespace DL
             //************************************************************************
             if (data == null)
             {
-                data = new DateSource();
+                data = new DataSource();
             }
             return data;
         }

@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="BLImplementation.cs" />
-    <Compile Include="CreateDOFromBo.cs" />
+    <Compile Include="Converters.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="ExternalTester.cs" />
     <Compile Include="ExternalTrainee.cs" />

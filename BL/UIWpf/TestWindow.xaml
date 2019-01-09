@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="TestWindow" Height="350" Width="500">
+        Title="TestWindow" Height="500" Width="500">
     <Window.Resources>
         <LinearGradientBrush x:Key="LableColorStyle" StartPoint="0,0.5" EndPoint="1,0.5">
             <GradientStop Offset="0" Color="WhiteSmoke"/>
@@ -82,38 +82,66 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="9*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-
             </Grid.RowDefinitions>
 
-            <Label Content="Add Trainee deteils:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalContentAlignment="Center"/>
+            <Label Content="Add Test Information:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalContentAlignment="Center"/>
             <Label Content="Enter Trainee ID" Grid.Row="1" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_ID" Grid.Column="1" Grid.Row="1" MaxLength="9" LostFocus="TxtBx_ID_LostFocus" GotFocus="TxtBx_ID_GotFocus" Text="{Binding Path=Id, Mode=OneWay}" Grid.ColumnSpan="3"/>
             <Label Content="Enter Start Test Address" Grid.Row="2" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_City" Grid.Column="1" Grid.Row="2" Text="{Binding Path=City, Mode=TwoWay}" LostFocus="TxtBx_City_LostFocus" GotFocus="TxtBx_City_GotFocus"/>
             <TextBox x:Name="TxtBx_Street" Grid.Column="2" Grid.Row="2" Text="{Binding Path=Street, Mode=TwoWay}" LostFocus="TxtBx_Street_LostFocus" GotFocus="TxtBx_Street_GotFocus"/>
             <TextBox x:Name="TxtBx_BuildNum" Grid.Column="3" Grid.Row="2" Text="{Binding Path=BuildingNumber, Mode=TwoWay}" LostFocus="TxtBx_BuildNum_LostFocus" GotFocus="TxtBx_BuildNum_GotFocus"/>
-            <Label Content="Enter Desired Test Date" Grid.Row="3" Grid.Column="0"/>
-            <DatePicker x:Name="DatePicker_DateOfTest" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" SelectedDate="{Binding Path=DateOfTest, Mode=TwoWay}" DisplayDate="{Binding Path=DateOfTest}"/>
-            <Label Content="Enter Test Hour (9-15)" Grid.Row="4" Grid.Column="0"/>
-            <Label Content="Click to Get Availiable hour" Grid.Row="5" Grid.Column="0"/>
-            <TextBox x:Name="TxtBx_Hour"  Grid.Column="1" Grid.Row="4" LostFocus="TxtBx_Hour_LostFocus" GotFocus="TxtBx_Hour_GotFocus" Text="{Binding Path=HourOfTest, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-            <Button Content="Get Availiable Hours" Margin="5" Grid.Row="5" Grid.ColumnSpan="3" Click="Button_Click_GetTestersList" Grid.Column="1"/>
-            <Label Content="Choose Test Date" Grid.Row="6" Grid.Column="0"/>
-            <ComboBox x:Name="CombBx_TestsList" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" SelectedValue="{Binding Path=Gender}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding HourOfTest, Mode=TwoWay}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+                                  
+            
 
-            <Button x:Name="Button_Add" Content="Add" Grid.Column="3" Grid.Row="7" Margin="2" Click="Button_Click_Add"/>
-            <Button Content="Cancel" Grid.Column="1" Grid.Row="7" Margin="2"  Click="Button_Click_Cancel"/>
+            <!-- tab Grid -->
+            <Grid Grid.Row="3" Grid.ColumnSpan="4">
+                <TabControl>
+                    <TabItem Header="Select By Date">
+                        <Border Padding="5">
+                        <StackPanel>
+                            <Label Content="Enter Desired Test Date"/>
+                            <DatePicker x:Name="DatePicker_DateOfTest" SelectedDate="{Binding Path=DateOfTest, Mode=TwoWay}" DisplayDate="{Binding Path=DateOfTest}"/>
+                            <Label Content="Enter Test Hour (9-15)" />
+                            <TextBox x:Name="TxtBx_HourByDate" LostFocus="TxtBx_HourByHour_LostFocus" GotFocus="TxtBx_HourByHour_GotFocus" Text="{Binding Path=HourOfTest, Mode=TwoWay}" Grid.ColumnSpan="3"/>
+                            <Label Content="Click to Get Availiable hour"/>
+                            <Button Content="Get Availiable Hours" Click="Button_Click_GetTestersListByDate"/>
+                            <Label Content="Choose Test Date"/>
+                            <ComboBox x:Name="CombBx_TestsListByDate" SelectedValue="{Binding Path=Gender}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding HourOfTest, Mode=TwoWay}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <Button x:Name="Button_AddByDate" Content="Add" Click="Button_Click_AddByDate"/>
+
+                        </StackPanel>
+                        </Border>
+                    </TabItem>
+                    <TabItem Header="Select By Hour">
+                        <StackPanel>
+                                                        <Label Content="Click to Get Availiable Dates"/>
+                            <Button Content="Get Availiable Dates" Click="Button_Click_GetTestersListByHour"/>
+                            <Label Content="Enter Test Hour (9-15)" />
+                            <TextBox x:Name="TxtBx_HourByHour" LostFocus="TxtBx_HourByDate_LostFocus" GotFocus="TxtBx_HourByDate_GotFocus" Text="{Binding Path=HourOfTest, Mode=TwoWay}" Grid.ColumnSpan="3"/>
+                            <Label Content="Choose Test Date"/>
+                            <ComboBox x:Name="CombBx_TestsListByHour" SelectedValue="{Binding Path=Gender}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding HourOfTest, Mode=TwoWay}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+
+                        <Button Content="Cancel" Grid.Column="1" Grid.Row="8" Margin="2"  Click="Button_Click_Cancel"/>
 
 
 

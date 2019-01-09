@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using BO;
 namespace UIWpf
 {
     /// <summary>
@@ -19,10 +19,16 @@ namespace UIWpf
     /// </summary>
     public partial class GetIDWindow : Window
     {
-        private bool isClosedByButton = false;
-        public bool IsClosedByButton { get => isClosedByButton; }
-        public GetIDWindow()
+        MainWindow main;
+        string type;
+        bool isClosedByButton = false;
+        public bool IsClosedByButton { get => isClosedByButton; set => isClosedByButton = value; }
+
+        public GetIDWindow(MainWindow main = null, string type = "")
         {
+            this.main = main;
+            this.type = type;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
         }
 
@@ -34,14 +40,56 @@ namespace UIWpf
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (TxtBx_ID.Text.Length != TxtBx_ID.MaxLength)
+            if (TxtBx_ID.Text.Length != TxtBx_ID.MaxLength || !TxtBx_ID.Text.All(char.IsDigit))
+            {
                 TxtBx_ID.Background = Brushes.Red;
-            else if (!TxtBx_ID.Text.All(char.IsDigit))
-                TxtBx_ID.Background = Brushes.Red;
+                MessageBox.Show("ID must be exactly 9 Digitis, and Digits only.", "Wrong input", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
             else
             {
-                isClosedByButton = true;
-                Close();
+                switch (this.type)
+                {
+                    case "Tester":
+                        Tester tester;
+                        try
+                        {
+                            tester = MainWindow.bl.GetTesterByID(TxtBx_ID.Text);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        TesterWindow testerWindow = new TesterWindow(tester);
+                        testerWindow.Show();
+                        Close();
+                        main.Close();
+                        break;
+                    case "Trainee":
+                        Trainee trainee;
+                        try
+                        {
+                            trainee = MainWindow.bl.GetTraineeByID(TxtBx_ID.Text);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        TraineeWindow traineeWindow = new TraineeWindow(trainee);
+                        traineeWindow.Show();
+                        Close();
+                        main.Close();
+                        break;
+                    case "":
+                        isClosedByButton = true;
+                        Close();
+                        break;
+                    default:
+                        MessageBox.Show("Internal error. file GetIDWindow, case not exist on switch", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                }
+                
             }
         }
 

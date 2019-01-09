@@ -1,17 +1,17 @@
-﻿<Window x:Class="UIWpf.TesterWindow"
+﻿<Window x:Class="UIWpf.AdminWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="Tester Window" Height="320" Width="330" ResizeMode="NoResize">
+        Title="AdminWindow" Height="320" Width="330" ResizeMode="NoResize" Icon="Icons/LockIcon.png">
     <Border Padding="5">
         <StackPanel>
-            <TextBlock Text="Choose What To DO:" Margin="0 20" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
-            <Button Content="Update Test Result" Margin="20 15 20 0" Height="25"/>
-            <Button Content="View Test List" Margin="20 15 20 0" Height="25"/>
-            <Button Content="View your Details" Margin="20 15 20 0" Height="25"/>
+            <TextBlock Text="Choose the entity that you want to work on:" Margin="0 20" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <Button Content="Test" Margin="20 15 20 0" Height="25"/>
+            <Button Content="Tester" Margin="20 15 20 0" Height="25" Click="Button_Tester_Click"/>
+            <Button Content="Trainee" Margin="20 15 20 0" Height="25" Click="Button_Trainee_Click"/>
             <Button Background="Transparent" BorderBrush="Transparent" Margin="0 30" Height="50" Width="50" Click="Button_Click_Back" MouseEnter="Button_Back_MouseEnter" MouseLeave="Button_Back_MouseLeave">
                 <StackPanel>
                     <Image x:Name="BackImage" Source="Icons/BackIcon.png" Height="40" Width="40"/>

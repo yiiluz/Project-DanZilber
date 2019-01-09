@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="Tests System - Main Window" Height="500" Width="800" Icon="ICON.png">
+        Title="Tests System - Main Window" Height="500" Width="800" Icon="Icons/ICON.png">
 
     <Window.Resources >
         <LinearGradientBrush x:Key="LableColorStyle" StartPoint="0,0.5" EndPoint="1,0.5">
@@ -73,6 +73,9 @@
             <Button Content="Add Test" Grid.Column="2" Grid.Row="2"  Style="{StaticResource ButtonStyle}" Click="Button_Click_AddTest"/>
             <Button Content="Remove Test" Grid.Column="2" Grid.Row="4" Style="{StaticResource ButtonStyle}" Click="Button_Click_RemoveTest"/>
             <Button Content="Print Test" Grid.Column="2" Grid.Row="5" Style="{StaticResource ButtonStyle}" Click="Button_Click_PrintTest"/>
+            <Button Content="Admin" Grid.Column="1" HorizontalAlignment="Left" Margin="112.6,76.4,0,0" Grid.Row="6" VerticalAlignment="Top" Width="75" Click="Button_Admin_Click"/>
+            <Button Content="Tester" Grid.Column="1" HorizontalAlignment="Left" Margin="112.6,101.4,0,0" Grid.Row="6" VerticalAlignment="Top" Width="75" Click="Button_Tester_Click"/>
+            <Button Content="Trainee" Grid.Column="1" HorizontalAlignment="Left" Margin="112.6,126.4,0,0" Grid.Row="6" VerticalAlignment="Top" Width="75" Click="Button_Trainee_Click"/>
         </Grid>
     </Border>
 </Window>
