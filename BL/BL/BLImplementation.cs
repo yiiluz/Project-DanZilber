@@ -296,6 +296,7 @@ namespace BL
 
                 if (errors == "ERROR!\n") //if there was no errors
                 {
+                    //
                     int serial = -1;
                     try
                     {
