@@ -12,7 +12,7 @@ namespace BL
         public readonly static bool upDate;
         private static IDAL instance;
         private static AllConfiguretion configurations = null;
-        public readonly static Dictionary<string, Object> ConfiguretionsDictionary;
+        public readonly static Dictionary<string, Object> ConfiguretionsDictionary; 
         public readonly static DateTime updateDate;
         static AllConfiguretion()
         {
