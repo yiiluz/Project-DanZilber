@@ -38,6 +38,7 @@ namespace BO
         }
         public Test(Test other)
         {
+            TestId = other.TestId;
             ExTrainee = other.ExTrainee;
             ExTester = other.ExTester;
             DateOfTest = other.DateOfTest;
@@ -74,7 +75,9 @@ namespace BO
         public Address StartTestAddress { get => startTestAddress; set => startTestAddress = value; }
         public bool IsTesterUpdateStatus { get => isTesterUpdateStatus; set => isTesterUpdateStatus = value; }
         public string TestId { get => testId; set => testId = value; }
-
+        public string City { get => StartTestAddress.City; set => startTestAddress.City = value; }
+        public string Street { get => StartTestAddress.Street; set => startTestAddress.Street = value; }
+        public int BuildingNumber { get => StartTestAddress.BuildingNumber; set => startTestAddress.BuildingNumber = value; }
         public override string ToString()
         {
             string tmp = "Test ID: " + TestId + ".\nTester ID: " + ExTester.Id + ".\nTrainee ID: " + ExTrainee.Id + ".\nDate of Test: " +

@@ -46,5 +46,16 @@ namespace UIWpf
             this.BackImage.Height -= 5;
             this.BackImage.Width -= 5;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            GetSerialWindow getSerialWindow = new GetSerialWindow();
+            getSerialWindow.ShowDialog();
+            if (getSerialWindow.IsClosedByButton)
+            {
+
+                MessageBox.Show("Test with Serial " + getSerialWindow.TxtBx_Serial.Text + " successfuly deleted.", "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
     }
 }

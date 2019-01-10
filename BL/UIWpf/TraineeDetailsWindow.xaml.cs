@@ -57,7 +57,6 @@ namespace UIWpf
                 (TxtBx_Teacher.Text.Length == 0 || !TxtBx_Teacher.Text.All(x => x == ' ' || char.IsLetter(x))) ||
                 (!TxtBx_Phone.Text.All(char.IsDigit) || (TxtBx_Phone.Text.Length != 10)) ||
                 (!int.TryParse(TxtBx_NumLessons.Text, out num) || (TxtBx_NumLessons.Text.Length == 0)) ||
-                (!int.TryParse(TxtBx_NumTests.Text, out num) || (TxtBx_NumTests.Text.Length == 0)) ||
                 (TxtBx_Street.Text.Length == 0 || !TxtBx_Street.Text.All(x => x == ' ' || char.IsLetter(x))) ||
                 (!TxtBx_BuildNum.Text.All(char.IsDigit) || (TxtBx_BuildNum.Text.Length == 0))
                 )
@@ -211,21 +210,6 @@ namespace UIWpf
         {
             TxtBx_NumLessons.Background = Brushes.White;
             TxtBx_NumLessons.BorderBrush = Brushes.Gray;
-        }
-
-        private void TxtBx_NumTests_LostFocus(object sender, RoutedEventArgs e)
-        {
-            int num;
-            if (!int.TryParse(TxtBx_NumTests.Text, out num) || (TxtBx_NumTests.Text.Length == 0))
-                TxtBx_NumTests.Background = Brushes.Red;
-            else
-                TxtBx_NumTests.BorderBrush = Brushes.Green;
-        }
-
-        private void TxtBx_NumTests_GotFocus(object sender, RoutedEventArgs e)
-        {
-            TxtBx_NumTests.Background = Brushes.White;
-            TxtBx_NumTests.BorderBrush = Brushes.Gray;
         }
 
         private void TxtBx_City_LostFocus(object sender, RoutedEventArgs e)

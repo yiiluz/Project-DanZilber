@@ -9,8 +9,8 @@
     <Border Padding="5">
         <StackPanel>
             <TextBlock Text="Choose What To DO:" Margin="0 20" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
-            <Button Content="Add New Test" Margin="20 15 20 0" Height="25" Click="Button_Click"/>
-            <Button Content="View Test" Margin="20 15 20 0" Height="25"/>
+            <Button Content="Add New Test" Margin="20 15 20 0" Height="25" Click="Button_Click_AddTest"/>
+            <Button Content="View Test" Margin="20 15 20 0" Height="25" Click="Button_Click_ViewTest"/>
             <Button Content="View your Details" Margin="20 15 20 0" Height="25"/>
             <Button Background="Transparent" BorderBrush="Transparent" Margin="0 30" Height="50" Width="50" Click="Button_Click_Back" MouseEnter="Button_Back_MouseEnter" MouseLeave="Button_Back_MouseLeave">
                 <StackPanel>

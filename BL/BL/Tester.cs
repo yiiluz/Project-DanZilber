@@ -125,6 +125,33 @@ namespace BO
             }
             return false;//if tester cant work at this day
         }
+        
+        public bool IsAvailiableOnDateAndHour(DateTime date, int hour)
+        {
+            if (date.DayOfWeek == DayOfWeek.Friday || date.DayOfWeek == DayOfWeek.Saturday || GetNumOfTestForSpecificWeek(date) + 1 > MaxTestsPerWeek)
+                return false;
+            bool isWorkUnlistOneHourOnThisDate = false;
+            bool[] tmp = new bool[6];
+            for (int i = 0; i < 6; ++i)
+            {
+                tmp[i] = AvailiableWorkTime[(int)date.DayOfWeek, i];
+                if (tmp[i])
+                    isWorkUnlistOneHourOnThisDate = true;
+            }
+            if (isWorkUnlistOneHourOnThisDate)
+            {
+                foreach (var item in TestList)
+                {
+                    if (item.DateOfTest == date)
+                    {
+                        tmp[item.HourOfTest - 9] = false;
+                    }
+                }
+                return tmp[hour - 9];
+            }
+            return false;//if tester cant work at this day and hour
+        }
+
         /// <summary>
         /// Get num of tests for week
         /// </summary>

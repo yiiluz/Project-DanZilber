@@ -47,7 +47,20 @@ namespace UIWpf
             this.BackImage.Width -= 5;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_AddTest(object sender, RoutedEventArgs e)
+        {
+            TestWindow testWindow = new TestWindow();
+            testWindow.TxtBx_ID.Text = trainee.Id;
+            testWindow.TxtBx_ID.IsEnabled = false;
+            testWindow.ShowDialog();
+        }
+
+        private void Button_Click_ViewTest(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click()
         {
 
         }

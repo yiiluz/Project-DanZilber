@@ -9,7 +9,7 @@ namespace BO
     public class Trainee : Person
     {
 
-        private DateTime lastTest = new DateTime();
+        private DateTime lastTest = DateTime.MinValue;//////////////////////
         private CarTypeEnum currCarType;
         private int numOfFinishedLessons;
         private int numOfTests;

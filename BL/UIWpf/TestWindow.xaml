@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="TestWindow" Height="500" Width="500">
+        Title="TestWindow" Height="550" Width="500">
     <Window.Resources>
         <LinearGradientBrush x:Key="LableColorStyle" StartPoint="0,0.5" EndPoint="1,0.5">
             <GradientStop Offset="0" Color="WhiteSmoke"/>
         </LinearGradientBrush>
+        <local:ComboBoxSelectedItemToIsEnable x:Key="comboBoxIsSelectedToEnable"/>
+        <local:DateTimeToShortString x:Key="dateTimeToShortString"/>
         <Style TargetType="{x:Type Label}">
             <Setter Property="Background" Value="{StaticResource LableColorStyle}"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -93,55 +95,74 @@
             <TextBox x:Name="TxtBx_City" Grid.Column="1" Grid.Row="2" Text="{Binding Path=City, Mode=TwoWay}" LostFocus="TxtBx_City_LostFocus" GotFocus="TxtBx_City_GotFocus"/>
             <TextBox x:Name="TxtBx_Street" Grid.Column="2" Grid.Row="2" Text="{Binding Path=Street, Mode=TwoWay}" LostFocus="TxtBx_Street_LostFocus" GotFocus="TxtBx_Street_GotFocus"/>
             <TextBox x:Name="TxtBx_BuildNum" Grid.Column="3" Grid.Row="2" Text="{Binding Path=BuildingNumber, Mode=TwoWay}" LostFocus="TxtBx_BuildNum_LostFocus" GotFocus="TxtBx_BuildNum_GotFocus"/>
-                                  
-            
+
+
 
             <!-- tab Grid -->
             <Grid Grid.Row="3" Grid.ColumnSpan="4">
                 <TabControl>
                     <TabItem Header="Select By Date">
                         <Border Padding="5">
-                        <StackPanel>
-                            <Label Content="Enter Desired Test Date"/>
-                            <DatePicker x:Name="DatePicker_DateOfTest" SelectedDate="{Binding Path=DateOfTest, Mode=TwoWay}" DisplayDate="{Binding Path=DateOfTest}"/>
-                            <Label Content="Enter Test Hour (9-15)" />
-                            <TextBox x:Name="TxtBx_HourByDate" LostFocus="TxtBx_HourByHour_LostFocus" GotFocus="TxtBx_HourByHour_GotFocus" Text="{Binding Path=HourOfTest, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-                            <Label Content="Click to Get Availiable hour"/>
-                            <Button Content="Get Availiable Hours" Click="Button_Click_GetTestersListByDate"/>
-                            <Label Content="Choose Test Date"/>
-                            <ComboBox x:Name="CombBx_TestsListByDate" SelectedValue="{Binding Path=Gender}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding HourOfTest, Mode=TwoWay}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                            <Button x:Name="Button_AddByDate" Content="Add" Click="Button_Click_AddByDate"/>
+                            <StackPanel x:Name="SelectByDate">
+                                <Label Content="Enter Desired Test Date"/>
+                                <DatePicker x:Name="DatePicker_DateOfTest_ByDate" SelectedDate="{Binding Path=DateOfTest, 
+                                    Mode=TwoWay}" DisplayDate="{Binding Path=DateOfTest}"/>
+                                <Label Content="Enter Test Hour (9-14) (optional)" />
+                                <TextBox x:Name="TxtBx_HourByDate" LostFocus="TxtBx_HourByDate_LostFocus" GotFocus="TxtBx_HourByDate_GotFocus" 
+                                         Text="{Binding Path=HourOfTest, Mode=TwoWay}" Grid.ColumnSpan="3"/>
+                                <Label Content="Click to Get Availiable hour"/>
+                                <Button Content="Get Availiable Hours" Click="Button_Click_GetTestsListByDate"/>
+                                <Label Content="Choose One Availiable Hour From List"/>
+                                <ComboBox x:Name="CombBx_TestsListByDate" SelectedValue="{Binding Path=Gender}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Test Hour:"/>
+                                                <TextBlock Text="{Binding HourOfTest, Mode=TwoWay}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Button x:Name="Button_AddByDate" Content="Add Chosen Test" Margin="0 20" Height="30" 
+                                        Click="Button_Click_AddByDate" IsEnabled="{Binding ElementName=CombBx_TestsListByDate, 
+                                    Path=SelectedIndex, Converter={StaticResource comboBoxIsSelectedToEnable}, Mode=OneWay}"/>
 
-                        </StackPanel>
+                            </StackPanel>
                         </Border>
                     </TabItem>
                     <TabItem Header="Select By Hour">
-                        <StackPanel>
-                                                        <Label Content="Click to Get Availiable Dates"/>
-                            <Button Content="Get Availiable Dates" Click="Button_Click_GetTestersListByHour"/>
-                            <Label Content="Enter Test Hour (9-15)" />
-                            <TextBox x:Name="TxtBx_HourByHour" LostFocus="TxtBx_HourByDate_LostFocus" GotFocus="TxtBx_HourByDate_GotFocus" Text="{Binding Path=HourOfTest, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-                            <Label Content="Choose Test Date"/>
-                            <ComboBox x:Name="CombBx_TestsListByHour" SelectedValue="{Binding Path=Gender}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding HourOfTest, Mode=TwoWay}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                            
-                        </StackPanel>
+                        <Border Padding="5">
+                            <StackPanel x:Name="SelectByHour">
+                                <Label Content="Enter Test Hour (9-14)" />
+                                <TextBox x:Name="TxtBx_HourByHour" LostFocus="TxtBx_HourByHour_LostFocus" GotFocus="TxtBx_HourByHour_GotFocus" 
+                                         Text="{Binding Path=HourOfTest, Mode=TwoWay}" Grid.ColumnSpan="3"/>
+                                <Label Content="Enter Desired Test Date (optional)"/>
+                                <DatePicker x:Name="DatePicker_DateOfTest_ByHour" SelectedDate="{Binding Path=DateOfTest, Mode=TwoWay}" 
+                                            DisplayDate="{Binding Path=DateOfTest}" DisplayDateStart="{Binding Path=DateOfTest, Mode=OneTime}"/>
+                                <Label Content="Click to Get Availiable Dates"/>
+                                <Button Content="Get Availiable Dates" Click="Button_Click_GetTestsListByHour"/>
+                                <Label Content="Choose One Availiable Date From List"/>
+                                <ComboBox x:Name="CombBx_TestsListByHour" SelectedValue="{Binding Path=Gender}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Test Date: "/>
+                                                <TextBlock Text="{Binding Path=DateOfTest, Mode=TwoWay, Converter={StaticResource dateTimeToShortString}}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Button x:Name="Button_AddByHour" Content="Add" Margin="0 20" Height="30" Click="Button_AddByHour_Click" 
+                                        IsEnabled="{Binding ElementName=CombBx_TestsListByHour, Path=SelectedIndex, Converter={StaticResource comboBoxIsSelectedToEnable}, 
+                                    Mode=OneWay}"/>
+
+                            </StackPanel>
+                        </Border>
                     </TabItem>
                 </TabControl>
             </Grid>
 
-                        <Button Content="Cancel" Grid.Column="1" Grid.Row="8" Margin="2"  Click="Button_Click_Cancel"/>
+            <Button Content="Cancel" Grid.ColumnSpan="4" Grid.Row="8" Margin="0 5"  Click="Button_Click_Cancel"/>
 
 
 

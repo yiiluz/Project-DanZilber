@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="Tests System - Main Window" Height="500" Width="800" Icon="Icons/ICON.png">
+        Title="Tests System - Main Window" Height="400" Width="500" Icon="Icons/ICON.png" ResizeMode="NoResize">
 
     <Window.Resources >
         <LinearGradientBrush x:Key="LableColorStyle" StartPoint="0,0.5" EndPoint="1,0.5">
-            <GradientStop Offset="0" Color="CadetBlue"/>
-            <GradientStop Offset="0.5" Color="Aquamarine"/>
-            <GradientStop Offset="1" Color="CadetBlue"/>
+            <GradientStop Offset="0" Color="CornflowerBlue"/>
+            <GradientStop Offset="0.5" Color="DeepSkyBlue"/>
+            <GradientStop Offset="1" Color="CornflowerBlue"/>
         </LinearGradientBrush>
         <Style x:Key="LabelsStyle" TargetType="Label">
             <Setter Property="Background" Value="{StaticResource LableColorStyle}"/>
@@ -21,13 +21,14 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="18"/>
             <Setter Property="Margin" Value="2"/>
         </Style>
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource LableColorStyle}"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="19"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -37,45 +38,20 @@
     </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="Black" Offset="0"/>
-            <GradientStop Color="#FF1B9CA9" Offset="1"/>
+            <GradientStop Color="LightSkyBlue" Offset="0"/>
+            <GradientStop Color="DarkBlue" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
     <Border Padding="10">
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="4*"/>
-            </Grid.RowDefinitions>
-            <Label Content="Hello! Wellcome to Tests, Trainees and Testers system!" Grid.Column="0" Grid.Row="0"
-               Grid.ColumnSpan="3" Margin="0 0 0 10" Style="{StaticResource LabelsStyle}"/>
-            <Label Content="Trainee" Grid.Column="0" Grid.Row="1" Style="{StaticResource LabelsStyle}"/>
-            <Label Content="Tester" Grid.Column="1" Grid.Row="1" Style="{StaticResource LabelsStyle}"/>
-            <Label Content="Test" Grid.Column="2" Grid.Row="1" Style="{StaticResource LabelsStyle}"/>
-            <Button Content="Add Trainee" Grid.Column="0" Grid.Row="2" Style="{StaticResource ButtonStyle}" Click="Button_Click_AddTrainee"/>
-            <Button Content="Update Trainee" Grid.Column="0" Grid.Row="3" Style="{StaticResource ButtonStyle}" Click="Button_Click_UpdateTrainee"/>
-            <Button Content="Remove Trainee" Grid.Row="4" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="Button_Click_RemoveTrainee"/>
-            <Button Content="Print Trainee" Grid.Row="5" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="Button_Click_PrintTraineeByID"/>
-            <Button Content="Add Tester" Grid.Column="1" Grid.Row="2" Style="{StaticResource ButtonStyle}" Click="Button_Click_AddTester"/>
-            <Button Content="Update Tester" Grid.Column="1" Grid.Row="3" Style="{StaticResource ButtonStyle}" Click="Button_Click_UpdateTester"/>
-            <Button Content="Remove Tester" Grid.Column="1" Grid.Row="4" Style="{StaticResource ButtonStyle}" Click="Button_Click_RemoveTester"/>
-            <Button Content="Print Tester" Grid.Column="1" Grid.Row="5" Style="{StaticResource ButtonStyle}" Click="Button_Click_PrintTesterByID"/>
-            <Button Content="Add Test" Grid.Column="2" Grid.Row="2"  Style="{StaticResource ButtonStyle}" Click="Button_Click_AddTest"/>
-            <Button Content="Remove Test" Grid.Column="2" Grid.Row="4" Style="{StaticResource ButtonStyle}" Click="Button_Click_RemoveTest"/>
-            <Button Content="Print Test" Grid.Column="2" Grid.Row="5" Style="{StaticResource ButtonStyle}" Click="Button_Click_PrintTest"/>
-            <Button Content="Admin" Grid.Column="1" HorizontalAlignment="Left" Margin="112.6,76.4,0,0" Grid.Row="6" VerticalAlignment="Top" Width="75" Click="Button_Admin_Click"/>
-            <Button Content="Tester" Grid.Column="1" HorizontalAlignment="Left" Margin="112.6,101.4,0,0" Grid.Row="6" VerticalAlignment="Top" Width="75" Click="Button_Tester_Click"/>
-            <Button Content="Trainee" Grid.Column="1" HorizontalAlignment="Left" Margin="112.6,126.4,0,0" Grid.Row="6" VerticalAlignment="Top" Width="75" Click="Button_Trainee_Click"/>
+            <StackPanel>
+                <Label Content="Hello! Wellcome to Tests, Trainees and Testers system!" Style="{StaticResource LabelsStyle}"/>
+                <TextBlock Text="Log in" Margin="0 35" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontSize="20"
+                           FontWeight="ExtraBold"/>
+                <Button Content="Admin" Click="Button_Admin_Click" Margin="0 15 0 0" Style="{StaticResource ButtonStyle}"/>
+                <Button Content="Existing Tester" Click="Button_Tester_Click" Margin="0 15 0 0" Style="{StaticResource ButtonStyle}"/>
+                <Button Content="Exisiting Trainee" Click="Button_Trainee_Click" Margin="0 15 0 0" Style="{StaticResource ButtonStyle}"/>
+            </StackPanel>
         </Grid>
     </Border>
 </Window>
