@@ -76,6 +76,9 @@
     <Compile Include="TesterDetailsWindow.xaml.cs">
       <DependentUpon>TesterDetailsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TesterResultUpdateWindow.xaml.cs">
+      <DependentUpon>TesterResultUpdateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TesterViewTestsWindow.xaml.cs">
       <DependentUpon>TesterViewTestsWindow.xaml</DependentUpon>
     </Compile>
@@ -131,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TesterDetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TesterResultUpdateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

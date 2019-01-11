@@ -53,8 +53,11 @@ namespace UIWpf
             getSerialWindow.ShowDialog();
             if (getSerialWindow.IsClosedByButton)
             {
+                if (getSerialWindow.TxtBx_Serial)
+                {
 
-                MessageBox.Show("Test with Serial " + getSerialWindow.TxtBx_Serial.Text + " successfuly deleted.", "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            
             }
         }
 
