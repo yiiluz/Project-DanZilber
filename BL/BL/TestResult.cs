@@ -23,5 +23,17 @@ namespace BO
         public bool CorrectSpeed { get => correctSpeed; set => correctSpeed = value; }
         public bool IsPassed { get => isPassed; set => isPassed = value; }
         public string TesterNotes { get => testerNotes; set => testerNotes = value; }
+
+        public override string ToString()
+        {
+            return "Test Result: " + (isPassed ? "Passed" : "Not Passed") + "\n"
+                + "Distance Keeping: " + (DistanceKeeping ? "V" : "X") + "\n"
+                + "Reverse Parking: " + (ReverseParking ? "V" : "X") + "\n"
+                + "Mirrors Check: " + (MirrorsCheck ? "V" : "X") + "\n"
+                + "Signaling: " + (signals ? "V" : "X") + "\n"
+                + "Correct Speed: " + (CorrectSpeed ? "V" : "X") + "\n"
+                + "Reverse Parking: " + (ReverseParking ? "V" : "X") + "\n"
+                + "Tester Notes: " + TesterNotes + "\n";
+        }
     }
 }

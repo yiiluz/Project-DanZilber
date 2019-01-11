@@ -38,22 +38,64 @@ namespace UIWpf
                 item.IsChecked = tester.AvailiableWorkTime[row, column];
             }
         }
-        public TesterDetailsWindow(Tester t)
+        public TesterDetailsWindow(Tester t, string oper)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            operation = "Update";
+            operation = oper;
             tester = t;
             this.DataContext = tester;
             InitializeComponent();
             TxtBx_ID.IsEnabled = false;
-            Button_OK.Content = "Update";
-            CombBx_TypeCarToTest.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
-            CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
             foreach (var item in HoursWork.Children.OfType<CheckBox>())//initial checkBoxs
             {
                 int row = Grid.GetRow(item);
                 int column = Grid.GetColumn(item);
                 item.IsChecked = tester.AvailiableWorkTime[row, column];
+            }
+            switch (oper)
+            {
+                case "Update":
+                    Button_Add.Content = "Update";
+                    CombBx_TypeCarToTest.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
+                    CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
+                    break;
+                case "View":
+                    TxtBx_ID.IsEnabled = false;
+                    TxtBx_FirstName.IsEnabled = false;
+                    TxtBx_LastName.IsEnabled = false;
+                    TxtBx_Phone.IsEnabled = false;
+                    TxtBx_Seniority.IsEnabled = false;
+                    TxtBx_MaxTestPerWeek.IsEnabled = false;
+                    TxtBx_MaxDistance.IsEnabled = false;
+                    TxtBx_City.IsEnabled = false;
+                    TxtBx_Street.IsEnabled = false;
+                    TxtBx_BuildNum.IsEnabled = false;
+                    DatePicker_BirthDay.IsEnabled = false;
+                    CombBx_TypeCarToTest.IsEnabled = false;
+                    CombBx_Gender.IsEnabled = false;
+
+                    foreach (var item in HoursWork.Children.OfType<CheckBox>())//initial checkBoxs
+                    {
+                        item.IsEnabled = false;
+                    }
+
+                    Label_Header.Content = "Tester's Details:";
+                    Label_ID.Content = "Tester ID:";
+                    Label_FirstName.Content = "Tester First Name:";
+                    Label_LastName.Content = "Tester Last Name:";
+                    Label_Seniority.Content = "Tester Seniority:";
+                    Label_MaxTestPerWeek.Content = "Tester Max Tests Per Week:";
+                    Label_MaxDistance.Content = "Tester Max Distance To Test:";
+                    Label_Phone.Content = "Tester Phone Number:";
+                    Label_Address.Content = "Tester Address:";
+                    Label_BirthDay.Content = "Tester Birth Date:";
+                    Label_TypeCarToTest.Content = "Tester Type Car To Test:";
+                    Label_Gender.Content = "Tester Gender:";
+                    label_WorkTimes.Content = "Tester Weekly Working Hours And Days:";
+                    Button_Add.Visibility = Visibility.Collapsed;
+                    Button_Cancel.Visibility = Visibility.Collapsed;
+                    Button_OK.Visibility = Visibility.Visible;
+                    break;
             }
         }
 
@@ -282,6 +324,13 @@ namespace UIWpf
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
+
+
+        }
+
+        private void Button_OK_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

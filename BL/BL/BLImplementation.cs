@@ -339,11 +339,7 @@ namespace BL
                     try
                     {
                         serial = (int)allConfiguretion.GetConfiguretion("Serial Number Test"); //get the serial number of the test
-                    }
-                    catch (AccessViolationException e)
-                    {
-                        errors += (e.Message + "\n");
-                    }
+                    }                  
                     catch (KeyNotFoundException e)
                     {
                         errors += (e.Message + "\n");
@@ -482,7 +478,7 @@ namespace BL
             //    }
             //}
             //update the test results
-            test.UpdateTestDeteils(t);
+            //test.UpdateTestDeteils(t);
             try
             {
                 instance.UpdateTest(Converters.CreateDOTest(test, serial));

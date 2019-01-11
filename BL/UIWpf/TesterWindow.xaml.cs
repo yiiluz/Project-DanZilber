@@ -57,5 +57,24 @@ namespace UIWpf
                 MessageBox.Show("Test with Serial " + getSerialWindow.TxtBx_Serial.Text + " successfuly deleted.", "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
+        private void Button_Click_ViewTesterDetails(object sender, RoutedEventArgs e)
+        {
+            TesterDetailsWindow testerDetailsWindow = new TesterDetailsWindow(tester, "View");
+            testerDetailsWindow.ShowDialog();
+        }
+
+        private void Button_Click_ViewTestList(object sender, RoutedEventArgs e)
+        {
+            if (tester.TestList.Count == 0)
+            {
+                MessageBox.Show("There is no Tests to show yet.", "Nothing to show", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                TesterViewTestsWindow testerViewTestsWindow = new TesterViewTestsWindow(tester);
+                testerViewTestsWindow.ShowDialog();
+            }
+        }
     }
 }

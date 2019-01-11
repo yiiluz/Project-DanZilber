@@ -66,7 +66,7 @@ namespace UIWpf
                     MessageBox.Show(ex.Message, "ID not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                TesterDetailsWindow testerDetailsWindow = new TesterDetailsWindow(tester);
+                TesterDetailsWindow testerDetailsWindow = new TesterDetailsWindow(tester, "Update");
                 testerDetailsWindow.ShowDialog();
             }
         }
