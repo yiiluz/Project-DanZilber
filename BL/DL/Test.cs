@@ -23,6 +23,7 @@ namespace DO
         private bool isPassed;
         private string testerNotes;
         private bool isTesterUpdateStatus;
+        private bool isTestAborted;
 
         public Test(string id)
         {
@@ -43,6 +44,7 @@ namespace DO
         public bool IsPassed { get => isPassed; set => isPassed = value; }
         public string TesterNotes { get => testerNotes; set => testerNotes = value; }
         public bool IsTesterUpdateStatus { get => isTesterUpdateStatus; set => isTesterUpdateStatus = value; }
+        public bool IsTestAborted { get => isTestAborted; set => isTestAborted = value; }
 
         public override string ToString()
         {

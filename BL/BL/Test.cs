@@ -16,7 +16,7 @@ namespace BO
         private CarTypeEnum carType;
         private Address startTestAddress = new Address();
         private bool isTesterUpdateStatus;
-
+        private bool isTestAborted;
         public Test() { }
         public Test(DO.Test other)
         {
@@ -35,6 +35,7 @@ namespace BO
             IsPassed = other.IsPassed;
             TesterNotes = other.TesterNotes;
             IsTesterUpdateStatus = other.IsTesterUpdateStatus;
+            IsTestAborted = other.IsTestAborted;
         }
         public Test(Test other)
         {
@@ -52,19 +53,20 @@ namespace BO
             IsPassed = other.IsPassed;
             TesterNotes = other.TesterNotes;
             IsTesterUpdateStatus = other.isTesterUpdateStatus;
+            IsTestAborted = other.IsTestAborted;
         }
 
-        public void UpdateTestDeteils(TestResult other)
-        {
-            DistanceKeeping = other.DistanceKeeping;
-            ReverseParking = other.ReverseParking;
-            MirrorsCheck = other.MirrorsCheck;
-            Signals = other.Signals;
-            CorrectSpeed = other.CorrectSpeed;
-            IsPassed = other.IsPassed;
-            TesterNotes = other.TesterNotes;
-            IsTesterUpdateStatus = true;
-        }
+        //public void UpdateTestDeteils(TestResult other)
+        //{
+        //    DistanceKeeping = other.DistanceKeeping;
+        //    ReverseParking = other.ReverseParking;
+        //    MirrorsCheck = other.MirrorsCheck;
+        //    Signals = other.Signals;
+        //    CorrectSpeed = other.CorrectSpeed;
+        //    IsPassed = other.IsPassed;
+        //    TesterNotes = other.TesterNotes;
+        //    IsTesterUpdateStatus = true;
+        //}
 
         public ExternalTrainee ExTrainee { get => exTrainee; set => exTrainee = value; }
         public ExternalTester ExTester { get => exTester; set => exTester = value; }
@@ -74,6 +76,7 @@ namespace BO
         public Address StartTestAddress { get => startTestAddress; set => startTestAddress = value; }
         public bool IsTesterUpdateStatus { get => isTesterUpdateStatus; set => isTesterUpdateStatus = value; }
         public string TestId { get => testId; set => testId = value; }
+        public bool IsTestAborted { get => isTestAborted; set => isTestAborted = value; }
 
         public override string ToString()
         {

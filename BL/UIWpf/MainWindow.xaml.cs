@@ -125,23 +125,23 @@ namespace UIWpf
 
         private void Button_Click_UpdateTester(object sender, RoutedEventArgs e)
         {
-            //GetIDWindow getIDWindow = new GetIDWindow();
-            //getIDWindow.ShowDialog();
-            //if (getIDWindow.IsClosedByButton)
-            //{
-            //    Tester tester;
-            //    try
-            //    {
-            //        tester = bl.GetTesterByID(getIDWindow.TxtBx_ID.Text);
-            //    }
-            //    catch (KeyNotFoundException ex)
-            //    {
-            //        MessageBox.Show(ex.Message, "ID not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
-            //        return;
-            //    }
-            //    TesterWindow testerWindow = new TesterWindow(tester);
-            //    testerWindow.ShowDialog();
-            //}
+            GetIDWindow getIDWindow = new GetIDWindow();
+            getIDWindow.ShowDialog();
+            if (getIDWindow.IsClosedByButton)
+            {
+                Tester tester;
+                try
+                {
+                    tester = bl.GetTesterByID(getIDWindow.TxtBx_ID.Text);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    MessageBox.Show(ex.Message, "ID not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                TesterWindow testerWindow = new TesterWindow(tester);
+                testerWindow.ShowDialog();
+            }
         }
 
         private void Button_Click_RemoveTester(object sender, RoutedEventArgs e)

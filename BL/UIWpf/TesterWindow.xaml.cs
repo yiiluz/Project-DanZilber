@@ -46,5 +46,25 @@ namespace UIWpf
             this.BackImage.Height -= 5;
             this.BackImage.Width -= 5;
         }
+
+        private void Button_Click_UpdateTestResult(object sender, RoutedEventArgs e)
+        {
+            GetSerialWindow getSerialWindow = new GetSerialWindow();
+            getSerialWindow.ShowDialog();
+            if (getSerialWindow.IsClosedByButton)
+            {
+                Test test = null;
+                try
+                {
+                    test = MainWindow.bl.GetTestByID(getSerialWindow.TxtBx_Serial.Text);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    MessageBox.Show(ex.Message, "Serial not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                //here build a new window
+            }
+        }
     }
 }
