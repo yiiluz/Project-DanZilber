@@ -16,6 +16,7 @@ namespace BO
         private CarTypeEnum carType;
         private Address startTestAddress = new Address();
         private bool isTesterUpdateStatus;
+        private bool isTestAborted = false;
 
         public Test() { }
         public Test(DO.Test other)
@@ -35,6 +36,7 @@ namespace BO
             IsPassed = other.IsPassed;
             TesterNotes = other.TesterNotes;
             IsTesterUpdateStatus = other.IsTesterUpdateStatus;
+            IsTestAborted = other.IsTestAborted;
         }
         public Test(Test other)
         {
@@ -53,6 +55,7 @@ namespace BO
             IsPassed = other.IsPassed;
             TesterNotes = other.TesterNotes;
             IsTesterUpdateStatus = other.isTesterUpdateStatus;
+            IsTestAborted = other.IsTestAborted;
         }
 
         public void UpdateTestDeteils(TestResult other)
@@ -78,10 +81,17 @@ namespace BO
         public string City { get => StartTestAddress.City; set => startTestAddress.City = value; }
         public string Street { get => StartTestAddress.Street; set => startTestAddress.Street = value; }
         public int BuildingNumber { get => StartTestAddress.BuildingNumber; set => startTestAddress.BuildingNumber = value; }
+        public bool IsTestAborted { get => isTestAborted; set => isTestAborted = value; }
+
         public override string ToString()
         {
-            string tmp = "Test ID: " + TestId + ".\nTester ID: " + ExTester.Id + ".\nTrainee ID: " + ExTrainee.Id + ".\nDate of Test: " +
-                DateOfTest.ToShortDateString() + ".\nTest-start address: " + StartTestAddress + ".\n" + (IsPassed ? "Trainee passed" : "Trainee didn't passed") + ".\n";
+            string tmp = "Test ID: " + TestId + "\n\n"
+                + "Tester Details:\n" + ExTester + "\n"
+                + "Trainee Details:\n" + ExTrainee + "\n"
+                + "Date of Test: " + DateOfTest.ToShortDateString() + "\n"
+                + "Test's start address: " + StartTestAddress + "\n"
+                + (IsTesterUpdateStatus ? "Test Results:\n" + (this as TestResult).ToString() : "")
+                + "Test Status: " + (IsTestAborted ? "Aborted" : "Active") + "\n";
             return tmp;
         }
     }

@@ -57,5 +57,12 @@ namespace UIWpf
             adminTraineeWindow.Show();
             this.Close();
         }
+
+        private void Button_Test_Click(object sender, RoutedEventArgs e)
+        {
+            AdminTestWindow adminTestWindow = new AdminTestWindow();
+            adminTestWindow.Show();
+            this.Close();
+        }
     }
 }

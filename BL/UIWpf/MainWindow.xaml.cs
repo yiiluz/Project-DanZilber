@@ -165,7 +165,7 @@ namespace UIWpf
 
         private void Button_Click_AddTest(object sender, RoutedEventArgs e)
         {
-            TestWindow testWindow = new TestWindow();
+            AddTestWindow testWindow = new AddTestWindow();
             testWindow.ShowDialog();
         }
 

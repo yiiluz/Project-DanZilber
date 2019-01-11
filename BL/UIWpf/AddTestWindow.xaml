@@ -1,11 +1,11 @@
-﻿<Window x:Class="UIWpf.TestWindow"
+﻿<Window x:Class="UIWpf.AddTestWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="TestWindow" Height="550" Width="500">
+        Title="Add Test Window" Height="550" Width="500">
     <Window.Resources>
         <LinearGradientBrush x:Key="LableColorStyle" StartPoint="0,0.5" EndPoint="1,0.5">
             <GradientStop Offset="0" Color="WhiteSmoke"/>

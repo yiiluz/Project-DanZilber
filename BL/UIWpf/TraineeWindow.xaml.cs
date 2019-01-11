@@ -49,7 +49,7 @@ namespace UIWpf
 
         private void Button_Click_AddTest(object sender, RoutedEventArgs e)
         {
-            TestWindow testWindow = new TestWindow();
+            AddTestWindow testWindow = new AddTestWindow();
             testWindow.TxtBx_ID.Text = trainee.Id;
             testWindow.TxtBx_ID.IsEnabled = false;
             testWindow.ShowDialog();
