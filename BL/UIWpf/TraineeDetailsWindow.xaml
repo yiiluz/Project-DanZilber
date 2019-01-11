@@ -14,6 +14,7 @@
         </LinearGradientBrush>
         <Style TargetType="{x:Type Label}">
             <Setter Property="Background" Value="{StaticResource LableColorStyle}"/>
+            <Setter Property="Padding" Value="3"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontFamily" Value="Consolas"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -90,34 +91,34 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Label Content="Add Trainee details:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalContentAlignment="Center"/>
-            <Label Content="Enter ID" Grid.Row="1" Grid.Column="0"/>
+            <Label x:Name="Label_Header" Content="Add Trainee details:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalContentAlignment="Center"/>
+            <Label x:Name="Label_ID" Content="Enter ID" Grid.Row="1" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_ID" Grid.Column="1" Grid.Row="1" MaxLength="9" LostFocus="TxtBx_ID_LostFocus" GotFocus="TxtBx_ID_GotFocus" Text="{Binding Path=Id, Mode=OneWay}" Grid.ColumnSpan="3"/>
-            <Label Content="Enter Trainee's First Name" Grid.Row="2" Grid.Column="0"/>
+            <Label x:Name="Label_FirstName" Content="Enter Trainee's First Name" Grid.Row="2" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_FirstName" Grid.Column="1" Grid.Row="2" LostFocus="TxtBx_FirstName_LostFocus" GotFocus="TxtBx_FirstName_GotFocus" Text="{Binding Path=FirstName, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-            <Label Content="Enter Trainee's Last Name" Grid.Row="3" Grid.Column="0"/>
+            <Label x:Name="Label_LastName" Content="Enter Trainee's Last Name" Grid.Row="3" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_LastName" Grid.Column="1" Grid.Row="3" LostFocus="TxtBx_LastName_LostFocus" GotFocus="TxtBx_LastName_GotFocus" Text="{Binding Path=LastName, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-            <Label Content="Enter Trainee's Schoole Name" Grid.Row="4" Grid.Column="0"/>
+            <Label x:Name="Label_School" Content="Enter Trainee's Schoole Name" Grid.Row="4" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_School" Grid.Column="1" Grid.Row="4" LostFocus="TxtBx_School_LostFocus" GotFocus="TxtBx_School_GotFocus" Text="{Binding Path=SchoolName, Mode=TwoWay}" Grid.ColumnSpan="3" />
-            <Label Content="Enter Trainee's Teacher Name" Grid.Row="5" Grid.Column="0"/>
+            <Label x:Name="Label_Teacher" Content="Enter Trainee's Teacher Name" Grid.Row="5" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_Teacher" Grid.Column="1" Grid.Row="5" LostFocus="TxtBx_Teacher_LostFocus" GotFocus="TxtBx_Teacher_GotFocus" Text="{Binding Path=TeacherName, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-            <Label Content="Enter Trainee's Phone Number" Grid.Row="6" Grid.Column="0"/>
+            <Label x:Name="Label_Phone" Content="Enter Trainee's Phone Number" Grid.Row="6" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_Phone" Grid.Column="1" Grid.Row="6" LostFocus="TxtBx_Phone_LostFocus" GotFocus="TxtBx_Phone_GotFocus" Text="{Binding Path=PhoneNumber, Mode=TwoWay}" MaxLength="10" Grid.ColumnSpan="3"/>
-            <Label Content="Enter num of finished Lessons" Grid.Row="7" Grid.Column="0"/>
+            <Label x:Name="Label_NumLessons" Content="Enter num of finished Lessons" Grid.Row="7" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_NumLessons"  Grid.Column="1" Grid.Row="7" LostFocus="TxtBx_NumLessons_LostFocus" GotFocus="TxtBx_NumLessons_GotFocus" Text="{Binding Path=NumOfFinishedLessons, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-            <Label Content="Enter Trainee's Address" Grid.Row="8" Grid.Column="0"/>
+            <Label x:Name="Label_Address" Content="Enter Trainee's Address" Grid.Row="8" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_City" Grid.Column="1" Grid.Row="8" Text="{Binding Path=City, Mode=TwoWay}" LostFocus="TxtBx_City_LostFocus" GotFocus="TxtBx_City_GotFocus"/>
             <TextBox x:Name="TxtBx_Street" Grid.Column="2" Grid.Row="8" Text="{Binding Path=Street, Mode=TwoWay}" LostFocus="TxtBx_Street_LostFocus" GotFocus="TxtBx_Street_GotFocus"/>
             <TextBox x:Name="TxtBx_BuildNum" Grid.Column="3" Grid.Row="8" Text="{Binding Path=BuildingNumber, Mode=TwoWay}" LostFocus="TxtBx_BuildNum_LostFocus" GotFocus="TxtBx_BuildNum_GotFocus"/>
-            <Label Content="Choose Trainee's Birth Day" Grid.Row="9" Grid.Column="0"/>
+            <Label x:Name="Label_BirthDay" Content="Choose Trainee's Birth Day" Grid.Row="9" Grid.Column="0"/>
             <DatePicker x:Name="DatePicker_BirthDay" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3" SelectedDate="{Binding Path=DateOfBirth, Mode=TwoWay}" DisplayDate="{Binding Path=DateOfBirth}"/>
-            <Label Content="Choose Current Type Car" Grid.Row="10" Grid.Column="0"/>
+            <Label x:Name="Label_CurrCar" Content="Choose Current Type Car" Grid.Row="10" Grid.Column="0"/>
             <ComboBox x:Name="CombBx_CurrCar" Grid.Row="10" Grid.ColumnSpan="3" Grid.Column="1" SelectedValue="{Binding Path=CurrCarType}"/>
-            <Label Content="Choose Trainee's Gender" Grid.Row="11" Grid.Column="0"/>
+            <Label x:Name="Label_Gender" Content="Choose Trainee's Gender" Grid.Row="11" Grid.Column="0"/>
             <ComboBox x:Name="CombBx_Gender" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" SelectedValue="{Binding Path=Gender}"/>
             <Button x:Name="Button_Add" Content="Add" Grid.Column="3" Grid.Row="16" Margin="2" Click="Button_Click_Add"/>
-            <Button Content="Cancel" Grid.Column="1" Grid.Row="16" Margin="1.8,0,2.4,1.8" Height="30" VerticalAlignment="Bottom" Click="Button_Click_Cancel"/>
-
+            <Button x:Name="Button_Cancel" Content="Cancel" Grid.Column="1" Grid.Row="16" Margin="2" Click="Button_Click_Cancel"/>
+            <Button x:Name="Button_OK" Content="OK" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="16" Margin="2" Visibility="Collapsed" Click="Button_OK_Click"/>
 
 
 

@@ -32,6 +32,7 @@ namespace BO
             dateOfBirth = person.DateOfBirth;
         }
 
+
         public string LastName { get => lastName; set => lastName = value; }
         public string FirstName { get => firstName; set => firstName = value; }
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }

@@ -17,11 +17,11 @@ namespace UIWpf
     /// <summary>
     /// Interaction logic for TestWindow.xaml
     /// </summary>
-    public partial class TestWindow : Window
+    public partial class AddTestWindow : Window
     {
         Test test = new Test();
         //List<Tester> lst;
-        public TestWindow()
+        public AddTestWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
