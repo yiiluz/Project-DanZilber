@@ -14,6 +14,7 @@ namespace BO
         private CarTypeEnum carType;
         private Address startTestAddress = new Address();
         private bool isTesterUpdateStatus;
+        private bool isTestAborted;
 
         public TesterTest(Test test)
         {
@@ -30,6 +31,7 @@ namespace BO
             IsPassed = test.IsPassed;
             TesterNotes = test.TesterNotes;
             IsTesterUpdateStatus = test.IsTesterUpdateStatus;
+            IsTestAborted = test.IsTestAborted;
         }
         public TesterTest(DO.Test test)
         {
@@ -46,6 +48,7 @@ namespace BO
             IsPassed = test.IsPassed;
             TesterNotes = test.TesterNotes;
             IsTesterUpdateStatus = test.IsTesterUpdateStatus;
+            IsTestAborted = test.IsTestAborted;
         }
 
         public string TestId { get => testId; set => testId = value; }
@@ -54,6 +57,7 @@ namespace BO
         public CarTypeEnum CarType { get => carType; set => carType = value; }
         public Address StartTestAddress { get => startTestAddress; set => startTestAddress = value; }
         public bool IsTesterUpdateStatus { get => isTesterUpdateStatus; set => isTesterUpdateStatus = value; }
+        public bool IsTestAborted { get => isTestAborted; set => isTestAborted = value; }
 
         public override string ToString()
         {
@@ -62,18 +66,26 @@ namespace BO
                 + "Test Date: " + DateOfTest.ToShortDateString() + "\n"
                 + "Test Hour: " + HourOfTest + ":00\n"
                 + "Start Test Address: " + StartTestAddress + "\n";
-            if (DateOfTest < DateTime.Now)
-                if (IsTesterUpdateStatus)
-                {
-                    tmp += (this as TestResult).ToString();
-                }
+            if (!IsTestAborted)
+            {
+                tmp += "Test Status: Active\n";
+                if (DateOfTest < DateTime.Now)
+                    if (IsTesterUpdateStatus)
+                    {
+                        tmp += (this as TestResult).ToString();
+                    }
+                    else
+                    {
+                        tmp += "You need to update this test results!!.\n";
+                    }
                 else
                 {
-                    tmp += "You need to update this test results!!.\n";
+                    tmp += "That is all for now. After the test, Update test result as quickly as you can.\n";
                 }
+            }
             else
             {
-                tmp += "That is all for now. After the test, Update test result as quickly as you can.\n";
+                tmp += "Test Status: Aborted";
             }
             return tmp;
         }

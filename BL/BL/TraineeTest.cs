@@ -14,6 +14,7 @@ namespace BO
         private CarTypeEnum carType;
         private Address startTestAddress = new Address();
         private bool isTesterUpdateStatus;
+        private bool isTestAborted;
 
         public TraineeTest(Test test)
         {
@@ -30,6 +31,7 @@ namespace BO
             IsPassed = test.IsPassed;
             TesterNotes = test.TesterNotes;
             IsTesterUpdateStatus = test.IsTesterUpdateStatus;
+            IsTestAborted = test.IsTestAborted;
         }
 
         public string TestId { get => testId; set => testId = value; }
@@ -38,6 +40,7 @@ namespace BO
         public CarTypeEnum CarType { get => carType; set => carType = value; }
         public Address StartTestAddress { get => startTestAddress; set => startTestAddress = value; }
         public bool IsTesterUpdateStatus { get => isTesterUpdateStatus; set => isTesterUpdateStatus = value; }
+        public bool IsTestAborted { get => isTestAborted; set => isTestAborted = value; }
 
         public override string ToString()
         {
@@ -46,18 +49,25 @@ namespace BO
                 + "Test Date: " + DateOfTest.ToShortDateString() + "\n"
                 + "Test Hour: " + HourOfTest + ":00\n"
                 + "Start Test Address: " + StartTestAddress + "\n";
-            if (DateOfTest > DateTime.Now)
+            if (!IsTestAborted)
             {
-                tmp += "GoodLuck!!\n";
-                return tmp;
-            }
-            if (IsTesterUpdateStatus)
-            {
-                tmp += (this as TestResult).ToString();
+                if (DateOfTest > DateTime.Now)
+                {
+                    tmp += "GoodLuck!!\n";
+                    return tmp;
+                }
+                if (IsTesterUpdateStatus)
+                {
+                    tmp += (this as TestResult).ToString();
+                }
+                else
+                {
+                    tmp += "Be Patient. The Tester has'nt update the test results.\n";
+                }
             }
             else
             {
-                tmp += "Be Patient. The Tester has'nt update the test results.\n";
+                tmp += "Attention:\nTest Status: Aborted\n";
             }
             return tmp;
         }

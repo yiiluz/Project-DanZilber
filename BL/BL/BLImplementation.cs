@@ -91,7 +91,7 @@ namespace BL
                     foreach (var item in GetTestsList())
                     {
                         if (item.ExTester.Id == id)
-                            RemoveTest(item.TestId);
+                            AbortTest(item.TestId);
                     }
                     instance.RemoveTesterSchedule(id);
                 }
@@ -195,7 +195,7 @@ namespace BL
             }
             foreach (var item in GetTestsList())
                 if (item.ExTrainee.Id == trainee.Id)
-                    RemoveTest(item.TestId);
+                    AbortTest(item.TestId);
             try
             {
                 instance.RemoveTrainee(id);
@@ -281,10 +281,12 @@ namespace BL
                 Test lastTest;
                 if (trainee.LastTest != DateTime.MinValue)
                 {
-                    lastTest = GetTestsList().Find(x => x.DateOfTest == trainee.LastTest && x.ExTrainee.Id == trainee.Id && x.CarType == tester.TypeCarToTest);
-                    if (!lastTest.IsTesterUpdateStatus)
-                        errors += "Can't add to this trainee new test until the results of the test on " + trainee.LastTest.ToShortDateString()
-                            + " will be availiable.\n";
+                    lastTest = GetTestsList().Find(x => x.IsTestAborted == false && x.DateOfTest == trainee.LastTest
+                                    && x.ExTrainee.Id == trainee.Id && x.CarType == tester.TypeCarToTest);
+                    if (lastTest != null)
+                        if (!lastTest.IsTesterUpdateStatus)
+                            errors += "Can't add to this trainee new test until the results of the test on " + trainee.LastTest.ToShortDateString()
+                                + " will be availiable.\n";
                 }
                 else
                 {
@@ -302,7 +304,8 @@ namespace BL
                         bool flag = false;
                         foreach (var item in trainee.TestList) //check if the new test too close to other
                         {
-                            if (t.CarType == item.CarType && Math.Abs((t.DateOfTest - item.DateOfTest).Days) < minDaysBetweenTests)
+                            if (t.CarType == item.CarType && t.IsTestAborted == false
+                                && Math.Abs((t.DateOfTest - item.DateOfTest).Days) < minDaysBetweenTests)
                             {
                                 flag = true;
                                 break;
@@ -339,7 +342,7 @@ namespace BL
                     try
                     {
                         serial = (int)allConfiguretion.GetConfiguretion("Serial Number Test"); //get the serial number of the test
-                    }                  
+                    }
                     catch (KeyNotFoundException e)
                     {
                         errors += (e.Message + "\n");
@@ -409,7 +412,7 @@ namespace BL
         /// Remove test
         /// </summary>
         /// <param name="test id"></param>
-        public void RemoveTest(string id)
+        public void AbortTest(string id)
         {
             Test test;
             try
@@ -422,20 +425,12 @@ namespace BL
             }
             try
             {
-                instance.RemoveTest(id);
+                test.IsTestAborted = true;
+                instance.UpdateTestDetails(Converters.CreateDOTest(test, test.TestId));
             }
             catch (KeyNotFoundException e)
             {
                 throw e;
-            }
-            Trainee trainee;
-            try
-            {
-                trainee = GetTraineeByID(test.ExTrainee.Id);
-            }
-            catch (KeyNotFoundException)
-            {
-                throw new KeyNotFoundException("Can't update trainee num of tests because trainee not on system.");
             }
         }
         /// <summary>
@@ -481,7 +476,7 @@ namespace BL
             //test.UpdateTestDeteils(t);
             try
             {
-                instance.UpdateTest(Converters.CreateDOTest(test, serial));
+                instance.UpdateTestDetails(Converters.CreateDOTest(test, serial));
             }
             catch (KeyNotFoundException e)
             {

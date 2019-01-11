@@ -16,7 +16,7 @@ namespace DL
         void RemoveTest(string id);
         void UpdateTraineeDetails(Trainee T);
         void AddTest(Test t);
-        void UpdateTest(Test t);
+        void UpdateTestDetails(Test t);
         List<Tester> GetTestersList();
         List<Trainee> GetTraineeList();
         List<Test> GetTestsList();

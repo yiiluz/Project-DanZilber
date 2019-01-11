@@ -57,6 +57,9 @@
     <Compile Include="AdminTesterWindow.xaml.cs">
       <DependentUpon>AdminTesterWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdminTestWindow.xaml.cs">
+      <DependentUpon>AdminTestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminTraineeWindow.xaml.cs">
       <DependentUpon>AdminTraineeWindow.xaml</DependentUpon>
     </Compile>
@@ -98,6 +101,10 @@
       <DependentUpon>TraineeWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="AdminTesterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

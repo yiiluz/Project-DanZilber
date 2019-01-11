@@ -23,7 +23,7 @@ namespace DO
         private bool isPassed;
         private string testerNotes;
         private bool isTesterUpdateStatus;
-        private bool isTestAborted;
+        private bool isTestAborted = false;
 
         public Test(string id)
         {

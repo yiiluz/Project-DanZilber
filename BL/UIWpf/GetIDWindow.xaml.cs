@@ -19,14 +19,14 @@ namespace UIWpf
     /// </summary>
     public partial class GetIDWindow : Window
     {
-        MainWindow main;
+        Window parent;
         string type;
         bool isClosedByButton = false;
         public bool IsClosedByButton { get => isClosedByButton; set => isClosedByButton = value; }
 
-        public GetIDWindow(MainWindow main = null, string type = "")
+        public GetIDWindow(Window parent = null, string type = "")
         {
-            this.main = main;
+            this.parent = parent;
             this.type = type;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
@@ -63,7 +63,7 @@ namespace UIWpf
                         TesterWindow testerWindow = new TesterWindow(tester);
                         testerWindow.Show();
                         Close();
-                        main.Close();
+                        parent.Close();
                         break;
                     case "Trainee":
                         Trainee trainee;
@@ -79,7 +79,7 @@ namespace UIWpf
                         TraineeWindow traineeWindow = new TraineeWindow(trainee);
                         traineeWindow.Show();
                         Close();
-                        main.Close();
+                        parent.Close();
                         break;
                     case "":
                         isClosedByButton = true;
