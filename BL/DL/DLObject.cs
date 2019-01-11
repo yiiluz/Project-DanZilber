@@ -99,7 +99,7 @@ namespace DL
             }
         }
 
-        void IDAL.UpdateTest(Test t)
+        void IDAL.UpdateTestDetails(Test t)
         {
             int index = DataSource.tests.FindIndex(x => x.TestId == t.TestId);
             if (index > -1)

@@ -52,6 +52,9 @@ namespace UIWpf
             AddTestWindow testWindow = new AddTestWindow();
             testWindow.TxtBx_ID.Text = trainee.Id;
             testWindow.TxtBx_ID.IsEnabled = false;
+            testWindow.TxtBx_City.Text = trainee.Address.City;
+            testWindow.TxtBx_Street.Text = trainee.Address.Street;
+            testWindow.TxtBx_BuildNum.Text = trainee.Address.BuildingNumber.ToString();
             testWindow.ShowDialog();
             trainee = MainWindow.bl.GetTraineeByID(trainee.Id);
         }

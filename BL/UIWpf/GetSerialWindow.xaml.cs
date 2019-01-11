@@ -48,10 +48,10 @@ namespace UIWpf
             }
             else
             {
+                Test test;
                 switch (this.oper)
                 {
                     case "View":
-                        Test test;
                         try
                         {
                             test = MainWindow.bl.GetTestByID(TxtBx_Serial.Text);
@@ -64,7 +64,43 @@ namespace UIWpf
                                 Close();
                             return;
                         }
+                        Close();
                         MessageBox.Show(test.ToString(), "Test Details", MessageBoxButton.OK, MessageBoxImage.Information);
+                        break;
+                    case "Abort":
+                        try
+                        {
+                            test = MainWindow.bl.GetTestByID(TxtBx_Serial.Text);
+                        }
+                        catch (Exception ex)
+                        {
+                            var result = MessageBox.Show(ex.Message + "\nDo you want to try again?", "Error",
+                                MessageBoxButton.YesNo, MessageBoxImage.Error);
+                            if (result == MessageBoxResult.No)
+                                Close();
+                            return;
+                        }
+                        Close();
+                        var isWantToAbort = MessageBox.Show("Test details are:\n" + test.ToString() + "Are you sure you want to abort this test?" +
+                            " This action is not reversible."
+                            , "Abort Test", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                        if (isWantToAbort == MessageBoxResult.Yes)
+                        {
+                            try
+                            {
+                                MainWindow.bl.AbortTest(test.TestId);
+                            }
+                            catch (KeyNotFoundException ex)
+                            {
+                                var result = MessageBox.Show("internal error\n" + ex.Message + "\nDo you want to try again?",
+                                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                                if (result == MessageBoxResult.No)
+                                    Close();
+                                return;
+                            }
+                            MessageBox.Show("The test with id " + test.TestId + " successfuly Aborted", "Operation Status",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
                         break;
                     default:
                         MessageBox.Show("Internal error. file GetIDWindow, case not exist on switch", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

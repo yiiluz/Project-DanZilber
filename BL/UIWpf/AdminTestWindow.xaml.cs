@@ -53,7 +53,8 @@ namespace UIWpf
 
         private void Button_Click_AbortTest(object sender, RoutedEventArgs e)
         {
-
+            GetSerialWindow getSerialWindow = new GetSerialWindow(this, "Abort");
+            getSerialWindow.ShowDialog();
         }
 
         private void Button_Click_ViewTestDetails(object sender, RoutedEventArgs e)
