@@ -13,7 +13,7 @@ namespace BL
         /// static variable of DL
         /// </summary>
         private static IDAL instance = null;
-        private AllConfiguretion allConfiguretion; 
+        private AllConfiguretion allConfiguretion;
         /// <summary>
         /// default ctor. initialize the instance of DL
         /// </summary>
@@ -22,7 +22,7 @@ namespace BL
             try
             {
                 instance = DL.Factory.GetDLObj("lists");
-                allConfiguretion =  AllConfiguretion.ConfigurationFactory();
+                allConfiguretion = AllConfiguretion.ConfigurationFactory();
             }
             catch (NotImplementedException e)
             {
@@ -41,7 +41,7 @@ namespace BL
             {
                 minAge = (int)allConfiguretion.GetConfiguretion("Tester minimum age");
                 maxAge = (int)allConfiguretion.GetConfiguretion("Tester maximum age");
-            }          
+            }
             catch (KeyNotFoundException e)
             {
                 throw e;
@@ -125,7 +125,7 @@ namespace BL
                 {
                     minAge = (int)allConfiguretion.GetConfiguretion("Tester minimum age");
                     maxAge = (int)allConfiguretion.GetConfiguretion("Tester maximum age");
-                }               
+                }
                 catch (KeyNotFoundException e)
                 {
                     throw e;
@@ -158,7 +158,7 @@ namespace BL
             try
             {
                 minAge = (int)allConfiguretion.GetConfiguretion("Trainee minimum age");
-            }           
+            }
             catch (KeyNotFoundException e)
             {
                 throw e;
@@ -221,7 +221,7 @@ namespace BL
                 try
                 {
                     minAge = (int)allConfiguretion.GetConfiguretion("Trainee minimum age");
-                }               
+                }
                 catch (KeyNotFoundException e)
                 {
                     throw e;
@@ -252,13 +252,13 @@ namespace BL
             string testId = "";
             string errors = "ERROR!\n";
             //check if trainee & tester already on system.
-            bool traineeExist = GetTraineeList().Exists(x => x.Id == t.ExTrainee.Id);
+            bool traineeExist = GetTraineeList().Exists(x => x.Id == t.ExTrainee.Id);///////////////////////////////////////
             bool testerExist = false;
             try
             {
                 testerExist = GetTestersList().Exists(x => x.Id == t.ExTester.Id);
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 errors += ex.Message;
             }
@@ -276,13 +276,23 @@ namespace BL
                 //get the trainee and tester objects
                 Trainee trainee = GetTraineeByID(t.ExTrainee.Id);
                 Tester tester = GetTesterByID(t.ExTester.Id);
-                if (trainee.IsAlreadyDidTest)
+
+                //find last test object
+                Test lastTest;
+                if (trainee.LastTest != DateTime.MinValue)
+                {
+                    lastTest = GetTestsList().Find(x => x.DateOfTest == trainee.LastTest && x.ExTrainee.Id == trainee.Id && x.CarType == tester.TypeCarToTest);
+                    if (!lastTest.IsTesterUpdateStatus)
+                        errors += "Can't add to this trainee new test until the results of the test on " + trainee.LastTest.ToShortDateString()
+                            + " will be availiable.\n";
+                }
+                else
                 {
                     int minDaysBetweenTests = -1;
                     try
                     {
                         minDaysBetweenTests = (int)allConfiguretion.GetConfiguretion("Minimum days between tests");
-                    }                  
+                    }
                     catch (KeyNotFoundException e)
                     {
                         errors += (e.Message + "\n");
@@ -306,7 +316,7 @@ namespace BL
                 try
                 {
                     minLesson = (int)allConfiguretion.GetConfiguretion("Minimum lessons");
-                }              
+                }
                 catch (KeyNotFoundException e)
                 {
                     errors += (e.Message + "\n");
@@ -340,6 +350,7 @@ namespace BL
                         try
                         {
                             instance.SetConfig("Serial Number Test", ++serial); //update the test serial number
+                            allConfiguretion.UpdateSerialNumber();
                         }
                         catch (AccessViolationException e)
                         {
@@ -431,13 +442,13 @@ namespace BL
         /// Update test deteils
         /// </summary>
         /// <param name="test"></param>
-        public void UpdateTest(string id, TestResult t) /////////
+        public void UpdateTest(string serial, TestResult t) /////////
         {
             Test test;
             //get test obj
             try
             {
-                test = GetTestByID(id);
+                test = GetTestByID(serial);
             }
             catch (KeyNotFoundException e)
             {
@@ -454,23 +465,23 @@ namespace BL
                 throw e;
             }
             //if trainee has passed the test
-            if (t.IsPassed)
-            {
-                trainee.ExistingLicenses.Add(test.CarType);
-                try
-                {
-                    UpdateTraineeDetails(trainee);
-                }
-                catch (KeyNotFoundException e)
-                {
-                    throw new MemberAccessException(e.Message + "\nCan't update trainee license.");
-                }
-            }
+            //if (t.IsPassed)
+            //{
+            //    trainee.ExistingLicenses.Add(test.CarType);
+            //    try
+            //    {
+            //        UpdateTraineeDetails(trainee);
+            //    }
+            //    catch (KeyNotFoundException e)
+            //    {
+            //        throw new MemberAccessException(e.Message + "\nCan't update trainee license.");
+            //    }
+            //}
             //update the test results
             //test.UpdateTestDeteils(t);
             try
             {
-                instance.UpdateTest(Converters.CreateDOTest(test, id));
+                instance.UpdateTest(Converters.CreateDOTest(test, serial));
             }
             catch (KeyNotFoundException e)
             {
@@ -513,8 +524,19 @@ namespace BL
         {
             List<Trainee> lst = new List<Trainee>();
             foreach (var item in instance.GetTraineeList())
-                lst.Add(Converters.CreateBOTrainee(item));
-            // var lst = from item in instance.GetTraineeList() select CreateDOFromBO.CreateBOTrainee(item);
+            {
+
+                Trainee temp = Converters.CreateBOTrainee(item);
+                foreach (var test in GetTestsPartialListByPredicate(x => x.ExTrainee.Id == temp.Id))
+                {
+                    if (test.DateOfTest > temp.LastTest)
+                        temp.LastTest = test.DateOfTest;
+                    if (test.IsPassed)
+                        temp.ExistingLicenses.Add((CarTypeEnum)test.CarType);
+                }
+                lst.Add(temp);
+            }
+
             foreach (var x in lst)
             {
                 var lstTests = from item in instance.GetTestsList() where item.TraineeId == x.Id orderby item.DateOfTest select new TraineeTest(new Test(item));
@@ -546,15 +568,21 @@ namespace BL
         /// <returns></returns>
         public Trainee GetTraineeByID(string id)
         {
-            if (!(GetTraineeList().Exists(x => x.Id == id)))
+            if (!(instance.GetTraineeList().Exists(x => x.Id == id)))
                 throw new KeyNotFoundException("Trainee id not exist on system.\n");
             else
             {
-                Trainee trainee = new Trainee(GetTraineeList().Find(x => x.Id == id));
+                Trainee trainee = Converters.CreateBOTrainee(instance.GetTraineeList().Find(x => x.Id == id));
                 foreach (var item in instance.GetTestsList())
                 {
                     if (item.TraineeId == trainee.Id)
+                    {
                         trainee.TestList.Add(new TraineeTest(new Test(item)));
+                        if (item.DateOfTest > trainee.LastTest)
+                            trainee.LastTest = item.DateOfTest;
+                    }
+
+
                 }
                 return trainee;
             }
@@ -598,18 +626,80 @@ namespace BL
 
         }
 
-        public List<Test> GetOptionalTests(Test dataSourse, Trainee trainee)
+        public List<Test> GetOptionalTestsByHour(Test dataSourse, Trainee trainee)
+        {
+            List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType);
+            //if there is no tester availiable for this hour
+            //-------------------------------------------------------------------
+            bool isExistTesterForThisHour = false;
+            foreach (var item in optionalTesters)
+            {
+                for (int i = 0; i < 5; ++i)
+                {
+                    if (item.AvailiableWorkTime[i, dataSourse.HourOfTest - 9])
+                    {
+                        isExistTesterForThisHour = true;
+                        break;
+                    }
+                }
+            }
+            if (!isExistTesterForThisHour)
+                return new List<Test>();
+            //---------------------------------------------------------------------
+            List<Test> optionalTests = new List<Test>();
+            int counter = 0, loopNumber = 0;
+            //Get previous dates with same hour
+            while (counter < 3 && dataSourse.DateOfTest.AddDays(-(loopNumber + 1)) > DateTime.Now.AddDays(1))
+            {
+                DateTime temp = dataSourse.DateOfTest.AddDays(-(loopNumber + 1));
+                if (temp.DayOfWeek != DayOfWeek.Friday && temp.DayOfWeek != DayOfWeek.Saturday)
+                    foreach (var item in optionalTesters)
+                    {
+                        if (item.IsAvailiableOnDateAndHour(temp, dataSourse.HourOfTest) && !optionalTests.Exists(x => x.DateOfTest == temp))
+                        {
+                            Test test = new Test(dataSourse);
+                            test.DateOfTest = temp;
+                            test.ExTester = new ExternalTester(item);
+                            test.ExTrainee = new ExternalTrainee(trainee);
+                            optionalTests.Add(test);
+                            counter++;
+                        }
+                    }
+                loopNumber++;
+            }
+            loopNumber = 0;
+            //get older dates with same hour
+            while (counter < 7)
+            {
+                DateTime temp = dataSourse.DateOfTest.AddDays(loopNumber);
+                if (temp.DayOfWeek != DayOfWeek.Friday && temp.DayOfWeek != DayOfWeek.Saturday)
+                    foreach (var item in optionalTesters)
+                    {
+                        if (item.IsAvailiableOnDateAndHour(temp, dataSourse.HourOfTest) && !optionalTests.Exists(x => x.DateOfTest == temp))
+                        {
+                            Test test = new Test(dataSourse);
+                            test.DateOfTest = temp;
+                            test.ExTester = new ExternalTester(item);
+                            test.ExTrainee = new ExternalTrainee(trainee);
+                            optionalTests.Add(test);
+                            counter++;
+                        }
+                    }
+                loopNumber++;
+            }
+            return optionalTests;
+        }
+        public List<Test> GetOptionalTestsByDate(Test dataSourse, Trainee trainee)
         {
             bool[] tmp = new bool[6]; //tmp array for delete dublicates.
             for (int i = 0; i < 6; ++i)
                 tmp[i] = false;
-            var testersList = GetAvailableTestersForSpecificDay(dataSourse.DateOfTest, dataSourse.HourOfTest, 
+            var testersList = GetAvailableTestersForSpecificDay(dataSourse.DateOfTest, dataSourse.HourOfTest,
                 trainee.CurrCarType); //get testers list that have unlist one hour availiable on this date
             List<Test> optionalTests = new List<Test>();
             foreach (var item in testersList)
             {
                 List<int> currHour = item.GetClosetHour(dataSourse.DateOfTest, dataSourse.HourOfTest);
-               
                 foreach (var item1 in currHour)
                 {
                     if (tmp[item1 - 9] == false)
@@ -654,13 +744,18 @@ namespace BL
                                    select item;
             return availableTesters.ToList();
         }
-        public IEnumerable<Test> GetTestsPartialListByPredicate(Func<DO.Test, bool> func)
+        public List<Test> GetTestsPartialListByPredicate(Func<BO.Test, bool> func)
         {
-            var StandOnTheCondition = from item in instance.GetTestsList()
-                                      orderby item.TestId
-                                      where func(item) == true
-                                      select new Test(item);
-            return StandOnTheCondition;
+            return (from item in GetTestsList() where func(item) select new Test(item)).ToList();
+        }
+
+        public List<Tester> GetTestersPartialListByPredicate(Func<BO.Tester, bool> func)
+        {
+            return (from item in GetTestersList() where func(item) select new Tester(item)).ToList();
+        }
+        public List<Trainee> GetTraineesPartialListByPredicate(Func<BO.Trainee, bool> func)
+        {
+            return (from item in GetTraineeList() where func(item) select new Trainee(item)).ToList();
         }
         public bool IsHaveLicense(Trainee T, CarTypeEnum car)
         {

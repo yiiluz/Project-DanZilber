@@ -8,21 +8,21 @@ namespace DL
 {
     public class Factory
     {
-        private static IDAL dlWithLists;
-
         /// <summary>
-        /// Factory class to get specific type of data layer object.
-        /// Singelton style (implemented at DLObject.
+        /// Factory class to get specific type of data layer object..
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
         public static IDAL GetDLObj(string type)
         {
-            if (dlWithLists == null)
-                dlWithLists = DLObject.GetDLObject();
-            if (type == "lists") //DataSource
-                return dlWithLists;
-            throw new NotImplementedException("there is no such type of dl");
+            switch (type)
+            {
+                case "lists":
+                    return DLObject.GetDLObject;
+                default:
+                    throw new MissingFieldException("There is no such DL object");
+            }
+
         }
     }
 }

@@ -47,23 +47,33 @@ namespace UIWpf
             this.BackImage.Width -= 5;
         }
 
-        private void Button_Click_UpdateTestResult(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             GetSerialWindow getSerialWindow = new GetSerialWindow();
             getSerialWindow.ShowDialog();
             if (getSerialWindow.IsClosedByButton)
             {
-                Test test = null;
-                try
-                {
-                    test = MainWindow.bl.GetTestByID(getSerialWindow.TxtBx_Serial.Text);
-                }
-                catch (KeyNotFoundException ex)
-                {
-                    MessageBox.Show(ex.Message, "Serial not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-                //here build a new window
+
+                MessageBox.Show("Test with Serial " + getSerialWindow.TxtBx_Serial.Text + " successfuly deleted.", "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void Button_Click_ViewTesterDetails(object sender, RoutedEventArgs e)
+        {
+            TesterDetailsWindow testerDetailsWindow = new TesterDetailsWindow(tester, "View");
+            testerDetailsWindow.ShowDialog();
+        }
+
+        private void Button_Click_ViewTestList(object sender, RoutedEventArgs e)
+        {
+            if (tester.TestList.Count == 0)
+            {
+                MessageBox.Show("There is no Tests to show yet.", "Nothing to show", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                TesterViewTestsWindow testerViewTestsWindow = new TesterViewTestsWindow(tester);
+                testerViewTestsWindow.ShowDialog();
             }
         }
     }

@@ -8,17 +8,9 @@ namespace DL
 {
     internal class DLObject : IDAL
     {
-        protected static DLObject instance = null;
+        protected static DLObject instance = new DLObject();
         protected DLObject() { }
-        public static DLObject GetDLObject()
-        {
-            if (instance == null)
-            {
-                instance = new DLObject();
-                DataSource a = DataSource.GetDSObject();
-            }
-            return instance;
-        }
+        public static DLObject GetDLObject { get => instance; }
 
         void IDAL.AddTest(Test t)
         {

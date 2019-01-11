@@ -8,6 +8,9 @@ namespace DL
 {
     internal class DataSource
     {
+        protected DataSource() { }
+        private static DataSource instanceOfDS = new DataSource();
+        public static DataSource GetDSObject { get => instanceOfDS; }
         /// <summary>
         /// class to represent single configuratuon parameter
         /// </summary>
@@ -17,13 +20,12 @@ namespace DL
             public bool Writable;
             public object Value;
         }
-        private static DataSource data = null;
         internal static List<Test> tests;
         internal static List<Tester> testers;
         internal static List<Trainee> trainees;
         internal static Dictionary<String, ConfigurationParameter> Configuration = new Dictionary<string, ConfigurationParameter>();
         internal static Dictionary<String, bool[,]> Schedules = new Dictionary<string, bool[,]>();
-        
+
         /// <summary>
         /// private default ctor
         /// </summary>
@@ -38,14 +40,6 @@ namespace DL
             Configuration.Add("Minimum lessons", new ConfigurationParameter() { Readable = true, Writable = false, Value = 20 });
             Configuration.Add("Tester maximum age", new ConfigurationParameter() { Readable = true, Writable = false, Value = 67 });
             Configuration.Add("Serial Number Test", new ConfigurationParameter() { Readable = true, Writable = true, Value = 10000000 });
-        }
-
-        /// <summary>
-        /// Get object by singelton model
-        /// </summary>
-        /// <returns></returns>
-        public static DataSource GetDSObject()
-        {
             //*********************************************************************
             Tester tester = new Tester("111111111");
             tester.FirstName = "avraham";
@@ -53,7 +47,7 @@ namespace DL
             tester.MaxTestsPerWeek = 2;
             tester.TypeCarToTest = CarTypeEnum.MotorCycle;
             tester.MaxDistance = 50;
-            bool[,] tmp = new bool[5,6];
+            bool[,] tmp = new bool[5, 6];
             for (int i = 0; i < 5; ++i)
                 for (int j = 5; j < 6; ++j)
                     tmp[i, j] = true;
@@ -70,7 +64,7 @@ namespace DL
             Tester tester2 = new Tester("333333333");
             tester2.FirstName = "yaakov";
             tester2.DateOfBirth = new DateTime(1970, 01, 01);
-            tester2.MaxTestsPerWeek = 2;
+            tester2.MaxTestsPerWeek = 1;
             tester2.TypeCarToTest = CarTypeEnum.MotorCycle;
             tester2.MaxDistance = 50;
             bool[,] tmp2 = new bool[5, 6];
@@ -90,12 +84,10 @@ namespace DL
             trainee.NumOfFinishedLessons = 100;
             trainees.Add(trainee);
             //************************************************************************
-            if (data == null)
-            {
-                data = new DataSource();
-            }
-            return data;
         }
-    }
 
+
+
+    }
 }
+

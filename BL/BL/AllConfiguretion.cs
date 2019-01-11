@@ -13,7 +13,6 @@ namespace BL
         private static IDAL instance;
         private static AllConfiguretion configurations = null;
         public readonly static Dictionary<string, Object> ConfiguretionsDictionary; 
-        public readonly static DateTime updateDate;
         static AllConfiguretion()
         {
             try
@@ -48,7 +47,11 @@ namespace BL
                     return item.Value;
                 }
             }
-           throw new KeyNotFoundException("ERROR! There is no configuration feature with this name");
+           throw new KeyNotFoundException("ERROR! There is no configuration feature with this name. from AllConfig");
+        }
+        public void UpdateSerialNumber()
+        {
+            ConfiguretionsDictionary["Serial Number Test"] = instance.GetConfig("Serial Number Test");
         }
     }   
 }

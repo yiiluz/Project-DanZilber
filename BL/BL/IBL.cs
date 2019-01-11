@@ -17,7 +17,8 @@ namespace BO
         void RemoveTest(string testId);
         void UpdateTraineeDetails(Trainee T);
         string AddTest(Test t);
-        List<Test> GetOptionalTests(Test dataSourse, Trainee trainee);
+        List<Test> GetOptionalTestsByDate(Test dataSourse, Trainee trainee);
+        List<Test> GetOptionalTestsByHour(Test dataSourse, Trainee trainee);
         void UpdateTest(string id, TestResult t);
         List<Tester> GetTestersList();
         List<Trainee> GetTraineeList();
@@ -26,7 +27,9 @@ namespace BO
         Tester GetTesterByID(string id);
         Test GetTestByID(string id);
         List<Tester> GetAvailableTestersForSpecificDay(DateTime time, int hour, CarTypeEnum carType);
-        IEnumerable<Test> GetTestsPartialListByPredicate(Func<DO.Test, bool> func);
+        List<Test> GetTestsPartialListByPredicate(Func<BO.Test, bool> func);
+        List<Tester> GetTestersPartialListByPredicate(Func<BO.Tester, bool> func);
+        List<Trainee> GetTraineesPartialListByPredicate(Func<BO.Trainee, bool> func);
         bool IsHaveLicense(Trainee T, CarTypeEnum car);
         IEnumerable<Test> TheTestsWillBeDoneToday_Month(DateTime t, bool Byday);
         IEnumerable<IGrouping<CarTypeEnum, Tester>> GetTestersBySpecialization(bool byOrder = false);

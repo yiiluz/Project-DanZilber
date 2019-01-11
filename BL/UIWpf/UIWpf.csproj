@@ -76,14 +76,20 @@
     <Compile Include="TesterDetailsWindow.xaml.cs">
       <DependentUpon>TesterDetailsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TesterViewTestsWindow.xaml.cs">
+      <DependentUpon>TesterViewTestsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TesterWindow.xaml.cs">
       <DependentUpon>TesterWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
+    <Compile Include="AddTestWindow.xaml.cs">
+      <DependentUpon>AddTestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="TraineeDetailsWindow.xaml.cs">
       <DependentUpon>TraineeDetailsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TraineeViewTestsWindow.xaml.cs">
+      <DependentUpon>TraineeViewTestsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="TraineeWindow.xaml.cs">
       <DependentUpon>TraineeWindow.xaml</DependentUpon>
@@ -128,15 +134,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TesterViewTestsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TesterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TestWindow.xaml">
+    <Page Include="AddTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TraineeDetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TraineeViewTestsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

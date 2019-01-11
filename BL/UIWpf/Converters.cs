@@ -12,7 +12,9 @@ namespace UIWpf
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return !(value == null);
+            if ((int)value != -1)
+                return true;
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -20,4 +22,18 @@ namespace UIWpf
             throw new NotImplementedException();
         }
     }
+
+    public class DateTimeToShortString : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((DateTime)value).ToShortDateString();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }

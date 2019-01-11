@@ -93,13 +93,7 @@ namespace BO
             temp.NumOfTests = other.NumOfTests;
             temp.IsAlreadyDidTest = other.IsAlreadyDidTest;
             temp.ExistingLicenses = new List<CarTypeEnum>();
-            foreach (var item in bl.GetTestsPartialListByPredicate(x => x.TraineeId == temp.Id))
-            {
-                if (item.DateOfTest > temp.LastTest)
-                    temp.LastTest = item.DateOfTest;
-                if (item.IsPassed)
-                    temp.ExistingLicenses.Add((CarTypeEnum)item.CarType);
-            }
+            
             return temp;
         }
     }

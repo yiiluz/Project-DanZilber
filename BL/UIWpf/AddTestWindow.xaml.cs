@@ -17,16 +17,21 @@ namespace UIWpf
     /// <summary>
     /// Interaction logic for TestWindow.xaml
     /// </summary>
-    public partial class TestWindow : Window
+    public partial class AddTestWindow : Window
     {
         Test test = new Test();
         //List<Tester> lst;
-        public TestWindow()
+        public AddTestWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
+            //add test only from tomorrow
+            test.DateOfTest = DateTime.Today.AddDays(1);
+            test.HourOfTest = 9;
             this.DataContext = test;
-            test.DateOfTest = DateTime.Today;
+            
+            DatePicker_DateOfTest_ByHour.BlackoutDates.Add(new CalendarDateRange( DateTime.MinValue, DateTime.Now));
+            DatePicker_DateOfTest_ByDate.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now));
         }
 
 
@@ -120,7 +125,7 @@ namespace UIWpf
                 }
             }
         }
-        private void Button_Click_GetTestersListByDate(object sender, RoutedEventArgs e)
+        private void Button_Click_GetTestsListByDate(object sender, RoutedEventArgs e)
         {
             
             if (
@@ -151,9 +156,18 @@ namespace UIWpf
                         return;
                     }
                 }
-                var lst = MainWindow.bl.GetOptionalTests(this.test, trainee);
-                CombBx_TestsListByDate.ItemsSource = lst;
-                CombBx_TestsListByDate.IsEnabled = true;
+                test.CarType = trainee.CurrCarType;
+                var lst = MainWindow.bl.GetOptionalTestsByDate(this.test, trainee);
+                if (lst.Count == 0)
+                {
+                    MessageBox.Show("There is no Availiable test on this Date. Try another", "OOPS", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    CombBx_TestsListByDate.ItemsSource = lst;
+                    CombBx_TestsListByDate.SelectedItem = lst[0];
+                    CombBx_TestsListByDate.IsEnabled = true;
+                }
             }
             else
             {
@@ -161,21 +175,88 @@ namespace UIWpf
             }
         }
 
-
-
-        private void Button_Click_GetTestersListByHour(object sender, RoutedEventArgs e)
+        private void Button_Click_GetTestsListByHour(object sender, RoutedEventArgs e)
         {
-
+            if (
+                (TxtBx_HourByHour.Text.All(char.IsDigit) && (int.Parse(TxtBx_HourByHour.Text) < 15 && (int.Parse(TxtBx_HourByHour.Text)) >= 9)) &&
+                (TxtBx_BuildNum.Text.All(char.IsDigit) && (TxtBx_BuildNum.Text.Length != 0)) &&
+                (TxtBx_Street.Text.Length != 0 || TxtBx_Street.Text.All(x => x == ' ' || char.IsLetter(x))) &&
+                (TxtBx_City.Text.Length != 0 || TxtBx_City.Text.All(x => x == ' ' || char.IsLetter(x))) &&
+                (TxtBx_ID.Text.All(char.IsDigit) && (TxtBx_ID.Text.Length == 9))
+                )
+            {
+                Trainee trainee = null;
+                try
+                {
+                    trainee = MainWindow.bl.GetTraineeByID(TxtBx_ID.Text);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    var result = MessageBox.Show("Trainee ID does Not Exist. Do you want to try agein?", "ID Not exist", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    if (result == MessageBoxResult.No)
+                    {
+                        MessageBox.Show("The test has'nt Added." + ex.Message, "Operation Canceld", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Close();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                test.CarType = trainee.CurrCarType;
+                var lst = MainWindow.bl.GetOptionalTestsByHour(this.test, trainee);
+                if (lst.Count == 0)
+                {
+                    MessageBox.Show("There is no Availiable test on this Hour. Try another", "OOPS", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    CombBx_TestsListByHour.ItemsSource = lst;
+                    CombBx_TestsListByHour.SelectedItem = lst[0];
+                    CombBx_TestsListByHour.IsEnabled = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("The input is not correct. The bad inputs marked at Red Unless you hav'nt update nothing.", "Wrong Input", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void TxtBx_HourByHour_LostFocus(object sender, RoutedEventArgs e)
         {
-
+            if (!TxtBx_HourByHour.Text.All(char.IsDigit) || (int.Parse(TxtBx_HourByHour.Text) > 14 || (int.Parse(TxtBx_HourByHour.Text)) < 9))
+                TxtBx_HourByHour.Background = Brushes.Red;
+            else
+                TxtBx_HourByHour.BorderBrush = Brushes.Green;
         }
 
         private void TxtBx_HourByHour_GotFocus(object sender, RoutedEventArgs e)
         {
+            TxtBx_HourByHour.Background = Brushes.White;
+            TxtBx_HourByHour.BorderBrush = Brushes.Gray;
+        }
 
+        private void Button_AddByHour_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string serialOfTest = MainWindow.bl.AddTest((CombBx_TestsListByHour.SelectedItem) as Test);
+                MessageBox.Show("Test added successfuly. Test ID: " + serialOfTest, "Add Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                Close();
+            }
+            catch (Exception ex)
+            {
+                var result = MessageBox.Show("Internal ERROR: " + ex.Message + ". Do you want to try agein?", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                if (result == MessageBoxResult.No)
+                {
+                    MessageBox.Show("The test has'nt Added.", "Operation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
     }
 

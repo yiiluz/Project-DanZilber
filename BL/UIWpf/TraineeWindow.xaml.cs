@@ -47,9 +47,32 @@ namespace UIWpf
             this.BackImage.Width -= 5;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_AddTest(object sender, RoutedEventArgs e)
         {
+            AddTestWindow testWindow = new AddTestWindow();
+            testWindow.TxtBx_ID.Text = trainee.Id;
+            testWindow.TxtBx_ID.IsEnabled = false;
+            testWindow.ShowDialog();
+            trainee = MainWindow.bl.GetTraineeByID(trainee.Id);
+        }
 
+        private void Button_Click_ViewTest(object sender, RoutedEventArgs e)
+        {
+            if (trainee.TestList.Count == 0)
+            {
+                MessageBox.Show("There is no Tests to show yet.", "Nothing to show", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                TraineeViewTestsWindow traineeViewTestsWindow = new TraineeViewTestsWindow(trainee);
+                traineeViewTestsWindow.ShowDialog();
+            }
+        }
+
+        private void Button_Click_ViewTraineeDetails(object sender, RoutedEventArgs e)
+        {
+            TraineeDetailsWindow traineeDetailsWindow = new TraineeDetailsWindow(trainee, "View");
+            traineeDetailsWindow.ShowDialog();
         }
     }
 }

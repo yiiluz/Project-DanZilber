@@ -33,19 +33,55 @@ namespace UIWpf
             CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
             CombBx_Gender.SelectedItem = BO.GenderEnum.Male;
         }
-        public TraineeDetailsWindow(Trainee t)
+        public TraineeDetailsWindow(Trainee t, string oper)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            operation = "Update";
+            operation = oper;
             trainee = t;
             this.DataContext = trainee;
             InitializeComponent();
-            TxtBx_ID.IsEnabled = false;
-            Button_Add.Content = "Update";
             CombBx_CurrCar.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
             CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
-        }
+            switch (oper)
+            {
+                case "Update":
+                    TxtBx_ID.IsEnabled = false;
+                    Button_Add.Content = oper;
+                    Label_Header.Content = "Change Details, and then click 'Update'.";
+                    break;
+                case "View":
+                    TxtBx_ID.IsEnabled = false;
+                    TxtBx_FirstName.IsEnabled = false;
+                    TxtBx_LastName.IsEnabled = false;
+                    TxtBx_Teacher.IsEnabled = false;
+                    TxtBx_School.IsEnabled = false;
+                    TxtBx_Phone.IsEnabled = false;
+                    TxtBx_NumLessons.IsEnabled = false;
+                    TxtBx_City.IsEnabled = false;
+                    TxtBx_Street.IsEnabled = false;
+                    TxtBx_BuildNum.IsEnabled = false;
+                    DatePicker_BirthDay.IsEnabled = false;
+                    CombBx_CurrCar.IsEnabled = false;
+                    CombBx_Gender.IsEnabled = false;
 
+                    Label_Header.Content = "Trainee's Details:";
+                    Label_ID.Content = "Trainee ID:";
+                    Label_FirstName.Content = "Trainee First Name:";
+                    Label_LastName.Content = "Trainee Last Name:";
+                    Label_Teacher.Content = "Trainee Teacher Name:";
+                    Label_School.Content = "Trainee School Name:";
+                    Label_Phone.Content = "Trainee Phone Number:";
+                    Label_NumLessons.Content = "Num Of Finished Lessons:";
+                    Label_Address.Content = "Trainee Address:";
+                    Label_BirthDay.Content = "Trainee Birth Date:";
+                    Label_CurrCar.Content = "Trainee Current Car:";
+                    Label_Gender.Content = "Trainee Gender:";
+                    Button_Add.Visibility = Visibility.Collapsed;
+                    Button_Cancel.Visibility = Visibility.Collapsed;
+                    Button_OK.Visibility = Visibility.Visible;
+                    break;
+            }
+        }
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
             int num;
@@ -57,7 +93,6 @@ namespace UIWpf
                 (TxtBx_Teacher.Text.Length == 0 || !TxtBx_Teacher.Text.All(x => x == ' ' || char.IsLetter(x))) ||
                 (!TxtBx_Phone.Text.All(char.IsDigit) || (TxtBx_Phone.Text.Length != 10)) ||
                 (!int.TryParse(TxtBx_NumLessons.Text, out num) || (TxtBx_NumLessons.Text.Length == 0)) ||
-                (!int.TryParse(TxtBx_NumTests.Text, out num) || (TxtBx_NumTests.Text.Length == 0)) ||
                 (TxtBx_Street.Text.Length == 0 || !TxtBx_Street.Text.All(x => x == ' ' || char.IsLetter(x))) ||
                 (!TxtBx_BuildNum.Text.All(char.IsDigit) || (TxtBx_BuildNum.Text.Length == 0))
                 )
@@ -213,21 +248,6 @@ namespace UIWpf
             TxtBx_NumLessons.BorderBrush = Brushes.Gray;
         }
 
-        private void TxtBx_NumTests_LostFocus(object sender, RoutedEventArgs e)
-        {
-            int num;
-            if (!int.TryParse(TxtBx_NumTests.Text, out num) || (TxtBx_NumTests.Text.Length == 0))
-                TxtBx_NumTests.Background = Brushes.Red;
-            else
-                TxtBx_NumTests.BorderBrush = Brushes.Green;
-        }
-
-        private void TxtBx_NumTests_GotFocus(object sender, RoutedEventArgs e)
-        {
-            TxtBx_NumTests.Background = Brushes.White;
-            TxtBx_NumTests.BorderBrush = Brushes.Gray;
-        }
-
         private void TxtBx_City_LostFocus(object sender, RoutedEventArgs e)
         {
             if (TxtBx_City.Text.Length == 0 || !TxtBx_City.Text.All(x => x == ' ' || char.IsLetter(x)))
@@ -284,6 +304,11 @@ namespace UIWpf
             //System.Windows.Data.CollectionViewSource traineeViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("traineeViewSource")));
             // Load data by setting the CollectionViewSource.Source property:
             // traineeViewSource.Source = [generic data source]
+        }
+
+        private void Button_OK_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -9,16 +9,15 @@ namespace BO
     public class TesterTest : TestResult
     {
         private string testId;
-        private ExternalTrainee exTrainee;
         private DateTime dateOfTest = new DateTime();
         private int hourOfTest;
         private CarTypeEnum carType;
         private Address startTestAddress = new Address();
+        private bool isTesterUpdateStatus;
 
         public TesterTest(Test test)
         {
             TestId = test.TestId;
-            ExTrainee = test.ExTrainee;
             DateOfTest = test.DateOfTest;
             HourOfTest = test.HourOfTest;
             CarType = test.CarType;
@@ -30,11 +29,11 @@ namespace BO
             CorrectSpeed = test.CorrectSpeed;
             IsPassed = test.IsPassed;
             TesterNotes = test.TesterNotes;
+            IsTesterUpdateStatus = test.IsTesterUpdateStatus;
         }
         public TesterTest(DO.Test test)
         {
             TestId = test.TestId;
-            ExTrainee = new ExternalTrainee(test.TraineeId);
             DateOfTest = test.DateOfTest;
             HourOfTest = test.HourOfTest;
             CarType = (CarTypeEnum)test.CarType;
@@ -46,13 +45,37 @@ namespace BO
             CorrectSpeed = test.CorrectSpeed;
             IsPassed = test.IsPassed;
             TesterNotes = test.TesterNotes;
+            IsTesterUpdateStatus = test.IsTesterUpdateStatus;
         }
 
         public string TestId { get => testId; set => testId = value; }
-        public ExternalTrainee ExTrainee { get => exTrainee; set => exTrainee = value; }
         public DateTime DateOfTest { get => dateOfTest; set => dateOfTest = value; }
         public int HourOfTest { get => hourOfTest; set => hourOfTest = value; }
         public CarTypeEnum CarType { get => carType; set => carType = value; }
         public Address StartTestAddress { get => startTestAddress; set => startTestAddress = value; }
+        public bool IsTesterUpdateStatus { get => isTesterUpdateStatus; set => isTesterUpdateStatus = value; }
+
+        public override string ToString()
+        {
+            string tmp = "";
+            tmp += "Test Serial Number: " + TestId + "\n"
+                + "Test Date: " + DateOfTest.ToShortDateString() + "\n"
+                + "Test Hour: " + HourOfTest + ":00\n"
+                + "Start Test Address: " + StartTestAddress + "\n";
+            if (DateOfTest < DateTime.Now)
+                if (IsTesterUpdateStatus)
+                {
+                    tmp += (this as TestResult).ToString();
+                }
+                else
+                {
+                    tmp += "You need to update this test results!!.\n";
+                }
+            else
+            {
+                tmp += "That is all for now. After the test, Update test result as quickly as you can.\n";
+            }
+            return tmp;
+        }
     }
 }

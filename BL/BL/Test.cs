@@ -16,7 +16,7 @@ namespace BO
         private CarTypeEnum carType;
         private Address startTestAddress = new Address();
         private bool isTesterUpdateStatus;
-        private bool isTestAborted;
+
         public Test() { }
         public Test(DO.Test other)
         {
@@ -35,10 +35,10 @@ namespace BO
             IsPassed = other.IsPassed;
             TesterNotes = other.TesterNotes;
             IsTesterUpdateStatus = other.IsTesterUpdateStatus;
-            IsTestAborted = other.IsTestAborted;
         }
         public Test(Test other)
         {
+            TestId = other.TestId;
             ExTrainee = other.ExTrainee;
             ExTester = other.ExTester;
             DateOfTest = other.DateOfTest;
@@ -53,20 +53,19 @@ namespace BO
             IsPassed = other.IsPassed;
             TesterNotes = other.TesterNotes;
             IsTesterUpdateStatus = other.isTesterUpdateStatus;
-            IsTestAborted = other.IsTestAborted;
         }
 
-        //public void UpdateTestDeteils(TestResult other)
-        //{
-        //    DistanceKeeping = other.DistanceKeeping;
-        //    ReverseParking = other.ReverseParking;
-        //    MirrorsCheck = other.MirrorsCheck;
-        //    Signals = other.Signals;
-        //    CorrectSpeed = other.CorrectSpeed;
-        //    IsPassed = other.IsPassed;
-        //    TesterNotes = other.TesterNotes;
-        //    IsTesterUpdateStatus = true;
-        //}
+        public void UpdateTestDeteils(TestResult other)
+        {
+            DistanceKeeping = other.DistanceKeeping;
+            ReverseParking = other.ReverseParking;
+            MirrorsCheck = other.MirrorsCheck;
+            Signals = other.Signals;
+            CorrectSpeed = other.CorrectSpeed;
+            IsPassed = other.IsPassed;
+            TesterNotes = other.TesterNotes;
+            IsTesterUpdateStatus = true;
+        }
 
         public ExternalTrainee ExTrainee { get => exTrainee; set => exTrainee = value; }
         public ExternalTester ExTester { get => exTester; set => exTester = value; }
@@ -76,8 +75,9 @@ namespace BO
         public Address StartTestAddress { get => startTestAddress; set => startTestAddress = value; }
         public bool IsTesterUpdateStatus { get => isTesterUpdateStatus; set => isTesterUpdateStatus = value; }
         public string TestId { get => testId; set => testId = value; }
-        public bool IsTestAborted { get => isTestAborted; set => isTestAborted = value; }
-
+        public string City { get => StartTestAddress.City; set => startTestAddress.City = value; }
+        public string Street { get => StartTestAddress.Street; set => startTestAddress.Street = value; }
+        public int BuildingNumber { get => StartTestAddress.BuildingNumber; set => startTestAddress.BuildingNumber = value; }
         public override string ToString()
         {
             string tmp = "Test ID: " + TestId + ".\nTester ID: " + ExTester.Id + ".\nTrainee ID: " + ExTrainee.Id + ".\nDate of Test: " +

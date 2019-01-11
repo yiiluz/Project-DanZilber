@@ -66,7 +66,7 @@ namespace UIWpf
                     MessageBox.Show(ex.Message, "ID not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                TraineeDetailsWindow traineeDetailsWindow = new TraineeDetailsWindow(traine);
+                TraineeDetailsWindow traineeDetailsWindow = new TraineeDetailsWindow(traine, "Update");
                 traineeDetailsWindow.ShowDialog();
             }
         }
