@@ -459,21 +459,7 @@ namespace BL
             {
                 throw e;
             }
-            //if trainee has passed the test
-            //if (t.IsPassed)
-            //{
-            //    trainee.ExistingLicenses.Add(test.CarType);
-            //    try
-            //    {
-            //        UpdateTraineeDetails(trainee);
-            //    }
-            //    catch (KeyNotFoundException e)
-            //    {
-            //        throw new MemberAccessException(e.Message + "\nCan't update trainee license.");
-            //    }
-            //}
-            //update the test results
-            //test.UpdateTestDeteils(t);
+            test.UpdateTestDeteils(t);
             try
             {
                 instance.UpdateTestDetails(Converters.CreateDOTest(test, serial));
@@ -528,14 +514,9 @@ namespace BL
                         temp.LastTest = test.DateOfTest;
                     if (test.IsPassed)
                         temp.ExistingLicenses.Add((CarTypeEnum)test.CarType);
+                    temp.TestList.Add(new TraineeTest(test));
                 }
                 lst.Add(temp);
-            }
-
-            foreach (var x in lst)
-            {
-                var lstTests = from item in instance.GetTestsList() where item.TraineeId == x.Id orderby item.DateOfTest select new TraineeTest(new Test(item));
-                x.TestList = lstTests.ToList();
             }
             return lst;
         }
@@ -575,9 +556,9 @@ namespace BL
                         trainee.TestList.Add(new TraineeTest(new Test(item)));
                         if (item.DateOfTest > trainee.LastTest)
                             trainee.LastTest = item.DateOfTest;
+                        if (item.IsPassed)
+                            trainee.ExistingLicenses.Add((CarTypeEnum)item.CarType);
                     }
-
-
                 }
                 return trainee;
             }
@@ -589,20 +570,27 @@ namespace BL
         /// <returns></returns>
         public Tester GetTesterByID(string id)
         {
-            List<Tester> lst = null;
-            try
-            {
-                lst = GetTestersList();
-            }
-            catch (KeyNotFoundException ex)
-            {
-                throw new KeyNotFoundException("Can't import tester with id " + id + ex.Message);
-            }
-            if (!(lst.Exists(x => x.Id == id)))
+            if (!(instance.GetTestersList().Exists(x => x.Id == id)))
                 throw new KeyNotFoundException("Tester id not exist on system.\n");
             else
             {
-                return new Tester(lst.Find(x => x.Id == id));
+                Tester tester = new Tester(instance.GetTestersList().Find(x => x.Id == id));
+                foreach (var item in instance.GetTestsList())
+                {
+                    if (item.TesterId == tester.Id)
+                    {
+                        tester.TestList.Add(new TesterTest(new Test(item)));
+                    }
+                }
+                try
+                {
+                    tester.AvailiableWorkTime = instance.GetTesterSchedule(tester.Id);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    throw new KeyNotFoundException("Tester schedule can not be imported. " + ex.Message);
+                }
+                return tester;
             }
         }
         /// <summary>
@@ -612,13 +600,15 @@ namespace BL
         /// <returns></returns>
         public Test GetTestByID(string id)
         {
-            if (!(GetTestsList().Exists(x => x.TestId == id)))
+            if (!(instance.GetTestsList().Exists(x => x.TestId == id)))
                 throw new KeyNotFoundException("Test's serial number not exist on system.\n");
             else
-            {
-                return new Test(GetTestsList().Find(x => x.TestId == id));
+            {                
+                Test test = new Test(instance.GetTestsList().Find(x => x.TestId == id));
+                test.ExTester = new ExternalTester(GetTesterByID(test.ExTester.Id));
+                test.ExTrainee = new ExternalTrainee(GetTraineeByID(test.ExTrainee.Id));
+                return test;
             }
-
         }
 
         public List<Test> GetOptionalTestsByHour(Test dataSourse, Trainee trainee)
