@@ -84,6 +84,7 @@ namespace BO
             MaxDistance = other.MaxDistance;
             MaxTestsPerWeek = other.MaxTestsPerWeek;
             TypeCarToTest = other.TypeCarToTest;
+
             AvailiableWorkTime = other.AvailiableWorkTime;
             foreach (var item in other.TestList)
                 TestList.Add(item);
