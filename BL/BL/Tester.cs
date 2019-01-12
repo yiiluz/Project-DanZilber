@@ -82,6 +82,7 @@ namespace BO
             DateOfBirth = other.DateOfBirth;
             Seniority = other.Seniority;
             MaxDistance = other.MaxDistance;
+
             MaxTestsPerWeek = other.MaxTestsPerWeek;
             TypeCarToTest = other.TypeCarToTest;
 
