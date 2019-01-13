@@ -19,28 +19,42 @@ namespace UIWpf
     /// </summary>
     public partial class PasswordWindow : Window
     {
-        private string password = "Project5779";
-        private MainWindow main;
-        public PasswordWindow(MainWindow main)
+        private static string password = "1111";
+        private Window main;
+        private bool toChangePass;
+        public PasswordWindow(Window main, bool ChangePassword = false)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.main = main;
             InitializeComponent();
-
+            toChangePass = ChangePassword;
+            if (toChangePass)
+            {
+                LableOfInput.Content = "Enter The New Password:";
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (passwordBox.Password == password)
+            if (toChangePass)
             {
-                AdminWindow adminWindow = new AdminWindow();
-                adminWindow.Show();
-                main.Close();
+                password = passwordBox.Password;
+                MessageBox.Show("Password changed successfuly!", "Password Changing", MessageBoxButton.OK, MessageBoxImage.Information);
                 Close();
             }
             else
             {
-                MessageBox.Show("Wrong Password! Try agein", "Security Alarm", MessageBoxButton.OK, MessageBoxImage.Stop);
+                if (passwordBox.Password == password)
+                {
+                    AdminWindow adminWindow = new AdminWindow();
+                    adminWindow.Show();
+                    main.Close();
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Wrong Password! Try agein", "Security Alarm", MessageBoxButton.OK, MessageBoxImage.Stop);
+                }
             }
         }
 

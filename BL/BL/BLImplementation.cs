@@ -284,8 +284,8 @@ namespace BL
                     lastTest = GetTestsList().Find(x => x.IsTestAborted == false && x.DateOfTest == trainee.LastTest
                                     && x.ExTrainee.Id == trainee.Id && x.CarType == tester.TypeCarToTest);
                     if (lastTest != null && !lastTest.IsTesterUpdateStatus)
-                            errors += "Can't add to this trainee new test until the results of the test on " + trainee.LastTest.ToShortDateString()
-                                + " will be availiable.\n";
+                        errors += "Can't add to this trainee new test until the results of the test on " + trainee.LastTest.ToShortDateString()
+                            + " will be availiable.\n";
                 }
                 else
                 {
@@ -438,7 +438,7 @@ namespace BL
         /// <param name="test"></param>
         public void UpdateTestResult(string serial, TestResult t) /////////
         {
-            
+
             Test test;
             //get test obj
             try
@@ -508,7 +508,7 @@ namespace BL
             {
 
                 Trainee temp = Converters.CreateBOTrainee(item);
-                foreach (var test in GetTestsPartialListByPredicate(x => x.ExTrainee.Id == temp.Id))
+                foreach (var test in GetTestsPartialListByPredicate(x => x.TraineeId == temp.Id))
                 {
                     if (test.DateOfTest > temp.LastTest)
                         temp.LastTest = test.DateOfTest;
@@ -532,8 +532,10 @@ namespace BL
             //var lst = from item in instance.GetTestsList() orderby item.DateOfTest select new Test(item);
             foreach (var x in lst)
             {
-                x.ExTester = new ExternalTester(GetTesterByID(x.ExTester.Id));
-                x.ExTrainee = new ExternalTrainee(GetTraineeByID(x.ExTrainee.Id));
+                if (instance.GetTestersList().Exists(t => t.Id == x.ExTester.Id)) //if tester hasnt deleted
+                    x.ExTester = new ExternalTester(GetTesterByID(x.ExTester.Id));
+                if (instance.GetTraineeList().Exists(t => t.Id == x.ExTrainee.Id))
+                    x.ExTrainee = new ExternalTrainee(GetTraineeByID(x.ExTrainee.Id));
             }
             return lst;
         }
@@ -603,7 +605,7 @@ namespace BL
             if (!(instance.GetTestsList().Exists(x => x.TestId == id)))
                 throw new KeyNotFoundException("Test's serial number not exist on system.\n");
             else
-            {                
+            {
                 Test test = new Test(instance.GetTestsList().Find(x => x.TestId == id));
                 test.ExTester = new ExternalTester(GetTesterByID(test.ExTester.Id));
                 test.ExTrainee = new ExternalTrainee(GetTraineeByID(test.ExTrainee.Id));
@@ -729,9 +731,9 @@ namespace BL
                                    select item;
             return availableTesters.ToList();
         }
-        public List<Test> GetTestsPartialListByPredicate(Func<BO.Test, bool> func)
+        public List<Test> GetTestsPartialListByPredicate(Func<DO.Test, bool> func)
         {
-            return (from item in GetTestsList() where func(item) select new Test(item)).ToList();
+            return (from item in instance.GetTestsList() where func(item) select new Test(item)).ToList();
         }
 
         public List<Tester> GetTestersPartialListByPredicate(Func<BO.Tester, bool> func)

@@ -64,5 +64,11 @@ namespace UIWpf
             adminTestWindow.Show();
             this.Close();
         }
+
+        private void Button_Click_ChangePassword(object sender, RoutedEventArgs e)
+        {
+            PasswordWindow passwordWindow = new PasswordWindow(this, true);
+            passwordWindow.ShowDialog();
+        }
     }
 }
