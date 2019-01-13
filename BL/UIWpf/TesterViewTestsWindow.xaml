@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="TesterViewTestsWindow" Height="315" Width="400">
+        Title="TesterViewTestsWindow" Height="350" Width="400">
     <Border Padding="10" BorderBrush="Green" BorderThickness="1">
         <StackPanel>
             <Label Content="Yours Tests list. Double click to get more info." HorizontalAlignment="Center" FontSize="16"/>
+            <Label Content="Right Click for more functions." HorizontalAlignment="Center" FontSize="16"/>
             <ListBox x:Name="TestsList" BorderBrush="Green" Height="200" ItemsSource="{Binding TestList}" MouseDoubleClick="TestsList_MouseDoubleClick" HorizontalContentAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -26,6 +27,11 @@
                         </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+                <ListBox.ContextMenu >
+                    <ContextMenu>
+                        <MenuItem Header="Update Test Result" Click="MenuItem_Click_UpdateTestResult"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
             </ListBox>
             <Button x:Name="Button_Close" Content="Close" Click="Button_Close_Click" Margin="0 4"/>
         </StackPanel>

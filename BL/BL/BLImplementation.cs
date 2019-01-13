@@ -436,8 +436,9 @@ namespace BL
         /// Update test deteils
         /// </summary>
         /// <param name="test"></param>
-        public void UpdateTest(string serial, TestResult t) /////////
+        public void UpdateTestResult(string serial, TestResult t) /////////
         {
+            
             Test test;
             //get test obj
             try

@@ -90,7 +90,7 @@ namespace BO
                 + "Trainee Details:\n" + ExTrainee + "\n"
                 + "Date of Test: " + DateOfTest.ToShortDateString() + "\n"
                 + "Test's start address: " + StartTestAddress + "\n"
-                + (IsTesterUpdateStatus ? "Test Results:\n" + (this as TestResult).ToString() : "")
+                + (IsTesterUpdateStatus ? "Test Results:\n" + base.ToString() : "")
                 + "Test Status: " + (IsTestAborted ? "Aborted" : "Active") + "\n";
             return tmp;
         }

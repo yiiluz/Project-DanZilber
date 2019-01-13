@@ -20,11 +20,13 @@ namespace UIWpf
     /// </summary>
     public partial class TesterViewTestsWindow : Window
     {
+        Tester tester;
         public TesterViewTestsWindow(Tester tester)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             this.DataContext = tester;
+            this.tester = tester;
         }
 
         private void TestsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -35,6 +37,38 @@ namespace UIWpf
         private void Button_Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void MenuItem_Click_UpdateTestResult(object sender, RoutedEventArgs e)
+        {
+            string ErrorList = "";
+            if (TestsList.SelectedIndex == -1)
+                return;
+            TesterTest temp = (TesterTest)TestsList.SelectedItem;
+            if (DateTime.Now < temp.DateOfTest)
+                ErrorList += "ERROR! You can not update test information before the intended date. \n";
+            if (temp.IsTesterUpdateStatus)
+                ErrorList += "ERROR! Test results have already been entered. You can not change the test details. \n";
+            if (temp.IsTestAborted)
+                ErrorList += "ERROR! The test has been canceled. details can not be updated for this test \n";
+            if (ErrorList == "")
+            {
+                TesterResultUpdateWindow testerResultUpdateWindow = new TesterResultUpdateWindow(temp);
+                testerResultUpdateWindow.ShowDialog();
+                try
+                {
+                    tester = MainWindow.bl.GetTesterByID(tester.Id);
+                    this.TestsList.ItemsSource = tester.TestList;
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    MessageBox.Show("Internal error on TesterViewTestsWindow at UpdateMenu");
+                }
+            }
+            else
+            {
+                MessageBox.Show(ErrorList, "TesterWindow" , MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

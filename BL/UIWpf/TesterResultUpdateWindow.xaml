@@ -5,8 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="TesterResultUpdateWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="TestResultUpdateWindow" Height="450" Width="500" ResizeMode="NoResize">
+    <Border Padding="10">
+        <Grid x:Name="buttons">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.9*"/>
+                <RowDefinition Height="0.9*"/>
+                <RowDefinition Height="0.9*"/>
+                <RowDefinition Height="0.9*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" FontSize="11" Content="Test ID: "/>
+            <Label Grid.Row="1" Grid.Column="0" FontSize="11" Content="Date of test: "/>
+            <Label Grid.Row="2" Grid.Column="0" FontSize="11" Content="The hour of the test: "/>
+            <Label  Grid.Row="3" Grid.Column="0" FontSize="11" Content="Exit address: "/>
+            <Label x:Name="l" Content="Distance Keeping: " Grid.Row="4"   />
+            <Label x:Name="l1" Content="Reverse Parking: " Grid.Row="5"  />
+            <Label x:Name="l2" Content="Mirrors Check: " Grid.Row="6"   />
+            <Label x:Name="l3" Content="Correct Speed: " Grid.Row="7"  />
+            <Label x:Name="l4" Content="Is Passed: "  Grid.Row="8"   />
+            <Label x:Name="l5" Content="Signals: "  Grid.Row="9"  />
+            <Label x:Name="l6" VerticalAlignment="Center" Content="Tester Notes: " Grid.Row="10"   />
+            <TextBlock Grid.Row="0" Grid.Column="1"  FontSize="11" Text="{Binding Path=TestId, Mode=OneWay}" />
+            <TextBlock Grid.Row="1" Grid.Column="1"  FontSize="11" Text="{Binding Path=DateOfTest, Mode=OneWay}" />
+            <TextBlock Grid.Row="2" Grid.Column="1"  FontSize="11" Text="{Binding Path=HourOfTest,Mode=OneWay}"/>
+            <TextBlock  Grid.Row="3" Grid.Column="1" FontSize="11" Text="{Binding Path=StartTestAddress,Mode=OneWay}"/>
+            <StackPanel x:Name="DistanceKeeping" Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Stretch" Grid.Row="4"  VerticalAlignment="Center">
+                <RadioButton x:Name="DistanceKeeping1" Content="Yes " IsChecked="{Binding Path=DistanceKeeping ,Mode=OneWayToSource}"/>
+                <RadioButton x:Name="DistanceKeeping2" Content="No "/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" x:Name="ReverseParking" Orientation="Horizontal"   VerticalAlignment="Center" HorizontalAlignment="Stretch"  Grid.Row="5">
+                <RadioButton x:Name="ReverseParking1" Content="Yes " IsChecked="{Binding Path=ReverseParking,Mode=OneWayToSource}"/>
+                <RadioButton  x:Name="ReverseParking2" Content="No "/>
+            </StackPanel>
+            <StackPanel Grid.Column="1"  VerticalAlignment="Center"  x:Name="MirrorsCheck" Orientation="Horizontal" HorizontalAlignment="Stretch"  Grid.Row="6" >
+                <RadioButton x:Name="MirrorsCheck1"  VerticalAlignment="Center" Content="Yes " IsChecked="{Binding Path=MirrorsCheck,Mode=OneWayToSource}" />
+                <RadioButton x:Name="MirrorsChec2" VerticalAlignment="Center" Content="No "/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" x:Name="CorrectSpeed"  VerticalAlignment="Center"   Orientation="Horizontal" HorizontalAlignment="Stretch"  Grid.Row="7" >
+                <RadioButton  x:Name="CorrectSpeed1" VerticalAlignment="Center" Content="Yes " IsChecked="{Binding Path=CorrectSpeed,Mode=OneWayToSource}" />
+                <RadioButton x:Name="CorrectSpeed2" VerticalAlignment="Center" Content="No "/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" x:Name="IsPassed"  VerticalAlignment="Center"  Orientation="Horizontal" HorizontalAlignment="Stretch"  Grid.Row="8" >
+                <RadioButton x:Name="IsPassed1" VerticalAlignment="Center" Content="Yes " IsChecked="{Binding Path=IsPassed,Mode=OneWayToSource}"/>
+                <RadioButton x:Name="IsPassed2" VerticalAlignment="Center" Content="No "/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" x:Name="Signals"  VerticalAlignment="Center"  Orientation="Horizontal" HorizontalAlignment="Stretch" Grid.Row="9">
+                <RadioButton x:Name="Signals1" VerticalAlignment="Center" Content="Yes " IsChecked="{Binding Path=Signals, Mode=OneWayToSource}"/>
+                <RadioButton x:Name="Signals2" VerticalAlignment="Center" Content="No "/>
+            </StackPanel>
+            <TextBox Margin="0 5 0 5" VerticalAlignment="Stretch" x:Name="TesterNotes" Grid.Column="1" Grid.Row="10" Text="{Binding Path=TesterNotes,Mode=OneWayToSource}"/>
+            <Button x:Name="button" Grid.ColumnSpan="2" Content="Update!"  Grid.Row="11" Click="ClickUpdate"/>
+        </Grid>
+    </Border>
 </Window>
