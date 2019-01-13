@@ -35,13 +35,14 @@ namespace UIWpf
             if (CorrectSpeed1.IsChecked == CorrectSpeed2.IsChecked) { return false; }
             if (IsPassed1.IsChecked == IsPassed2.IsChecked) { return false; }
             if (Signals1.IsChecked == Signals2.IsChecked) { return false; }
+           if(TesterNotes.Text.Length <30) { return false; }
             return true;
         }
         private void ClickUpdate(object sender, RoutedEventArgs e)
         {
             if (MissingDetails() == false)
             {
-                MessageBox.Show("All details must be entered!","Test Update", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("All details must be entered! Payattention, Notes must be unlist 30 characters","Test Update", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             Close();
