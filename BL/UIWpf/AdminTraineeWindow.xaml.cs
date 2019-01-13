@@ -92,7 +92,8 @@ namespace UIWpf
 
         private void Button_Click_ViewAllTrainees(object sender, RoutedEventArgs e)
         {
-
+            AdminViewTraineesListWindow adminViewTraineesListWindow = new AdminViewTraineesListWindow();
+            adminViewTraineesListWindow.ShowDialog();
         }
 
         private void Button_Click_SearchTraineeByName(object sender, RoutedEventArgs e)

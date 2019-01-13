@@ -63,6 +63,9 @@
     <Compile Include="AdminTraineeWindow.xaml.cs">
       <DependentUpon>AdminTraineeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdminViewTraineesListWindow.xaml.cs">
+      <DependentUpon>AdminViewTraineesListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
@@ -109,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdminTraineeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminViewTraineesListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
