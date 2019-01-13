@@ -43,22 +43,19 @@ namespace BO
                     break;                   
             }
         }
-        //public Tester(DO.Tester other) : base(other.Id)
-        //{
-        //    LastName = other.LastName;
-        //    FirstName = other.FirstName;
-        //    PhoneNumber = other.PhoneNumber;
-        //    Gender = (GenderEnum)other.Gender;
-        //    Address = new Address(other.Address.City, other.Address.Street, other.Address.BuildingNumber);
-        //    DateOfBirth = other.DateOfBirth;
-        //    Seniority = other.Seniority;
-        //    MaxDistance = other.MaxDistance;
-        //    MaxTestsPerWeek = other.MaxTestsPerWeek;
-        //    TypeCarToTest = (CarTypeEnum)other.TypeCarToTest;
-        //    AvailableWorkTime = other.AvailableWorkTime;
-        //    //foreach (var item in other.TestList)
-        //    //    TestList.Add(new TesterTest(item));
-        //}
+        public Tester(DO.Tester other) : base(other.Id)
+        {
+            LastName = other.LastName;
+            FirstName = other.FirstName;
+            PhoneNumber = other.PhoneNumber;
+            Gender = (GenderEnum)other.Gender;
+            Address = new Address(other.Address.City, other.Address.Street, other.Address.BuildingNumber);
+            DateOfBirth = other.DateOfBirth;
+            Seniority = other.Seniority;
+            MaxDistance = other.MaxDistance;
+            MaxTestsPerWeek = other.MaxTestsPerWeek;
+            TypeCarToTest = (CarTypeEnum)other.TypeCarToTest;
+        }
         public Tester(Tester other) : base(other.Id)
         {
             LastName = other.LastName;
@@ -85,12 +82,15 @@ namespace BO
             DateOfBirth = other.DateOfBirth;
             Seniority = other.Seniority;
             MaxDistance = other.MaxDistance;
+
             MaxTestsPerWeek = other.MaxTestsPerWeek;
             TypeCarToTest = other.TypeCarToTest;
+
             AvailiableWorkTime = other.AvailiableWorkTime;
             foreach (var item in other.TestList)
                 TestList.Add(item);
         }
+        public Tester():base("") { }
         /// <summary>
         /// Get DateTime & hour, and returns true if tester availiable at this time.
         /// </summary>

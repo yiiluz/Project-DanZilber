@@ -24,7 +24,7 @@ namespace UIWpf
         public TesterDetailsWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            tester = new Tester("");
+            tester = new BO.Tester();
             this.DataContext = tester;
             InitializeComponent();
             CombBx_TypeCarToTest.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
