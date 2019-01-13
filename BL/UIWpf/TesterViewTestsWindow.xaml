@@ -5,15 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="TesterViewTestsWindow" Height="350" Width="400">
-    <Border Padding="10" BorderBrush="Green" BorderThickness="1">
+        Title="TesterViewTestsWindow" Height="400" Width="400">
+    <Border Padding="10" BorderBrush="LightGreen" BorderThickness="1">
         <StackPanel>
             <Label Content="Yours Tests list. Double click to get more info." HorizontalAlignment="Center" FontSize="16"/>
             <Label Content="Right Click for more functions." HorizontalAlignment="Center" FontSize="16"/>
+            <Label Content="Red frame = test aborted. Green frame = test not aborted." HorizontalAlignment="Left" FontSize="10"/>
+            <Label Content="Orange BackGround = Waiting for Update. Green BackGround = test updated." HorizontalAlignment="Left" FontSize="10"/>
             <ListBox x:Name="TestsList" BorderBrush="Green" Height="200" ItemsSource="{Binding TestList}" MouseDoubleClick="TestsList_MouseDoubleClick" HorizontalContentAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Padding="2" BorderThickness="1" BorderBrush="Aquamarine">
+                        <Border Padding="2" BorderThickness="2" BorderBrush="{Binding Path=IsTestAborted, Converter={StaticResource boolToRedOrGreen}}" 
+                                Background="{Binding Path=IsTesterUpdateStatus ,Converter={StaticResource boolToGreenOrOrange}}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*"/>

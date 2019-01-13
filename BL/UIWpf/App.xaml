@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:UIWpf"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <local:BoolToGreenOrOrange x:Key="boolToGreenOrOrange"/>
+        <local:BoolToRedOrGreen x:Key="boolToRedOrGreen"/>
+        <local:BoolToRedOrTransparent x:Key="boolToRedOrTransparent"/>
+        <local:BoolToTransparentOrOrange x:Key="boolToTransparentOrOrange"/>
+        <local:BoolToGreenOrRed x:Key="boolToGreenOrRed"/>
+        <local:BoolToLightGreenOrRed x:Key="boolToLightGreenOrRed"/>
     </Application.Resources>
 </Application>

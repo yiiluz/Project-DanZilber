@@ -58,7 +58,7 @@ namespace BO
                 }
                 if (IsTesterUpdateStatus)
                 {
-                    tmp += (this as TestResult).ToString();
+                    tmp += base.ToString();
                 }
                 else
                 {

@@ -5,15 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="TraineeViewTestsWindow" Height="315" Width="400">
+        Title="TraineeViewTestsWindow" Height="400" Width="400">
     <Border Padding="10" BorderBrush="Green" BorderThickness="1">
         <StackPanel>
             <Label Content="Yours Tests list. Double click to get more info." HorizontalAlignment="Center" FontSize="16"/>
-            <ListBox x:Name="TestsList" BorderBrush="Green" Height="200" ItemsSource="{Binding TestList}" MouseDoubleClick="TestsList_MouseDoubleClick" HorizontalContentAlignment="Stretch">
+            <Label Content="Right Click for more functions." HorizontalAlignment="Center" FontSize="16"/>
+            <Label Content="Red frame = test aborted' Green frame = test not aborted." HorizontalAlignment="Left" FontSize="10"/>
+            <Label Content="Background: Orange  = Wait for Result, Green = Passed, Red = Not Passed." HorizontalAlignment="Left" FontSize="10"/>
+            <ListBox x:Name="TestsList" BorderBrush="Green" Height="200" ItemsSource="{Binding TestList}" MouseDoubleClick="TestsList_MouseDoubleClick" 
+                     HorizontalContentAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Padding="2" BorderThickness="1" BorderBrush="Aquamarine">
-                            <Grid>
+                        <Border Padding="0" BorderThickness="2" BorderBrush="{Binding Path=IsTestAborted, Converter={StaticResource boolToRedOrGreen}}"
+                               Background="{Binding Path=IsPassed, Converter={StaticResource boolToLightGreenOrRed}}" >
+                            <Grid Background="{Binding Path= IsTesterUpdateStatus, Converter={StaticResource boolToTransparentOrOrange}}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*"/>
                                     <ColumnDefinition Width="1*"/>
