@@ -89,5 +89,14 @@ namespace UIWpf
                 MessageBox.Show("Tester with ID " + getIDWindow.TxtBx_ID.Text + " successfuly deleted.", "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
+        private void Button_Click_ViewTestersLists(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Button_Click_SearchTesterByName(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
