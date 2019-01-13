@@ -89,5 +89,15 @@ namespace UIWpf
                 MessageBox.Show("Trainee with ID " + getIDWindow.TxtBx_ID.Text + " successfuly deleted.", "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
+        private void Button_Click_ViewAllTrainees(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_SearchTraineeByName(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

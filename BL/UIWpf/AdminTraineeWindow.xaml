@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="Admin Trainee Window" Height="320" Width="330" ResizeMode="NoResize" Icon="Icons/LockIcon.png">
+        Title="Admin Trainee Window" Height="400" Width="330" ResizeMode="NoResize" Icon="Icons/LockIcon.png">
     <Border Padding="5">
         <StackPanel>
             <TextBlock Text="Choose Operation:" Margin="0 20" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
             <Button Content="Add Trainee" Margin="20 15 20 0" Height="25" Click="Button_Click_AddTrainee"/>
             <Button Content="Update Trainee Details" Margin="20 15 20 0" Height="25" Click="Button_Click_UpdateTrainee"/>
             <Button Content="Remove Trainee" Margin="20 15 20 0" Height="25" Click="Button_Click_RemoveTrainee"/>
+            <Button Content="View All Trainees" Margin="20 15 20 0" Height="25" Click="Button_Click_ViewAllTrainees"/>
+            <Button Content="Search Trainee By Name" Margin="20 15 20 0" Height="25" Click="Button_Click_SearchTraineeByName"/>
             <Button Background="Transparent" BorderBrush="Transparent" Margin="0 30" Height="50" Width="50" Click="Button_Click_Back" MouseEnter="Button_Back_MouseEnter" MouseLeave="Button_Back_MouseLeave">
-                <StackPanel>
-                    <Image x:Name="BackImage" Source="Icons/BackIcon.png" Height="40" Width="40"/>
-                </StackPanel>
+                <Image x:Name="BackImage" Source="Icons/BackIcon.png" Height="40" Width="40"/>
             </Button>
         </StackPanel>
     </Border>

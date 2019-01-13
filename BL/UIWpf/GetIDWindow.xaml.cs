@@ -117,7 +117,7 @@ namespace UIWpf
 
         private void TxtBx_ID_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Return)
 
             {
                 Button_Click(sender, new RoutedEventArgs());
