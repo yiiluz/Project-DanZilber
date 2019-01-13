@@ -5,13 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="AdminViewTraineesListWindow" Height="400" Width="400">
+        Title="AdminViewTraineesListWindow" Height="350" Width="400">
     <Border Padding="10" BorderBrush="Green" BorderThickness="1">
         <StackPanel>
-            <Label Content="Yours Tests list. Double click to get more info." HorizontalAlignment="Center" FontSize="16"/>
+            <Label Content="All Trainees. Double click to get more info." HorizontalAlignment="Center" FontSize="16"/>
             <Label Content="Right Click for more functions." HorizontalAlignment="Center" FontSize="16"/>
-            <Label Content="Red frame = test aborted' Green frame = test not aborted." HorizontalAlignment="Left" FontSize="10"/>
-            <Label Content="Background: Orange  = Wait for Result, Green = Passed, Red = Not Passed." HorizontalAlignment="Left" FontSize="10"/>
             <ListBox x:Name="ListBox_TraineesList" BorderBrush="Green" Height="200" MouseDoubleClick="TestsList_MouseDoubleClick" 
                      HorizontalContentAlignment="Stretch" ItemsSource="{Binding Mode=OneWay}">
                 <ListBox.ItemTemplate>

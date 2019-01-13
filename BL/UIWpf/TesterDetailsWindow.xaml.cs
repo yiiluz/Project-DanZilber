@@ -133,15 +133,17 @@ namespace UIWpf
                     }
                     catch (DuplicateWaitObjectException ex)
                     {
-                        MessageBox.Show(ex.Message, "Already exist", MessageBoxButton.OK);
+                        MessageBox.Show(ex.Message, "Already exist", MessageBoxButton.OK, MessageBoxImage.Error);
                         Close();
+                        return;
                     }
                     catch (ArgumentOutOfRangeException ex)
                     {
-                        var result = MessageBox.Show(ex.Message + "\nDo you want to try agein?", "Age is Wrong", MessageBoxButton.YesNo);
+                        var result = MessageBox.Show(ex.Message + "\nDo you want to try agein?", "Age is Wrong", MessageBoxButton.YesNo, MessageBoxImage.Error);
                         if (MessageBoxResult.No == result)
                         {
                             Close();
+                            return;
                         }
                         else
                             return;
@@ -151,6 +153,7 @@ namespace UIWpf
 
                         MessageBox.Show(ex.Message, "Internal Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         Close();
+                        return;
                     }
                     MessageBox.Show("Successfuly added tester!", "Add Status", MessageBoxButton.OK, MessageBoxImage.Information);
                     Close();
@@ -164,6 +167,7 @@ namespace UIWpf
                     {
                         MessageBox.Show(ex.Message, "Internal Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         Close();
+                        return;
                     }
                     MessageBox.Show("Successfuly Updated tester!", "Update Status", MessageBoxButton.OK, MessageBoxImage.Information);
                     Close();

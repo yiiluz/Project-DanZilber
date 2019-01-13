@@ -27,7 +27,7 @@ namespace BO
         Tester GetTesterByID(string id);
         Test GetTestByID(string id);
         List<Tester> GetAvailableTestersForSpecificDay(DateTime time, int hour, CarTypeEnum carType);
-        List<Test> GetTestsPartialListByPredicate(Func<BO.Test, bool> func);
+        List<Test> GetTestsPartialListByPredicate(Func<DO.Test, bool> func);
         List<Tester> GetTestersPartialListByPredicate(Func<BO.Tester, bool> func);
         List<Trainee> GetTraineesPartialListByPredicate(Func<BO.Trainee, bool> func);
         //bool IsHaveLicense(Trainee T, CarTypeEnum car);

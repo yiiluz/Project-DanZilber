@@ -111,8 +111,9 @@ namespace UIWpf
                     }
                     catch (DuplicateWaitObjectException ex)
                     {
-                        MessageBox.Show(ex.Message, "Already exist", MessageBoxButton.OK);
-                        Close();
+                        MessageBox.Show(ex.Message, "Already exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                        this.Close();
+                        return;
                     }
                     catch (ArgumentOutOfRangeException ex)
                     {
@@ -120,6 +121,7 @@ namespace UIWpf
                         if (MessageBoxResult.No == result)
                         {
                             Close();
+                            return;
                         }
                         else
                             return;
@@ -129,6 +131,7 @@ namespace UIWpf
 
                         MessageBox.Show(ex.Message, "Internal Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         Close();
+                        return;
                     }
                     MessageBox.Show("Successfuly added trainee!", "Add Status", MessageBoxButton.OK, MessageBoxImage.Information);
                     Close();
@@ -142,6 +145,7 @@ namespace UIWpf
                     {
                         MessageBox.Show(ex.Message, "Internal Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         Close();
+                        return;
                     }
                     MessageBox.Show("Successfuly Updated trainee!", "Update Status", MessageBoxButton.OK, MessageBoxImage.Information);
                     Close();

@@ -60,7 +60,7 @@ namespace UIWpf
 
         private void MenuItem_Click_UpdateTrainee(object sender, RoutedEventArgs e)
         {
-            TraineeDetailsWindow traineeDetailsWindow = new TraineeDetailsWindow(ListBox_TraineesList.SelectedItem as Trainee, "Update");
+            TraineeDetailsWindow traineeDetailsWindow = new TraineeDetailsWindow((Trainee)ListBox_TraineesList.SelectedItem, "Update");
             traineeDetailsWindow.ShowDialog();
         }
 
@@ -68,7 +68,7 @@ namespace UIWpf
         {
             try
             {
-                MainWindow.bl.RemoveTrainee((ListBox_TraineesList.SelectedItem as Trainee).Id);
+                MainWindow.bl.RemoveTrainee(((Trainee)(ListBox_TraineesList.SelectedItem)).Id);
                 traineeList = MainWindow.bl.GetTraineeList();
                 ListBox_TraineesList.ItemsSource = traineeList;
             }
@@ -80,16 +80,13 @@ namespace UIWpf
 
         private void MenuItem_Click_AddTestToTrainee(object sender, RoutedEventArgs e)
         {
-           
-          
-                AddTestWindow testWindow = new AddTestWindow();
-                testWindow.TxtBx_ID.Text = (ListBox_TraineesList.SelectedItem as Trainee).Id;
-                testWindow.TxtBx_ID.IsEnabled = false;
-                testWindow.TxtBx_City.Text = (ListBox_TraineesList.SelectedItem as Trainee).City;
-                testWindow.TxtBx_Street.Text = (ListBox_TraineesList.SelectedItem as Trainee).Street;
-                testWindow.TxtBx_BuildNum.Text = (ListBox_TraineesList.SelectedItem as Trainee).BuildingNumber.ToString();
-                testWindow.ShowDialog();
-        
+            AddTestWindow testWindow = new AddTestWindow();
+            testWindow.TxtBx_ID.Text = (ListBox_TraineesList.SelectedItem as Trainee).Id;
+            testWindow.TxtBx_ID.IsEnabled = false;
+            testWindow.TxtBx_City.Text = (ListBox_TraineesList.SelectedItem as Trainee).City;
+            testWindow.TxtBx_Street.Text = (ListBox_TraineesList.SelectedItem as Trainee).Street;
+            testWindow.TxtBx_BuildNum.Text = (ListBox_TraineesList.SelectedItem as Trainee).BuildingNumber.ToString();
+            testWindow.ShowDialog();
         }
     }
 }
