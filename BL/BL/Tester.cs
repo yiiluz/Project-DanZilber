@@ -112,7 +112,7 @@ namespace BO
             {
                 foreach (var item in TestList)
                 {
-                    if (item.DateOfTest == date)
+                    if (item.DateOfTest == date && !item.IsTestAborted)
                     {
                         tmp[item.HourOfTest - 9] = false;
                     }
@@ -142,7 +142,7 @@ namespace BO
             {
                 foreach (var item in TestList)
                 {
-                    if (item.DateOfTest == date)
+                    if (item.DateOfTest == date && !item.IsTestAborted)
                     {
                         tmp[item.HourOfTest - 9] = false;
                     }
@@ -161,7 +161,7 @@ namespace BO
         {
             int num = 0;
             foreach (var item in TestList)
-                if (item.DateOfTest.AddDays(-(int)item.DateOfTest.DayOfWeek) == a.AddDays(-(int)a.DayOfWeek))
+                if (item.DateOfTest.AddDays(-(int)item.DateOfTest.DayOfWeek) == a.AddDays(-(int)a.DayOfWeek) && !item.IsTestAborted)
                     num++;
             return num;
         }
@@ -175,7 +175,7 @@ namespace BO
                 temp[i] = AvailiableWorkTime[(int)date.DayOfWeek, i];
             foreach (var x in TestList)
             {
-                if (x.DateOfTest == date)
+                if (x.DateOfTest == date && !x.IsTestAborted)
                     temp[x.HourOfTest - 9] = false;
             }
             hour -= 9;

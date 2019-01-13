@@ -64,7 +64,7 @@ namespace DL
             Tester tester2 = new Tester("333333333");
             tester2.FirstName = "yaakov";
             tester2.DateOfBirth = new DateTime(1970, 01, 01);
-            tester2.MaxTestsPerWeek = 1;
+            tester2.MaxTestsPerWeek = 2;
             tester2.TypeCarToTest = CarTypeEnum.MotorCycle;
             tester2.MaxDistance = 50;
             bool[,] tmp2 = new bool[5, 6];

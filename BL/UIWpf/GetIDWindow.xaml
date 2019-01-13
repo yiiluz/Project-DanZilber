@@ -21,7 +21,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Label x:Name="LableOfInput" Content="Enter ID:" FontFamily="David" FontSize="16" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Foreground="Black"/>
-            <TextBox x:Name="TxtBx_ID" FontSize="20" Padding="3" Margin="3,20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Text="" Grid.Row="1" MaxLength="9" GotFocus="TxtBx_ID_GotFocus"/>
+            <TextBox x:Name="TxtBx_ID" KeyUp="TxtBx_ID_KeyUp" FontSize="20" Padding="3" Margin="3,20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Text="" Grid.Row="1" MaxLength="9" GotFocus="TxtBx_ID_GotFocus"/>
             <Button x:Name="Button_OK" Content="OK" Grid.Row="4" Margin="30" Click="Button_Click" Background="#FFB9F9FF" MouseEnter="Button_OK_MouseEnter" MouseLeave="Button_OK_MouseLeave"/>
             <Image x:Name="UserImage" HorizontalAlignment="Stretch" Grid.Row="0" VerticalAlignment="Stretch" Height="100" Width="100" Source="Icons/UserIcon2.png" Stretch="Fill" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave"/>
         </Grid>

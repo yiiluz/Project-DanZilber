@@ -283,8 +283,7 @@ namespace BL
                 {
                     lastTest = GetTestsList().Find(x => x.IsTestAborted == false && x.DateOfTest == trainee.LastTest
                                     && x.ExTrainee.Id == trainee.Id && x.CarType == tester.TypeCarToTest);
-                    if (lastTest != null)
-                        if (!lastTest.IsTesterUpdateStatus)
+                    if (lastTest != null && !lastTest.IsTesterUpdateStatus)
                             errors += "Can't add to this trainee new test until the results of the test on " + trainee.LastTest.ToShortDateString()
                                 + " will be availiable.\n";
                 }

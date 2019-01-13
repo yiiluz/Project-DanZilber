@@ -58,7 +58,7 @@ namespace BO
             test.IsPassed = other.IsPassed;
             test.TesterNotes = other.TesterNotes;
             test.IsTesterUpdateStatus = other.IsTesterUpdateStatus;
-            //test.IsTestAborted = other.IsTestAborted;
+            test.IsTestAborted = other.IsTestAborted;
             return test;
         }
         public static Tester GetBOTester(DO.Tester other)

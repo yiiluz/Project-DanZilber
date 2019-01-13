@@ -114,5 +114,13 @@ namespace UIWpf
             UserImage.Height -= 15;
             UserImage.Width -= 15;
         }
+
+        private void TxtBx_ID_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Button_Click(sender, new RoutedEventArgs());
+            }
+        }
     }
 }

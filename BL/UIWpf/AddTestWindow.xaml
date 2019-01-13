@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="Add Test" Height="550" Width="500">
+        Title="Add Test" Height="550" Width="520" ResizeMode="NoResize">
     <Window.Resources>
         <LinearGradientBrush x:Key="LableColorStyle" StartPoint="0,0.5" EndPoint="1,0.5">
             <GradientStop Offset="0" Color="WhiteSmoke"/>
@@ -65,19 +65,19 @@
             <Setter Property="FontSize" Value="16"/>
         </Style>
     </Window.Resources>
-    <Window.Background>
+    <!--Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF122F5E" Offset="0"/>
             <GradientStop Color="#FF0FEBB7" Offset="1"/>
             <GradientStop Color="#FF0025FF" Offset="0.52"/>
         </LinearGradientBrush>
-    </Window.Background>
+    </-->
     <Border Padding="10">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4.5*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -117,8 +117,9 @@
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Test Hour:"/>
+                                                <TextBlock Text="Test Hour:  "/>
                                                 <TextBlock Text="{Binding HourOfTest, Mode=TwoWay}"/>
+                                                <TextBlock Text=":00"/>
                                             </StackPanel>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
@@ -146,7 +147,7 @@
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Test Date: "/>
+                                                <TextBlock Text="Test Date:  "/>
                                                 <TextBlock Text="{Binding Path=DateOfTest, Mode=TwoWay, Converter={StaticResource dateTimeToShortString}}"/>
                                             </StackPanel>
                                         </DataTemplate>

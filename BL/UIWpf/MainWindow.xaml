@@ -9,9 +9,11 @@
 
     <Window.Resources >
         <LinearGradientBrush x:Key="LableColorStyle" StartPoint="0,0.5" EndPoint="1,0.5">
+            <!--
             <GradientStop Offset="0" Color="CornflowerBlue"/>
             <GradientStop Offset="0.5" Color="DeepSkyBlue"/>
             <GradientStop Offset="1" Color="CornflowerBlue"/>
+            -->
         </LinearGradientBrush>
         <Style x:Key="LabelsStyle" TargetType="Label">
             <Setter Property="Background" Value="{StaticResource LableColorStyle}"/>
@@ -34,19 +36,19 @@
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="Margin" Value="4"/>
+            <Setter Property="Height" Value="50"/>
         </Style>
     </Window.Resources>
-    <Window.Background>
+    <!--Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="LightSkyBlue" Offset="0"/>
             <GradientStop Color="DarkBlue" Offset="1"/>
-        </LinearGradientBrush>
-    </Window.Background>
+        </LinearGradientBrush-->
     <Border Padding="10">
         <Grid>
             <StackPanel>
                 <Label Content="Hello! Wellcome to Tests, Trainees and Testers system!" Style="{StaticResource LabelsStyle}"/>
-                <TextBlock Text="Log in" Margin="0 35" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontSize="20"
+                <TextBlock Text="Log in" Margin="0 35" HorizontalAlignment="Center" FontSize="20"
                            FontWeight="ExtraBold"/>
                 <Button Content="Admin" Click="Button_Admin_Click" Margin="0 15 0 0" Style="{StaticResource ButtonStyle}"/>
                 <Button Content="Existing Tester" Click="Button_Tester_Click" Margin="0 15 0 0" Style="{StaticResource ButtonStyle}"/>
