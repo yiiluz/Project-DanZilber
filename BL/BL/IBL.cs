@@ -19,7 +19,7 @@ namespace BO
         string AddTest(Test t);
         List<Test> GetOptionalTestsByDate(Test dataSourse, Trainee trainee);
         List<Test> GetOptionalTestsByHour(Test dataSourse, Trainee trainee);
-        void UpdateTest(string id, TestResult t);
+        void UpdateTestResult(string id, TestResult t);
         List<Tester> GetTestersList();
         List<Trainee> GetTraineeList();
         List<Test> GetTestsList();

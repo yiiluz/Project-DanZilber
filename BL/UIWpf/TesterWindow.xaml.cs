@@ -49,16 +49,16 @@ namespace UIWpf
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            GetSerialWindow getSerialWindow = new GetSerialWindow();
-            getSerialWindow.ShowDialog();
-            if (getSerialWindow.IsClosedByButton)
-            {
-                if (getSerialWindow.TxtBx_Serial)
-                {
+            //GetSerialWindow getSerialWindow = new GetSerialWindow();
+            //getSerialWindow.ShowDialog();
+            //if (getSerialWindow.IsClosedByButton)
+            //{
+            //    if (getSerialWindow.TxtBx_Serial)
+            //    {
 
-                }
-            
-            }
+            //    }
+
+            //}
         }
 
         private void Button_Click_ViewTesterDetails(object sender, RoutedEventArgs e)

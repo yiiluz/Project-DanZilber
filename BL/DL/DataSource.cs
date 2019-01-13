@@ -83,6 +83,15 @@ namespace DL
             trainee.CurrCarType = CarTypeEnum.MotorCycle;
             trainee.NumOfFinishedLessons = 100;
             trainees.Add(trainee);
+
+            Test test = new Test("11111111");
+            test.TesterId = "333333333";
+            test.TraineeId = "444444444";
+            test.DateOfTest = new DateTime(2019,1,1);
+            test.HourOfTest = 12;
+            test.IsTestAborted = false;
+            test.IsTesterUpdateStatus = false;
+            tests.Add(test);
             //************************************************************************
         }
 

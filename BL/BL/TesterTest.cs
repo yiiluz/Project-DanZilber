@@ -72,7 +72,7 @@ namespace BO
                 if (DateOfTest < DateTime.Now)
                     if (IsTesterUpdateStatus)
                     {
-                        tmp += (this as TestResult).ToString();
+                        tmp += base.ToString();
                     }
                     else
                     {

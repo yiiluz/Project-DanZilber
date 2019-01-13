@@ -437,8 +437,9 @@ namespace BL
         /// Update test deteils
         /// </summary>
         /// <param name="test"></param>
-        public void UpdateTest(string serial, TestResult t) /////////
+        public void UpdateTestResult(string serial, TestResult t) /////////
         {
+            
             Test test;
             //get test obj
             try
@@ -459,21 +460,7 @@ namespace BL
             {
                 throw e;
             }
-            //if trainee has passed the test
-            //if (t.IsPassed)
-            //{
-            //    trainee.ExistingLicenses.Add(test.CarType);
-            //    try
-            //    {
-            //        UpdateTraineeDetails(trainee);
-            //    }
-            //    catch (KeyNotFoundException e)
-            //    {
-            //        throw new MemberAccessException(e.Message + "\nCan't update trainee license.");
-            //    }
-            //}
-            //update the test results
-            //test.UpdateTestDeteils(t);
+            test.UpdateTestDeteils(t);
             try
             {
                 instance.UpdateTestDetails(Converters.CreateDOTest(test, serial));
