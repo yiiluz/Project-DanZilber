@@ -10,5 +10,6 @@
         <local:BoolToTransparentOrOrange x:Key="boolToTransparentOrOrange"/>
         <local:BoolToGreenOrRed x:Key="boolToGreenOrRed"/>
         <local:BoolToLightGreenOrRed x:Key="boolToLightGreenOrRed"/>
+        <local:IntToVisibility x:Key="intToVisibility"/>
     </Application.Resources>
 </Application>

@@ -71,6 +71,7 @@ namespace UIWpf
                 MainWindow.bl.RemoveTrainee(((Trainee)(ListBox_TraineesList.SelectedItem)).Id);
                 traineeList = MainWindow.bl.GetTraineeList();
                 ListBox_TraineesList.ItemsSource = traineeList;
+                MessageBox.Show("The trainee has been successfully deleted from the system", "AdminViewTraineeListWindow", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch(KeyNotFoundException ee)
             {

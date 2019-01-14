@@ -42,8 +42,9 @@ namespace DL
             Configuration.Add("Serial Number Test", new ConfigurationParameter() { Readable = true, Writable = true, Value = 10000000 });
             //*********************************************************************
             Tester tester = new Tester("111111111");
-            tester.FirstName = "avraham";
-            tester.DateOfBirth = new DateTime(1970, 01, 01);
+            tester.FirstName = "Avraham";
+            tester.LastName = "OurFather";
+            tester.DateOfBirth = new DateTime(1970, 01, 04);
             tester.MaxTestsPerWeek = 2;
             tester.TypeCarToTest = CarTypeEnum.MotorCycle;
             tester.MaxDistance = 50;
@@ -51,9 +52,11 @@ namespace DL
             for (int i = 0; i < 5; ++i)
                 for (int j = 5; j < 6; ++j)
                     tmp[i, j] = true;
+
             Tester tester1 = new Tester("222222222");
-            tester1.FirstName = "yitzhak";
-            tester1.DateOfBirth = new DateTime(1970, 01, 01);
+            tester1.FirstName = "Yitzhak";
+            tester1.LastName = "Iluz";
+            tester1.DateOfBirth = new DateTime(1975, 12, 05);
             tester1.MaxTestsPerWeek = 2;
             tester1.TypeCarToTest = CarTypeEnum.MotorCycle;
             tester1.MaxDistance = 50;
@@ -61,9 +64,11 @@ namespace DL
             for (int i = 0; i < 5; ++i)
                 for (int j = 4; j < 6; ++j)
                     tmp1[i, j] = true;
+
             Tester tester2 = new Tester("333333333");
-            tester2.FirstName = "yaakov";
-            tester2.DateOfBirth = new DateTime(1970, 01, 01);
+            tester2.FirstName = "Yaakov";
+            tester2.LastName = "Bardugo";
+            tester2.DateOfBirth = new DateTime(1967, 02, 04);
             tester2.MaxTestsPerWeek = 2;
             tester2.TypeCarToTest = CarTypeEnum.MotorCycle;
             tester2.MaxDistance = 50;
@@ -71,15 +76,18 @@ namespace DL
             for (int i = 0; i < 5; ++i)
                 for (int j = 3; j < 6; ++j)
                     tmp2[i, j] = true;
+
             testers.Add(tester);
             testers.Add(tester1);
             testers.Add(tester2);
             Schedules.Add(tester.Id, tmp);
             Schedules.Add(tester1.Id, tmp1);
             Schedules.Add(tester2.Id, tmp2);
+
             Trainee trainee = new Trainee("444444444");
             trainee.FirstName = "moshe";
-            trainee.DateOfBirth = new DateTime(1990, 01, 01);
+            trainee.LastName = "Cohen";
+            trainee.DateOfBirth = new DateTime(1990, 11, 01);
             trainee.CurrCarType = CarTypeEnum.MotorCycle;
             trainee.NumOfFinishedLessons = 100;
             trainees.Add(trainee);

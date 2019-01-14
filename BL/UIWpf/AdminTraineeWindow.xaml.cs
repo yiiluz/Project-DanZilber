@@ -96,9 +96,10 @@ namespace UIWpf
             adminViewTraineesListWindow.ShowDialog();
         }
 
-        private void Button_Click_SearchTraineeByName(object sender, RoutedEventArgs e)
+        private void Button_Click_SearchTrainee(object sender, RoutedEventArgs e)
         {
-
+            SearchTrainee searchTrainee = new SearchTrainee();
+            searchTrainee.ShowDialog();
         }
     }
 }

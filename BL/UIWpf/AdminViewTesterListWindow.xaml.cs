@@ -40,6 +40,7 @@ namespace UIWpf
                 MainWindow.bl.RemoveTester((ListBox_TestersList.SelectedItem as Tester).Id);
                 TestersList = MainWindow.bl.GetTestersList();
                 ListBox_TestersList.ItemsSource = TestersList;
+                MessageBox.Show("The tester has been successfully deleted from the system", "AdminViewTesterListWindow", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch(KeyNotFoundException ee)
             {
@@ -50,6 +51,11 @@ namespace UIWpf
         private void Button_Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ListBox_TestersListMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show(ListBox_TestersList.SelectedItem.ToString(), "AdminViewTesterListWindow", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

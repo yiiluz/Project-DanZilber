@@ -82,6 +82,12 @@
     <Compile Include="PasswordWindow.xaml.cs">
       <DependentUpon>PasswordWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SearchTester.xaml.cs">
+      <DependentUpon>SearchTester.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SearchTrainee.xaml.cs">
+      <DependentUpon>SearchTrainee.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TesterDetailsWindow.xaml.cs">
       <DependentUpon>TesterDetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -151,6 +157,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchTester.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchTrainee.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

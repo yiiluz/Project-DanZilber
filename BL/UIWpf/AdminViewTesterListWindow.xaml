@@ -13,7 +13,7 @@
             <Label Content="Red frame = test aborted' Green frame = test not aborted." HorizontalAlignment="Left" FontSize="10"/>
             <Label Content="Background: Orange  = Wait for Result, Green = Passed, Red = Not Passed." HorizontalAlignment="Left" FontSize="10"/>
             <ListBox x:Name="ListBox_TestersList" BorderBrush="Green" Height="200" 
-                     HorizontalContentAlignment="Stretch" ItemsSource="{Binding Mode=OneWay}">
+                     HorizontalContentAlignment="Stretch" ItemsSource="{Binding Mode=OneWay}" MouseDoubleClick="ListBox_TestersListMouseDoubleClick">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border Padding="0">

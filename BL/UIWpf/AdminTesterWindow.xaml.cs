@@ -97,7 +97,8 @@ namespace UIWpf
         }
         private void Button_Click_SearchTesterByName(object sender, RoutedEventArgs e)
         {
-
+            SearchTester searchTester = new SearchTester();
+            searchTester.ShowDialog();
         }
     }
 }

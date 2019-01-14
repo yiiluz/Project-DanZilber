@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="Admin Tester Window" Height="320" Width="330" ResizeMode="NoResize" Icon="Icons/LockIcon.png">
+        Title="Admin Tester Window" Height="400" Width="330" ResizeMode="NoResize" Icon="Icons/LockIcon.png">
     <Border Padding="5">
         <StackPanel>
             <TextBlock Text="Choose Operation:" Margin="0 20" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
@@ -13,7 +13,7 @@
             <Button Content="Update Tester Details" Margin="20 15 20 0" Height="25" Click="Button_Click_UpdateTester"/>
             <Button Content="Remove Tester" Margin="20 15 20 0" Height="25" Click="Button_Click_RemoveTester"/>
             <Button Content="View All Testers" Margin="20 15 20 0" Height="25" Click="Button_Click_ViewTestersLists"/>
-            <Button Content="Search Tester By Name" Margin="20 15 20 0" Height="25" Click="Button_Click_SearchTesterByName"/>
+            <Button Content="Search Tester " Margin="20 15 20 0" Height="25" Click="Button_Click_SearchTesterByName"/>
 
             <Button Background="Transparent" BorderBrush="Transparent" Margin="0 30" Height="50" Width="50" Click="Button_Click_Back" MouseEnter="Button_Back_MouseEnter" MouseLeave="Button_Back_MouseLeave">
                 <StackPanel>
