@@ -32,7 +32,15 @@
                 <TextBox Name="ID" Grid.Row="2" MaxLength="9" Grid.Column="1" Padding="4"  VerticalAlignment="Center" Text="" TextChanged="IDTextChanged"  />
             </Grid>
             <ListBox Grid.Row="1" x:Name="TestersList" BorderBrush="Green" Height="200"  >
-                <TextBlock x:Name="textBlock" Text="There is Nothing to show..."  Visibility="{Binding ElementName=TestersList, Path=AlternationCount, Converter=intToVisibility}" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Path=Id, StringFormat=ID: {0}}" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Text=" "/>
+                    <TextBlock Text="{Binding Path=FirstName,StringFormat=FirstName: {0}}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                    <TextBlock Text=" "/>
+                    <TextBlock Text="{Binding Path=LastName,StringFormat=LastName: {0}}" Grid.Column="2" HorizontalAlignment="Left"  VerticalAlignment="Stretch" />
+                    <TextBlock Text=" "/>
+                    <TextBlock Text="{Binding Path=City, StringFormat=City: {0}}" Grid.Column="3" HorizontalAlignment="Left"  VerticalAlignment="Stretch"/>
+                </StackPanel>
                 <ListBox.ContextMenu >
                     <ContextMenu>
                         <MenuItem Header="Update tester details " Click="MenuItem_Click_UpdateTesterDetails" />
@@ -40,7 +48,6 @@
                         <MenuItem Header="Information" Click="MenuItem_Click_Information" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
-                
             </ListBox>
             <Button Grid.Row="2" HorizontalAlignment="Stretch" Content="Close" Margin="0 10" Click="buttonClick"   />
         </Grid>

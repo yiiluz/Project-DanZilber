@@ -26,7 +26,7 @@ namespace UIWpf
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
         }
-        bool empty;
+       
          private bool ChackIfStringsAreEqual(string a, string b)
         {
             int c = Math.Min(a.Length, b.Length);
@@ -59,10 +59,7 @@ namespace UIWpf
                      where ChackIfStringsAreEqual(ID.Text, j.Id)
                      select j;
            TraineeList.ItemsSource = it;
-            if (TraineeList.Items.Count == 0)
-            {
-                empty = true;
-            }
+            
         }
 
         private void LestNameTextChanged(object sender, TextChangedEventArgs e)
@@ -77,10 +74,7 @@ namespace UIWpf
                      where ChackIfStringsAreEqual(ID.Text, j.Id)
                      select j;
             TraineeList.ItemsSource = it;
-            if (TraineeList.Items.Count == 0)
-            {
-                empty = true;
-            }
+           
         }
 
         private void IDTextChanged(object sender, TextChangedEventArgs e)
@@ -95,10 +89,7 @@ namespace UIWpf
                      where ChackIfStringsAreEqual(ID.Text, j.Id)
                      select j;
             TraineeList.ItemsSource = it;
-            if (TraineeList.Items.Count == 0)
-            {
-                empty = true;
-            }
+           
         }
 
         private void MenuItem_ClickRemoveTrainee(object sender, RoutedEventArgs e)

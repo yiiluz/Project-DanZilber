@@ -25,8 +25,7 @@ namespace UIWpf
             InitializeComponent();
             this.TestersList.ItemsSource = MainWindow.bl.GetTestersList();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            empty = false;
-            textBlock.DataContext = empty;        
+         
         }
         bool empty;
         private bool ChackIfStringsAreEqual(string a, string b)
@@ -55,10 +54,7 @@ namespace UIWpf
                      into g where ChackIfStringsAreEqual(LestName.Text,g.LastName) select g
                      into j where ChackIfStringsAreEqual(ID.Text,j.Id) select j;
             TestersList.ItemsSource = it;
-            if(TestersList.Items.Count == 0)
-            {
-                empty = true;
-            }
+           
         }
 
         private void LestNameTextChanged(object sender, TextChangedEventArgs e)
@@ -73,10 +69,7 @@ namespace UIWpf
                      where ChackIfStringsAreEqual(ID.Text, j.Id)
                      select j;
             TestersList.ItemsSource = it;
-            if (TestersList.Items.Count == 0)
-            {
-                empty = true;
-            }
+        
         }
 
         private void IDTextChanged(object sender, TextChangedEventArgs e)
@@ -91,10 +84,7 @@ namespace UIWpf
                      where ChackIfStringsAreEqual(ID.Text, j.Id)
                      select j;
             TestersList.ItemsSource = it;
-            if (TestersList.Items.Count == 0)
-            {
-                empty = true;
-            }
+          
         }
 
         private void MenuItem_ClickRemoveTester(object sender, RoutedEventArgs e)

@@ -32,7 +32,7 @@
                 <TextBox Name="ID" Grid.Row="2" MaxLength="9" Grid.Column="1" Padding="4"  VerticalAlignment="Center" Text="" TextChanged="IDTextChanged"  />
             </Grid>
             <ListBox Grid.Row="1" x:Name="TraineeList" ItemsSource="{Binding Mode=OneTime}" BorderBrush="Green" Height="200"  >
-                <TextBlock x:Name="textBlock" Text="There is Nothing to show..."  Visibility="{Binding Path=empty, Mode=OneWay}" />
+                <TextBlock x:Name="textBlock" Text="There is Nothing to show..."  />
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border Padding="2" BorderThickness="2">
