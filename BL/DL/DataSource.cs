@@ -97,6 +97,7 @@ namespace DL
             test.TraineeId = "444444444";
             test.DateOfTest = new DateTime(2019,1,1);
             test.HourOfTest = 12;
+            test.CarType = CarTypeEnum.MotorCycle;
             test.IsTestAborted = false;
             test.IsTesterUpdateStatus = false;
             tests.Add(test);

@@ -22,7 +22,7 @@
             </Grid.RowDefinitions>
             <Label x:Name="LableOfInput" Content="Enter Test Serial Number:" FontFamily="David" FontSize="16" 
                    Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Foreground="Black"/>
-            <TextBox x:Name="TxtBx_Serial" Padding="3" FontSize="20" Margin="3,25" HorizontalContentAlignment="Left" KeyUp="TxtBx_Serial_KeyUp"
+            <TextBox x:Name="TxtBx_Serial" Padding="3" FontSize="20" Margin="3,25" HorizontalContentAlignment="Left" KeyDown="TxtBx_Serial_KeyDown"
                      VerticalContentAlignment="Center" Text="" Grid.Row="1" MaxLength="8" GotFocus="TxtBx_ID_GotFocus"/>
             <Button x:Name="Button_OK" Content="OK" Grid.Row="4" Margin="30" Click="Button_Click" 
                     Background="#FFB9F9FF" MouseEnter="Button_OK_MouseEnter" MouseLeave="Button_OK_MouseLeave"/>

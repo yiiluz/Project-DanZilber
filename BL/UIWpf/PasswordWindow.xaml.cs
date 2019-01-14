@@ -80,7 +80,7 @@ namespace UIWpf
             LockImage.Width -= 15;
         }
 
-        private void passwordBox_KeyUp(object sender, KeyEventArgs e)
+        private void passwordBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {

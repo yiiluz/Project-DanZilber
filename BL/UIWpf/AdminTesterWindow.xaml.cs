@@ -75,18 +75,23 @@ namespace UIWpf
         {
             GetIDWindow getIDWindow = new GetIDWindow();
             getIDWindow.ShowDialog();
+            List<TesterTest> abortedTests;
             if (getIDWindow.IsClosedByButton)
             {
                 try
                 {
-                    MainWindow.bl.RemoveTester(getIDWindow.TxtBx_ID.Text);
+                    abortedTests = MainWindow.bl.RemoveTester(getIDWindow.TxtBx_ID.Text);
                 }
                 catch (KeyNotFoundException ex)
                 {
                     MessageBox.Show(ex.Message, "ID not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                MessageBox.Show("Tester with ID " + getIDWindow.TxtBx_ID.Text + " successfuly deleted.", "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                string aborted = "";
+                foreach (var item in abortedTests)
+                    aborted += "Test Serial: " + item.TestId + ". Date: " + item.DateOfTest.ToShortDateString() + ". Hour: " + item.HourOfTest + ":00.\n";
+                MessageBox.Show("Tester with ID " + getIDWindow.TxtBx_ID.Text + " successfuly deleted.\n"
+                    + "Aborted Tests:\n" + aborted, "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

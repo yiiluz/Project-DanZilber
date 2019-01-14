@@ -9,7 +9,7 @@ namespace BO
     public interface IBL
     {
         void AddTester(Tester T);
-        void RemoveTester(string id);
+        List<TesterTest> RemoveTester(string id);
         void UpdateTesterDetails(Tester T);
         void AddTrainee(Trainee T);
         void RemoveTrainee(string id);
@@ -30,7 +30,7 @@ namespace BO
         List<Test> GetTestsPartialListByPredicate(Func<DO.Test, bool> func);
         List<Tester> GetTestersPartialListByPredicate(Func<BO.Tester, bool> func);
         List<Trainee> GetTraineesPartialListByPredicate(Func<BO.Trainee, bool> func);
-        //bool IsHaveLicense(Trainee T, CarTypeEnum car);
+        string GetLicensesForTrainee(string id);
         IEnumerable<Test> TheTestsWillBeDoneToday_Month(DateTime t, bool Byday);
         IEnumerable<IGrouping<CarTypeEnum, Tester>> GetTestersBySpecialization(bool byOrder = false);
         IEnumerable<IGrouping<string, Trainee>> GetStudentGroupsBySchool(bool byOrder = false);

@@ -68,17 +68,11 @@ namespace BL
         /// Remove tester
         /// </summary>
         /// <param name="tester id"></param>
-        public void RemoveTester(string id)
+        public List<TesterTest> RemoveTester(string id)
         {
             bool exist;
-            try
-            {
-                exist = GetTestersList().Exists(x => x.Id == id);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                throw new KeyNotFoundException("Internal Error. Can't Remove tester with id " + id + ex.Message);
-            }
+            List<TesterTest> abortedTests = new List<TesterTest>();
+            exist = instance.GetTestersList().Exists(x => x.Id == id);
             if (!exist)
             {
                 throw new KeyNotFoundException("Can't remove this tester becauze he is not on the system.");
@@ -91,7 +85,11 @@ namespace BL
                     foreach (var item in GetTestsList())
                     {
                         if (item.ExTester.Id == id)
+                        {
                             AbortTest(item.TestId);
+                            abortedTests.Add(new TesterTest(item));
+                        }
+
                     }
                     instance.RemoveTesterSchedule(id);
                 }
@@ -100,6 +98,7 @@ namespace BL
                     throw e;
                 }
             }
+            return abortedTests;
         }
         /// <summary>
         /// Update tester
@@ -276,7 +275,6 @@ namespace BL
                 //get the trainee and tester objects
                 Trainee trainee = GetTraineeByID(t.ExTrainee.Id);
                 Tester tester = GetTesterByID(t.ExTester.Id);
-
                 //find last test object
                 Test lastTest;
                 if (trainee.LastTest != DateTime.MinValue)
@@ -327,13 +325,8 @@ namespace BL
                 {
                     errors += "Trainee did not passed enough lessons for test.\n";
                 }
-                //if (tester.MaxTestsPerWeek + 1 > tester.GetNumOfTestForSpecificWeek(t.DateOfTest)) //if the tester already did maximun tests in the new test week
-                //    errors += "Tester allready have maximum tests for this week.\n";
-                if (trainee.ExistingLicenses.Exists(x => x == t.CarType)) //if trainee already have license on the test type car
+                if (trainee.ExistingLicenses.Exists(x => (x == t.CarType) || (x == CarTypeEnum.PrivateCar && t.CarType == CarTypeEnum.PrivateCarAuto))) //if trainee already have license on the test type car
                     errors += "Trainee already have that kind of license.\n";
-                //if (trainee.CurrCarType != tester.TypeCarToTest) //if the tester car type to test different from current trainee car type
-                //    errors += "Type car of tester to test different than the needed test.\n";
-
                 if (errors == "ERROR!\n") //if there was no errors
                 {
                     //
@@ -607,8 +600,10 @@ namespace BL
             else
             {
                 Test test = new Test(instance.GetTestsList().Find(x => x.TestId == id));
-                test.ExTester = new ExternalTester(GetTesterByID(test.ExTester.Id));
-                test.ExTrainee = new ExternalTrainee(GetTraineeByID(test.ExTrainee.Id));
+                if (instance.GetTestersList().Exists(x => x.Id == test.ExTester.Id))
+                    test.ExTester = new ExternalTester(GetTesterByID(test.ExTester.Id));
+                if (instance.GetTraineeList().Exists(x => x.Id == test.ExTrainee.Id))
+                    test.ExTrainee = new ExternalTrainee(GetTraineeByID(test.ExTrainee.Id));
                 return test;
             }
         }
@@ -713,6 +708,25 @@ namespace BL
             }
             optionalTests.Sort((x, y) => x.HourOfTest.CompareTo(y.HourOfTest));
             return optionalTests;
+        }
+        public string GetLicensesForTrainee(string id)
+        {
+            string existing = "";
+            Trainee trainee;
+            try
+            {
+                trainee = GetTraineeByID(id);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw;
+            }
+            foreach (var item in trainee.TestList)
+            {
+                if (item.IsPassed == true && item.IsTesterUpdateStatus == true && !item.IsTestAborted)
+                    existing += item.CarType + "\n";
+            }
+            return existing;
         }
 
         /// <summary>

@@ -133,7 +133,7 @@ namespace UIWpf
             CarImage.Width -= 15;
         }
 
-        private void TxtBx_Serial_KeyUp(object sender, KeyEventArgs e)
+        private void TxtBx_Serial_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
