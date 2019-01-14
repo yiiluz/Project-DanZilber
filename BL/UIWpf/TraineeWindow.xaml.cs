@@ -77,5 +77,23 @@ namespace UIWpf
             TraineeDetailsWindow traineeDetailsWindow = new TraineeDetailsWindow(trainee, "View");
             traineeDetailsWindow.ShowDialog();
         }
+
+        private void Button_Click_ViewLicence(object sender, RoutedEventArgs e)
+        {
+            string existingLicenses = "";
+            try
+            {
+                existingLicenses = MainWindow.bl.GetLicensesForTrainee(trainee.Id);
+            }
+            catch (KeyNotFoundException)
+            {
+                MessageBox.Show("internal error on view licenses func", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (existingLicenses != "")
+                MessageBox.Show("Your Licenses:\n" + existingLicenses, "Licenses", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show("You have no licenses yet.", "Nothing To Show", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 }

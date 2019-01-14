@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIWpf"
         mc:Ignorable="d"
-        Title="Tests System - Main Window" Height="400" Width="500" Icon="Icons/ICON.png" ResizeMode="NoResize">
+        Title="Tests System - Main Window" Height="310" Width="300" Icon="Icons/ICON.png" ResizeMode="NoResize">
 
     <Window.Resources >
         <LinearGradientBrush x:Key="LableColorStyle" StartPoint="0,0.5" EndPoint="1,0.5">
@@ -47,12 +47,12 @@
     <Border Padding="10">
         <Grid>
             <StackPanel>
-                <Label Content="Hello! Wellcome to Tests, Trainees and Testers system!" Style="{StaticResource LabelsStyle}"/>
-                <TextBlock Text="Log in" Margin="0 35" HorizontalAlignment="Center" FontSize="20"
+                <Label Content="---Wellcome---" Style="{StaticResource LabelsStyle}" />
+                <TextBlock Text="Log in" Margin="0 5" HorizontalAlignment="Center" FontSize="20"
                            FontWeight="ExtraBold"/>
-                <Button Content="Admin" Click="Button_Admin_Click" Margin="0 15 0 0" Style="{StaticResource ButtonStyle}"/>
-                <Button Content="Existing Tester" Click="Button_Tester_Click" Margin="0 15 0 0" Style="{StaticResource ButtonStyle}"/>
-                <Button Content="Exisiting Trainee" Click="Button_Trainee_Click" Margin="0 15 0 0" Style="{StaticResource ButtonStyle}"/>
+                <Button Content="Admin" Click="Button_Admin_Click" Margin="0 10 0 0" Style="{StaticResource ButtonStyle}"/>
+                <Button Content="Existing Tester" Click="Button_Tester_Click" Margin="0 10 0 0" Style="{StaticResource ButtonStyle}"/>
+                <Button Content="Exisiting Trainee" Click="Button_Trainee_Click" Margin="0 10 0 0" Style="{StaticResource ButtonStyle}"/>
             </StackPanel>
         </Grid>
     </Border>
