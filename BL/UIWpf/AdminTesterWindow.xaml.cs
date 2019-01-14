@@ -97,7 +97,8 @@ namespace UIWpf
 
         private void Button_Click_ViewTestersLists(object sender, RoutedEventArgs e)
         {
-
+            AdminViewTesterListWindow adminViewTesterListWindow = new AdminViewTesterListWindow();
+            adminViewTesterListWindow.ShowDialog();
         }
         private void Button_Click_SearchTesterByName(object sender, RoutedEventArgs e)
         {
