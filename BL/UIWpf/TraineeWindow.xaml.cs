@@ -83,7 +83,7 @@ namespace UIWpf
             string existingLicenses = "";
             try
             {
-                existingLicenses = MainWindow.bl.GetLicensesForTrainee(trainee.Id);
+                existingLicenses = MainWindow.bl.GetStringOfTraineeLicenses(trainee.Id);
             }
             catch (KeyNotFoundException)
             {

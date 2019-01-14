@@ -8,7 +8,7 @@ namespace BO
 {
     public class Converters
     {
-        static IBL bl = BL.Factory.GetBLObj();
+        //static IBL bl = BL.Factory.GetBLObj();
         public static DO.Tester CreateDOTester(BO.Tester other)
         {
             DO.Tester tester = new DO.Tester(other.Id);
@@ -61,7 +61,28 @@ namespace BO
             test.IsTestAborted = other.IsTestAborted;
             return test;
         }
-        public static Tester GetBOTester(DO.Tester other)
+
+        public static BO.Test CreateBOTest(DO.Test other)
+        {
+            BO.Test test = new Test(other.TestId);
+            test.ExTrainee = new ExternalTrainee(other.TraineeId);/////////////////////////////////////
+            test.ExTester = new ExternalTester(other.TesterId);////////////////////////////////////////
+            test.DateOfTest = other.DateOfTest;
+            test.HourOfTest = other.HourOfTest;
+            test.CarType = (CarTypeEnum)other.CarType;
+            test.StartTestAddress = new Address(other.StartTestAddress.City, other.StartTestAddress.Street, other.StartTestAddress.BuildingNumber);
+            test.DistanceKeeping = other.DistanceKeeping;
+            test.ReverseParking = other.ReverseParking;
+            test.MirrorsCheck = other.MirrorsCheck;
+            test.Signals = other.Signals;
+            test.CorrectSpeed = other.CorrectSpeed;
+            test.IsPassed = other.IsPassed;
+            test.TesterNotes = other.TesterNotes;
+            test.IsTesterUpdateStatus = other.IsTesterUpdateStatus;
+            test.IsTestAborted = other.IsTestAborted;
+            return test;
+        }
+        public static Tester CreateBOTester(DO.Tester other)
         {
             BO.Tester temp = new Tester(other.Id);
             temp.LastName = other.LastName;
@@ -78,7 +99,7 @@ namespace BO
         }
         public static BO.Trainee CreateBOTrainee(DO.Trainee other)
         {
-            
+
             Trainee temp = new Trainee(other.Id);
             temp.LastName = other.LastName;
             temp.FirstName = other.FirstName;
@@ -93,7 +114,7 @@ namespace BO
             temp.NumOfTests = other.NumOfTests;
             temp.IsAlreadyDidTest = other.IsAlreadyDidTest;
             temp.ExistingLicenses = new List<CarTypeEnum>();
-            
+
             return temp;
         }
     }

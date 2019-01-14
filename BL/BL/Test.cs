@@ -8,7 +8,7 @@ namespace BO
 {
     public class Test : TestResult
     {
-        private string testId = "";
+        private readonly string testId = "";
         private ExternalTrainee exTrainee;
         private ExternalTester exTester;
         private DateTime dateOfTest = new DateTime();
@@ -19,28 +19,15 @@ namespace BO
         private bool isTestAborted = false;
 
         public Test() { }
-        public Test(DO.Test other)
+
+        public Test(string id)
         {
-            TestId = other.TestId;
-            ExTrainee = new ExternalTrainee(other.TraineeId);/////////////////////////////////////
-            ExTester = new ExternalTester(other.TesterId);////////////////////////////////////////
-            DateOfTest = other.DateOfTest;
-            HourOfTest = other.HourOfTest;
-            CarType = (CarTypeEnum)other.CarType;
-            StartTestAddress = new Address(other.StartTestAddress.City, other.StartTestAddress.Street, other.StartTestAddress.BuildingNumber);
-            DistanceKeeping = other.DistanceKeeping;
-            ReverseParking = other.ReverseParking;
-            MirrorsCheck = other.MirrorsCheck;
-            Signals = other.Signals;
-            CorrectSpeed = other.CorrectSpeed;
-            IsPassed = other.IsPassed;
-            TesterNotes = other.TesterNotes;
-            IsTesterUpdateStatus = other.IsTesterUpdateStatus;
-            IsTestAborted = other.IsTestAborted;
+            this.testId = id;
         }
+
         public Test(Test other)
         {
-            TestId = other.TestId;
+            testId = other.TestId;
             ExTrainee = other.ExTrainee;
             ExTester = other.ExTester;
             DateOfTest = other.DateOfTest;
@@ -77,7 +64,7 @@ namespace BO
         public CarTypeEnum CarType { get => carType; set => carType = value; }
         public Address StartTestAddress { get => startTestAddress; set => startTestAddress = value; }
         public bool IsTesterUpdateStatus { get => isTesterUpdateStatus; set => isTesterUpdateStatus = value; }
-        public string TestId { get => testId; set => testId = value; }
+        public string TestId { get => testId; }
         public string City { get => StartTestAddress.City; set => startTestAddress.City = value; }
         public string Street { get => StartTestAddress.Street; set => startTestAddress.Street = value; }
         public int BuildingNumber { get => StartTestAddress.BuildingNumber; set => startTestAddress.BuildingNumber = value; }

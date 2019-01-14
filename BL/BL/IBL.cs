@@ -26,12 +26,11 @@ namespace BO
         Trainee GetTraineeByID(string id);
         Tester GetTesterByID(string id);
         Test GetTestByID(string id);
-        List<Tester> GetAvailableTestersForSpecificDay(DateTime time, int hour, CarTypeEnum carType);
-        List<Test> GetTestsPartialListByPredicate(Func<DO.Test, bool> func);
+        List<Tester> GetAvailableTestersForSpecificDay(DateTime time, CarTypeEnum carType);
+        List<Test> GetTestsPartialListByPredicate(Func<BO.Test, bool> func);
         List<Tester> GetTestersPartialListByPredicate(Func<BO.Tester, bool> func);
         List<Trainee> GetTraineesPartialListByPredicate(Func<BO.Trainee, bool> func);
-        string GetLicensesForTrainee(string id);
-        IEnumerable<Test> TheTestsWillBeDoneToday_Month(DateTime t, bool Byday);
+        string GetStringOfTraineeLicenses(string id);
         IEnumerable<IGrouping<CarTypeEnum, Tester>> GetTestersBySpecialization(bool byOrder = false);
         IEnumerable<IGrouping<string, Trainee>> GetStudentGroupsBySchool(bool byOrder = false);
         IEnumerable<IGrouping<string, Trainee>> GetStudentGroupsByTeacher(bool byOrder = false);

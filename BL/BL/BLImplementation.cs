@@ -466,12 +466,13 @@ namespace BL
         /// Get List (BO.Tester) of all testers
         /// </summary>
         /// <returns></returns>
+
         public List<Tester> GetTestersList()
         {
             List<Tester> lst = new List<Tester>();
             foreach (var item in instance.GetTestersList())
             {
-                Tester temp = Converters.GetBOTester(item);
+                Tester temp = Converters.CreateBOTester(item);
                 try
                 {
                     temp.AvailiableWorkTime = instance.GetTesterSchedule(temp.Id);
@@ -501,7 +502,7 @@ namespace BL
             {
 
                 Trainee temp = Converters.CreateBOTrainee(item);
-                foreach (var test in GetTestsPartialListByPredicate(x => x.TraineeId == temp.Id))
+                foreach (var test in GetTestsPartialListByPredicate(x => x.ExTrainee.Id == temp.Id))
                 {
                     if (test.DateOfTest > temp.LastTest)
                         temp.LastTest = test.DateOfTest;
@@ -521,7 +522,7 @@ namespace BL
         {
             List<Test> lst = new List<Test>();
             foreach (var item in instance.GetTestsList())
-                lst.Add(new Test(item));
+                lst.Add(Converters.CreateBOTest(item));
             //var lst = from item in instance.GetTestsList() orderby item.DateOfTest select new Test(item);
             foreach (var x in lst)
             {
@@ -532,6 +533,7 @@ namespace BL
             }
             return lst;
         }
+
         /// <summary>
         /// Get BO.Trainee by trainee id. can throw KeyNotFoundException
         /// </summary>
@@ -548,7 +550,7 @@ namespace BL
                 {
                     if (item.TraineeId == trainee.Id)
                     {
-                        trainee.TestList.Add(new TraineeTest(new Test(item)));
+                        trainee.TestList.Add(new TraineeTest(Converters.CreateBOTest(item)));
                         if (item.DateOfTest > trainee.LastTest)
                             trainee.LastTest = item.DateOfTest;
                         if (item.IsPassed)
@@ -569,12 +571,12 @@ namespace BL
                 throw new KeyNotFoundException("Tester id not exist on system.\n");
             else
             {
-                Tester tester = new Tester(instance.GetTestersList().Find(x => x.Id == id));
+                Tester tester = Converters.CreateBOTester(instance.GetTestersList().Find(x => x.Id == id));
                 foreach (var item in instance.GetTestsList())
                 {
                     if (item.TesterId == tester.Id)
                     {
-                        tester.TestList.Add(new TesterTest(new Test(item)));
+                        tester.TestList.Add(new TesterTest(Converters.CreateBOTest(item)));
                     }
                 }
                 try
@@ -599,7 +601,7 @@ namespace BL
                 throw new KeyNotFoundException("Test's serial number not exist on system.\n");
             else
             {
-                Test test = new Test(instance.GetTestsList().Find(x => x.TestId == id));
+                Test test = Converters.CreateBOTest(instance.GetTestsList().Find(x => x.TestId == id));
                 if (instance.GetTestersList().Exists(x => x.Id == test.ExTester.Id))
                     test.ExTester = new ExternalTester(GetTesterByID(test.ExTester.Id));
                 if (instance.GetTraineeList().Exists(x => x.Id == test.ExTrainee.Id))
@@ -610,54 +612,20 @@ namespace BL
 
         public List<Test> GetOptionalTestsByHour(Test dataSourse, Trainee trainee)
         {
-            List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType);
-            //if there is no tester availiable for this hour
-            //-------------------------------------------------------------------
-            bool isExistTesterForThisHour = false;
-            foreach (var item in optionalTesters)
-            {
-                for (int i = 0; i < 5; ++i)
-                {
-                    if (item.AvailiableWorkTime[i, dataSourse.HourOfTest - 9])
-                    {
-                        isExistTesterForThisHour = true;
-                        break;
-                    }
-                }
-            }
-            if (!isExistTesterForThisHour)
-                return new List<Test>();
-            //---------------------------------------------------------------------
             List<Test> optionalTests = new List<Test>();
+            List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType &&
+                                                x.IsTestersWorkAtSpesificHour(dataSourse.HourOfTest));
+            //if there is no tester availiable for this hour
+            if (optionalTesters.Count == 0)
+                return optionalTests;
             int counter = 0, loopNumber = 0;
-            //Get previous dates with same hour
-            while (counter < 3 && dataSourse.DateOfTest.AddDays(-(loopNumber + 1)) > DateTime.Now.AddDays(1))
-            {
-                DateTime temp = dataSourse.DateOfTest.AddDays(-(loopNumber + 1));
-                if (temp.DayOfWeek != DayOfWeek.Friday && temp.DayOfWeek != DayOfWeek.Saturday)
-                    foreach (var item in optionalTesters)
-                    {
-                        if (item.IsAvailiableOnDateAndHour(temp, dataSourse.HourOfTest) && !optionalTests.Exists(x => x.DateOfTest == temp))
-                        {
-                            Test test = new Test(dataSourse);
-                            test.DateOfTest = temp;
-                            test.ExTester = new ExternalTester(item);
-                            test.ExTrainee = new ExternalTrainee(trainee);
-                            optionalTests.Add(test);
-                            counter++;
-                        }
-                    }
-                loopNumber++;
-            }
-            loopNumber = 0;
-            //get older dates with same hour
             while (counter < 7)
             {
-                DateTime temp = dataSourse.DateOfTest.AddDays(loopNumber);
-                if (temp.DayOfWeek != DayOfWeek.Friday && temp.DayOfWeek != DayOfWeek.Saturday)
-                    foreach (var item in optionalTesters)
-                    {
-                        if (item.IsAvailiableOnDateAndHour(temp, dataSourse.HourOfTest) && !optionalTests.Exists(x => x.DateOfTest == temp))
+                DateTime temp = dataSourse.DateOfTest.AddDays(-(loopNumber + 1)), temp2 = dataSourse.DateOfTest.AddDays(loopNumber);
+                foreach (var item in optionalTesters)
+                {
+                    if (temp > DateTime.Now.AddDays(1) && temp.DayOfWeek != DayOfWeek.Friday && temp.DayOfWeek != DayOfWeek.Saturday)
+                        if (!optionalTests.Exists(x => x.DateOfTest == temp))
                         {
                             Test test = new Test(dataSourse);
                             test.DateOfTest = temp;
@@ -666,9 +634,20 @@ namespace BL
                             optionalTests.Add(test);
                             counter++;
                         }
-                    }
+                    if (temp2.DayOfWeek != DayOfWeek.Friday && temp2.DayOfWeek != DayOfWeek.Saturday)
+                        if (!optionalTests.Exists(x => x.DateOfTest == temp2))
+                        {
+                            Test test = new Test(dataSourse);
+                            test.DateOfTest = temp2;
+                            test.ExTester = new ExternalTester(item);
+                            test.ExTrainee = new ExternalTrainee(trainee);
+                            optionalTests.Add(test);
+                            counter++;
+                        }
+                }
                 loopNumber++;
             }
+            optionalTests.Sort((x, y) => x.DateOfTest.CompareTo(y.DateOfTest));
             return optionalTests;
         }
         public List<Test> GetOptionalTestsByDate(Test dataSourse, Trainee trainee)
@@ -676,12 +655,12 @@ namespace BL
             bool[] tmp = new bool[6]; //tmp array for delete dublicates.
             for (int i = 0; i < 6; ++i)
                 tmp[i] = false;
-            var testersList = GetAvailableTestersForSpecificDay(dataSourse.DateOfTest, dataSourse.HourOfTest,
+            var testersList = GetAvailableTestersForSpecificDay(dataSourse.DateOfTest,
                 trainee.CurrCarType); //get testers list that have unlist one hour availiable on this date
             List<Test> optionalTests = new List<Test>();
             foreach (var item in testersList)
             {
-                List<int> currHour = item.GetClosetHour(dataSourse.DateOfTest, dataSourse.HourOfTest);
+                List<int> currHour = item.GetClosetAvailiableHour(dataSourse.DateOfTest, dataSourse.HourOfTest);
                 foreach (var item1 in currHour)
                 {
                     if (tmp[item1 - 9] == false)
@@ -709,7 +688,31 @@ namespace BL
             optionalTests.Sort((x, y) => x.HourOfTest.CompareTo(y.HourOfTest));
             return optionalTests;
         }
-        public string GetLicensesForTrainee(string id)
+
+        public List<Tester> GetAvailableTestersForSpecificDay(DateTime time, CarTypeEnum carType)
+        {
+            var availableTesters = from item in GetTestersList()
+                                   where (item.TypeCarToTest == carType && item.IsAvailiableOnDateAndHour(time))
+                                   //where distance is OK
+                                   //orderby Math.Abs(item.GetClosetHour(time, hour))
+                                   select item;
+            return availableTesters.ToList();
+        }
+
+        public List<Test> GetTestsPartialListByPredicate(Func<BO.Test, bool> func)
+        {
+            return (from item in GetTestsList() where func(item) orderby item.DateOfTest, item.HourOfTest select item).ToList();
+        }
+        public List<Tester> GetTestersPartialListByPredicate(Func<BO.Tester, bool> func)
+        {
+            return (from item in GetTestersList() where func(item) orderby item.LastName, item.FirstName select item).ToList();
+        }
+        public List<Trainee> GetTraineesPartialListByPredicate(Func<BO.Trainee, bool> func)
+        {
+            return (from item in GetTraineeList() where func(item) orderby item.LastName, item.FirstName select item).ToList();
+        }
+
+        public string GetStringOfTraineeLicenses(string id)
         {
             string existing = "";
             Trainee trainee;
@@ -729,56 +732,6 @@ namespace BL
             return existing;
         }
 
-        /// <summary>
-        /// Get list of testers that availiable on specific date, sorted distance from original hour
-        /// </summary>
-        /// <param name="time"></param>
-        /// <param name="hour"></param>
-        /// <param name="carType"></param>
-        /// <returns></returns>
-        public List<Tester> GetAvailableTestersForSpecificDay(DateTime time, int hour, CarTypeEnum carType)
-        {
-            var availableTesters = from item in GetTestersList()
-                                   where (item.TypeCarToTest == carType && item.IsAvailiableOnDate(time))
-                                   //where distance is OK
-                                   //orderby Math.Abs(item.GetClosetHour(time, hour))
-                                   select item;
-            return availableTesters.ToList();
-        }
-        public List<Test> GetTestsPartialListByPredicate(Func<DO.Test, bool> func)
-        {
-            return (from item in instance.GetTestsList() where func(item) select new Test(item)).ToList();
-        }
-
-        public List<Tester> GetTestersPartialListByPredicate(Func<BO.Tester, bool> func)
-        {
-            return (from item in GetTestersList() where func(item) select new Tester(item)).ToList();
-        }
-        public List<Trainee> GetTraineesPartialListByPredicate(Func<BO.Trainee, bool> func)
-        {
-            return (from item in GetTraineeList() where func(item) select new Trainee(item)).ToList();
-        }
-        public bool IsHaveLicense(Trainee T, CarTypeEnum car)
-        {
-
-            return T.ExistingLicenses.Exists(x => x == car);
-        }
-        public IEnumerable<Test> TheTestsWillBeDoneToday_Month(DateTime t, bool Byday)
-        {
-            if (Byday == true)
-            {
-                var toDay = from item in instance.GetTestsList()
-                            orderby item.TestId
-                            where item.DateOfTest.DayOfYear == t.DayOfYear
-                            select new Test(item);
-                return toDay;
-            }
-            var ThisMonth = from item in GetTestsList()
-                            orderby item.TestId
-                            where item.DateOfTest.Month == t.Month
-                            select item;
-            return ThisMonth;
-        }
         public IEnumerable<IGrouping<CarTypeEnum, Tester>> GetTestersBySpecialization(bool byOrder = false)
         {
             if (byOrder == true)
