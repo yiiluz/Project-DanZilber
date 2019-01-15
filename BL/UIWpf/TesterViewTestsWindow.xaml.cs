@@ -45,7 +45,7 @@ namespace UIWpf
             if (TestsList.SelectedIndex == -1)
                 return;
             TesterTest temp = (TesterTest)TestsList.SelectedItem;
-            if (DateTime.Now < temp.DateOfTest)
+            if (DateTime.Now == temp.DateOfTest && DateTime.Now.Hour<temp.HourOfTest || DateTime.Now < temp.DateOfTest)
                 ErrorList += "ERROR! You can not update test information before the intended date. \n";
             if (temp.IsTesterUpdateStatus)
                 ErrorList += "ERROR! Test results have already been entered. You can not change the test details. \n";

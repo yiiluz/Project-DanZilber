@@ -35,21 +35,32 @@ namespace UIWpf
 
         private void MenuItem_Click_RemoveTester(object sender, RoutedEventArgs e)
         {
+            List<TesterTest> abortedTests;
             try
             {
-                MainWindow.bl.RemoveTester((ListBox_TestersList.SelectedItem as Tester).Id);
-                TestersList = MainWindow.bl.GetTestersList();
-                ListBox_TestersList.ItemsSource = TestersList;
+                abortedTests = MainWindow.bl.RemoveTester(((Tester)ListBox_TestersList.SelectedItem).Id);
             }
-            catch(KeyNotFoundException ee)
+            catch (KeyNotFoundException ex)
             {
-                MessageBox.Show(ee.Message, "AdminViewTesterListWindow", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "ID not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
+            string aborted = "";
+            foreach (var item in abortedTests)
+                aborted += "Test Serial: " + item.TestId + ". Date: " + item.DateOfTest.ToShortDateString() + ". Hour: " + item.HourOfTest + ":00.\n";
+            MessageBox.Show("Tester with ID " + (((Tester)ListBox_TestersList.SelectedItem).Id) + " successfuly deleted.\n"
+                + "Aborted Tests:\n" + aborted, "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
+
         }
 
         private void Button_Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ListBox_TestersListMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show(ListBox_TestersList.SelectedItem.ToString(), "AdminViewTesterListWindow", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

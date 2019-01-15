@@ -13,6 +13,8 @@ namespace DO
         private int buildingNumber;
 
 
+
+
         /// <summary>
         /// Argument ctor of struct Address
         /// </summary>
@@ -32,39 +34,11 @@ namespace DO
             street = other.Street;
             buildingNumber = other.BuildingNumber;
         }
-        public string City
-        {
-            get
-            {
-                return city;
-            }
-            set
-            {
-                city = value;
-            }
-        }
-        public string Street
-        {
-            get
-            {
-                return street;
-            }
-            set
-            {
-                street = value;
-            }
-        }
-        public int BuildingNumber
-        {
-            get
-            {
-                return buildingNumber;
-            }
-            set
-            {
-                buildingNumber = value;
-            }
-        }
+
+        public string City { get => city; set => city = value; }
+        public string Street { get => street; set => street = value; }
+        public int BuildingNumber { get => buildingNumber; set => buildingNumber = value; }
+
         public override string ToString()
         {
             string tmp = "City: " + City + ". Street: " + Street + ". Building number: " + BuildingNumber + ".\n";

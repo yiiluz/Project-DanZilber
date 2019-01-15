@@ -38,25 +38,8 @@ namespace UIWpf
             Close();
         }
              
-        //private void TraineeMouseRightButton(object sender, MouseButtonEventArgs e)
-        //{           
-        //    switch (TraineeFunctions.SelectedIndex)
-        //    {
-        //        case 1: 
-        //            break;
-        //        case 2: MainWindow.bl.RemoveTrainee((ListBox_TraineesList.SelectedItem as Trainee).Id);
-        //            break;
-        //        case 3:
-        //            AddTestWindow testWindow = new AddTestWindow();
-        //            testWindow.TxtBx_ID.Text = (ListBox_TraineesList.SelectedItem as Trainee).Id;
-        //            testWindow.TxtBx_ID.IsEnabled = false;
-        //            testWindow.TxtBx_City.Text = (ListBox_TraineesList.SelectedItem as Trainee).City;
-        //            testWindow.TxtBx_Street.Text = (ListBox_TraineesList.SelectedItem as Trainee).Street;
-        //            testWindow.TxtBx_BuildNum.Text = (ListBox_TraineesList.SelectedItem as Trainee).BuildingNumber.ToString();
-        //            testWindow.ShowDialog();
-        //            break;
-        //    }
-        //}
+
+
 
         private void MenuItem_Click_UpdateTrainee(object sender, RoutedEventArgs e)
         {
@@ -71,6 +54,7 @@ namespace UIWpf
                 MainWindow.bl.RemoveTrainee(((Trainee)(ListBox_TraineesList.SelectedItem)).Id);
                 traineeList = MainWindow.bl.GetTraineeList();
                 ListBox_TraineesList.ItemsSource = traineeList;
+                MessageBox.Show("The trainee has been successfully deleted from the system", "AdminViewTraineeListWindow", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch(KeyNotFoundException ee)
             {

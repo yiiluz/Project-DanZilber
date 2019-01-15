@@ -8,8 +8,8 @@ namespace BO
 {
     public class Tester : Person
     {
-        private double seniority;
-        private double maxDistance;
+        private int seniority;
+        private int maxDistance;
         private int maxTestsPerWeek;
         private CarTypeEnum typeCarToTest;
         private bool[,] availableWorkTime = new bool[5, 6];
@@ -93,10 +93,11 @@ namespace BO
                     num++;
             return num;
         }
-        public List<int> GetClosetAvailiableHour(DateTime date, int hour)
+        public List<int> GetAvailiableHoursForSpesificDate(DateTime date)
         {
+            List<int> AvailiableHours = new List<int>();
             if (!IsAvailiableOnDateAndHour(date))
-                return new List<int>();
+                return AvailiableHours;
             bool[] temp = new bool[6];
             //set matrix of bool that contain the available times of the date week
             for (int i = 0; i < 6; ++i)
@@ -106,18 +107,11 @@ namespace BO
                 if (x.DateOfTest == date && !x.IsTestAborted)
                     temp[x.HourOfTest - 9] = false;
             }
-            hour -= 9;
-            List<int> AvailiableHours = new List<int>();
-            for (int t = 0; t < 6; ++t)
+            for (int i = 0; i < 6; ++i)
             {
-                if (hour + t < 6)
-                    if (temp[hour + t])
-                        AvailiableHours.Add(hour + t + 9);
-                if (hour - t >= 0)
-                    if (temp[hour - t])
-                        AvailiableHours.Add(hour - t + 9);
+                if (temp[i])
+                    AvailiableHours.Add(i + 9);
             }
-            AvailiableHours.Distinct();
             AvailiableHours.Sort();
             return AvailiableHours;//if day is full
         }
@@ -171,8 +165,8 @@ namespace BO
         
         //propertys
         //--------------------------------------------------------------------------------------------------------
-        public double Seniority { get => seniority; set => seniority = value; }
-        public double MaxDistance { get => maxDistance; set => maxDistance = value; }
+        public int Seniority { get => seniority; set => seniority = value; }
+        public int MaxDistance { get => maxDistance; set => maxDistance = value; }
         public int MaxTestsPerWeek { get => maxTestsPerWeek; set => maxTestsPerWeek = value; }
         public CarTypeEnum TypeCarToTest { get => typeCarToTest; set => typeCarToTest = value; }
         public bool[,] AvailiableWorkTime { get => availableWorkTime; set => availableWorkTime = value; }

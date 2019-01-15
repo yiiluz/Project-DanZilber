@@ -81,9 +81,15 @@ namespace UIWpf
                             return;
                         }
                         Close();
+                        if (test.IsTestAborted)
+                        {
+                            MessageBox.Show("The test allready Aborted!", "Error",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
                         var isWantToAbort = MessageBox.Show("Test details are:\n" + test.ToString() + "Are you sure you want to abort this test?" +
                             " This action is not reversible."
-                            , "Abort Test", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                            , "Abort Test", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (isWantToAbort == MessageBoxResult.Yes)
                         {
                             try

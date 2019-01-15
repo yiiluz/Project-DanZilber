@@ -23,6 +23,7 @@ namespace UIWpf
         private TesterTest testResult;
         public TesterResultUpdateWindow(TesterTest test)
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             this.testResult = test;
             this.DataContext = testResult;

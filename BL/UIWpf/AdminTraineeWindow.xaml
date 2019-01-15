@@ -13,7 +13,7 @@
             <Button Content="Update Trainee Details" Margin="20 15 20 0" Height="25" Click="Button_Click_UpdateTrainee"/>
             <Button Content="Remove Trainee" Margin="20 15 20 0" Height="25" Click="Button_Click_RemoveTrainee"/>
             <Button Content="View All Trainees" Margin="20 15 20 0" Height="25" Click="Button_Click_ViewAllTrainees"/>
-            <Button Content="Search Trainee By Name" Margin="20 15 20 0" Height="25" Click="Button_Click_SearchTraineeByName"/>
+            <Button Content="Search Trainee " Margin="20 15 20 0" Height="25" Click="Button_Click_SearchTrainee"/>
             <Button Background="Transparent" BorderBrush="Transparent" Margin="0 30" Height="50" Width="50" Click="Button_Click_Back" MouseEnter="Button_Back_MouseEnter" MouseLeave="Button_Back_MouseLeave">
                 <Image x:Name="BackImage" Source="Icons/BackIcon.png" Height="40" Width="40"/>
             </Button>

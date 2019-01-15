@@ -26,15 +26,23 @@ namespace BO
         Trainee GetTraineeByID(string id);
         Tester GetTesterByID(string id);
         Test GetTestByID(string id);
-        List<Tester> GetAvailableTestersForSpecificDay(DateTime time, CarTypeEnum carType);
+        //List<Tester> GetAvailableTestersForSpecificDay(DateTime time, CarTypeEnum carType);
         List<Test> GetTestsPartialListByPredicate(Func<BO.Test, bool> func);
         List<Tester> GetTestersPartialListByPredicate(Func<BO.Tester, bool> func);
         List<Trainee> GetTraineesPartialListByPredicate(Func<BO.Trainee, bool> func);
         string GetStringOfTraineeLicenses(string id);
-        IEnumerable<IGrouping<CarTypeEnum, Tester>> GetTestersBySpecialization(bool byOrder = false);
-        IEnumerable<IGrouping<string, Trainee>> GetStudentGroupsBySchool(bool byOrder = false);
-        IEnumerable<IGrouping<string, Trainee>> GetStudentGroupsByTeacher(bool byOrder = false);
+        int GetTraineeNumTestedTest(string id);
+        
+        IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsBySchool(bool byOrder = false);
+        IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsByTeacher(bool byOrder = false);
         IEnumerable<IGrouping<int, Trainee>> GetStudentsGroupedaccordingByNumOfTests(bool byOrder = false);
-        IEnumerable<IGrouping<int, Tester>> GetTestersGroupedAccordingToYearsOfExperience();
+        
+
+
+        IEnumerable<IGrouping<string, Tester>> GetTestersGroupedByCity();
+        IEnumerable<IGrouping<int, Tester>> GetTestersGropedBySeniority();
+        IEnumerable<IGrouping<CarTypeEnum, Tester>> GetTestersGrupedBySpecialization();
+        IEnumerable<IGrouping<int, Tester>> GetTestersGropedByMaxDistance();
+
     }
 }

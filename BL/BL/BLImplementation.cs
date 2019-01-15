@@ -625,7 +625,7 @@ namespace BL
                 foreach (var item in optionalTesters)
                 {
                     if (temp > DateTime.Now.AddDays(1) && temp.DayOfWeek != DayOfWeek.Friday && temp.DayOfWeek != DayOfWeek.Saturday)
-                        if (!optionalTests.Exists(x => x.DateOfTest == temp))
+                        if (!optionalTests.Exists(x => x.DateOfTest == temp) && item.IsAvailiableOnDateAndHour(temp, dataSourse.HourOfTest))
                         {
                             Test test = new Test(dataSourse);
                             test.DateOfTest = temp;
@@ -635,7 +635,7 @@ namespace BL
                             counter++;
                         }
                     if (temp2.DayOfWeek != DayOfWeek.Friday && temp2.DayOfWeek != DayOfWeek.Saturday)
-                        if (!optionalTests.Exists(x => x.DateOfTest == temp2))
+                        if (!optionalTests.Exists(x => x.DateOfTest == temp2) && item.IsAvailiableOnDateAndHour(temp2, dataSourse.HourOfTest))
                         {
                             Test test = new Test(dataSourse);
                             test.DateOfTest = temp2;
@@ -652,15 +652,16 @@ namespace BL
         }
         public List<Test> GetOptionalTestsByDate(Test dataSourse, Trainee trainee)
         {
+            List<Test> optionalTests = new List<Test>();
+            List<Tester> testersList = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType &&
+                                            x.IsAvailiableOnDateAndHour(dataSourse.DateOfTest) && x.GetAvailiableHoursForSpesificDate(dataSourse.DateOfTest).Count != 0);
             bool[] tmp = new bool[6]; //tmp array for delete dublicates.
             for (int i = 0; i < 6; ++i)
                 tmp[i] = false;
-            var testersList = GetAvailableTestersForSpecificDay(dataSourse.DateOfTest,
-                trainee.CurrCarType); //get testers list that have unlist one hour availiable on this date
-            List<Test> optionalTests = new List<Test>();
+
             foreach (var item in testersList)
             {
-                List<int> currHour = item.GetClosetAvailiableHour(dataSourse.DateOfTest, dataSourse.HourOfTest);
+                List<int> currHour = item.GetAvailiableHoursForSpesificDate(dataSourse.DateOfTest);
                 foreach (var item1 in currHour)
                 {
                     if (tmp[item1 - 9] == false)
@@ -673,30 +674,11 @@ namespace BL
                         optionalTests.Add(test);
                     }
                 }
-                bool isAllHouersFullOnArray = true;
-                for (int i = 0; i < 6; ++i)
-                {
-                    if (tmp[i])
-                    {
-                        isAllHouersFullOnArray = false;
-                        break;
-                    }
-                }
-                if (isAllHouersFullOnArray)
+                if (!tmp.Any(x => !x))
                     break;
             }
             optionalTests.Sort((x, y) => x.HourOfTest.CompareTo(y.HourOfTest));
             return optionalTests;
-        }
-
-        public List<Tester> GetAvailableTestersForSpecificDay(DateTime time, CarTypeEnum carType)
-        {
-            var availableTesters = from item in GetTestersList()
-                                   where (item.TypeCarToTest == carType && item.IsAvailiableOnDateAndHour(time))
-                                   //where distance is OK
-                                   //orderby Math.Abs(item.GetClosetHour(time, hour))
-                                   select item;
-            return availableTesters.ToList();
         }
 
         public List<Test> GetTestsPartialListByPredicate(Func<BO.Test, bool> func)
@@ -731,24 +713,68 @@ namespace BL
             }
             return existing;
         }
-
-        public IEnumerable<IGrouping<CarTypeEnum, Tester>> GetTestersBySpecialization(bool byOrder = false)
+        public int GetTraineeNumTestedTest(string id)
         {
-            if (byOrder == true)
+            Trainee trainee;
+            try
             {
-                var TestersGroupsWithOrder = from item in GetTestersList()
-                                             orderby item.LastName, item.FirstName
-                                             group item by item.TypeCarToTest
-                                             into g
-                                             orderby g.Key
-                                             select g;
-                return TestersGroupsWithOrder;
+                trainee = GetTraineeByID(id);
             }
-            var TestersGroupsWithoutOrder = from item in GetTestersList()
-                                            group item by item.TypeCarToTest;
-            return TestersGroupsWithoutOrder;
+            catch (KeyNotFoundException)
+            {
+                throw;
+            }
+            int num = 0;
+            foreach (var item in trainee.TestList)
+            {
+                if (item.DateOfTest < DateTime.Now)
+                    num++;
+            }
+            return num;
         }
-        public IEnumerable<IGrouping<string, Trainee>> GetStudentGroupsBySchool(bool byOrder = false)
+
+        public IEnumerable<IGrouping<string, Tester>> GetTestersGroupedByCity()
+        {
+            var group = from item in GetTestersList()
+                        orderby item.LastName, item.FirstName
+                        group item by item.City
+                        into g
+                        orderby g.Key
+                        select g;
+            return group;
+        }
+        public IEnumerable<IGrouping<int, Tester>> GetTestersGropedBySeniority()
+        {
+            var group = from item in GetTestersList()
+                        orderby item.LastName, item.FirstName
+                        group item by item.Seniority
+                        into g
+                        orderby g.Key
+                        select g;
+            return group;
+        }
+        public IEnumerable<IGrouping<CarTypeEnum, Tester>> GetTestersGrupedBySpecialization()
+        {
+            var TestersGroupsWithOrder = from item in GetTestersList()
+                                         orderby item.LastName, item.FirstName
+                                         group item by item.TypeCarToTest
+                                         into g
+                                         orderby g.Key
+                                         select g;
+            return TestersGroupsWithOrder;
+        }
+        public IEnumerable<IGrouping<int, Tester>> GetTestersGropedByMaxDistance()
+        {
+            var group = from item in GetTestersList()
+                        orderby item.LastName, item.FirstName
+                        group item by item.MaxDistance
+                        into g
+                        orderby g.Key
+                        select g;
+            return group;
+        }
+
+        public IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsBySchool(bool byOrder = false)
         {
             if (byOrder == true)
             {
@@ -764,7 +790,7 @@ namespace BL
                                                        group item by item.SchoolName;
             return StudentGroupsByAttributeWithOutOrder;
         }
-        public IEnumerable<IGrouping<string, Trainee>> GetStudentGroupsByTeacher(bool byOrder = false)
+        public IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsByTeacher(bool byOrder = false)
         {
             if (byOrder == true)
             {
@@ -796,15 +822,8 @@ namespace BL
                                                                   group item by item.NumOfTests;
             return StudentsGroupedaccordingByNumOfTestsWithOutrder;
         }
-        public IEnumerable<IGrouping<int, Tester>> GetTestersGroupedAccordingToYearsOfExperience()
-        {
-            var TestersGroupedAccordingToYearsOfExperience = from item in GetTestersList()
-                                                             orderby item.LastName, item.FirstName
-                                                             group item by item.Seniority
-                                                             into g
-                                                             orderby g.Key
-                                                             select g;
-            return (IEnumerable<IGrouping<int, Tester>>)TestersGroupedAccordingToYearsOfExperience;
-        }
+
+
+
     }
 }

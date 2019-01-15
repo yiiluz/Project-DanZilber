@@ -8,8 +8,8 @@ namespace DO
 {
     public class Tester : Person
     {
-        private double seniority;
-        private double maxDistance;
+        private int seniority;
+        private int maxDistance;
         private int maxTestsPerWeek;
         private CarTypeEnum typeCarToTest;
         /// <summary>
@@ -32,10 +32,11 @@ namespace DO
             MaxTestsPerWeek = other.MaxTestsPerWeek;
             TypeCarToTest = other.TypeCarToTest;
         }
-        public double Seniority { get => seniority; set => seniority = value; }
-        public double MaxDistance { get => maxDistance; set => maxDistance = value; }
+        public int Seniority { get => seniority; set => seniority = value; }
+        public int MaxDistance { get => maxDistance; set => maxDistance = value; }
         public int MaxTestsPerWeek { get => maxTestsPerWeek; set => maxTestsPerWeek = value; }
         public CarTypeEnum TypeCarToTest { get => typeCarToTest; set => typeCarToTest = value; }
+
 
         /// <summary>
         /// overide ToString
