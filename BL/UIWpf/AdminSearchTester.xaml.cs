@@ -49,6 +49,7 @@ namespace UIWpf
                 if (a[i] != b[i])
                     return false;
             }
+
             return true;
         }
         private void MenuItem_Click_UpdateTesterDetails(object sender, RoutedEventArgs e)
