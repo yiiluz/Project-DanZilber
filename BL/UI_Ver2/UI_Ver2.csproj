@@ -70,9 +70,6 @@
     <Compile Include="OfficeSearchTester.xaml.cs">
       <DependentUpon>OfficeSearchTester.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OfficeViewTesterListWindow.xaml.cs">
-      <DependentUpon>OfficeViewTesterListWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GetIDWindow.xaml.cs">
       <DependentUpon>GetIDWindow.xaml</DependentUpon>
     </Compile>
@@ -108,10 +105,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="OfficeSearchTester.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="OfficeViewTesterListWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

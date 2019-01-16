@@ -56,6 +56,7 @@ namespace UI_Ver2
             {
                 case "Update":
                     Button_Add.Content = "Update";
+                    Label_Header.Content = "Tester's Details. Change the needed values.";
                     CombBx_TypeCarToTest.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
                     CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
                     break;
@@ -91,7 +92,7 @@ namespace UI_Ver2
                     Label_BirthDay.Content = "Tester Birth Date:";
                     Label_TypeCarToTest.Content = "Tester Type Car To Test:";
                     Label_Gender.Content = "Tester Gender:";
-                    label_WorkTimes.Content = "Tester Weekly Working Hours And Days:";
+                    //label_WorkTimes.Content = "Tester Weekly Working Hours And Days:";
                     Button_Add.Visibility = Visibility.Collapsed;
                     Button_Cancel.Visibility = Visibility.Collapsed;
                     Button_OK.Visibility = Visibility.Visible;

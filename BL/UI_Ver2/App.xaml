@@ -9,6 +9,16 @@
             <GradientStop Offset="0.5" Color="LightGreen"/>
             <GradientStop Offset="1" Color="LightBlue"/>
         </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ButtonsColor">
+            <GradientStop Offset="0" Color="LightBlue"/>
+            <GradientStop Offset="0.5" Color="LightYellow"/>
+            <GradientStop Offset="1" Color="LightBlue"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ButtonsColorWhenMouseOver">
+            <GradientStop Offset="0" Color="LightGreen"/>
+            <GradientStop Offset="0.5" Color="LightBlue"/>
+            <GradientStop Offset="1" Color="LightGreen"/>
+        </LinearGradientBrush>
         <ControlTemplate x:Key="TitleBarButtons" TargetType="Button">
             <Grid>
                 <Ellipse>
@@ -42,7 +52,37 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#fff"/>
+            <Setter Property="Foreground" Value="#000"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{StaticResource ButtonsColor}" CornerRadius="5" BorderThickness="1" Padding="5" BorderBrush="#000">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{StaticResource ButtonsColorWhenMouseOver}" CornerRadius="5" BorderThickness="1" Padding="5" BorderBrush="#000">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Foreground" Value="DarkBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <!-- Converters -->
         <local:BoolToGreenOrOrange x:Key="boolToGreenOrOrange"/>
         <local:BoolToRedOrGreen x:Key="boolToRedOrGreen"/>

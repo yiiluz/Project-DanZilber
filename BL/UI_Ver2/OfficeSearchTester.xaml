@@ -5,9 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_Ver2"
         mc:Ignorable="d"
-        Title="SearchTester" Height="450" Width="530" MinHeight="450" MinWidth="530">
-    <Border Padding="7" BorderBrush="Blue">
+        Title="SearchTester" Height="700" Width="700" WindowStyle="None"
+        AllowsTransparency="True" Background="Transparent">
+
+    <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20" Padding="10">
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
             <StackPanel>
                 <TextBlock Text="Start enter details" HorizontalAlignment="Center" FontSize="18" Margin="0 10"/>
                 <Border BorderBrush="LightBlue" BorderThickness="1" Margin="0 10">
@@ -44,30 +50,28 @@
                         <ComboBox x:Name="ComboBox_GroupNames" Grid.Column="3" SelectionChanged="ComboBox_GroupNames_SelectionChanged"/>
                     </Grid>
                 </Border>
-                <ListBox Grid.Row="1" x:Name="TestersList" BorderBrush="Green" Height="180" Margin="0 10">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border Padding="2" BorderThickness="2">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Path=FirstName}" Width="130"/>
-                                    <TextBlock Text="{Binding Path=LastName}" Width="130"/>
-                                    <TextBlock Text="{Binding Path=Id, StringFormat=ID: {0}}" Width="100"/>
-                                    <TextBlock Text="{Binding Path=City, StringFormat= City: {0}}" Width="110"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                    <ListBox.ContextMenu >
-                        <ContextMenu>
-                            <MenuItem Header="Update tester details " Click="MenuItem_Click_UpdateTesterDetails" />
-                            <MenuItem Header="Remove tester " Click="MenuItem_ClickRemoveTester" />
-                            <MenuItem Header="Information" Click="MenuItem_Click_Information" />
-                        </ContextMenu>
-                    </ListBox.ContextMenu>
-                </ListBox>
                 <TextBlock Text="Double Click on specific Tester for more operations."/>
-                <Button Grid.Row="2" HorizontalAlignment="Stretch" Content="Close" Click="buttonClick" Margin="0 5"/>
+
             </StackPanel>
+            <ListView Grid.Row="1" x:Name="TestersList" BorderBrush="Green" Margin="0 0 0 50" GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="100"/>
+                        <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}" Width="100"/>
+                        <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" Width="100"/>
+                        <GridViewColumn Header="Birth Date" DisplayMemberBinding="{Binding DateOfBirth, StringFormat=d}" Width="100"/>
+                        <GridViewColumn Header="City" DisplayMemberBinding="{Binding City}" Width="100"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.ContextMenu >
+                    <ContextMenu>
+                        <MenuItem Header="Update tester details " Click="MenuItem_Click_UpdateTesterDetails" />
+                        <MenuItem Header="Remove tester " Click="MenuItem_ClickRemoveTester" />
+                        <MenuItem Header="Information" Click="MenuItem_Click_Information" />
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+            <Button Grid.Row="2" HorizontalAlignment="Stretch" Content="Close" Click="ButtonClick_Close" Margin="0 5" VerticalAlignment="Bottom"/>
         </Grid>
     </Border>
 </Window>

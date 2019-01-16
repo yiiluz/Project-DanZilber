@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,12 +23,12 @@ namespace UI_Ver2
     enum GroupCategorys { All, Seniority, City, MaxDistance }
     public partial class OfficeSearchTester : Window
     {
-        private List<Tester> mainList = MainWindow.bl.GetTestersList();
-        private IEnumerable<IGrouping<string, Tester>> groupedByCity = MainWindow.bl.GetTestersGroupedByCity();
-        private IEnumerable<IGrouping<int, Tester>> groupedBySeniority = MainWindow.bl.GetTestersGropedBySeniority();
-        private IEnumerable<IGrouping<int, Tester>> groupedByMaxDistance = MainWindow.bl.GetTestersGropedByMaxDistance();
-
-        private List<Tester> listToFilter;
+        private ObservableCollection<Tester> mainList =
+            new ObservableCollection<Tester>(MainWindow.bl.GetTestersList());
+        ObservableCollection<IGrouping<int, Tester>> groupedBySeniority;
+        ObservableCollection<IGrouping<string, Tester>> groupedByCity;
+        ObservableCollection<IGrouping<int, Tester>> groupedByMaxDistance;
+        private ObservableCollection<Tester> listToFilter;
 
         public OfficeSearchTester()
         {
@@ -34,7 +36,7 @@ namespace UI_Ver2
             InitializeComponent();
             this.TestersList.ItemsSource = MainWindow.bl.GetTestersList();
             this.ComboBox_GroupOptions.ItemsSource = Enum.GetValues(typeof(GroupCategorys));
-            this.ComboBox_GroupOptions.SelectedIndex = 0;
+            //this.ComboBox_GroupOptions.SelectedIndex = 0;
             ComboBox_GroupNames.IsEnabled = false;
             listToFilter = mainList;
         }
@@ -51,35 +53,30 @@ namespace UI_Ver2
             }
             return true;
         }
+        private void SearchFilterChanged(object sender, TextChangedEventArgs e)
+        {
+            ObservableCollection<Tester> it = new ObservableCollection<Tester>((from item in listToFilter
+                                                                                where ChackIfStringsAreEqual(FirstName.Text, item.FirstName)
+                                                                                select item
+                                                                            into g
+                                                                                where ChackIfStringsAreEqual(LestName.Text, g.LastName)
+                                                                                select g
+                                                                            into j
+                                                                                where ChackIfStringsAreEqual(ID.Text, j.Id)
+                                                                                select j).ToList());
+            TestersList.ItemsSource = it;
+        }
+
         private void MenuItem_Click_UpdateTesterDetails(object sender, RoutedEventArgs e)
         {
             Tester tester;
             tester = MainWindow.bl.GetTesterByID((TestersList.SelectedItem as Tester).Id);
             TesterDetailsWindow testerDetailsWindow = new TesterDetailsWindow(tester, "Update");
             testerDetailsWindow.ShowDialog();
-            mainList = MainWindow.bl.GetTestersList();
-            groupedByCity = MainWindow.bl.GetTestersGroupedByCity();
-            groupedBySeniority = MainWindow.bl.GetTestersGropedBySeniority();
-            groupedByMaxDistance = MainWindow.bl.GetTestersGropedByMaxDistance();
-            TestersList.ItemsSource = mainList;
-            SearchFilterChanged(this, null);
-            
+            ComboBox_GroupOptions.SelectedIndex = (int)GroupCategorys.All;
+            ComboBox_GroupOptions_SelectionChanged(null, null);
+            SearchFilterChanged(null, null);
         }
-
-        private void SearchFilterChanged(object sender, TextChangedEventArgs e)
-        {
-            var it = from item in listToFilter
-                     where ChackIfStringsAreEqual(FirstName.Text, item.FirstName)
-                     select item
-                     into g
-                     where ChackIfStringsAreEqual(LestName.Text, g.LastName)
-                     select g
-                     into j
-                     where ChackIfStringsAreEqual(ID.Text, j.Id)
-                     select j;
-            TestersList.ItemsSource = it;
-        }
-
         private void MenuItem_ClickRemoveTester(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Are yoe sure you want to delete this Tester?", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
@@ -99,27 +96,20 @@ namespace UI_Ver2
                     aborted += "Test Serial: " + item.TestId + ". Date: " + item.DateOfTest.ToShortDateString() + ". Hour: " + item.HourOfTest + ":00.\n";
                 MessageBox.Show("Tester with ID " + (((Tester)TestersList.SelectedItem).Id) + " successfuly deleted.\n"
                     + "Aborted Tests:\n" + aborted, "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                mainList = MainWindow.bl.GetTestersList();
-                groupedByCity = MainWindow.bl.GetTestersGroupedByCity();
-                groupedBySeniority = MainWindow.bl.GetTestersGropedBySeniority();
-                groupedByMaxDistance = MainWindow.bl.GetTestersGropedByMaxDistance();
                 listToFilter.Remove((Tester)TestersList.SelectedItem);
-                TestersList.ItemsSource = listToFilter;
-                SearchFilterChanged(this, null);
+                mainList.Remove((Tester)TestersList.SelectedItem);
+                SearchFilterChanged(null, null);
             }
         }
-
         private void MenuItem_Click_Information(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(TestersList.SelectedItem.ToString(), "SearchItem", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void buttonClick(object sender, RoutedEventArgs e)
+        private void ButtonClick_Close(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
         private void ComboBox_GroupOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             switch (ComboBox_GroupOptions.SelectedIndex)
@@ -131,16 +121,19 @@ namespace UI_Ver2
                     TestersList.ItemsSource = listToFilter;
                     return;
                 case (int)GroupCategorys.Seniority:
+                    groupedBySeniority = new ObservableCollection<IGrouping<int, Tester>>(MainWindow.bl.GetTestersGropedBySeniority());
                     //ComboBox_GroupNames.ItemsSource = groupedBySeniority;
                     int[] keysOfSeniority = (from item in groupedBySeniority select item.Key).ToArray();
                     ComboBox_GroupNames.ItemsSource = keysOfSeniority;
                     break;
                 case (int)GroupCategorys.City:
+                    groupedByCity = new ObservableCollection<IGrouping<string, Tester>>(MainWindow.bl.GetTestersGroupedByCity());
                     //ComboBox_GroupNames.ItemsSource = groupedByCity;
                     string[] keysOfCity = (from item in groupedByCity select item.Key).ToArray();
                     ComboBox_GroupNames.ItemsSource = keysOfCity;
                     break;
                 case (int)GroupCategorys.MaxDistance:
+                    groupedByMaxDistance = new ObservableCollection<IGrouping<int, Tester>>(MainWindow.bl.GetTestersGropedByMaxDistance());
                     //ComboBox_GroupNames.ItemsSource = groupedByMaxDistance;
                     int[] keysOfMaxDistance = (from item in groupedByMaxDistance select item.Key).ToArray();
                     ComboBox_GroupNames.ItemsSource = keysOfMaxDistance;
@@ -149,18 +142,19 @@ namespace UI_Ver2
             ComboBox_GroupNames.IsEnabled = true;
             ComboBox_GroupNames.SelectedIndex = 0;
         }
-
         private void ComboBox_GroupNames_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             switch (ComboBox_GroupOptions.SelectedIndex)
             {
                 case (int)GroupCategorys.All:
-                    return;
+                    mainList = new ObservableCollection<Tester>(MainWindow.bl.GetTestersList());
+                    listToFilter = mainList;
+                    break;
                 case (int)GroupCategorys.Seniority:
                     foreach (var item in groupedBySeniority)
                         if (ComboBox_GroupNames.SelectedItem != null && item.Key == (int)ComboBox_GroupNames.SelectedItem)
                         {
-                            listToFilter = item.ToList();
+                            listToFilter = new ObservableCollection<Tester>(item.ToList());
                             break;
                         }
                     break;
@@ -168,7 +162,7 @@ namespace UI_Ver2
                     foreach (var item in groupedByCity)
                         if (ComboBox_GroupNames.SelectedItem != null && item.Key == (string)ComboBox_GroupNames.SelectedItem)
                         {
-                            listToFilter = item.ToList();
+                            listToFilter = new ObservableCollection<Tester>(item.ToList());
                             break;
                         }
                     break;
@@ -176,13 +170,76 @@ namespace UI_Ver2
                     foreach (var item in groupedByMaxDistance)
                         if (ComboBox_GroupNames.SelectedItem != null && item.Key == (int)ComboBox_GroupNames.SelectedItem)
                         {
-                            listToFilter = item.ToList();
+                            listToFilter = new ObservableCollection<Tester>(item.ToList());
                             break;
                         }
                     break;
-
             }
             TestersList.ItemsSource = listToFilter;
+        }
+
+
+        GridViewColumnHeader _lastHeaderClicked = null;
+        ListSortDirection _lastDirection = ListSortDirection.Ascending;
+        private void Sort(string sortBy, ListSortDirection direction)
+        {
+                ICollectionView dataView = CollectionViewSource.GetDefaultView(TestersList.ItemsSource);
+                dataView.SortDescriptions.Clear();
+                SortDescription sd = new SortDescription(sortBy, direction);
+                dataView.SortDescriptions.Add(sd);
+                dataView.Refresh();
+        }
+        private void GridViewColumnHeaderClickedHandler(object sender, RoutedEventArgs e)
+        {
+            var headerClicked = e.OriginalSource as GridViewColumnHeader;
+            ListSortDirection direction;
+
+            if (headerClicked != null)
+            {
+                if (headerClicked.Role != GridViewColumnHeaderRole.Padding)
+                {
+                    if (headerClicked != _lastHeaderClicked)
+                    {
+                        direction = ListSortDirection.Ascending;
+                    }
+                    else
+                    {
+                        if (_lastDirection == ListSortDirection.Ascending)
+                        {
+                            direction = ListSortDirection.Descending;
+                        }
+                        else
+                        {
+                            direction = ListSortDirection.Ascending;
+                        }
+                    }
+
+                    var columnBinding = headerClicked.Column.DisplayMemberBinding as Binding;
+                    var sortBy = columnBinding?.Path.Path ?? headerClicked.Column.Header as string;
+
+                    Sort(sortBy, direction);
+
+                    if (direction == ListSortDirection.Ascending)
+                    {
+                        headerClicked.Column.HeaderTemplate =
+                          Resources["HeaderTemplateArrowUp"] as DataTemplate;
+                    }
+                    else
+                    {
+                        headerClicked.Column.HeaderTemplate =
+                          Resources["HeaderTemplateArrowDown"] as DataTemplate;
+                    }
+
+                    // Remove arrow from previously sorted header  
+                    if (_lastHeaderClicked != null && _lastHeaderClicked != headerClicked)
+                    {
+                        _lastHeaderClicked.Column.HeaderTemplate = null;
+                    }
+
+                    _lastHeaderClicked = headerClicked;
+                    _lastDirection = direction;
+                }
+            }
         }
     }
 }
