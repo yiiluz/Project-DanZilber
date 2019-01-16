@@ -25,6 +25,10 @@ namespace BO
             this.testId = id;
         }
 
+        /// <summary>
+        /// Copy constructor. used for create copy of original test with differents dates.
+        /// </summary>
+        /// <param name="Test obj to copy"></param>
         public Test(Test other)
         {
             testId = other.TestId;
@@ -43,18 +47,6 @@ namespace BO
             TesterNotes = other.TesterNotes;
             IsTesterUpdateStatus = other.isTesterUpdateStatus;
             IsTestAborted = other.IsTestAborted;
-        }
-
-        public void UpdateTestDeteils(TestResult other)
-        {
-            DistanceKeeping = other.DistanceKeeping;
-            ReverseParking = other.ReverseParking;
-            MirrorsCheck = other.MirrorsCheck;
-            Signals = other.Signals;
-            CorrectSpeed = other.CorrectSpeed;
-            IsPassed = other.IsPassed;
-            TesterNotes = other.TesterNotes;
-            IsTesterUpdateStatus = true;
         }
 
         public ExternalTrainee ExTrainee { get => exTrainee; set => exTrainee = value; }
@@ -76,6 +68,7 @@ namespace BO
                 + "Tester Details:\n" + ExTester + "\n"
                 + "Trainee Details:\n" + ExTrainee + "\n"
                 + "Date of Test: " + DateOfTest.ToShortDateString() + "\n"
+                + "Hour of Test: " + HourOfTest + ":00\n"
                 + "Test's start address: " + StartTestAddress + "\n"
                 + (IsTesterUpdateStatus ? "Test Results:\n" + base.ToString() : "")
                 + "Test Status: " + (IsTestAborted ? "Aborted" : "Active") + "\n";

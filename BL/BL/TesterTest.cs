@@ -33,23 +33,6 @@ namespace BO
             IsTesterUpdateStatus = test.IsTesterUpdateStatus;
             IsTestAborted = test.IsTestAborted;
         }
-        public TesterTest(DO.Test test)
-        {
-            TestId = test.TestId;
-            DateOfTest = test.DateOfTest;
-            HourOfTest = test.HourOfTest;
-            CarType = (CarTypeEnum)test.CarType;
-            StartTestAddress = new Address(test.StartTestAddress.City, test.StartTestAddress.Street, test.StartTestAddress.BuildingNumber);
-            DistanceKeeping = test.DistanceKeeping;
-            ReverseParking = test.ReverseParking;
-            MirrorsCheck = test.MirrorsCheck;
-            Signals = test.Signals;
-            CorrectSpeed = test.CorrectSpeed;
-            IsPassed = test.IsPassed;
-            TesterNotes = test.TesterNotes;
-            IsTesterUpdateStatus = test.IsTesterUpdateStatus;
-            IsTestAborted = test.IsTestAborted;
-        }
 
         public string TestId { get => testId; set => testId = value; }
         public DateTime DateOfTest { get => dateOfTest; set => dateOfTest = value; }

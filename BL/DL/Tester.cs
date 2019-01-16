@@ -12,6 +12,7 @@ namespace DO
         private int maxDistance;
         private int maxTestsPerWeek;
         private CarTypeEnum typeCarToTest;
+
         /// <summary>
         /// default ctor
         /// </summary>
@@ -21,8 +22,6 @@ namespace DO
         {
             LastName = other.LastName;
             FirstName = other.FirstName;
-            SchoolName = other.SchoolName;
-            TeacherName = other.TeacherName;
             PhoneNumber = other.PhoneNumber;
             Gender = other.Gender;
             Address = new Address(other.Address);
@@ -32,6 +31,7 @@ namespace DO
             MaxTestsPerWeek = other.MaxTestsPerWeek;
             TypeCarToTest = other.TypeCarToTest;
         }
+
         public int Seniority { get => seniority; set => seniority = value; }
         public int MaxDistance { get => maxDistance; set => maxDistance = value; }
         public int MaxTestsPerWeek { get => maxTestsPerWeek; set => maxTestsPerWeek = value; }

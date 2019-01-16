@@ -12,15 +12,14 @@ namespace DO
         private int numOfFinishedLessons;
         private int numOfTests;
         private bool isAlreadyDidTest;
-
-        
+        private string schoolName;
+        private string teacherName;
 
         /// <summary>
         /// default ctor
         /// </summary>
         /// <param name="id"></param>
         public Trainee(string id) : base(id) { }
-
         public Trainee(Trainee other) : base(other.Id)
         {
             LastName = other.LastName;
@@ -36,13 +35,13 @@ namespace DO
             NumOfTests = other.NumOfTests;
             IsAlreadyDidTest = other.IsAlreadyDidTest;
         }
-
         
         public CarTypeEnum CurrCarType { get => currCarType; set => currCarType = value; }
         public int NumOfFinishedLessons { get => numOfFinishedLessons; set => numOfFinishedLessons = value; }
         public int NumOfTests { get => numOfTests; set => numOfTests = value; }
         public bool IsAlreadyDidTest { get => isAlreadyDidTest; set => isAlreadyDidTest = value; }
-
+        public string SchoolName { get => schoolName; set => schoolName = value; }
+        public string TeacherName { get => teacherName; set => teacherName = value; }
 
         /// <summary>
         /// override of ToString

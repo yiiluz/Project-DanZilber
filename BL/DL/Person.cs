@@ -11,8 +11,6 @@ namespace DO
         readonly string id;
         private string lastName;
         private string firstName;
-        private string schoolName;
-        private string teacherName;
         private string phoneNumber;
         private GenderEnum gender;
         private Address address = new Address();
@@ -22,22 +20,20 @@ namespace DO
         {
             this.id = id;
         }
-        public Person(Person person)
-        {
-            id = person.Id;
-            lastName = person.LastName;
-            firstName = person.FirstName;
-            phoneNumber = person.PhoneNumber;
-            gender = person.Gender;
-            address = new Address(person.Address);
-            dateOfBirth = new DateTime();
-            dateOfBirth = person.DateOfBirth;
-        }
+        //public Person(Person person)
+        //{
+        //    id = person.Id;
+        //    lastName = person.LastName;
+        //    firstName = person.FirstName;
+        //    phoneNumber = person.PhoneNumber;
+        //    gender = person.Gender;
+        //    address = new Address(person.Address);
+        //    dateOfBirth = new DateTime();
+        //    dateOfBirth = person.DateOfBirth;
+        //}
 
         public string LastName { get => lastName; set => lastName = value; }
         public string FirstName { get => firstName; set => firstName = value; }
-        public string SchoolName { get => schoolName; set => schoolName = value; }
-        public string TeacherName { get => teacherName; set => teacherName = value; }
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public GenderEnum Gender { get => gender; set => gender = value; }
         public Address Address { get => address; set => address = value; }

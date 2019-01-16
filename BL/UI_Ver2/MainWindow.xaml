@@ -1,0 +1,119 @@
+﻿<Window x:Class="UI_Ver2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI_Ver2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="750" Width="1200" WindowStyle="None"
+        AllowsTransparency="True" Background="Transparent">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush>
+                        <GradientStop Offset="0" Color="BlanchedAlmond"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush>
+                        <GradientStop Offset="0" Color="LightBlue"/>
+                        <GradientStop Offset="0.5" Color="LightBlue"/>
+                        <GradientStop Offset="1" Color="LightBlue"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="18*"/>
+            </Grid.RowDefinitions>
+            <Border Background="LightGreen" CornerRadius="20" Height="60"/>
+            <StackPanel x:Name="ManageButtonStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 50 0">
+                <Button Click="Button_Click_MinimizeWindow" Content="-" Width="30" Height="30" Template="{StaticResource TitleBarButtons}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+                <Button Click="Button_Click_MaximizeWindow" Content="□" Width="30" Height="30" Template="{StaticResource TitleBarButtons}" Margin="10 0" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+                <Button Click="Button_Click_CloseWindow" Content="X" Width="30" Height="30" Template="{StaticResource TitleBarButtons}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+            </StackPanel>
+            <DockPanel Grid.Row="1">
+                <Menu DockPanel.Dock="Top" VerticalAlignment="Center">
+                    <MenuItem Header="_Themes">
+                        <MenuItem Header="Dark"/>
+                        <Separator/>
+                        <MenuItem Header="White"/>
+                        <Separator />
+                        <MenuItem Header="Worm"/>
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
+            <Grid Grid.Row="2" Margin="20">
+
+                <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
+                    <TabItem Header="Admin">
+
+                    </TabItem>
+                    <TabItem Header="Office">
+                        <Grid>
+                            <Border x:Name="OfficePasswordBorder" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                                <StackPanel Height="100" Width="300">
+                                    <TextBlock Text="Enter Password:"/>
+                                    <PasswordBox x:Name="PassBox_passOffice" Height="30" Padding="2" VerticalContentAlignment="Center" Margin="0 10" KeyDown="PassBox_passAdmin_KeyDown"/>
+                                    <Button Content="Enter" Click="Button_Click_EnterAsOffice"/>
+                                </StackPanel>
+                            </Border>
+                            <Border x:Name="OfficeMainWindowBorder" Margin="10" Visibility="Visible">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
+                                        <StackPanel>
+                                            <TextBlock Text="Tester" HorizontalAlignment="Center"/>
+                                            <Button Content="Add Tester" Margin="20 15 20 0" Height="25" Click="Button_Click_AddTester"/>
+                                            <Button Content="Update Tester Details" Margin="20 15 20 0" Height="25" Click="Button_Click_UpdateTester"/>
+                                            <Button Content="Remove Tester" Margin="20 15 20 0" Height="25" Click="Button_Click_RemoveTester"/>
+                                            <Button Content="View All Testers" Margin="20 15 20 0" Height="25" Click="Button_Click_ViewTestersLists"/>
+                                            <Button Content="Search Tester " Margin="20 15 20 0" Height="25" Click="Button_Click_SearchTesterByName"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Grid.Column="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
+                                        <StackPanel>
+                                            <TextBlock Text="Trainee" HorizontalAlignment="Center"/>
+                                            <Button Content="Add Trainee" Margin="20 15 20 0" Height="25" Click="Button_Click_AddTrainee"/>
+                                            <Button Content="Update Trainee Details" Margin="20 15 20 0" Height="25" Click="Button_Click_UpdateTrainee"/>
+                                            <Button Content="Remove Trainee" Margin="20 15 20 0" Height="25" Click="Button_Click_RemoveTrainee"/>
+                                            <Button Content="View All Trainees" Margin="20 15 20 0" Height="25" Click="Button_Click_ViewAllTrainees"/>
+                                            <Button Content="Search Trainee " Margin="20 15 20 0" Height="25" Click="Button_Click_SearchTrainee"/>
+
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Grid.Column="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
+                                        <StackPanel>
+                                            <TextBlock Text="Test" HorizontalAlignment="Center"/>
+                                            <Button Content="Add Test" Margin="20 15 20 0" Height="25" Click="Button_Click_AddTest"/>
+                                            <Button Content="Abort Test" Margin="20 15 20 0" Height="25" Click="Button_Click_AbortTest"/>
+                                            <Button Content="View Test Details" Margin="20 15 20 0" Height="25" Click="Button_Click_ViewTestDetails"/>
+
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem Header="Existing Tester"/>
+                    <TabItem Header="Existing Trainee"/>
+                </TabControl>
+
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

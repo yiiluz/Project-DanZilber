@@ -71,9 +71,5 @@ namespace BO
             }
             return tmp;
         }
-        //public TraineeTest(Trainee tr, Tester tr, Test ts)
-        //{
-        //    exTester = new ExternalTester()
-        //}
     }
 }

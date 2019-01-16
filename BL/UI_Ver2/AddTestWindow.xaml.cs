@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
-namespace UIWpf
+namespace UI_Ver2
 {
     /// <summary>
     /// Interaction logic for TestWindow.xaml
@@ -230,6 +230,11 @@ namespace UIWpf
                 TxtBx_HourByHour.BorderBrush = Brushes.Green;
         }
 
+        private void TxtBx_HourByHour_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TxtBx_HourByHour.Background = Brushes.White;
+            TxtBx_HourByHour.BorderBrush = Brushes.Gray;
+        }
 
         private void Button_AddByHour_Click(object sender, RoutedEventArgs e)
         {
@@ -253,13 +258,6 @@ namespace UIWpf
                 }
             }
         }
-
-        private void TxtBx_HourByHour_GotFocus(object sender, RoutedEventArgs e)
-        {
-            TxtBx_HourByHour.Background = Brushes.White;
-            TxtBx_HourByHour.BorderBrush = Brushes.Gray;
-        }
-
     }
 
 }

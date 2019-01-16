@@ -29,6 +29,26 @@ namespace DO
         {
             TestId = id;
         }
+        public Test(Test other)
+        {
+            TesterId = other.TesterId;
+            TesterId = other.testerId;
+            TraineeId = other.traineeId;
+            DateOfTest = other.DateOfTest;
+            HourOfTest = other.HourOfTest;
+            StartTestAddress = new DO.Address(other.StartTestAddress.City, other.StartTestAddress.Street, other.StartTestAddress.BuildingNumber);
+            CarType = other.CarType;
+            DistanceKeeping = other.DistanceKeeping;
+            ReverseParking = other.ReverseParking;
+            MirrorsCheck = other.MirrorsCheck;
+            Signals = other.Signals;
+            CorrectSpeed = other.CorrectSpeed;
+            IsPassed = other.IsPassed;
+            TesterNotes = other.TesterNotes;
+            IsTesterUpdateStatus = other.IsTesterUpdateStatus;
+            IsTestAborted = other.IsTestAborted;
+        }
+
         public string TestId { get => testId; set => testId = value; }
         public string TesterId { get => testerId; set => testerId = value; }
         public string TraineeId { get => traineeId; set => traineeId = value; }

@@ -1,0 +1,47 @@
+﻿<Window x:Class="UI_Ver2.OfficeViewTesterListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI_Ver2"
+        mc:Ignorable="d"
+        Title="AdminViewTesterListWindow" Height="400" Width="400">
+    <Border Padding="10" BorderBrush="Green" BorderThickness="1">
+        <StackPanel>
+            <Label Content="Yours Testser list. Double click to get more info." HorizontalAlignment="Center" FontSize="16"/>
+            <Label Content="Right Click for more functions." HorizontalAlignment="Center" FontSize="16"/>
+            <Label Content="Red frame = test aborted' Green frame = test not aborted." HorizontalAlignment="Left" FontSize="10"/>
+            <Label Content="Background: Orange  = Wait for Result, Green = Passed, Red = Not Passed." HorizontalAlignment="Left" FontSize="10"/>
+            <ListBox x:Name="ListBox_TestersList" BorderBrush="Green" Height="200" 
+                     HorizontalContentAlignment="Stretch" ItemsSource="{Binding Mode=OneWay}" MouseDoubleClick="ListBox_TestersListMouseDoubleClick">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="0">
+                            <!--BorderThickness="2" BorderBrush="{Binding Path=, Converter={StaticResource boolToRedOrGreen}}"
+                               Background="{Binding Path=, Converter={StaticResource boolToLightGreenOrRed}}" >
+                            <Grid Background="{Binding Path=, Converter={StaticResource boolToTransparentOrOrange}}">-->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Path=Id}" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Path=FirstName}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Path=LastName}" Grid.Column="2"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ContextMenu >
+                    <ContextMenu>
+                        <MenuItem  Header="Update Tester Details" Click="MenuItem_Click_UpdateTester"/>
+                        <MenuItem Header="Remove Tester" Click="MenuItem_Click_RemoveTester" />
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+            <Button x:Name="Button_Close" Content="Close" Click="Button_Close_Click" />
+        </StackPanel>
+    </Border>
+</Window>
+

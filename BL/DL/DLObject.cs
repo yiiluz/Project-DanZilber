@@ -31,7 +31,6 @@ namespace DL
                 DataSource.tests.Add(t);
             }
         }
-
         void IDAL.AddTester(Tester t)
         {
             if (DataSource.testers.Find(x => x.Id == t.Id) != null)
@@ -43,7 +42,6 @@ namespace DL
                 DataSource.testers.Add(t);
             }
         }
-
         void IDAL.AddTrainee(Trainee t)
         {
             if (DataSource.trainees.Find(x => x.Id == t.Id) != null)
@@ -55,24 +53,30 @@ namespace DL
                 DataSource.trainees.Add(t);
             }
         }
+        public void AddTesterSchedule(string id, bool[,] sched)
+        {
+            try
+            {
+                DataSource.Schedules.Add(id, sched);
+            }
+            catch (Exception)
+            {
+                throw new KeyNotFoundException("Internal error. Can't add Schedule for id " + id + ".");
+            }
+        }
 
         List<Tester> IDAL.GetTestersList()
         {
-            List<Tester> testers2 = new List<Tester>(DataSource.testers);
-            return testers2;
+            return new List<Tester>(DataSource.testers);
 
         }
-
         List<Test> IDAL.GetTestsList()
         {
-            List<Test> tests2 = new List<Test>(DataSource.tests);
-            return tests2;
+            return new List<Test>(DataSource.tests);
         }
-
         List<Trainee> IDAL.GetTraineeList()
         {
-            List<Trainee> trainees2 = new List<Trainee>(DataSource.trainees);
-            return trainees2;
+            return new List<Trainee>(DataSource.trainees);
         }
 
         void IDAL.RemoveTester(string id)
@@ -86,7 +90,6 @@ namespace DL
                 throw new KeyNotFoundException("This tester does not exist in the system");
             }
         }
-
         void IDAL.RemoveTrainee(string id)
         {
             if (DataSource.trainees.Find(x => x.Id == id) != null)
@@ -96,6 +99,28 @@ namespace DL
             else
             {
                 throw new KeyNotFoundException("This trainee does not exist in the system");
+            }
+        }
+        void IDAL.RemoveTest(string id)
+        {
+            if (DataSource.tests.Exists(x => x.TestId == id))
+            {
+                DataSource.tests.Remove(DataSource.tests.Find(x => x.TestId == id));
+            }
+            else
+            {
+                throw new KeyNotFoundException("This test does not exist in the system");
+            }
+        }
+        public void RemoveTesterSchedule(string id)
+        {
+            try
+            {
+                DataSource.Schedules.Remove(id);
+            }
+            catch (Exception)
+            {
+                throw new KeyNotFoundException("Internal Error. Can't delete Schedule for id " + id + ".");
             }
         }
 
@@ -111,7 +136,6 @@ namespace DL
                 throw new KeyNotFoundException("This test does not exist in the system");
             }
         }
-
         void IDAL.UpdateTesterDetails(Tester T)
         {
             int index = DataSource.testers.FindIndex(x => x.Id == T.Id);
@@ -124,7 +148,6 @@ namespace DL
                 throw new KeyNotFoundException("This tester does not exist in the system");
             }
         }
-
         void IDAL.UpdateTraineeDetails(Trainee T)
         {
             int index = DataSource.trainees.FindIndex(x => x.Id == T.Id);
@@ -137,17 +160,18 @@ namespace DL
                 throw new KeyNotFoundException("this trainee does not exist in the system");
             }
         }
-        void IDAL.RemoveTest(string id)
+        public void UpdateTesterSchedule(string id, bool[,] sched)
         {
-            if (DataSource.tests.Exists(x => x.TestId == id))
+            try
             {
-                DataSource.tests.Remove(DataSource.tests.Find(x => x.TestId == id));
+                DataSource.Schedules[id] = sched;
             }
-            else
+            catch (KeyNotFoundException)
             {
-                throw new KeyNotFoundException("This test does not exist in the system");
+                throw new KeyNotFoundException("Can't Update Schedule. Schedule not exist for id " + id + ".");
             }
         }
+
         Dictionary<string, Object> IDAL.GetConfig()
         {
             Dictionary<string, Object> keyValues = new Dictionary<string, Object>();
@@ -205,40 +229,6 @@ namespace DL
                 throw new KeyNotFoundException("Schedule not exist for id " + id + ".");
             }
             return tmp;
-        }
-        public void UpdateTesterSchedule(string id, bool[,] sched)
-        {
-            try
-            {
-                DataSource.Schedules[id] = sched;
-            }
-            catch (KeyNotFoundException)
-            {
-                throw new KeyNotFoundException("Can't Update Schedule. Schedule not exist for id " + id + ".");
-            }
-        }
-        public void AddTesterSchedule(string id, bool[,] sched)
-        {
-            try
-            {
-                DataSource.Schedules.Add(id, sched);
-            }
-            catch (Exception)
-            {
-                throw new KeyNotFoundException("Internal error. Can't add Schedule for id " + id + ".");
-            }
-        }
-
-        public void RemoveTesterSchedule(string id)
-        {
-            try
-            {
-                DataSource.Schedules.Remove(id);
-            }
-            catch (Exception)
-            {
-                throw new KeyNotFoundException("Internal Error. Can't delete Schedule for id " + id + ".");
-            }
         }
     }
 }

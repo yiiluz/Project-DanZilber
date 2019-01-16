@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace BO
+using BO;
+namespace BL
 {
     public class Converters
     {
-        //static IBL bl = BL.Factory.GetBLObj();
         public static DO.Tester CreateDOTester(BO.Tester other)
         {
             DO.Tester tester = new DO.Tester(other.Id);

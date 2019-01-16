@@ -19,49 +19,7 @@ namespace BO
         private List<CarTypeEnum> existingLicenses = new List<CarTypeEnum>();
         private List<TraineeTest> testList = new List<TraineeTest>();
 
-        //public Trainee(DO.Trainee other) : base(other.Id)
-        //{
-        //    LastName = other.LastName;
-        //    FirstName = other.FirstName;
-        //    SchoolName = other.SchoolName;
-        //    TeacherName = other.TeacherName;
-        //    PhoneNumber = other.PhoneNumber;
-        //    Gender = (GenderEnum)other.Gender;
-        //    Address = new Address(other.Address.City, other.Address.Street, other.Address.BuildingNumber);
-        //    DateOfBirth = other.DateOfBirth;
-        //    LastTest = new DateTime(other.LastTest.Ticks);
-        //    CurrCarType = (CarTypeEnum)other.CurrCarType;
-        //    CurrGearType = (GearboxTypeEnum)other.CurrGearType;
-        //    NumOfFinishedLessons = other.NumOfFinishedLessons;
-        //    NumOfTests = other.NumOfTests;
-        //    IsAlreadyDidTest = other.IsAlreadyDidTest;
-        //    ExistingLicenses = new List<CarTypeEnum>();
-        //    foreach (var item in other.ExistingLicenses)
-        //        ExistingLicenses.Add((CarTypeEnum)item);
-        //}
-        /// <summary>
-        /// default ctor
-        /// </summary>
-        /// <param name="id"></param>
         public Trainee(string id) : base(id) { }
-
-        public Trainee(Trainee other) : base(other.Id)
-        {
-            LastName = other.LastName;
-            FirstName = other.FirstName;
-            SchoolName = other.SchoolName;
-            TeacherName = other.TeacherName;
-            PhoneNumber = other.PhoneNumber;
-            Gender = other.Gender;
-            Address = new Address(other.Address);
-            DateOfBirth = other.DateOfBirth;
-            LastTest = new DateTime(other.LastTest.Ticks);
-            CurrCarType = other.CurrCarType;
-            NumOfFinishedLessons = other.NumOfFinishedLessons;
-            NumOfTests = other.NumOfTests;
-            IsAlreadyDidTest = other.IsAlreadyDidTest;
-            ExistingLicenses = new List<CarTypeEnum>(other.ExistingLicenses);
-        }
 
         public Trainee(string id, Trainee other) : base(id)
         {

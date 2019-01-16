@@ -21,7 +21,7 @@ namespace UIWpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        internal static IBL bl = BL.Factory.GetBLObj();
+        internal static IBL bl = BO.Factory.GetBLObj();
         public MainWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;

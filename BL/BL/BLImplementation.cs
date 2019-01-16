@@ -452,7 +452,7 @@ namespace BL
             {
                 throw e;
             }
-            test.UpdateTestDeteils(t);
+            UpdateTestDeteils(test, t);
             try
             {
                 instance.UpdateTestDetails(Converters.CreateDOTest(test, serial));
@@ -486,7 +486,8 @@ namespace BL
             //var lst = from item in instance.GetTestersList() select CreateDOFromBO.GetBOTester(item);
             foreach (var x in lst)
             {
-                var lstTests = from item in instance.GetTestsList() where item.TesterId == x.Id orderby item.DateOfTest select new TesterTest(item);
+                var lstTests = from item in instance.GetTestsList() where item.TesterId == x.Id
+                               orderby item.DateOfTest select new TesterTest(Converters.CreateBOTest(item));
                 x.TestList = lstTests.ToList();
             }
             return lst;
@@ -614,7 +615,7 @@ namespace BL
         {
             List<Test> optionalTests = new List<Test>();
             List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType &&
-                                                x.IsTestersWorkAtSpesificHour(dataSourse.HourOfTest));
+                                                IsTestersWorkAtSpesificHour(x, dataSourse.HourOfTest));
             //if there is no tester availiable for this hour
             if (optionalTesters.Count == 0)
                 return optionalTests;
@@ -625,7 +626,7 @@ namespace BL
                 foreach (var item in optionalTesters)
                 {
                     if (temp > DateTime.Now.AddDays(1) && temp.DayOfWeek != DayOfWeek.Friday && temp.DayOfWeek != DayOfWeek.Saturday)
-                        if (!optionalTests.Exists(x => x.DateOfTest == temp) && item.IsAvailiableOnDateAndHour(temp, dataSourse.HourOfTest))
+                        if (!optionalTests.Exists(x => x.DateOfTest == temp) && IsTesterAvailiableOnDateAndHour(item, temp, dataSourse.HourOfTest))
                         {
                             Test test = new Test(dataSourse);
                             test.DateOfTest = temp;
@@ -635,7 +636,7 @@ namespace BL
                             counter++;
                         }
                     if (temp2.DayOfWeek != DayOfWeek.Friday && temp2.DayOfWeek != DayOfWeek.Saturday)
-                        if (!optionalTests.Exists(x => x.DateOfTest == temp2) && item.IsAvailiableOnDateAndHour(temp2, dataSourse.HourOfTest))
+                        if (!optionalTests.Exists(x => x.DateOfTest == temp2) && IsTesterAvailiableOnDateAndHour(item, temp2, dataSourse.HourOfTest))
                         {
                             Test test = new Test(dataSourse);
                             test.DateOfTest = temp2;
@@ -654,14 +655,15 @@ namespace BL
         {
             List<Test> optionalTests = new List<Test>();
             List<Tester> testersList = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType &&
-                                            x.IsAvailiableOnDateAndHour(dataSourse.DateOfTest) && x.GetAvailiableHoursForSpesificDate(dataSourse.DateOfTest).Count != 0);
+                                            IsTesterAvailiableOnDateAndHour(x, dataSourse.DateOfTest) && 
+                                            GetAvailiableHoursOfTesterForSpesificDate(x, dataSourse.DateOfTest).Count != 0);
             bool[] tmp = new bool[6]; //tmp array for delete dublicates.
             for (int i = 0; i < 6; ++i)
                 tmp[i] = false;
 
             foreach (var item in testersList)
             {
-                List<int> currHour = item.GetAvailiableHoursForSpesificDate(dataSourse.DateOfTest);
+                List<int> currHour = GetAvailiableHoursOfTesterForSpesificDate(item, dataSourse.DateOfTest);
                 foreach (var item1 in currHour)
                 {
                     if (tmp[item1 - 9] == false)
@@ -693,6 +695,8 @@ namespace BL
         {
             return (from item in GetTraineeList() where func(item) orderby item.LastName, item.FirstName select item).ToList();
         }
+
+        
 
         public string GetStringOfTraineeLicenses(string id)
         {
@@ -824,6 +828,91 @@ namespace BL
         }
 
 
-
+        private int GetTesterNumOfTestForDateWeek(Tester tester, DateTime a)
+        {
+            int num = 0;
+            foreach (var item in tester.TestList)
+                if (item.DateOfTest.AddDays(-(int)item.DateOfTest.DayOfWeek) == a.AddDays(-(int)a.DayOfWeek) && !item.IsTestAborted)
+                    num++;
+            return num;
+        }
+        private List<int> GetAvailiableHoursOfTesterForSpesificDate(Tester tester, DateTime date)
+        {
+            List<int> AvailiableHours = new List<int>();
+            if (!IsTesterAvailiableOnDateAndHour(tester, date))
+                return AvailiableHours;
+            bool[] temp = new bool[6];
+            //set matrix of bool that contain the available times of the date week
+            for (int i = 0; i < 6; ++i)
+                temp[i] = tester.AvailiableWorkTime[(int)date.DayOfWeek, i];
+            foreach (var x in tester.TestList)
+            {
+                if (x.DateOfTest == date && !x.IsTestAborted)
+                    temp[x.HourOfTest - 9] = false;
+            }
+            for (int i = 0; i < 6; ++i)
+            {
+                if (temp[i])
+                    AvailiableHours.Add(i + 9);
+            }
+            AvailiableHours.Sort();
+            return AvailiableHours;//if day is full
+        }
+        private bool IsTesterAvailiableOnDateAndHour(Tester tester, DateTime date, int hour = -1)
+        {
+            if (date.DayOfWeek == DayOfWeek.Friday || date.DayOfWeek == DayOfWeek.Saturday || GetTesterNumOfTestForDateWeek(tester, date) + 1 > tester.MaxTestsPerWeek)
+                return false;
+            bool isWorkUnlistOneHourOnThisDate = false;
+            bool[] tmp = new bool[6];
+            for (int i = 0; i < 6; ++i)
+            {
+                tmp[i] = tester.AvailiableWorkTime[(int)date.DayOfWeek, i];
+                if (tmp[i])
+                    isWorkUnlistOneHourOnThisDate = true;
+            }
+            if (isWorkUnlistOneHourOnThisDate)
+            {
+                foreach (var item in tester.TestList)
+                {
+                    if (item.DateOfTest == date && !item.IsTestAborted)
+                    {
+                        tmp[item.HourOfTest - 9] = false;
+                    }
+                }
+                if (hour == -1) //if try to select by date
+                {
+                    for (int i = 0; i < 6; ++i) //if after filtering there is availiable hour
+                    {
+                        if (tmp[i])
+                            return true;
+                    }
+                }
+                else
+                    return tmp[hour - 9];
+            }
+            return false;//if tester cant work at this day and hour
+        }
+        private bool IsTestersWorkAtSpesificHour(Tester tester, int hour)
+        {
+            for (int i = 0; i < 5; ++i)
+            {
+                if (tester.AvailiableWorkTime[i, hour - 9])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private void UpdateTestDeteils(Test test, TestResult other)
+        {
+            test.DistanceKeeping = other.DistanceKeeping;
+            test.ReverseParking = other.ReverseParking;
+            test.MirrorsCheck = other.MirrorsCheck;
+            test.Signals = other.Signals;
+            test.CorrectSpeed = other.CorrectSpeed;
+            test.IsPassed = other.IsPassed;
+            test.TesterNotes = other.TesterNotes;
+            test.IsTesterUpdateStatus = true;
+        }
     }
 }

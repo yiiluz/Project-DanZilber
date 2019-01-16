@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BO;
-namespace BL
+using BL;
+namespace BO
 {
     public class Factory
     {

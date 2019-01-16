@@ -24,29 +24,6 @@ namespace BO
                 for (int j = 0; j < 6; ++j)
                     AvailiableWorkTime[i, j] = false;
         }
-        private void Days(int day, string t)
-        {
-            switch (day)
-            {
-                case 0:
-                    t += "SunDay: ";
-                    break;
-                case 1:
-                    t += "Monday: ";
-                    break;
-                case 2:
-                    t += "Tuesday: ";
-                    break;
-                case 3:
-                    t += "Wednesday: ";
-                    break;
-                case 4:
-                    t += "Thursday: ";
-                    break;
-                default:
-                    break;
-            }
-        }
         public Tester(Tester other) : base(other.Id)
         {
             LastName = other.LastName;
@@ -81,88 +58,7 @@ namespace BO
             foreach (var item in other.TestList)
                 TestList.Add(item);
         }
-        //--------------------------------------------------------------------------------------------------------
 
-        //help functions
-        //--------------------------------------------------------------------------------------------------------
-        public int GetNumOfTestForSpecificWeek(DateTime a)
-        {
-            int num = 0;
-            foreach (var item in TestList)
-                if (item.DateOfTest.AddDays(-(int)item.DateOfTest.DayOfWeek) == a.AddDays(-(int)a.DayOfWeek) && !item.IsTestAborted)
-                    num++;
-            return num;
-        }
-        public List<int> GetAvailiableHoursForSpesificDate(DateTime date)
-        {
-            List<int> AvailiableHours = new List<int>();
-            if (!IsAvailiableOnDateAndHour(date))
-                return AvailiableHours;
-            bool[] temp = new bool[6];
-            //set matrix of bool that contain the available times of the date week
-            for (int i = 0; i < 6; ++i)
-                temp[i] = AvailiableWorkTime[(int)date.DayOfWeek, i];
-            foreach (var x in TestList)
-            {
-                if (x.DateOfTest == date && !x.IsTestAborted)
-                    temp[x.HourOfTest - 9] = false;
-            }
-            for (int i = 0; i < 6; ++i)
-            {
-                if (temp[i])
-                    AvailiableHours.Add(i + 9);
-            }
-            AvailiableHours.Sort();
-            return AvailiableHours;//if day is full
-        }
-        public bool IsAvailiableOnDateAndHour(DateTime date, int hour = -1)
-        {
-            if (date.DayOfWeek == DayOfWeek.Friday || date.DayOfWeek == DayOfWeek.Saturday || GetNumOfTestForSpecificWeek(date) + 1 > MaxTestsPerWeek)
-                return false;
-            bool isWorkUnlistOneHourOnThisDate = false;
-            bool[] tmp = new bool[6];
-            for (int i = 0; i < 6; ++i)
-            {
-                tmp[i] = AvailiableWorkTime[(int)date.DayOfWeek, i];
-                if (tmp[i])
-                    isWorkUnlistOneHourOnThisDate = true;
-            }
-            if (isWorkUnlistOneHourOnThisDate)
-            {
-                foreach (var item in TestList)
-                {
-                    if (item.DateOfTest == date && !item.IsTestAborted)
-                    {
-                        tmp[item.HourOfTest - 9] = false;
-                    }
-                }
-                if (hour == -1) //if try to select by date
-                {
-                    for (int i = 0; i < 6; ++i) //if after filtering there is availiable hour
-                    {
-                        if (tmp[i])
-                            return true;
-                    }
-                }
-                else
-                    return tmp[hour - 9];
-            }
-            return false;//if tester cant work at this day and hour
-        }
-        public bool IsTestersWorkAtSpesificHour(int hour)
-        {
-            for (int i = 0; i < 5; ++i)
-            {
-                if (AvailiableWorkTime[i, hour - 9])
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        //--------------------------------------------------------------------------------------------------------
-
-        
         //propertys
         //--------------------------------------------------------------------------------------------------------
         public int Seniority { get => seniority; set => seniority = value; }
@@ -173,6 +69,29 @@ namespace BO
         public List<TesterTest> TestList { get => testList; set => testList = value; }
         //--------------------------------------------------------------------------------------------------------
 
+        private void Days(int day, string t)
+        {
+            switch (day)
+            {
+                case 0:
+                    t += "SunDay: ";
+                    break;
+                case 1:
+                    t += "Monday: ";
+                    break;
+                case 2:
+                    t += "Tuesday: ";
+                    break;
+                case 3:
+                    t += "Wednesday: ";
+                    break;
+                case 4:
+                    t += "Thursday: ";
+                    break;
+                default:
+                    break;
+            }
+        }
         /// <summary>
         /// overide ToString
         /// </summary>
