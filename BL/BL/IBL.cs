@@ -33,10 +33,12 @@ namespace BO
         string GetStringOfTraineeLicenses(string id);
         int GetTraineeNumTestedTest(string id);
         
-        IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsBySchool(bool byOrder = false);
-        IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsByTeacher(bool byOrder = false);
-        IEnumerable<IGrouping<int, Trainee>> GetStudentsGroupedaccordingByNumOfTests(bool byOrder = false);
-        
+        IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsBySchool();
+        IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsByTeacher();
+        IEnumerable<IGrouping<int, Trainee>> GetTraineesGroupedByNumOfTests();
+        IEnumerable<IGrouping<string, Trainee>> GetTraineessGroupedByCity();
+
+
 
 
         IEnumerable<IGrouping<string, Tester>> GetTestersGroupedByCity();

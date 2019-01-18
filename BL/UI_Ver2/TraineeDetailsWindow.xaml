@@ -6,15 +6,15 @@
         xmlns:local="clr-namespace:UI_Ver2"
         xmlns:BO="clr-namespace:BO;assembly=BL" 
         mc:Ignorable="d"
-        Title="Trainee Details Window" Height="500" Width="600" Loaded="Window_Loaded">
-    <Window.Resources>
+        Title="Trainee Details Window" Height="500" Width="600" ResizeMode="NoResize" WindowStyle="None"
+        AllowsTransparency="True" Background="Transparent">
 
-        <LinearGradientBrush x:Key="LableColorStyle" StartPoint="0,0.5" EndPoint="1,0.5">
-            <GradientStop Offset="0" Color="WhiteSmoke"/>
-        </LinearGradientBrush>
+
+    <Window.Resources>
+        <local:ComboBoxSelectedItemToIsEnable x:Key="comboBoxIsSelectedToEnable"/>
+        <local:DateTimeToShortString x:Key="dateTimeToShortString"/>
         <Style TargetType="{x:Type Label}">
-            <Setter Property="Background" Value="{StaticResource LableColorStyle}"/>
-            <Setter Property="Padding" Value="3"/>
+
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontFamily" Value="Consolas"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -25,7 +25,6 @@
             <Setter Property="FontSize" Value="16"/>
         </Style>
         <Style TargetType="{x:Type TextBox}">
-            <Setter Property="Background" Value="{StaticResource LableColorStyle}"/>
             <Setter Property="Padding" Value="3"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="FontFamily" Value="Consolas"/>
@@ -35,10 +34,9 @@
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="Margin" Value="2"/>
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Background" Value="White"/>
         </Style>
         <Style TargetType="{x:Type ComboBox}">
-            <Setter Property="Background" Value="{StaticResource LableColorStyle}"/>
             <Setter Property="FontFamily" Value="Consolas"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -48,7 +46,6 @@
             <Setter Property="FontSize" Value="16"/>
         </Style>
         <Style TargetType="{x:Type DatePicker}">
-            <Setter Property="Background" Value="{StaticResource LableColorStyle}"/>
             <Setter Property="FontFamily" Value="Consolas"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
@@ -56,7 +53,6 @@
             <Setter Property="FontSize" Value="16"/>
         </Style>
         <Style TargetType="{x:Type ListBox}">
-            <Setter Property="Background" Value="{StaticResource LableColorStyle}"/>
             <Setter Property="FontFamily" Value="Consolas"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -65,9 +61,16 @@
             <Setter Property="Margin" Value="2"/>
             <Setter Property="FontSize" Value="16"/>
         </Style>
-        <CollectionViewSource x:Key="traineeViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:Trainee}, CreateList=True}"/>
     </Window.Resources>
-    <Border Padding="10">
+    <!--Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF122F5E" Offset="0"/>
+            <GradientStop Color="#FF0FEBB7" Offset="1"/>
+            <GradientStop Color="#FF0025FF" Offset="0.52"/>
+        </LinearGradientBrush>
+    </-->
+    <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20" Padding="10">
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"/>

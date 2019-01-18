@@ -84,7 +84,7 @@ namespace BL
                     instance.RemoveTester(id);
                     foreach (var item in GetTestsList())
                     {
-                        if (item.ExTester.Id == id)
+                        if (item.ExTester.Id == id && item.DateOfTest > DateTime.Now)
                         {
                             AbortTest(item.TestId);
                             abortedTests.Add(new TesterTest(item));
@@ -486,8 +486,10 @@ namespace BL
             //var lst = from item in instance.GetTestersList() select CreateDOFromBO.GetBOTester(item);
             foreach (var x in lst)
             {
-                var lstTests = from item in instance.GetTestsList() where item.TesterId == x.Id
-                               orderby item.DateOfTest select new TesterTest(Converters.CreateBOTest(item));
+                var lstTests = from item in instance.GetTestsList()
+                               where item.TesterId == x.Id
+                               orderby item.DateOfTest
+                               select new TesterTest(Converters.CreateBOTest(item));
                 x.TestList = lstTests.ToList();
             }
             return lst;
@@ -655,7 +657,7 @@ namespace BL
         {
             List<Test> optionalTests = new List<Test>();
             List<Tester> testersList = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType &&
-                                            IsTesterAvailiableOnDateAndHour(x, dataSourse.DateOfTest) && 
+                                            IsTesterAvailiableOnDateAndHour(x, dataSourse.DateOfTest) &&
                                             GetAvailiableHoursOfTesterForSpesificDate(x, dataSourse.DateOfTest).Count != 0);
             bool[] tmp = new bool[6]; //tmp array for delete dublicates.
             for (int i = 0; i < 6; ++i)
@@ -696,7 +698,7 @@ namespace BL
             return (from item in GetTraineeList() where func(item) orderby item.LastName, item.FirstName select item).ToList();
         }
 
-        
+
 
         public string GetStringOfTraineeLicenses(string id)
         {
@@ -739,92 +741,76 @@ namespace BL
 
         public IEnumerable<IGrouping<string, Tester>> GetTestersGroupedByCity()
         {
-            var group = from item in GetTestersList()
-                        orderby item.LastName, item.FirstName
-                        group item by item.City
+            return from item in GetTestersList()
+                   orderby item.LastName, item.FirstName
+                   group item by item.City
                         into g
-                        orderby g.Key
-                        select g;
-            return group;
+                   orderby g.Key
+                   select g;
         }
         public IEnumerable<IGrouping<int, Tester>> GetTestersGropedBySeniority()
         {
-            var group = from item in GetTestersList()
-                        orderby item.LastName, item.FirstName
-                        group item by item.Seniority
+            return from item in GetTestersList()
+                   orderby item.LastName, item.FirstName
+                   group item by item.Seniority
                         into g
-                        orderby g.Key
-                        select g;
-            return group;
+                   orderby g.Key
+                   select g;
         }
         public IEnumerable<IGrouping<CarTypeEnum, Tester>> GetTestersGrupedBySpecialization()
         {
-            var TestersGroupsWithOrder = from item in GetTestersList()
-                                         orderby item.LastName, item.FirstName
-                                         group item by item.TypeCarToTest
-                                         into g
-                                         orderby g.Key
-                                         select g;
-            return TestersGroupsWithOrder;
+            return from item in GetTestersList()
+                   orderby item.LastName, item.FirstName
+                   group item by item.TypeCarToTest
+                   into g
+                   orderby g.Key
+                   select g;
         }
         public IEnumerable<IGrouping<int, Tester>> GetTestersGropedByMaxDistance()
         {
-            var group = from item in GetTestersList()
-                        orderby item.LastName, item.FirstName
-                        group item by item.MaxDistance
+            return from item in GetTestersList()
+                   orderby item.LastName, item.FirstName
+                   group item by item.MaxDistance
                         into g
-                        orderby g.Key
-                        select g;
-            return group;
+                   orderby g.Key
+                   select g;
         }
 
-        public IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsBySchool(bool byOrder = false)
+        public IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsBySchool()
         {
-            if (byOrder == true)
-            {
-                var StudentGroupsByAttributeWithOrder = from item in GetTraineeList()
-                                                        orderby item.LastName, item.FirstName
-                                                        group item by item.SchoolName
-                                                        into g
-                                                        orderby g.Key
-                                                        select g;
-                return StudentGroupsByAttributeWithOrder;
-            }
-            var StudentGroupsByAttributeWithOutOrder = from item in GetTraineeList()
-                                                       group item by item.SchoolName;
-            return StudentGroupsByAttributeWithOutOrder;
+            return from item in GetTraineeList()
+                   orderby item.LastName, item.FirstName
+                   group item by item.SchoolName
+                   into g
+                   orderby g.Key
+                   select g;
         }
-        public IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsByTeacher(bool byOrder = false)
+        public IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsByTeacher()
         {
-            if (byOrder == true)
-            {
-                var StudentGroupsByTeacherWithOrder = from item in GetTraineeList()
-                                                      orderby item.LastName, item.FirstName
-                                                      group item by item.SchoolName
-                                                      into g
-                                                      orderby g.Key
-                                                      select g;
-                return StudentGroupsByTeacherWithOrder;
-            }
-            var StudentGroupsByTeacherWithOutOrder = from item in GetTraineeList()
-                                                     group item by item.SchoolName;
-            return StudentGroupsByTeacherWithOutOrder;
+            return from item in GetTraineeList()
+                   orderby item.LastName, item.FirstName
+                   group item by item.SchoolName
+                   into g
+                   orderby g.Key
+                   select g;
         }
-        public IEnumerable<IGrouping<int, Trainee>> GetStudentsGroupedaccordingByNumOfTests(bool byOrder = false)
+        public IEnumerable<IGrouping<int, Trainee>> GetTraineesGroupedByNumOfTests()
         {
-            if (byOrder == true)
-            {
-                var StudentsGroupedaccordingByNumOfTestsWithOrder = from item in GetTraineeList()
-                                                                    orderby item.LastName, item.FirstName
-                                                                    group item by item.NumOfTests
-                                                                    into g
-                                                                    orderby g.Key
-                                                                    select g;
-                return StudentsGroupedaccordingByNumOfTestsWithOrder;
-            }
-            var StudentsGroupedaccordingByNumOfTestsWithOutrder = from item in GetTraineeList()
-                                                                  group item by item.NumOfTests;
-            return StudentsGroupedaccordingByNumOfTestsWithOutrder;
+            return from item in GetTraineeList()
+                   orderby item.LastName, item.FirstName
+                   group item by item.NumOfTests
+                   into g
+                   orderby g.Key
+                   select g;
+        }
+        public IEnumerable<IGrouping<string, Trainee>> GetTraineessGroupedByCity()
+        {
+            return from item in GetTraineeList()
+                   orderby item.LastName, item.FirstName
+                   group item by item.City
+                   into g
+                   orderby g.Key
+                   select g;
         }
 
 
