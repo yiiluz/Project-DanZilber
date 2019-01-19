@@ -27,7 +27,7 @@
             </Setter>
         </Style>-->
     </Window.Resources>
-
+    <!-- Window Border -->
     <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20">
         <Grid>
             <Grid.RowDefinitions>
@@ -57,6 +57,8 @@
                 <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
                     <TabItem Header="Admin" Width="200" Height="40">
 
+
+                        <!-- Office Window -->
                     </TabItem>
                     <TabItem Header="Office" Width="200" Height="40">
                         <Grid>
@@ -68,7 +70,7 @@
                                 <Border x:Name="OfficePasswordBorder" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
                                     <StackPanel Height="120" Width="300">
                                         <TextBlock Text="Enter Password:"/>
-                                        <PasswordBox x:Name="PassBox_passOffice" Height="30" Padding="2" VerticalContentAlignment="Center" Margin="0 10" KeyDown="PassBox_passAdmin_KeyDown"/>
+                                        <PasswordBox x:Name="PassBox_passOffice" Height="30" Padding="2" VerticalContentAlignment="Center" Margin="0 10" KeyDown="PassBox_passOffice_KeyDown"/>
                                         <Button Content="Enter" Click="Button_Click_EnterAsOffice"/>
                                     </StackPanel>
                                 </Border>
@@ -100,7 +102,7 @@
                                                     </Button.ToolTip>
                                                 </Button>
                                                 <Button Content="Remove Tester" Margin="20 15 20 0" Click="Button_Click_RemoveTester" ToolTipService.ShowDuration="8000">
-                                                
+
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Remove Exisiting Tester Details</TextBlock>
@@ -212,7 +214,96 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem Header="Existing Tester"  Width="200" Height="40"/>
+                    <!-- Existing Tester Window -->
+                    <TabItem Header="Existing Tester"  Width="200" Height="40">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border x:Name="ExistingTesterIDBorder" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
+                                <StackPanel Height="120" Width="300">
+                                    <TextBlock Text="Enter Your ID:"/>
+                                    <TextBox x:Name="TextBox_TesterID" Height="30" Padding="2" VerticalContentAlignment="Center" Margin="0 10" MaxLength="9" KeyDown="TextBox_TesterID_KeyDown" GotFocus="TextBox_ExistingTesterID_GotFocus" TextChanged="TextBox_TesterID_TextChanged"/>
+                                    <Button Content="Enter" Click="Button_Click_EnterAsExistingTester"/>
+                                </StackPanel>
+                            </Border>
+                            <Grid Grid.RowSpan="2">
+
+                                <Border x:Name="ExistingTesterMainWindowBorder" Margin="10" Visibility="Visible" >
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
+                                            <Grid>
+                                                <TextBlock Text="Your Tests List" HorizontalAlignment="Center"/>
+                                                <ListView x:Name="ListView_TesterTests" Grid.Row="1" Margin="20" SelectionChanged="ListView_TesterTests_SelectionChanged">
+                                                    <ListView.ItemContainerStyle>
+                                                        <Style TargetType="{x:Type ListViewItem}">
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                                        <Border Padding="2" BorderThickness="2" BorderBrush="{Binding Path=IsTestAborted, Converter={StaticResource boolToRedOrGreen}}" 
+                                                                            Background="{Binding Path=IsTesterUpdateStatus ,Converter={StaticResource boolToGreenOrOrange}}">
+                                                                            <GridViewRowPresenter HorizontalAlignment="Stretch" Width="Auto" Margin="0"/>
+                                                                        </Border>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Template">
+                                                                        <Setter.Value>
+                                                                            <ControlTemplate>
+                                                                                <Border Padding="2" BorderThickness="2" BorderBrush="LightBlue" 
+                                                                                    Background="LightGreen">
+                                                                                    <GridViewRowPresenter HorizontalAlignment="Stretch" Width="Auto" Margin="0"/>
+                                                                                </Border>
+                                                                            </ControlTemplate>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                    <Setter Property="Foreground" Value="DarkBlue"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </ListView.ItemContainerStyle>
+                                                    <ListView.View>
+                                                        <GridView>
+                                                            <GridViewColumn Header="Test Serial" DisplayMemberBinding="{Binding TestId}" Width="100"/>
+                                                            <GridViewColumn Header="Date Of Test" DisplayMemberBinding="{Binding DateOfTest, StringFormat=d}" Width="100"/>
+                                                            <GridViewColumn Header="Hour Of Test" Width="100">
+                                                                <GridViewColumn.DisplayMemberBinding>
+                                                                    <MultiBinding StringFormat="{}{0}:00">
+                                                                        <Binding Path="HourOfTest"/>
+                                                                    </MultiBinding>
+                                                                </GridViewColumn.DisplayMemberBinding>
+                                                            </GridViewColumn>
+                                                        </GridView>
+                                                    </ListView.View>
+                                                    <ListView.ContextMenu >
+                                                        <ContextMenu>
+                                                            <MenuItem Header="Update Test Result" Click="MenuItem_Click_UpdateTestResult"/>
+                                                        </ContextMenu>
+                                                    </ListView.ContextMenu>
+                                                </ListView>
+                                            </Grid>
+                                        </Border>
+                                        <!--<Border Grid.Column="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">-->
+
+                                        <!--</Border>-->
+                                        <Border Grid.Column="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
+
+
+                                        </Border>
+                                    </Grid>
+                                </Border>
+
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+
                     <TabItem Header="Existing Trainee"  Width="200" Height="40"/>
                 </TabControl>
 

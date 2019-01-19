@@ -82,7 +82,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
+        
         <!-- Converters -->
         <local:BoolToGreenOrOrange x:Key="boolToGreenOrOrange"/>
         <local:BoolToRedOrGreen x:Key="boolToRedOrGreen"/>

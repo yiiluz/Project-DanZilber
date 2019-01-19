@@ -28,10 +28,17 @@ namespace UI_Ver2
         static int resizeMode = 0;
         //passwords
         string adminPass = "1111", officePass = "1111";
+
+        //List To View
         public static IBL bl = BO.Factory.GetBLObj();
         private ObservableCollection<Tester> testersCollection;
         private ObservableCollection<Trainee> traineeCollection;
         private ObservableCollection<Test> testCollection;
+
+        //Object To Bind
+        Tester tester;
+        Trainee trainee;
+
         public MainWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -71,23 +78,7 @@ namespace UI_Ver2
             ((Button)sender).Height /= 1.1;
         }
 
-        private void PassBox_passAdmin_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-                Button_Click_EnterAsOffice(null, null);
-        }
-        private void Button_Click_EnterAsOffice(object sender, RoutedEventArgs e)
-        {
-            if (PassBox_passOffice.Password == adminPass)
-            {
-                PassBox_passOffice.Password = "";
-                OfficePasswordBorder.Visibility = Visibility.Collapsed;
-                OfficeMainWindowBorder.Visibility = Visibility.Visible;
-                OfficeStatistics.Visibility = Visibility.Visible;
-                return;
-            }
-            MessageBox.Show("Password is not correct. Try again.", "Security Alert", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
+
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TabControl tabControl = sender as TabControl;
@@ -102,12 +93,34 @@ namespace UI_Ver2
                 testCollection = new ObservableCollection<Test>(bl.GetTestsList());
                 //ListView_Testers.ItemsSource = testersCollection;
             }
+            if (tabControl.SelectedIndex == 2)
+            {
+                ExistingTesterMainWindowBorder.Visibility = Visibility.Collapsed;
+                ExistingTesterIDBorder.Visibility = Visibility.Visible;
+            }
 
         }
 
 
         //office tester implement
         //------------------------------------------------------------------------------------------------------------
+        private void PassBox_passOffice_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+                Button_Click_EnterAsOffice(null, null);
+        }
+        private void Button_Click_EnterAsOffice(object sender, RoutedEventArgs e)
+        {
+            if (PassBox_passOffice.Password == officePass)
+            {
+                PassBox_passOffice.Password = "";
+                OfficePasswordBorder.Visibility = Visibility.Collapsed;
+                OfficeMainWindowBorder.Visibility = Visibility.Visible;
+                OfficeStatistics.Visibility = Visibility.Visible;
+                return;
+            }
+            MessageBox.Show("Password is not correct. Try again.", "Security Alert", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
         private void Button_Click_AddTester(object sender, RoutedEventArgs e)
         {
             TesterDetailsWindow testerDetailsWindow = new TesterDetailsWindow();
@@ -241,93 +254,176 @@ namespace UI_Ver2
             GetSerialWindow getSerialWindow = new GetSerialWindow(this, "View");
             getSerialWindow.ShowDialog();
         }
+
+
+        //Existing Tester Implement
+        //------------------------------------------------------------------------------------------------------------
+        private void TextBox_TesterID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+                Button_Click_EnterAsExistingTester(null, null);
+        }
+        private void TextBox_ExistingTesterID_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (TextBox_TesterID.Background != Brushes.White)
+                TextBox_TesterID.Background = Brushes.White;
+        }
+        private void TextBox_TesterID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!TextBox_TesterID.Text.All(char.IsDigit))
+                TextBox_TesterID.Background = Brushes.Red;
+            else
+                TextBox_TesterID.Background = Brushes.White;
+        }
+        private void ListView_TesterTests_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            e.Handled = true;
+        }
+        private void Button_Click_EnterAsExistingTester(object sender, RoutedEventArgs e)
+        {
+            if (TextBox_TesterID.Text.Length != TextBox_TesterID.MaxLength || !TextBox_TesterID.Text.All(char.IsDigit))
+            {
+                TextBox_TesterID.Background = Brushes.Red;
+                MessageBox.Show("ID must be exactly 9 Digitis, and Digits only.", "Wrong input", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                try
+                {
+                    tester = bl.GetTesterByID(TextBox_TesterID.Text);
+                }
+                catch (KeyNotFoundException)
+                {
+                    MessageBox.Show("The ID that enterd wasn't fpound as a Tester ID.", "Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                ExistingTesterIDBorder.Visibility = Visibility.Collapsed;
+                ExistingTesterMainWindowBorder.Visibility = Visibility.Visible;
+                TextBox_TesterID.Text = "";
+                ListView_TesterTests.ItemsSource = tester.TestList;
+                return;
+            }
+        }
+
+        private void MenuItem_Click_UpdateTestResult(object sender, RoutedEventArgs e)
+        {
+            string ErrorList = "";
+            if (ListView_TesterTests.SelectedIndex == -1)
+                return;
+            TesterTest temp = (TesterTest)ListView_TesterTests.SelectedItem;
+            if (DateTime.Now == temp.DateOfTest && DateTime.Now.Hour < temp.HourOfTest || DateTime.Now < temp.DateOfTest)
+                ErrorList += "ERROR! You can not update test information before the intended date. \n";
+            if (temp.IsTesterUpdateStatus)
+                ErrorList += "ERROR! Test results have already been entered. You can not change the test details. \n";
+            if (temp.IsTestAborted)
+                ErrorList += "ERROR! The test has been canceled. details can not be updated for this test \n";
+            if (ErrorList == "")
+            {
+                TesterResultUpdateWindow testerResultUpdateWindow = new TesterResultUpdateWindow(temp);
+                testerResultUpdateWindow.ShowDialog();
+                try
+                {
+                    tester = MainWindow.bl.GetTesterByID(tester.Id);
+                    this.ListView_TesterTests.ItemsSource = tester.TestList;
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    MessageBox.Show("Internal error on Existing Tester Tub at UpdateMenu");
+                }
+            }
+            else
+            {
+                MessageBox.Show(ErrorList, "TesterWindow", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         //------------------------------------------------------------------------------------------------------------
 
         //implement sort at list views by columns
         //------------------------------------------------------------------------------------------------------------
-        //GridViewColumnHeader _lastHeaderClicked = null;
-        //ListSortDirection _lastDirection = ListSortDirection.Ascending;
-        //private void Sort(string sortBy, ListSortDirection direction)
-        //{
-        //    TabItem tmpTab = tabs.SelectedItem as TabItem;
+        GridViewColumnHeader _lastHeaderClicked = null;
+        ListSortDirection _lastDirection = ListSortDirection.Ascending;
+        private void Sort(string sortBy, ListSortDirection direction)
+        {
+            TabItem tmpTab = TabControl_Login.SelectedItem as TabItem;
 
-        //    if (tmpTab.TabIndex == 1)
-        //    {
-        //        ICollectionView dataView = CollectionViewSource.GetDefaultView(TestersList.ItemsSource);
-        //        dataView.SortDescriptions.Clear();
-        //        SortDescription sd = new SortDescription(sortBy, direction);
-        //        dataView.SortDescriptions.Add(sd);
-        //        dataView.Refresh();
-        //    }
-        //    if (tmpTab.TabIndex == 2)
-        //    {
-        //        ICollectionView dataView = CollectionViewSource.GetDefaultView(TraineeList.ItemsSource);
-        //        dataView.SortDescriptions.Clear();
-        //        SortDescription sd = new SortDescription(sortBy, direction);
-        //        dataView.SortDescriptions.Add(sd);
-        //        dataView.Refresh();
-        //    }
-        //    if (tmpTab.TabIndex == 3)
-        //    {
-        //        ICollectionView dataView = CollectionViewSource.GetDefaultView(TestsList.ItemsSource);
-        //        dataView.SortDescriptions.Clear();
-        //        SortDescription sd = new SortDescription(sortBy, direction);
-        //        dataView.SortDescriptions.Add(sd);
-        //        dataView.Refresh();
-        //    }
-        //}
-        //public void GridViewColumnHeaderClickedHandler(object sender, RoutedEventArgs e)
-        //{
-        //    var headerClicked = e.OriginalSource as GridViewColumnHeader;
-        //    ListSortDirection direction;
+            if (tmpTab.TabIndex == 2)
+            {
+                ICollectionView dataView = CollectionViewSource.GetDefaultView(ListView_TesterTests.ItemsSource);
+                dataView.SortDescriptions.Clear();
+                SortDescription sd = new SortDescription(sortBy, direction);
+                dataView.SortDescriptions.Add(sd);
+                dataView.Refresh();
+            }
+            //if (tmpTab.TabIndex == 2)
+            //{
+            //    ICollectionView dataView = CollectionViewSource.GetDefaultView(TraineeList.ItemsSource);
+            //    dataView.SortDescriptions.Clear();
+            //    SortDescription sd = new SortDescription(sortBy, direction);
+            //    dataView.SortDescriptions.Add(sd);
+            //    dataView.Refresh();
+            //}
+            //if (tmpTab.TabIndex == 3)
+            //{
+            //    ICollectionView dataView = CollectionViewSource.GetDefaultView(TestsList.ItemsSource);
+            //    dataView.SortDescriptions.Clear();
+            //    SortDescription sd = new SortDescription(sortBy, direction);
+            //    dataView.SortDescriptions.Add(sd);
+            //    dataView.Refresh();
+            //}
+        }
+        public void GridViewColumnHeaderClickedHandler(object sender, RoutedEventArgs e)
+        {
+            var headerClicked = e.OriginalSource as GridViewColumnHeader;
+            ListSortDirection direction;
 
-        //    if (headerClicked != null)
-        //    {
-        //        if (headerClicked.Role != GridViewColumnHeaderRole.Padding)
-        //        {
-        //            if (headerClicked != _lastHeaderClicked)
-        //            {
-        //                direction = ListSortDirection.Ascending;
-        //            }
-        //            else
-        //            {
-        //                if (_lastDirection == ListSortDirection.Ascending)
-        //                {
-        //                    direction = ListSortDirection.Descending;
-        //                }
-        //                else
-        //                {
-        //                    direction = ListSortDirection.Ascending;
-        //                }
-        //            }
+            if (headerClicked != null)
+            {
+                if (headerClicked.Role != GridViewColumnHeaderRole.Padding)
+                {
+                    if (headerClicked != _lastHeaderClicked)
+                    {
+                        direction = ListSortDirection.Ascending;
+                    }
+                    else
+                    {
+                        if (_lastDirection == ListSortDirection.Ascending)
+                        {
+                            direction = ListSortDirection.Descending;
+                        }
+                        else
+                        {
+                            direction = ListSortDirection.Ascending;
+                        }
+                    }
 
-        //            var columnBinding = headerClicked.Column.DisplayMemberBinding as Binding;
-        //            var sortBy = columnBinding?.Path.Path ?? headerClicked.Column.Header as string;
+                    var columnBinding = headerClicked.Column.DisplayMemberBinding as Binding;
+                    var sortBy = columnBinding?.Path.Path ?? headerClicked.Column.Header as string;
 
-        //            Sort(sortBy, direction);
+                    Sort(sortBy, direction);
 
-        //            if (direction == ListSortDirection.Ascending)
-        //            {
-        //                headerClicked.Column.HeaderTemplate =
-        //                  Resources["HeaderTemplateArrowUp"] as DataTemplate;
-        //            }
-        //            else
-        //            {
-        //                headerClicked.Column.HeaderTemplate =
-        //                  Resources["HeaderTemplateArrowDown"] as DataTemplate;
-        //            }
+                    if (direction == ListSortDirection.Ascending)
+                    {
+                        headerClicked.Column.HeaderTemplate =
+                          Resources["HeaderTemplateArrowUp"] as DataTemplate;
+                    }
+                    else
+                    {
+                        headerClicked.Column.HeaderTemplate =
+                          Resources["HeaderTemplateArrowDown"] as DataTemplate;
+                    }
 
-        //            // Remove arrow from previously sorted header  
-        //            if (_lastHeaderClicked != null && _lastHeaderClicked != headerClicked)
-        //            {
-        //                _lastHeaderClicked.Column.HeaderTemplate = null;
-        //            }
+                    // Remove arrow from previously sorted header  
+                    if (_lastHeaderClicked != null && _lastHeaderClicked != headerClicked)
+                    {
+                        _lastHeaderClicked.Column.HeaderTemplate = null;
+                    }
 
-        //            _lastHeaderClicked = headerClicked;
-        //            _lastDirection = direction;
-        //        }
-        //    }
-        //}
+                    _lastHeaderClicked = headerClicked;
+                    _lastDirection = direction;
+                }
+            }
+        }
         //------------------------------------------------------------------------------------------------------------
     }
 }

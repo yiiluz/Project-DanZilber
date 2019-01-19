@@ -28,7 +28,7 @@ namespace UI_Ver2
             this.testResult = test;
             this.DataContext = testResult;
         }
-        private bool MissingDetails()
+        private bool IsMissingDetails()
         {
             if (DistanceKeeping1.IsChecked == DistanceKeeping2.IsChecked) { return false; }
             if (ReverseParking1.IsChecked == ReverseParking2.IsChecked) { return false; }
@@ -36,19 +36,27 @@ namespace UI_Ver2
             if (CorrectSpeed1.IsChecked == CorrectSpeed2.IsChecked) { return false; }
             if (IsPassed1.IsChecked == IsPassed2.IsChecked) { return false; }
             if (Signals1.IsChecked == Signals2.IsChecked) { return false; }
-           if(TesterNotes.Text.Length <30) { return false; }
+            if (TesterNotes.Text.Length < 30) { return false; }
             return true;
         }
         private void ClickUpdate(object sender, RoutedEventArgs e)
         {
-            if (MissingDetails() == false)
+            if (IsMissingDetails() == false)
             {
-                MessageBox.Show("All details must be entered! Payattention, Notes must be unlist 30 characters","Test Update", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("All details must be entered! Payattention, Notes must be unlist 30 characters", "Test Update", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             Close();
-            MessageBox.Show("Test successfully updated!", "Test Update",MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Test successfully updated!", "Test Update", MessageBoxButton.OK, MessageBoxImage.Information);
             MainWindow.bl.UpdateTestResult(testResult.TestId, testResult);
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to Cancel?", "Cancel Option", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Close();
+            }
         }
     }
 }
