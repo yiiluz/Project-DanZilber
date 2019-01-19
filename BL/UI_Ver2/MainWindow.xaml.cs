@@ -156,7 +156,7 @@ namespace UI_Ver2
                     foreach (var item in abortedTests)
                         aborted += "Test Serial: " + item.TestId + ". Date: " + item.DateOfTest.ToShortDateString() + ". Hour: " + item.HourOfTest + ":00.\n";
                     MessageBox.Show("Tester with ID " + getIDWindow.TxtBx_ID.Text + " successfuly deleted.\n"
-                        + (aborted != "" ? "Aborted Tests:\n" + aborted : ""), "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                        + (aborted != "" ? "Aborted Tests:\n" + aborted : "No Test Aborted.\n"), "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                     MessageBox.Show("Tester not on system", "ID not Exist", MessageBoxButton.OK, MessageBoxImage.Error);

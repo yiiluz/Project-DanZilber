@@ -20,7 +20,7 @@ namespace UI_Ver2
     /// Interaction logic for SearchTester.xaml
     /// </summary>
 
-    enum GroupCategorys { All, Seniority, City, MaxDistance }
+    enum TesterGroupCategorys { All, Seniority, City, MaxDistance }
     public partial class OfficeSearchTester : Window
     {
         private ObservableCollection<Tester> mainList =
@@ -34,8 +34,8 @@ namespace UI_Ver2
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
-            this.TestersList.ItemsSource = MainWindow.bl.GetTestersList();
-            this.ComboBox_GroupOptions.ItemsSource = Enum.GetValues(typeof(GroupCategorys));
+            this.TestersList.ItemsSource = mainList;
+            this.ComboBox_GroupOptions.ItemsSource = Enum.GetValues(typeof(TesterGroupCategorys));
             //this.ComboBox_GroupOptions.SelectedIndex = 0;
             ComboBox_GroupNames.IsEnabled = false;
             listToFilter = mainList;
@@ -73,7 +73,7 @@ namespace UI_Ver2
             tester = MainWindow.bl.GetTesterByID((TestersList.SelectedItem as Tester).Id);
             TesterDetailsWindow testerDetailsWindow = new TesterDetailsWindow(tester, "Update");
             testerDetailsWindow.ShowDialog();
-            ComboBox_GroupOptions.SelectedIndex = (int)GroupCategorys.All;
+            ComboBox_GroupOptions.SelectedIndex = (int)TraineeGroupCategorys.All;
             ComboBox_GroupOptions_SelectionChanged(null, null);
             SearchFilterChanged(null, null);
         }
@@ -114,25 +114,25 @@ namespace UI_Ver2
         {
             switch (ComboBox_GroupOptions.SelectedIndex)
             {
-                case (int)GroupCategorys.All:
+                case (int)TesterGroupCategorys.All:
                     ComboBox_GroupNames.IsEnabled = false;
                     ComboBox_GroupNames.SelectedItem = null;
                     listToFilter = mainList;
                     TestersList.ItemsSource = listToFilter;
                     return;
-                case (int)GroupCategorys.Seniority:
+                case (int)TesterGroupCategorys.Seniority:
                     groupedBySeniority = new ObservableCollection<IGrouping<int, Tester>>(MainWindow.bl.GetTestersGropedBySeniority());
                     //ComboBox_GroupNames.ItemsSource = groupedBySeniority;
                     int[] keysOfSeniority = (from item in groupedBySeniority select item.Key).ToArray();
                     ComboBox_GroupNames.ItemsSource = keysOfSeniority;
                     break;
-                case (int)GroupCategorys.City:
+                case (int)TesterGroupCategorys.City:
                     groupedByCity = new ObservableCollection<IGrouping<string, Tester>>(MainWindow.bl.GetTestersGroupedByCity());
                     //ComboBox_GroupNames.ItemsSource = groupedByCity;
                     string[] keysOfCity = (from item in groupedByCity select item.Key).ToArray();
                     ComboBox_GroupNames.ItemsSource = keysOfCity;
                     break;
-                case (int)GroupCategorys.MaxDistance:
+                case (int)TesterGroupCategorys.MaxDistance:
                     groupedByMaxDistance = new ObservableCollection<IGrouping<int, Tester>>(MainWindow.bl.GetTestersGropedByMaxDistance());
                     //ComboBox_GroupNames.ItemsSource = groupedByMaxDistance;
                     int[] keysOfMaxDistance = (from item in groupedByMaxDistance select item.Key).ToArray();
@@ -146,11 +146,11 @@ namespace UI_Ver2
         {
             switch (ComboBox_GroupOptions.SelectedIndex)
             {
-                case (int)GroupCategorys.All:
+                case (int)TesterGroupCategorys.All:
                     mainList = new ObservableCollection<Tester>(MainWindow.bl.GetTestersList());
                     listToFilter = mainList;
                     break;
-                case (int)GroupCategorys.Seniority:
+                case (int)TesterGroupCategorys.Seniority:
                     foreach (var item in groupedBySeniority)
                         if (ComboBox_GroupNames.SelectedItem != null && item.Key == (int)ComboBox_GroupNames.SelectedItem)
                         {
@@ -158,7 +158,7 @@ namespace UI_Ver2
                             break;
                         }
                     break;
-                case (int)GroupCategorys.City:
+                case (int)TesterGroupCategorys.City:
                     foreach (var item in groupedByCity)
                         if (ComboBox_GroupNames.SelectedItem != null && item.Key == (string)ComboBox_GroupNames.SelectedItem)
                         {
@@ -166,7 +166,7 @@ namespace UI_Ver2
                             break;
                         }
                     break;
-                case (int)GroupCategorys.MaxDistance:
+                case (int)TesterGroupCategorys.MaxDistance:
                     foreach (var item in groupedByMaxDistance)
                         if (ComboBox_GroupNames.SelectedItem != null && item.Key == (int)ComboBox_GroupNames.SelectedItem)
                         {
@@ -183,11 +183,11 @@ namespace UI_Ver2
         ListSortDirection _lastDirection = ListSortDirection.Ascending;
         private void Sort(string sortBy, ListSortDirection direction)
         {
-                ICollectionView dataView = CollectionViewSource.GetDefaultView(TestersList.ItemsSource);
-                dataView.SortDescriptions.Clear();
-                SortDescription sd = new SortDescription(sortBy, direction);
-                dataView.SortDescriptions.Add(sd);
-                dataView.Refresh();
+            ICollectionView dataView = CollectionViewSource.GetDefaultView(TestersList.ItemsSource);
+            dataView.SortDescriptions.Clear();
+            SortDescription sd = new SortDescription(sortBy, direction);
+            dataView.SortDescriptions.Add(sd);
+            dataView.Refresh();
         }
         private void GridViewColumnHeaderClickedHandler(object sender, RoutedEventArgs e)
         {

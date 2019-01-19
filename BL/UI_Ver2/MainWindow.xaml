@@ -55,10 +55,10 @@
             <Grid Grid.Row="2" Margin="20">
 
                 <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
-                    <TabItem Header="Admin">
+                    <TabItem Header="Admin" Width="200" Height="40">
 
                     </TabItem>
-                    <TabItem Header="Office">
+                    <TabItem Header="Office" Width="200" Height="40">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -82,10 +82,43 @@
                                         <Border Grid.Column="0" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
                                             <StackPanel>
                                                 <TextBlock Text="Tester" HorizontalAlignment="Center"/>
-                                                <Button Content="Add Tester" Margin="20 15 20 0" Click="Button_Click_AddTester"/>
-                                                <Button Content="Update Tester Details" Margin="20 15 20 0" Click="Button_Click_UpdateTester"/>
-                                                <Button Content="Remove Tester" Margin="20 15 20 0" Click="Button_Click_RemoveTester"/>
-                                                <Button Content="View, Search and group Testers" Margin="20 15 20 0" Click="Button_Click_SearchTesterByName"/>
+                                                <Button Content="Add Tester" Margin="20 15 20 0" Click="Button_Click_AddTester" ToolTipService.ShowDuration="8000">
+                                                    <Button.ToolTip>
+                                                        <StackPanel>
+                                                            <TextBlock FontWeight="Bold">Click To Add Tester</TextBlock>
+                                                            <TextBlock>Window will open, inside you will fill the new Tester details.</TextBlock>
+                                                        </StackPanel>
+                                                    </Button.ToolTip>
+                                                </Button>
+                                                <Button Content="Update Tester Details" Margin="20 15 20 0" Click="Button_Click_UpdateTester" ToolTipService.ShowDuration="8000">
+                                                    <Button.ToolTip>
+                                                        <StackPanel>
+                                                            <TextBlock FontWeight="Bold">Click To Update Exisiting Tester Details</TextBlock>
+                                                            <TextBlock>Window will open to get the Tester ID.</TextBlock>
+                                                            <TextBlock>If the ID Exist, Window will open where you can change the details.</TextBlock>
+                                                        </StackPanel>
+                                                    </Button.ToolTip>
+                                                </Button>
+                                                <Button Content="Remove Tester" Margin="20 15 20 0" Click="Button_Click_RemoveTester" ToolTipService.ShowDuration="8000">
+                                                
+                                                    <Button.ToolTip>
+                                                        <StackPanel>
+                                                            <TextBlock FontWeight="Bold">Click To Remove Exisiting Tester Details</TextBlock>
+                                                            <TextBlock>Window will open to get the Tester ID.</TextBlock>
+                                                            <TextBlock>If the ID Exist, the Tester will deleted from the system.</TextBlock>
+                                                            <TextBlock>Deletion of tester will Abort all his Future Tests. You will get note about the Aborted Tests.</TextBlock>
+                                                        </StackPanel>
+                                                    </Button.ToolTip>
+                                                </Button>
+                                                <Button Content="View, Search and group Testers" Padding="5" Margin="20 15 20 0" Click="Button_Click_SearchTesterByName" ToolTipService.ShowDuration="8000">
+                                                    <Button.ToolTip>
+                                                        <StackPanel>
+                                                            <TextBlock FontWeight="Bold">Click To View Exisiting Testers List</TextBlock>
+                                                            <TextBlock>Window will open, and will show all the existing Testers.</TextBlock>
+                                                            <TextBlock>You can filter the Trainees by grouping, and by searching.</TextBlock>
+                                                        </StackPanel>
+                                                    </Button.ToolTip>
+                                                </Button>
                                             </StackPanel>
                                             <!--ListView x:Name="ListView_Testers" Grid.Row="1" Margin="20">
                                                 <ListView.View>
@@ -100,20 +133,73 @@
                                         <Border Grid.Column="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
                                             <StackPanel>
                                                 <TextBlock Text="Trainee" HorizontalAlignment="Center"/>
-                                                <Button Content="Add Trainee" Margin="20 15 20 0" Click="Button_Click_AddTrainee"/>
-                                                <Button Content="Update Trainee Details" Margin="20 15 20 0" Click="Button_Click_UpdateTrainee"/>
-                                                <Button Content="Remove Trainee" Margin="20 15 20 0" Click="Button_Click_RemoveTrainee"/>
-                                                <Button Content="View All Trainees" Margin="20 15 20 0" Click="Button_Click_ViewAllTrainees"/>
-                                                <Button Content="Search Trainee " Margin="20 15 20 0" Click="Button_Click_SearchTrainee"/>
+                                                <Button Content="Add Trainee" Margin="20 15 20 0" Click="Button_Click_AddTrainee" ToolTipService.ShowDuration="8000">
+                                                    <Button.ToolTip>
+                                                        <StackPanel>
+                                                            <TextBlock FontWeight="Bold">Click To Add Trainee</TextBlock>
+                                                            <TextBlock>Window will open, inside you will fill the new Trainee details.</TextBlock>
+                                                        </StackPanel>
+                                                    </Button.ToolTip>
+                                                </Button>
+                                                <Button Content="Update Trainee Details" Margin="20 15 20 0" Click="Button_Click_UpdateTrainee" ToolTipService.ShowDuration="8000">
+                                                    <Button.ToolTip>
+                                                        <StackPanel>
+                                                            <TextBlock FontWeight="Bold">Click To Update Exisiting Trainee Details</TextBlock>
+                                                            <TextBlock>Window will open to get the Trainee ID.</TextBlock>
+                                                            <TextBlock>If the ID Exist, Window will open where you can change the details.</TextBlock>
+                                                        </StackPanel>
+                                                    </Button.ToolTip>
+                                                </Button>
+                                                <Button Content="Remove Trainee" Margin="20 15 20 0" Click="Button_Click_RemoveTrainee" ToolTipService.ShowDuration="8000">
+                                                    <Button.ToolTip>
+                                                        <StackPanel>
+                                                            <TextBlock FontWeight="Bold">Click To Remove Exisiting Trainee Details</TextBlock>
+                                                            <TextBlock>Window will open to get the Trainee ID.</TextBlock>
+                                                            <TextBlock>If the ID Exist, the Trainee will deleted from the system.</TextBlock>
+                                                        </StackPanel>
+                                                    </Button.ToolTip>
+                                                </Button>
+                                                <Button Content="View, Search and group Trainees" Margin="20 15 20 0" Click="Button_Click_SearchTrainee" ToolTipService.ShowDuration="8000">
+                                                    <Button.ToolTip>
+                                                        <StackPanel>
+                                                            <TextBlock FontWeight="Bold">Click To View Exisiting Trainees List</TextBlock>
+                                                            <TextBlock>Window will open, and will show all the existing Trainees.</TextBlock>
+                                                            <TextBlock>You can filter the Trainees by grouping, and by searching.</TextBlock>
+                                                        </StackPanel>
+                                                    </Button.ToolTip>
+                                                </Button>
 
                                             </StackPanel>
                                         </Border>
                                         <Border Grid.Column="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
                                             <StackPanel>
                                                 <TextBlock Text="Test" HorizontalAlignment="Center"/>
-                                                <Button Content="Add Test" Margin="20 15 20 0" Click="Button_Click_AddTest"/>
-                                                <Button Content="Abort Test" Margin="20 15 20 0" Click="Button_Click_AbortTest"/>
-                                                <Button Content="View Test Details" Margin="20 15 20 0" Click="Button_Click_ViewTestDetails"/>
+                                                <Button Content="Add Test" Margin="20 15 20 0" Click="Button_Click_AddTest" ToolTipService.ShowDuration="8000">
+                                                    <Button.ToolTip>
+                                                        <StackPanel>
+                                                            <TextBlock FontWeight="Bold">Click To Create New Test</TextBlock>
+                                                            <TextBlock>Window will open. you need to enter Trainee ID, and start address.</TextBlock>
+                                                            <TextBlock>Choose how to search for test, enter date and time, then click Get Available.</TextBlock>
+                                                            <TextBlock>Choose one suitable time from list, then click 'Add Chosen Test'.</TextBlock>
+                                                        </StackPanel>
+                                                    </Button.ToolTip>
+                                                </Button>
+                                                <Button Content="Abort Test" Margin="20 15 20 0" Click="Button_Click_AbortTest" ToolTipService.ShowDuration="8000">
+                                                    <Button.ToolTip>
+                                                        <StackPanel>
+                                                            <TextBlock FontWeight="Bold">Click To Abort Existing Test</TextBlock>
+                                                            <TextBlock>Window will open. you need to enter Test Serial Number to Abort.</TextBlock>
+                                                        </StackPanel>
+                                                    </Button.ToolTip>
+                                                </Button>
+                                                <Button Content="View Test Details" Margin="20 15 20 0" Click="Button_Click_ViewTestDetails" ToolTipService.ShowDuration="8000">
+                                                    <Button.ToolTip>
+                                                        <StackPanel>
+                                                            <TextBlock FontWeight="Bold">Click To View Existing Test Details</TextBlock>
+                                                            <TextBlock>Window will open. you need to enter Test Serial Number to View.</TextBlock>
+                                                        </StackPanel>
+                                                    </Button.ToolTip>
+                                                </Button>
 
                                             </StackPanel>
                                         </Border>
@@ -126,8 +212,8 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem Header="Existing Tester"/>
-                    <TabItem Header="Existing Trainee"/>
+                    <TabItem Header="Existing Tester"  Width="200" Height="40"/>
+                    <TabItem Header="Existing Trainee"  Width="200" Height="40"/>
                 </TabControl>
 
             </Grid>

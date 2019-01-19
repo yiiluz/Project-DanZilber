@@ -11,7 +11,7 @@
         </LinearGradientBrush>
         <LinearGradientBrush x:Key="ButtonsColor">
             <GradientStop Offset="0" Color="LightBlue"/>
-            <GradientStop Offset="0.5" Color="LightYellow"/>
+            <GradientStop Offset="0.5" Color="LightSkyBlue"/>
             <GradientStop Offset="1" Color="LightBlue"/>
         </LinearGradientBrush>
         <LinearGradientBrush x:Key="ButtonsColorWhenMouseOver">
