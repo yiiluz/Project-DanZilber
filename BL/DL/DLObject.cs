@@ -205,14 +205,9 @@ namespace DL
             {
                 if (item.Key == s)
                 {
-                    if (item.Value.Readable == true)
-                    {
-                        return item.Value.Value;
-                    }
-                    else
-                    {
-                        throw new AccessViolationException("ERROR! There is no permission to read this configutation property");
-                    }
+                    if (item.Value.Readable == true)                
+                        return item.Value.Value;                                      
+                   throw new AccessViolationException("ERROR! There is no permission to read this configutation property");                   
                 }
             }
             throw new KeyNotFoundException("ERROR! There is no configuration feature with this name");
