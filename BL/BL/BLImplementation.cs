@@ -452,15 +452,28 @@ namespace BL
             {
                 throw e;
             }
-            UpdateTestDeteils(test, t);
-            try
+            string errorList = "ERROR!\n";
+            if (DateTime.Now == test.DateOfTest && DateTime.Now.Hour < test.HourOfTest || DateTime.Now < test.DateOfTest)
+                errorList += "You can not update test information before the intended date. \n";
+            if (test.IsTesterUpdateStatus)
+                errorList += "Test results have already been entered. You can not change the test details. \n";
+            if (test.IsTestAborted)
+                errorList += "The test has been canceled. details can not be updated for this test \n";
+            if (errorList == "ERROR!\n")
             {
-                instance.UpdateTestDetails(Converters.CreateDOTest(test, serial));
+
+                UpdateTestDeteils(test, t);
+                try
+                {
+                    instance.UpdateTestDetails(Converters.CreateDOTest(test, serial));
+                }
+                catch (KeyNotFoundException e)
+                {
+                    throw e;
+                }
             }
-            catch (KeyNotFoundException e)
-            {
-                throw e;
-            }
+            else
+                throw new AccessViolationException(errorList);
         }
         /// <summary>
         /// Get List (BO.Tester) of all testers

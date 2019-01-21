@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using DO;
 namespace DL
 {
-    class DAL_XML_imp :IDAL
+    class DAL_XML_imp //: IDAL
     {
        private void Load(XElement t, string a)
         {
@@ -173,7 +173,7 @@ namespace DL
             {
                 throw e;
             }
-            TestsRoot.Add(new XElement(""))
+            TestsRoot.Add(new XElement(""));
         }
     }
 }

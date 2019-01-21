@@ -47,8 +47,17 @@ namespace UI_Ver2
                 return;
             }
             Close();
+            try
+            {
+                MainWindow.bl.UpdateTestResult(testResult.TestId, testResult);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             MessageBox.Show("Test successfully updated!", "Test Update", MessageBoxButton.OK, MessageBoxImage.Information);
-            MainWindow.bl.UpdateTestResult(testResult.TestId, testResult);
+
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
