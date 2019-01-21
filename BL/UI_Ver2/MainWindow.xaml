@@ -340,9 +340,12 @@
                                                             <Setter Property="Template">
                                                                 <Setter.Value>
                                                                     <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                                                        <Border Padding="0" BorderThickness="2" BorderBrush="{Binding Path=IsTestAborted, Converter={StaticResource boolToRedOrGreen}}"
-                                                                             Background="{Binding Path=IsPassed, Converter={StaticResource boolToLightGreenOrRed}}" >
-                                                                            <GridViewRowPresenter HorizontalAlignment="Stretch" Width="Auto" Margin="0"/>
+
+                                                                        <Border BorderThickness="2" BorderBrush="{Binding Path=IsTestAborted, Converter={StaticResource boolToRedOrGreen}}"
+                                                                                 Background="{Binding Path=IsPassed, Converter={StaticResource boolToLightGreenOrRed}}" >
+                                                                            <Grid Background="{Binding Path= IsTesterUpdateStatus, Converter={StaticResource boolToTransparentOrOrange}}">
+                                                                                <GridViewRowPresenter HorizontalAlignment="Stretch"/>
+                                                                            </Grid>
                                                                         </Border>
                                                                     </ControlTemplate>
                                                                 </Setter.Value>
@@ -352,7 +355,7 @@
                                                                     <Setter Property="Template">
                                                                         <Setter.Value>
                                                                             <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                                                                <Border Padding="2" BorderThickness="2" BorderBrush="LightBlue" 
+                                                                                <Border BorderThickness="2" BorderBrush="LightBlue" 
                                                                                     Background="LightGray">
                                                                                     <GridViewRowPresenter HorizontalAlignment="Stretch" Width="Auto" Margin="0"/>
                                                                                 </Border>

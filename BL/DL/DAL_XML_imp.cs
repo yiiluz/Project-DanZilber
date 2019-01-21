@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using DO;
 namespace DL
 {
-    class DAL_XML_imp : IDAL
+    class DAL_XML_imp //: IDAL
     {
         protected static DAL_XML_imp dAL_XML_ = new DAL_XML_imp(); 
         protected DAL_XML_imp() { }
