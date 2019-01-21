@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configurations> 
+  <Configuration>
+    <Key>Tester minimum age</Key>
+    <Value>
+      <Readable>1</Readable>
+      <Writable>0</Writable>
+      <value>40</value>
+    </Value>   
+  </Configuration>
+  <Configuration>
+    <Key>Minimum days between tests</Key>
+    <Value>
+      <Readable>1</Readable>
+      <Writable>0</Writable>
+      <value>14</value>
+    </Value>
+  </Configuration>
+  <Configuration>
+    <Key>Trainee minimum age</Key>
+    <Value>
+      <Readable>1</Readable>
+      <Writable>0</Writable>
+      <value>18</value>
+    </Value>
+  </Configuration>
+  <Configuration>
+    <Key>Minimum lessons</Key>
+    <Value>
+      <Readable>1</Readable>
+      <Writable>0</Writable>
+      <value>20</value>
+    </Value>
+  </Configuration>
+  <Configuration>
+    <Key>Tester maximum age</Key>
+    <Value>
+      <Readable>1</Readable>
+      <Writable>0</Writable>
+      <value>67</value>
+    </Value>
+  </Configuration>
+  <Configuration>
+    <Key>Serial Number Test</Key>
+    <Value>
+      <Readable>1</Readable>
+      <Writable>1</Writable>
+      <value>10000000</value>
+    </Value>
+  </Configuration>
+</Configurations>
+
+
+
