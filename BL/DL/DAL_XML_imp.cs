@@ -118,7 +118,7 @@ namespace DL
                 new XElement("TeacherName", T.TeacherName));
             TraineesRoot.Save(TraineesRootPath);
         }
-        private void RemoveTrainee(string id)
+        public void RemoveTrainee(string id)
         {
             try
             {
@@ -225,7 +225,7 @@ namespace DL
                 throw new KeyNotFoundException("There is no Test with this testId in this document: " + TestsRootPath);
             }
         }
-        void UpdateTestDetails(Test t)
+     public  void UpdateTestDetails(Test t)
         {
             try
             {
@@ -265,7 +265,7 @@ namespace DL
             TestsRoot.Save(testersRootPath);
             return it;
         }
-        List<Trainee> GetTraineeList()
+       public List<Trainee> GetTraineeList()
         {
             try
             {
@@ -296,7 +296,7 @@ namespace DL
             TraineesRoot.Save(TraineesRootPath);
             return it;
         }
-        List<Test> GetTestsList()
+      public  List<Test> GetTestsList()
         {
             try
             {
