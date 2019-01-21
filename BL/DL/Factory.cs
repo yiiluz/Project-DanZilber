@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DL
+namespace DO
 {
     public class Factory
     {
@@ -13,12 +13,12 @@ namespace DL
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static IDAL GetDLObj(string type)
+        public static DO.IDAL GetDLObj(string type)
         {
             switch (type)
             {
                 case "lists":
-                    return DLObject.GetDLObject;
+                    return DL.DLObject.GetDLObject;
                 default:
                     throw new MissingFieldException("There is no such DL object");
             }

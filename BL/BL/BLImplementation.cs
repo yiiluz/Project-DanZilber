@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
-using DL;
+
 namespace BL
 {
     public class BLImplementation : IBL
@@ -12,7 +12,7 @@ namespace BL
         /// <summary>
         /// static variable of DL
         /// </summary>
-        private static IDAL instance = null;
+        private static DO.IDAL instance = null;
         private AllConfiguretion allConfiguretion;
         /// <summary>
         /// default ctor. initialize the instance of DL
@@ -21,7 +21,7 @@ namespace BL
         {
             try
             {
-                instance = DL.Factory.GetDLObj("lists");
+                instance = DO.Factory.GetDLObj("lists");
                 allConfiguretion = AllConfiguretion.ConfigurationFactory();
             }
             catch (NotImplementedException e)
@@ -518,14 +518,23 @@ namespace BL
             {
 
                 Trainee temp = Converters.CreateBOTrainee(item);
+                TraineeStatistics statistics = new TraineeStatistics();
                 foreach (var test in GetTestsPartialListByPredicate(x => x.ExTrainee.Id == temp.Id))
                 {
+                    statistics.NumOfTests++;
                     if (test.DateOfTest > temp.LastTest)
                         temp.LastTest = test.DateOfTest;
-                    if (test.IsPassed)
-                        temp.ExistingLicenses.Add((CarTypeEnum)test.CarType);
+                    if (test.IsTesterUpdateStatus)
+                        if (test.IsPassed)
+                        {
+                            temp.ExistingLicenses.Add((CarTypeEnum)test.CarType);
+                            statistics.SuccessTests++;
+                        }
+                        else
+                            statistics.FailedTests++;
                     temp.TestList.Add(new TraineeTest(test));
                 }
+                temp.Statistics = statistics;
                 lst.Add(temp);
             }
             return lst;
@@ -562,16 +571,25 @@ namespace BL
             else
             {
                 Trainee trainee = Converters.CreateBOTrainee(instance.GetTraineeList().Find(x => x.Id == id));
+                TraineeStatistics statistics = new TraineeStatistics();
                 foreach (var item in instance.GetTestsList())
                 {
                     if (item.TraineeId == trainee.Id)
                     {
-                        trainee.TestList.Add(new TraineeTest(Converters.CreateBOTest(item)));
+                        statistics.NumOfTests++;
                         if (item.DateOfTest > trainee.LastTest)
                             trainee.LastTest = item.DateOfTest;
-                        if (item.IsPassed)
-                            trainee.ExistingLicenses.Add((CarTypeEnum)item.CarType);
+                        if (item.IsTesterUpdateStatus)
+                            if (item.IsPassed)
+                            {
+                                trainee.ExistingLicenses.Add((CarTypeEnum)item.CarType);
+                                statistics.SuccessTests++;
+                            }
+                            else
+                                statistics.FailedTests++;
+                        trainee.TestList.Add(new TraineeTest(Converters.CreateBOTest(item)));
                     }
+                    trainee.Statistics = statistics;
                 }
                 return trainee;
             }

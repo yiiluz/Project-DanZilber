@@ -18,6 +18,7 @@ namespace BO
         private bool isAlreadyDidTest;
         private List<CarTypeEnum> existingLicenses = new List<CarTypeEnum>();
         private List<TraineeTest> testList = new List<TraineeTest>();
+        private TraineeStatistics statistics;
 
         public Trainee(string id) : base(id) { }
 
@@ -37,6 +38,7 @@ namespace BO
             NumOfTests = other.NumOfTests;
             IsAlreadyDidTest = other.IsAlreadyDidTest;
             ExistingLicenses = new List<CarTypeEnum>(other.ExistingLicenses);
+            statistics = other.statistics;
         }
 
         public DateTime LastTest { get => lastTest; set => lastTest = value; }
@@ -48,6 +50,7 @@ namespace BO
         public List<TraineeTest> TestList { get => testList; set => testList = value; }
         public string SchoolName { get => schoolName; set => schoolName = value; }
         public string TeacherName { get => teacherName; set => teacherName = value; }
+        public TraineeStatistics Statistics { get => statistics; set => statistics = value; }
 
 
         /// <summary>

@@ -59,7 +59,7 @@ namespace UI_Ver2
             if ((bool)value == true)
                 return "LightGreen";
             else
-                return "Orange";
+                return "LightYellow";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -89,7 +89,7 @@ namespace UI_Ver2
             if ((bool)value == true)
                 return "Transparent";
             else
-                return "Orange";
+                return "LightYellow";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

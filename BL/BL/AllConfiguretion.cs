@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DL;
+using DO;
 namespace BL
 {
 
@@ -17,7 +17,7 @@ namespace BL
         {
             try
             {
-                instance = DL.Factory.GetDLObj("lists");
+                instance = DO.Factory.GetDLObj("lists");
             }
             catch (NotImplementedException e)
             {

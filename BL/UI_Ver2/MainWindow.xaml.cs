@@ -348,6 +348,10 @@ namespace UI_Ver2
             TesterDetailsWindow testerDetailsWindow = new TesterDetailsWindow(tester, "View");
             testerDetailsWindow.ShowDialog();
         }
+        private void ListView_TesterTests_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show((((ListView)sender).SelectedItem as TesterTest).ToString(), "Test Details", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
         //------------------------------------------------------------------------------------------------------------
 
         //Existing trainee implement
@@ -395,6 +399,8 @@ namespace UI_Ver2
                 ExistingTraineeMainWindowBorder.Visibility = Visibility.Visible;
                 TextBox_TraineeID.Text = "";
                 ListView_TraineeTests.ItemsSource = new ObservableCollection<TraineeTest>(trainee.TestList);
+                ListView_TraineeExistingLicenses.ItemsSource = trainee.ExistingLicenses;
+                TraineeStatisticsBorder.DataContext = trainee.Statistics;
                 return;
             }
         }
@@ -402,6 +408,14 @@ namespace UI_Ver2
         {
             TraineeDetailsWindow traineeDetailsWindow = new TraineeDetailsWindow(trainee, "View");
             traineeDetailsWindow.ShowDialog();
+        }
+        private void ListView_TraineeTests_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show((((ListView)sender).SelectedItem as TraineeTest).ToString(), "Test Details", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void ListView_TraineeExistingLicenses_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            e.Handled = true;
         }
         //private void MenuItem_Click_UpdateTestResult(object sender, RoutedEventArgs e)
         //{
