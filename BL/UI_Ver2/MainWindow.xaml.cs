@@ -98,7 +98,11 @@ namespace UI_Ver2
                 ExistingTesterMainWindowBorder.Visibility = Visibility.Collapsed;
                 ExistingTesterIDBorder.Visibility = Visibility.Visible;
             }
-
+            if (tabControl.SelectedIndex == 3)
+            {
+                ExistingTraineeMainWindowBorder.Visibility = Visibility.Collapsed;
+                ExistingTraineeIDBorder.Visibility = Visibility.Visible;
+            }
         }
 
 
@@ -246,15 +250,15 @@ namespace UI_Ver2
         }
         private void Button_Click_AbortTest(object sender, RoutedEventArgs e)
         {
-            GetSerialWindow getSerialWindow = new GetSerialWindow(this, "Abort");
+            GetSerialWindow getSerialWindow = new GetSerialWindow("Abort");
             getSerialWindow.ShowDialog();
         }
         private void Button_Click_ViewTestDetails(object sender, RoutedEventArgs e)
         {
-            GetSerialWindow getSerialWindow = new GetSerialWindow(this, "View");
+            GetSerialWindow getSerialWindow = new GetSerialWindow("View");
             getSerialWindow.ShowDialog();
         }
-
+        //------------------------------------------------------------------------------------------------------------
 
         //Existing Tester Implement
         //------------------------------------------------------------------------------------------------------------
@@ -294,50 +298,146 @@ namespace UI_Ver2
                 }
                 catch (KeyNotFoundException)
                 {
-                    MessageBox.Show("The ID that enterd wasn't fpound as a Tester ID.", "Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The ID that enterd wasn't found as a Tester ID.", "Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 ExistingTesterIDBorder.Visibility = Visibility.Collapsed;
                 ExistingTesterMainWindowBorder.Visibility = Visibility.Visible;
                 TextBox_TesterID.Text = "";
-                ListView_TesterTests.ItemsSource = tester.TestList;
+                ListView_TesterTests.ItemsSource = new ObservableCollection<TesterTest>(tester.TestList);
                 return;
             }
         }
-
         private void MenuItem_Click_UpdateTestResult(object sender, RoutedEventArgs e)
         {
             string ErrorList = "";
             if (ListView_TesterTests.SelectedIndex == -1)
                 return;
             TesterTest temp = (TesterTest)ListView_TesterTests.SelectedItem;
-            if (DateTime.Now == temp.DateOfTest && DateTime.Now.Hour < temp.HourOfTest || DateTime.Now < temp.DateOfTest)
-                ErrorList += "ERROR! You can not update test information before the intended date. \n";
-            if (temp.IsTesterUpdateStatus)
-                ErrorList += "ERROR! Test results have already been entered. You can not change the test details. \n";
-            if (temp.IsTestAborted)
-                ErrorList += "ERROR! The test has been canceled. details can not be updated for this test \n";
-            if (ErrorList == "")
+            TesterResultUpdateWindow testerResultUpdateWindow = new TesterResultUpdateWindow(temp);
+            testerResultUpdateWindow.ShowDialog();
+            try
             {
-                TesterResultUpdateWindow testerResultUpdateWindow = new TesterResultUpdateWindow(temp);
-                testerResultUpdateWindow.ShowDialog();
+                tester = MainWindow.bl.GetTesterByID(tester.Id);
+                this.ListView_TesterTests.ItemsSource = tester.TestList;
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show("Internal error on Existing Tester Tub at UpdateMenu");
+            }
+        }
+        private void Button_Click_UpdateTestResultByID(object sender, RoutedEventArgs e)
+        {
+            GetSerialWindow getSerialWindow = new GetSerialWindow("Update");
+            getSerialWindow.ShowDialog();
+            if (getSerialWindow.IsClosedByButton)
+            {
                 try
                 {
-                    tester = MainWindow.bl.GetTesterByID(tester.Id);
-                    this.ListView_TesterTests.ItemsSource = tester.TestList;
+                    tester = bl.GetTesterByID(tester.Id);
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    MessageBox.Show("Internal error on Existing Tester Tub at UpdateMenu");
+                    MessageBox.Show("Internal error at Button_Click_UpdateTestResultByID on main.\n" + ex.Message, "Internal Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                ListView_TesterTests.ItemsSource = tester.TestList;
+            }
+        }
+        private void Button_Click_ViewTesterDetails(object sender, RoutedEventArgs e)
+        {
+            TesterDetailsWindow testerDetailsWindow = new TesterDetailsWindow(tester, "View");
+            testerDetailsWindow.ShowDialog();
+        }
+        private void ListView_TesterTests_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show((((ListView)sender).SelectedItem as TesterTest).ToString(), "Test Details", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        //------------------------------------------------------------------------------------------------------------
+
+        //Existing trainee implement
+        //------------------------------------------------------------------------------------------------------------
+        private void TextBox_TraineeID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+                Button_Click_EnterAsExistingTrainee(null, null);
+        }
+        private void TextBox_ExistingTraineeID_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (TextBox_TraineeID.Background != Brushes.White)
+                TextBox_TraineeID.Background = Brushes.White;
+        }
+        private void TextBox_TraineeID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!TextBox_TraineeID.Text.All(char.IsDigit))
+                TextBox_TraineeID.Background = Brushes.Red;
+            else
+                TextBox_TraineeID.Background = Brushes.White;
+        }
+        private void ListView_TraineeTests_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            e.Handled = true;
+        }
+        private void Button_Click_EnterAsExistingTrainee(object sender, RoutedEventArgs e)
+        {
+            if (TextBox_TraineeID.Text.Length != TextBox_TraineeID.MaxLength || !TextBox_TraineeID.Text.All(char.IsDigit))
+            {
+                TextBox_TraineeID.Background = Brushes.Red;
+                MessageBox.Show("ID must be exactly 9 Digitis, and Digits only.", "Wrong input", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show(ErrorList, "TesterWindow", MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    trainee = bl.GetTraineeByID(TextBox_TraineeID.Text);
+                }
+                catch (KeyNotFoundException)
+                {
+                    MessageBox.Show("The ID that enterd wasn't found as a Trainee ID.", "Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                ExistingTraineeIDBorder.Visibility = Visibility.Collapsed;
+                ExistingTraineeMainWindowBorder.Visibility = Visibility.Visible;
+                TextBox_TraineeID.Text = "";
+                ListView_TraineeTests.ItemsSource = new ObservableCollection<TraineeTest>(trainee.TestList);
+                ListView_TraineeExistingLicenses.ItemsSource = trainee.ExistingLicenses;
+                TraineeStatisticsBorder.DataContext = trainee.Statistics;
+                return;
             }
         }
+        private void Button_Click_ViewTraineeDetails(object sender, RoutedEventArgs e)
+        {
+            TraineeDetailsWindow traineeDetailsWindow = new TraineeDetailsWindow(trainee, "View");
+            traineeDetailsWindow.ShowDialog();
+        }
+        private void ListView_TraineeTests_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show((((ListView)sender).SelectedItem as TraineeTest).ToString(), "Test Details", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void ListView_TraineeExistingLicenses_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            e.Handled = true;
+        }
+        //private void MenuItem_Click_UpdateTestResult(object sender, RoutedEventArgs e)
+        //{
+        //    string ErrorList = "";
+        //    if (ListView_TesterTests.SelectedIndex == -1)
+        //        return;
+        //    TesterTest temp = (TesterTest)ListView_TesterTests.SelectedItem;
+        //    TesterResultUpdateWindow testerResultUpdateWindow = new TesterResultUpdateWindow(temp);
+        //    testerResultUpdateWindow.ShowDialog();
+        //    try
+        //    {
+        //        tester = MainWindow.bl.GetTesterByID(tester.Id);
+        //        this.ListView_TesterTests.ItemsSource = tester.TestList;
+        //    }
+        //    catch (KeyNotFoundException ex)
+        //    {
+        //        MessageBox.Show("Internal error on Existing Tester Tub at UpdateMenu");
+        //    }
+        //}
 
         //------------------------------------------------------------------------------------------------------------
+
 
         //implement sort at list views by columns
         //------------------------------------------------------------------------------------------------------------
@@ -345,9 +445,7 @@ namespace UI_Ver2
         ListSortDirection _lastDirection = ListSortDirection.Ascending;
         private void Sort(string sortBy, ListSortDirection direction)
         {
-            TabItem tmpTab = TabControl_Login.SelectedItem as TabItem;
-
-            if (tmpTab.TabIndex == 2)
+            if (TabControl_Login.SelectedIndex == 2)
             {
                 ICollectionView dataView = CollectionViewSource.GetDefaultView(ListView_TesterTests.ItemsSource);
                 dataView.SortDescriptions.Clear();
@@ -355,14 +453,14 @@ namespace UI_Ver2
                 dataView.SortDescriptions.Add(sd);
                 dataView.Refresh();
             }
-            //if (tmpTab.TabIndex == 2)
-            //{
-            //    ICollectionView dataView = CollectionViewSource.GetDefaultView(TraineeList.ItemsSource);
-            //    dataView.SortDescriptions.Clear();
-            //    SortDescription sd = new SortDescription(sortBy, direction);
-            //    dataView.SortDescriptions.Add(sd);
-            //    dataView.Refresh();
-            //}
+            if (TabControl_Login.SelectedIndex == 3)
+            {
+                ICollectionView dataView = CollectionViewSource.GetDefaultView(ListView_TraineeTests.ItemsSource);
+                dataView.SortDescriptions.Clear();
+                SortDescription sd = new SortDescription(sortBy, direction);
+                dataView.SortDescriptions.Add(sd);
+                dataView.Refresh();
+            }
             //if (tmpTab.TabIndex == 3)
             //{
             //    ICollectionView dataView = CollectionViewSource.GetDefaultView(TestsList.ItemsSource);

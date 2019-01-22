@@ -19,15 +19,12 @@ namespace UI_Ver2
     /// </summary>
     public partial class GetSerialWindow : Window
     {
-
-        Window parent;
         string oper;
         bool isClosedByButton = false;
         public bool IsClosedByButton { get => isClosedByButton; set => isClosedByButton = value; }
 
-        public GetSerialWindow(Window parent = null, string oper = "")
+        public GetSerialWindow(string oper = "")
         {
-            this.parent = parent;
             this.oper = oper;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
@@ -107,6 +104,24 @@ namespace UI_Ver2
                             MessageBox.Show("The test with id " + test.TestId + " successfuly Aborted", "Operation Status",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
                         }
+                        break;
+                    case "Update":
+                        try
+                        {
+                            test = MainWindow.bl.GetTestByID(TxtBx_Serial.Text);
+                        }
+                        catch (KeyNotFoundException ex)////////////////////////////////////////////
+                        {
+                            var result = MessageBox.Show(ex.Message + "\nDo you want to try again?", "Error",
+                                MessageBoxButton.YesNo, MessageBoxImage.Error);
+                            if (result == MessageBoxResult.No)
+                                Close();
+                            return;
+                        }
+                        Close();
+                        TesterResultUpdateWindow testerResultUpdateWindow = new TesterResultUpdateWindow(new TesterTest(test));
+                        testerResultUpdateWindow.ShowDialog();
+                        isClosedByButton = true;
                         break;
                     default:
                         MessageBox.Show("Internal error. file GetIDWindow, case not exist on switch", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

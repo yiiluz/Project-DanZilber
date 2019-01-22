@@ -15,19 +15,19 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
-    <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20" Padding="10">
+    <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20" Padding="15">
         <Grid x:Name="MainGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition Width="6*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
@@ -131,7 +131,7 @@
             <StackPanel Grid.Row="10" Grid.Column="5" Grid.RowSpan="2" VerticalAlignment="Bottom">
                 <Button x:Name="Button_Add" Content="Add"  Click="Button_Click_Add" Margin="50 0 50 10"/>
                 <Button x:Name="Button_Cancel" Content="Cancel" Click="Button_Click_Cancel" Margin="50 0 50 0"/>
-                <Button x:Name="Button_OK" Content="OK" Height="25" Click="Button_OK_Click" Visibility="Collapsed" Margin="100 0 0 0"/>
+                <Button x:Name="Button_OK" Content="OK" Click="Button_OK_Click" Visibility="Collapsed" Margin="100 0 0 0"/>
             </StackPanel>
         </Grid>
     </Border>

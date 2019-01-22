@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_Ver2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="750" Width="1200" WindowStyle="None"
+        Title="MainWindow" Height="620" Width="1000" WindowStyle="None"
         AllowsTransparency="True" Background="Transparent">
     <Window.Resources>
         <!--<Style TargetType="Button">
@@ -31,7 +31,7 @@
     <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="18*"/>
             </Grid.RowDefinitions>
@@ -239,14 +239,15 @@
                                         <Border Grid.Column="0" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
                                             <Grid>
                                                 <TextBlock Text="Your Tests List" HorizontalAlignment="Center"/>
-                                                <ListView x:Name="ListView_TesterTests" Grid.Row="1" Margin="20" SelectionChanged="ListView_TesterTests_SelectionChanged">
+                                                <ListView x:Name="ListView_TesterTests" Grid.Row="1" Margin="20" SelectionChanged="ListView_TesterTests_SelectionChanged" 
+                                                          GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" MouseDoubleClick="ListView_TesterTests_MouseDoubleClick">
                                                     <ListView.ItemContainerStyle>
                                                         <Style TargetType="{x:Type ListViewItem}">
                                                             <Setter Property="Template">
                                                                 <Setter.Value>
                                                                     <ControlTemplate TargetType="{x:Type ListViewItem}">
                                                                         <Border Padding="2" BorderThickness="2" BorderBrush="{Binding Path=IsTestAborted, Converter={StaticResource boolToRedOrGreen}}" 
-                                                                            Background="{Binding Path=IsTesterUpdateStatus ,Converter={StaticResource boolToGreenOrOrange}}">
+                                                                            Background="{Binding Path=IsTesterUpdateStatus ,Converter={StaticResource boolToGreenOrOrange}}" CornerRadius="3" Margin="3">
                                                                             <GridViewRowPresenter HorizontalAlignment="Stretch" Width="Auto" Margin="0"/>
                                                                         </Border>
                                                                     </ControlTemplate>
@@ -256,9 +257,9 @@
                                                                 <Trigger Property="IsMouseOver" Value="True">
                                                                     <Setter Property="Template">
                                                                         <Setter.Value>
-                                                                            <ControlTemplate>
+                                                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
                                                                                 <Border Padding="2" BorderThickness="2" BorderBrush="LightBlue" 
-                                                                                    Background="LightGreen">
+                                                                                    Background="LightGray" CornerRadius="3" Margin="3">
                                                                                     <GridViewRowPresenter HorizontalAlignment="Stretch" Width="Auto" Margin="0"/>
                                                                                 </Border>
                                                                             </ControlTemplate>
@@ -293,8 +294,13 @@
                                         <!--<Border Grid.Column="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">-->
 
                                         <!--</Border>-->
-                                        <Border Grid.Column="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
-
+                                        <Border Grid.Column="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
+                                            <Grid>
+                                                <StackPanel>
+                                                    <Button Content="Update Test Result By Test Serial" Click="Button_Click_UpdateTestResultByID"/>
+                                                    <Button Content="View your Details" Click="Button_Click_ViewTesterDetails"/>
+                                                </StackPanel>
+                                            </Grid>
 
                                         </Border>
                                     </Grid>
@@ -304,7 +310,148 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem Header="Existing Trainee"  Width="200" Height="40"/>
+                    <TabItem Header="Existing Trainee"  Width="200" Height="40">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border x:Name="ExistingTraineeIDBorder" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
+                                <StackPanel Height="120" Width="300">
+                                    <TextBlock Text="Enter Your ID:"/>
+                                    <TextBox x:Name="TextBox_TraineeID" Height="30" Padding="2" VerticalContentAlignment="Center" Margin="0 10" MaxLength="9" 
+                                             KeyDown="TextBox_TraineeID_KeyDown" GotFocus="TextBox_ExistingTraineeID_GotFocus" TextChanged="TextBox_TraineeID_TextChanged"/>
+                                    <Button Content="Enter" Click="Button_Click_EnterAsExistingTrainee"/>
+                                </StackPanel>
+                            </Border>
+                            <Grid Grid.RowSpan="2">
+
+                                <Border x:Name="ExistingTraineeMainWindowBorder" Margin="10" Visibility="Visible" >
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Border Grid.Column="0" Grid.RowSpan="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
+                                            <Grid>
+                                                <TextBlock Text="Your Tests List" HorizontalAlignment="Center"/>
+                                                <ListView x:Name="ListView_TraineeTests" Grid.Row="1" Margin="20" SelectionChanged="ListView_TraineeTests_SelectionChanged" 
+                                                          GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" MouseDoubleClick="ListView_TraineeTests_MouseDoubleClick">
+                                                    <ListView.ItemContainerStyle>
+                                                        <Style TargetType="{x:Type ListViewItem}">
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+
+                                                                        <Border BorderThickness="2" BorderBrush="{Binding Path=IsTestAborted, Converter={StaticResource boolToRedOrGreen}}"
+                                                                                 Background="{Binding Path=IsPassed, Converter={StaticResource boolToLightGreenOrRed}}" CornerRadius="3" Margin="3">
+                                                                            <Grid Background="{Binding Path= IsTesterUpdateStatus, Converter={StaticResource boolToTransparentOrOrange}}">
+                                                                                <GridViewRowPresenter HorizontalAlignment="Stretch"/>
+                                                                            </Grid>
+                                                                        </Border>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Template">
+                                                                        <Setter.Value>
+                                                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                                                <Border BorderThickness="2" BorderBrush="LightBlue" 
+                                                                                    Background="LightGray" CornerRadius="3" Margin="3">
+                                                                                    <GridViewRowPresenter HorizontalAlignment="Stretch" Width="Auto" Margin="0"/>
+                                                                                </Border>
+                                                                            </ControlTemplate>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                    <Setter Property="Foreground" Value="DarkBlue"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </ListView.ItemContainerStyle>
+                                                    <ListView.View>
+                                                        <GridView>
+                                                            <GridViewColumn Header="Test Serial" DisplayMemberBinding="{Binding TestId}" Width="100"/>
+                                                            <GridViewColumn Header="Date Of Test" DisplayMemberBinding="{Binding DateOfTest, StringFormat=d}" Width="100"/>
+                                                            <GridViewColumn Header="Hour Of Test" Width="100">
+                                                                <GridViewColumn.DisplayMemberBinding>
+                                                                    <MultiBinding StringFormat="{}{0}:00">
+                                                                        <Binding Path="HourOfTest"/>
+                                                                    </MultiBinding>
+                                                                </GridViewColumn.DisplayMemberBinding>
+                                                            </GridViewColumn>
+                                                        </GridView>
+                                                    </ListView.View>
+                                                    <ListView.ContextMenu >
+                                                        <ContextMenu>
+                                                        </ContextMenu>
+                                                    </ListView.ContextMenu>
+                                                </ListView>
+                                            </Grid>
+                                        </Border>
+                                        <!--<Border Grid.Column="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">-->
+
+                                        <!--</Border>-->
+                                        <Border Grid.Column="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
+                                            <Grid>
+                                                <StackPanel>
+                                                    <Button Content="View your Details" Click="Button_Click_ViewTraineeDetails"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                        <Border Grid.Column="1" Grid.Row="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Border Grid.Column="1" BorderThickness="1" BorderBrush="LightBlue" CornerRadius="5" Margin="5 0 0 0">
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="30"/>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <TextBlock Text="Your Existing Licenses:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        <ListView x:Name="ListView_TraineeExistingLicenses" Grid.Row="1" Margin="5" SelectionChanged="ListView_TraineeExistingLicenses_SelectionChanged">
+                                                        </ListView>
+                                                    </Grid>
+                                                </Border>
+                                                <Border x:Name="TraineeStatisticsBorder" BorderThickness="1" BorderBrush="LightBlue" CornerRadius="5" Margin="0 0 5 0">
+                                                    <Grid Margin="5">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="30"/>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="2*"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Text="Your Statistics:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+                                                        <TextBlock Grid.Row="1" Text="Num Of Test:"/>
+                                                        <TextBlock Grid.Row="2" Text="Success Tests Num:"/>
+                                                        <TextBlock Grid.Row="3" Text="Failed Tests Num:"/>
+                                                        <TextBlock Grid.Row="4" Text="Success Proportion:"/>
+                                                        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NumOfTests}"/>
+                                                        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SuccessTests}"/>
+                                                        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding FailedTests}"/>
+                                                        <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding SuccessProportion}"/>
+                                                    </Grid>
+                                                </Border>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+
                 </TabControl>
 
             </Grid>

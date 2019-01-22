@@ -8,9 +8,9 @@ using System.Xml.Linq;
 using DO;
 namespace DL
 {
-    class DAL_XML_imp : IDAL
+    class DAL_XML_imp //: IDAL
     {
-        protected static DAL_XML_imp dAL_XML_ = new DAL_XML_imp(); 
+        protected static DAL_XML_imp dAL_XML_ = new DAL_XML_imp();
         protected DAL_XML_imp() { }
         private void Load(XElement t, string a)
         {
@@ -109,8 +109,7 @@ namespace DL
                       select item).FirstOrDefault();
             if (it != null)
             {
-                throw new DuplicateWaitObjectException("A Trainee with this ID already exists in this" +
-   " document: " + TraineesRootPath);
+                throw new DuplicateWaitObjectException("A Trainee with this ID already exists in this document: " + TraineesRootPath);
             }
             TraineesRoot.Add("Trainee", PersonCreatorToXML(T), new XElement("CurrCarType", T.CurrCarType),
                 new XElement("NumOfFinishedLessons", T.NumOfFinishedLessons), new XElement("NumOfTests", T.NumOfTests),
@@ -225,7 +224,7 @@ namespace DL
                 throw new KeyNotFoundException("There is no Test with this testId in this document: " + TestsRootPath);
             }
         }
-     public  void UpdateTestDetails(Test t)
+        public void UpdateTestDetails(Test t)
         {
             try
             {
@@ -236,7 +235,7 @@ namespace DL
             catch (KeyNotFoundException e) { throw e; }
             catch (DirectoryNotFoundException d) { throw d; }
         }
-        List<Tester> GetTestersList()
+        public List<Tester> GetTestersList()
         {
             try
             {
@@ -265,7 +264,7 @@ namespace DL
             TestsRoot.Save(testersRootPath);
             return it;
         }
-       public List<Trainee> GetTraineeList()
+        public List<Trainee> GetTraineeList()
         {
             try
             {
@@ -296,11 +295,11 @@ namespace DL
             TraineesRoot.Save(TraineesRootPath);
             return it;
         }
-      public  List<Test> GetTestsList()
+        public List<Test> GetTestsList()
         {
             try
             {
-                Load(TestsRoot,TestsRootPath);
+                Load(TestsRoot, TestsRootPath);
             }
             catch (DirectoryNotFoundException e)
             {
@@ -330,28 +329,7 @@ namespace DL
             TestsRoot.Save(TestsRootPath);
             return it;
         }
-       public Dictionary<String,Object> GetConfig()
-        {         
-            try
-            {
-                Load(ConfigRoot, ConfigRootPath);
-            }
-            catch(DirectoryNotFoundException e)
-            {
-                throw e;
-            }
-            Dictionary<string,object> keyValues = new Dictionary<string,object>();
-            foreach (var item in ConfigRoot.Elements())
-            {
-                if(bool.Parse(item.Element("Value").Element("Readable").Value))
-                {
-                    keyValues.Add(item.Element("Key").Value, int.Parse(item.Element("Value").Element("value").Value));
-                }              
-            }
-            ConfigRoot.Save(ConfigRootPath);
-            return keyValues;
-        }
-       public Object GetConfig(String s)
+        public Dictionary<String, Object> GetConfig()
         {
             try
             {
@@ -361,18 +339,39 @@ namespace DL
             {
                 throw e;
             }
-            foreach(var X in ConfigRoot.Elements())
+            Dictionary<string, object> keyValues = new Dictionary<string, object>();
+            foreach (var item in ConfigRoot.Elements())
             {
-                if (X.Element("Key").Value == s )
+                if (bool.Parse(item.Element("Value").Element("Readable").Value))
+                {
+                    keyValues.Add(item.Element("Key").Value, int.Parse(item.Element("Value").Element("value").Value));
+                }
+            }
+            ConfigRoot.Save(ConfigRootPath);
+            return keyValues;
+        }
+        public Object GetConfig(String s)
+        {
+            try
+            {
+                Load(ConfigRoot, ConfigRootPath);
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+            foreach (var X in ConfigRoot.Elements())
+            {
+                if (X.Element("Key").Value == s)
                 {
                     if (bool.Parse(X.Element("Value").Element("Readable").Value))
                         return int.Parse(X.Element("Value").Element("value").Value);
-                    throw new AccessViolationException("ERROR! There is no permission to read this configutation property in this document: "+ConfigRootPath);
-                }            
+                    throw new AccessViolationException("ERROR! There is no permission to read this configutation property in this document: " + ConfigRootPath);
+                }
             }
-            throw new KeyNotFoundException("ERROR! There is no configuration feature with this name in this document: "+ConfigRootPath);
+            throw new KeyNotFoundException("ERROR! There is no configuration feature with this name in this document: " + ConfigRootPath);
         }
-       public void SetConfig(String parm, Object value)
+        public void SetConfig(String parm, Object value)
         {
             try
             {
@@ -394,5 +393,5 @@ namespace DL
             throw new KeyNotFoundException("ERROR! There is no configuration feature with this name in this document: " + ConfigRootPath);
         }
     }
-    
+
 }
