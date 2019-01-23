@@ -13,7 +13,7 @@ namespace DL
         protected static DAL_XML_imp dAL_XML_ = new DAL_XML_imp();
         protected DAL_XML_imp() { }
         public static DAL_XML_imp GetAL_XML_Imp { get => dAL_XML_; }
-        private void Load(XElement t, string a)
+        private void Load(ref XElement t, string a)
         {
             try
             {
@@ -30,13 +30,13 @@ namespace DL
         private XElement TraineesRoot;
         private XElement TestsRoot;
         private XElement ConfigRoot;
-        private const string testersRootPath = @"Testers.xml";
-        private const string TraineesRootPath = @"Trainees.xml";
-        private const string TestsRootPath = @"Tests.xml";
-        private const string ConfigRootPath = @"Config.xml";
+        private const string testersRootPath = @"..\..\..\Testers.xml";
+        private const string TraineesRootPath = @"..\..\..\Trainees.xml";
+        private const string TestsRootPath = @"..\..\..\Tests.xml";
+        private const string ConfigRootPath = @"..\..\..\Config.xml";
         private XElement PersonCreatorToXML(Person t)
         {
-            return new XElement("*****", new XElement("ID", t.Id),
+            return new XElement("Person", new XElement("ID", t.Id),
             new XElement("Name", new XElement("FirstName", t.FirstName), new XElement("LastName", t.LastName)),
             new XElement("Gender", t.Gender),
             new XElement("Address", new XElement("City", t.Address.City), new XElement("Street", t.Address.Street),
@@ -47,14 +47,14 @@ namespace DL
         {
             try
             {
-                Load(TestersRoot, testersRootPath);
+                Load(ref TestersRoot, testersRootPath);
             }
             catch (DirectoryNotFoundException r)
             {
                 throw r;
             }
             var it = (from item in TestersRoot.Elements()
-                      where item.Element("ID").Value.ToString() == T.Id
+                      where item.Element("Tester").Element("Person").Element("ID").Value.ToString() == T.Id
                       select item).FirstOrDefault();
             if (it != null)
             {
@@ -70,7 +70,7 @@ namespace DL
         {
             try
             {
-                Load(TestersRoot, testersRootPath);
+                Load(ref TestersRoot, testersRootPath);
             }
             catch (DirectoryNotFoundException e)
             {
@@ -79,7 +79,7 @@ namespace DL
             try
             {
                 var it = (from item in TestersRoot.Elements()
-                          where item.Element("ID").Value.ToString() == id
+                          where item.Element("Tester").Element("Person").Element("ID").Value.ToString() == id
                           select item).FirstOrDefault();
                 it.Remove();
                 TestersRoot.Save(testersRootPath);
@@ -99,30 +99,30 @@ namespace DL
         {
             try
             {
-                Load(TraineesRoot, TraineesRootPath);
+                Load(ref TraineesRoot, TraineesRootPath);
             }
             catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
             var it = (from item in TraineesRoot.Elements()
-                      where item.Element("ID").Value.ToString() == T.Id
+                      where item.Element("Trainee").Element("Person").Element("ID").Value.ToString() == T.Id
                       select item).FirstOrDefault();
             if (it != null)
             {
                 throw new DuplicateWaitObjectException("A Trainee with this ID already exists in this document: " + TraineesRootPath);
             }
-            TraineesRoot.Add("Trainee", PersonCreatorToXML(T), new XElement("CurrCarType", T.CurrCarType),
+            TraineesRoot.Add(new XElement("Trainee",PersonCreatorToXML(T), new XElement("CurrCarType", T.CurrCarType),
                 new XElement("NumOfFinishedLessons", T.NumOfFinishedLessons), new XElement("NumOfTests", T.NumOfTests),
                 new XElement("IsAlreadyDidTest", T.IsAlreadyDidTest), new XElement("SchoolName", T.SchoolName),
-                new XElement("TeacherName", T.TeacherName));
+                new XElement("TeacherName", T.TeacherName)));
             TraineesRoot.Save(TraineesRootPath);
         }
         public void RemoveTrainee(string id)
         {
             try
             {
-                Load(TraineesRoot, TraineesRootPath);
+                Load(ref TraineesRoot, TraineesRootPath);
             }
             catch (DirectoryNotFoundException e)
             {
@@ -131,7 +131,7 @@ namespace DL
             try
             {
                 var it = (from item in TraineesRoot.Elements()
-                          where item.Element("ID").Value.ToString() == id
+                          where item.Element("Trainee").Element("Person").Element("ID").Value == id
                           select item).FirstOrDefault();
                 it.Remove();
                 TraineesRoot.Save(TraineesRootPath);
@@ -156,16 +156,16 @@ namespace DL
         {
             try
             {
-                Load(TestsRoot, TestsRootPath);
-                Load(TraineesRoot, TraineesRootPath);
-                Load(TestersRoot, testersRootPath);
+                Load(ref TestsRoot, TestsRootPath);
+                Load(ref  TraineesRoot, TraineesRootPath);
+                Load(ref TestersRoot, testersRootPath);
             }
             catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
             var it = (from item in TestersRoot.Elements()
-                      where item.Element("TestId").Value.ToString() == t.TestId
+                      where item.Element("Test").Element("TestId").Value == t.TestId
                       select item).FirstOrDefault();
             if (it != null)
             {
@@ -173,7 +173,7 @@ namespace DL
    + testersRootPath);
             }
             it = (from item in TraineesRoot.Elements()
-                  where item.Element("ID").Value.ToString() == t.TraineeId
+                  where item.Element("Trainee").Element("Person").Element("ID").Value.ToString() == t.TraineeId
                   select item).FirstOrDefault();
             if (it == null)
             {
@@ -181,7 +181,7 @@ namespace DL
    + TraineesRootPath);
             }
             it = (from item in TestersRoot.Elements()
-                  where item.Element("ID").Value.ToString() == t.TesterId
+                  where item.Element("Tester").Element("Person").Element("ID").Value.ToString() == t.TesterId
                   select item).FirstOrDefault();
             if (it == null)
             {
@@ -206,7 +206,7 @@ namespace DL
         {
             try
             {
-                Load(TestsRoot, TestsRootPath);
+                Load(ref TestsRoot, TestsRootPath);
             }
             catch (DirectoryNotFoundException e)
             {
@@ -215,7 +215,7 @@ namespace DL
             try
             {
                 var it = (from item in TestsRoot.Elements()
-                          where item.Element("TestId").Value.ToString() == id
+                          where item.Element("Test").Element("TestId").Value.ToString() == id
                           select item).FirstOrDefault();
                 it.Remove();
                 TestsRoot.Save(TestsRootPath);
@@ -240,58 +240,59 @@ namespace DL
         {
             try
             {
-                Load(TestersRoot, testersRootPath);
+                Load(ref TestersRoot, testersRootPath);
             }
             catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
             var it = (from item in TestersRoot.Elements()
-                      select new Tester(item.Element("ID").Value.ToString())
+                      select new Tester(item.Element("Tester").Element("Person").Element("ID").Value.ToString())
                       {
-                          LastName = item.Element("Name").Element("LastName").Value,
-                          FirstName = item.Element("Name").Element("FirstName").Value,
-                          PhoneNumber = item.Element("PhoneNumber").Value,
-                          Gender = (GenderEnum)int.Parse(item.Element("Gender").Value),
-                          Address = new Address(item.Element("Address").Element("City").Value,
-                          item.Element("Address").Element("Street").Value,
-                          int.Parse(item.Element("Address").Element("BuildingNumber").Value)),
-                          DateOfBirth = DateTime.Parse(item.Element("DateOfBirth").Value),
-                          Seniority = int.Parse(item.Element("Seniority").Value),
-                          MaxDistance = int.Parse(item.Element("MaxDistance").Value),
-                          MaxTestsPerWeek = int.Parse(item.Element("MaxTestsPerWeek").Value),
-                          TypeCarToTest = (CarTypeEnum)int.Parse(item.Element("TypeCarToTest").Value),
+                          LastName = item.Element("Tester").Element("Person").Element("Name").Element("LastName").Value,
+                          FirstName = item.Element("Tester").Element("Person").Element("Name").Element("FirstName").Value,
+                          PhoneNumber = item.Element("Tester").Element("Person").Element("PhoneNumber").Value,
+                          Gender = (GenderEnum)int.Parse(item.Element("Tester").Element("Tester").Element("Person").Element("Gender").Value),
+                          Address = new Address(item.Element("Tester").Element("Person").Element("Address").Element("City").Value,
+                          item.Element("Tester").Element("Person").Element("Address").Element("Street").Value,
+                          int.Parse(item.Element("Tester").Element("Person").Element("Address").Element("BuildingNumber").Value)),
+                          DateOfBirth = DateTime.Parse(item.Element("Tester").Element("Person").Element("DateOfBirth").Value),
+                          Seniority = int.Parse(item.Element("Tester").Element("Seniority").Value),
+                          MaxDistance = int.Parse(item.Element("Tester").Element("MaxDistance").Value),
+                          MaxTestsPerWeek = int.Parse(item.Element("Tester").Element("MaxTestsPerWeek").Value),
+                          TypeCarToTest = (CarTypeEnum)int.Parse(item.Element("Tester").Element("TypeCarToTest").Value),
                       }).ToList();
-            TestsRoot.Save(testersRootPath);
+      
             return it;
         }
         public List<Trainee> GetTraineeList()
         {
             try
             {
-                Load(TraineesRoot, TraineesRootPath);
+                Load(ref TraineesRoot, TraineesRootPath);
             }
             catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
-            var it = (from item in TestersRoot.Elements()
-                      select new Trainee(item.Element("ID").Value.ToString())
+            var x = TraineesRoot.Elements().ToList()[0];
+            var it = (from item in TraineesRoot.Elements()
+                      select new Trainee(item.Element("ID").Value)
                       {
-                          LastName = item.Element("Name").Element("LastName").Value,
-                          FirstName = item.Element("Name").Element("FirstName").Value,
-                          PhoneNumber = item.Element("PhoneNumber").Value,
-                          Gender = (GenderEnum)int.Parse(item.Element("Gender").Value),
-                          Address = new Address(item.Element("Address").Element("City").Value,
-                          item.Element("Address").Element("Street").Value,
-                          int.Parse(item.Element("Address").Element("BuildingNumber").Value)),
-                          DateOfBirth = DateTime.Parse(item.Element("DateOfBirth").Value),
-                          CurrCarType = (CarTypeEnum)int.Parse(item.Element("CurrCarType").Value),
-                          NumOfFinishedLessons = int.Parse(item.Element("NumOfFinishedLessons").Value),
-                          NumOfTests = int.Parse(item.Element("NumOfTests").Value),
-                          IsAlreadyDidTest = bool.Parse(item.Element("IsAlreadyDidTest").Value),
-                          SchoolName = item.Element("SchoolName").Value,
-                          TeacherName = item.Element("TeacherName").Value,
+                          LastName = item.Element("Trainee").Element("Person").Element("Name").Element("LastName").Value,
+                          FirstName = item.Element("Trainee").Element("Person").Element("Name").Element("FirstName").Value,
+                          PhoneNumber = item.Element("Trainee").Element("Person").Element("PhoneNumber").Value,
+                          Gender = (GenderEnum)int.Parse(item.Element("Trainee").Element("Person").Element("Gender").Value),
+                          Address = new Address(item.Element("Trainee").Element("Person").Element("Address").Element("City").Value,
+                          item.Element("Trainee").Element("Person").Element("Address").Element("Street").Value,
+                          int.Parse(item.Element("Trainee").Element("Person").Element("Address").Element("BuildingNumber").Value)),
+                          DateOfBirth = DateTime.Parse(item.Element("Trainee").Element("Person").Element("DateOfBirth").Value),
+                          CurrCarType = (CarTypeEnum)int.Parse(item.Element("Trainee").Element("CurrCarType").Value),
+                          NumOfFinishedLessons = int.Parse(item.Element("Trainee").Element("NumOfFinishedLessons").Value),
+                          NumOfTests = int.Parse(item.Element("Trainee").Element("NumOfTests").Value),
+                          IsAlreadyDidTest = bool.Parse(item.Element("Trainee").Element("IsAlreadyDidTest").Value),
+                          SchoolName = item.Element("Trainee").Element("SchoolName").Value,
+                          TeacherName = item.Element("Trainee").Element("TeacherName").Value,
                       }).ToList();
             TraineesRoot.Save(TraineesRootPath);
             return it;
@@ -300,7 +301,7 @@ namespace DL
         {
             try
             {
-                Load(TestsRoot, TestsRootPath);
+                Load(ref TestsRoot, TestsRootPath);
             }
             catch (DirectoryNotFoundException e)
             {
@@ -309,23 +310,23 @@ namespace DL
             var it = (from item in TestsRoot.Elements()
                       select new Test(item.Element("TestId").Value)
                       {
-                          TesterId = item.Element("TesterId").Value,
-                          TraineeId = item.Element("TraineeId").Value,
-                          DateOfTest = DateTime.Parse(item.Element("DateOfTest").Value),
-                          HourOfTest = int.Parse(item.Element("HourOfTest").Value),
-                          StartTestAddress = new Address(item.Element("StartTestAddress").Element("City").Value,
-                          item.Element("StartTestAddress").Element("Street").Value,
-                          int.Parse(item.Element("StartTestAddress").Element("BuildingNumber").Value)),
-                          CarType = (CarTypeEnum)int.Parse(item.Element("CarType").Value),
-                          DistanceKeeping = bool.Parse(item.Element("DistanceKeeping").Value),
-                          ReverseParking = bool.Parse(item.Element("ReverseParking").Value),
-                          MirrorsCheck = bool.Parse(item.Element("MirrorsCheck").Value),
-                          Signals = bool.Parse(item.Element("Signals").Value),
-                          CorrectSpeed = bool.Parse(item.Element("CorrectSpeed").Value),
-                          IsPassed = bool.Parse(item.Element("IsPassed").Value),
-                          TesterNotes = item.Element("TesterNotes").Value,
-                          IsTesterUpdateStatus = bool.Parse(item.Element("IsTesterUpdateStatus").Value),
-                          IsTestAborted = bool.Parse(item.Element("IsTestAborted").Value)
+                          TesterId = item.Element("Test").Element("TesterId").Value,
+                          TraineeId = item.Element("Test").Element("TraineeId").Value,
+                          DateOfTest = DateTime.Parse(item.Element("Test").Element("DateOfTest").Value),
+                          HourOfTest = int.Parse(item.Element("Test").Element("HourOfTest").Value),
+                          StartTestAddress = new Address(item.Element("Test").Element("StartTestAddress").Element("City").Value,
+                          item.Element("Test").Element("StartTestAddress").Element("Street").Value,
+                          int.Parse(item.Element("Test").Element("StartTestAddress").Element("BuildingNumber").Value)),
+                          CarType = (CarTypeEnum)int.Parse(item.Element("Test").Element("CarType").Value),
+                          DistanceKeeping =Convert.ToBoolean(item.Element("Test").Element("DistanceKeeping").Value),
+                          ReverseParking = Convert.ToBoolean(item.Element("Test").Element("ReverseParking").Value),
+                          MirrorsCheck = Convert.ToBoolean(item.Element("Test").Element("MirrorsCheck").Value),
+                          Signals = Convert.ToBoolean(item.Element("Test").Element("Signals").Value),
+                          CorrectSpeed = Convert.ToBoolean(item.Element("Test").Element("CorrectSpeed").Value),
+                          IsPassed = Convert.ToBoolean(item.Element("Test").Element("IsPassed").Value),
+                          TesterNotes = item.Element("Test").Element("TesterNotes").Value,
+                          IsTesterUpdateStatus = Convert.ToBoolean(item.Element("Test").Element("IsTesterUpdateStatus").Value),
+                          IsTestAborted = Convert.ToBoolean(item.Element("Test").Element("IsTestAborted").Value)
                       }).ToList();
             TestsRoot.Save(TestsRootPath);
             return it;
@@ -334,18 +335,18 @@ namespace DL
         {
             try
             {
-                Load(ConfigRoot, ConfigRootPath);
+                Load(ref ConfigRoot, ConfigRootPath);
             }
-            catch (DirectoryNotFoundException e)
+            catch (Exception e)
             {
                 throw e;
             }
             Dictionary<string, object> keyValues = new Dictionary<string, object>();
             foreach (var item in ConfigRoot.Elements())
             {
-                if (bool.Parse(item.Element("Value").Element("Readable").Value))
+                if (Convert.ToBoolean(item.Element("Configuration").Element("Value").Element("Readable").Value))
                 {
-                    keyValues.Add(item.Element("Key").Value, int.Parse(item.Element("Value").Element("value").Value));
+                    keyValues.Add(item.Element("Configuration").Element("Key").Value, int.Parse(item.Element("Value").Element("value").Value));
                 }
             }
             ConfigRoot.Save(ConfigRootPath);
@@ -355,7 +356,7 @@ namespace DL
         {
             try
             {
-                Load(ConfigRoot, ConfigRootPath);
+                Load(ref ConfigRoot, ConfigRootPath);
             }
             catch (DirectoryNotFoundException e)
             {
@@ -363,9 +364,9 @@ namespace DL
             }
             foreach (var X in ConfigRoot.Elements())
             {
-                if (X.Element("Key").Value == s)
+                if (X.Element("Configuration").Element("Key").Value == s)
                 {
-                    if (bool.Parse(X.Element("Value").Element("Readable").Value))
+                    if (Convert.ToBoolean(X.Element("Value").Element("Readable").Value))
                         return int.Parse(X.Element("Value").Element("value").Value);
                     throw new AccessViolationException("ERROR! There is no permission to read this configutation property in this document: " + ConfigRootPath);
                 }
@@ -376,7 +377,7 @@ namespace DL
         {
             try
             {
-                Load(ConfigRoot, ConfigRootPath);
+                Load(ref ConfigRoot, ConfigRootPath);
             }
             catch (DirectoryNotFoundException e)
             {
@@ -384,10 +385,14 @@ namespace DL
             }
             foreach (var item in ConfigRoot.Elements())
             {
-                if (item.Element("Key").Value == parm)
+                if (item.Element("Configuration").Element("Key").Value == parm)
                 {
-                    if (bool.Parse(item.Element("Value").Element("Readable").Value))
-                        item.Element("Value").Element("Readable").Value = parm;
+                    if (Convert.ToBoolean(item.Element("Configuration").Element("Value").Element("Writeable").Value))
+                    {
+                        item.Element("Configuration").Element("Value").Element("value").Value = value.ToString();
+                        ConfigRoot.Save(ConfigRootPath);
+                        return;
+                    }
                     throw new AccessViolationException("ERROR! There is no permission to write on this configutation property in this document: " + ConfigRootPath);
                 }
             }
@@ -398,9 +403,9 @@ namespace DL
         {
             throw new NotImplementedException();
         }
+
         public void UpdateTesterSchedule(string id, bool[,] sched) { }
         public bool[,] GetTesterSchedule(string id) { return null; }
         public void RemoveTesterSchedule(string id) { }
     }
-
 }
