@@ -53,7 +53,6 @@
                 </Menu>
             </DockPanel>
             <Grid Grid.Row="2" Margin="20">
-
                 <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
                     <TabItem Header="Admin" Width="200" Height="40">
 
@@ -82,9 +81,15 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Border Grid.Column="0" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
-                                            <StackPanel>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="1.5*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
                                                 <TextBlock Text="Tester" HorizontalAlignment="Center"/>
-                                                <Button Content="Add Tester" Margin="20 15 20 0" Click="Button_Click_AddTester" ToolTipService.ShowDuration="8000">
+                                                <Button Content="Add Tester" Margin="5 20 5 5" Click="Button_Click_AddTester" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Add Tester</TextBlock>
@@ -92,7 +97,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                 </Button>
-                                                <Button Content="Update Tester Details" Margin="20 15 20 0" Click="Button_Click_UpdateTester" ToolTipService.ShowDuration="8000">
+                                                <Button Content="Update Tester Details" Grid.Row="1" Margin="5" Click="Button_Click_UpdateTester" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Update Exisiting Tester Details</TextBlock>
@@ -101,7 +106,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                 </Button>
-                                                <Button Content="Remove Tester" Margin="20 15 20 0" Click="Button_Click_RemoveTester" ToolTipService.ShowDuration="8000">
+                                                <Button Content="Remove Tester" Grid.Row="2" Margin="5" Click="Button_Click_RemoveTester" ToolTipService.ShowDuration="8000">
 
                                                     <Button.ToolTip>
                                                         <StackPanel>
@@ -112,7 +117,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                 </Button>
-                                                <Button Content="View, Search and group Testers" Padding="5" Margin="20 15 20 0" Click="Button_Click_SearchTesterByName" ToolTipService.ShowDuration="8000">
+                                                <Button Content="View, Search and group Testers" Grid.Row="3" Padding="5" Margin="5" Click="Button_Click_SearchTesterByName" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To View Exisiting Testers List</TextBlock>
@@ -121,7 +126,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                 </Button>
-                                            </StackPanel>
+                                            </Grid>
                                             <!--ListView x:Name="ListView_Testers" Grid.Row="1" Margin="20">
                                                 <ListView.View>
                                                     <GridView>
@@ -133,9 +138,15 @@
                                             </-->
                                         </Border>
                                         <Border Grid.Column="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
-                                            <StackPanel>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="1.5*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
                                                 <TextBlock Text="Trainee" HorizontalAlignment="Center"/>
-                                                <Button Content="Add Trainee" Margin="20 15 20 0" Click="Button_Click_AddTrainee" ToolTipService.ShowDuration="8000">
+                                                <Button Content="Add Trainee" Margin="5 20 5 5" Click="Button_Click_AddTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Add Trainee</TextBlock>
@@ -143,7 +154,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                 </Button>
-                                                <Button Content="Update Trainee Details" Margin="20 15 20 0" Click="Button_Click_UpdateTrainee" ToolTipService.ShowDuration="8000">
+                                                <Button Content="Update Trainee Details" Grid.Row="1" Margin="5" Click="Button_Click_UpdateTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Update Exisiting Trainee Details</TextBlock>
@@ -152,7 +163,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                 </Button>
-                                                <Button Content="Remove Trainee" Margin="20 15 20 0" Click="Button_Click_RemoveTrainee" ToolTipService.ShowDuration="8000">
+                                                <Button Content="Remove Trainee" Grid.Row="2" Margin="5" Click="Button_Click_RemoveTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Remove Exisiting Trainee Details</TextBlock>
@@ -161,7 +172,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                 </Button>
-                                                <Button Content="View, Search and group Trainees" Margin="20 15 20 0" Click="Button_Click_SearchTrainee" ToolTipService.ShowDuration="8000">
+                                                <Button Content="View, Search and group Trainees" Grid.Row="3" Margin="5" Click="Button_Click_SearchTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To View Exisiting Trainees List</TextBlock>
@@ -171,7 +182,7 @@
                                                     </Button.ToolTip>
                                                 </Button>
 
-                                            </StackPanel>
+                                            </Grid>
                                         </Border>
                                         <Border Grid.Column="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
                                             <StackPanel>
@@ -310,6 +321,7 @@
                         </Grid>
                     </TabItem>
 
+                    <!-- Existing Trainee Window -->
                     <TabItem Header="Existing Trainee"  Width="200" Height="40">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -451,9 +463,7 @@
                             </Grid>
                         </Grid>
                     </TabItem>
-
                 </TabControl>
-
             </Grid>
         </Grid>
     </Border>
