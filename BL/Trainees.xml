@@ -23,4 +23,27 @@
     <SchoolName>sss</SchoolName>
     <TeacherName>zzz</TeacherName>
   </Trainee>
+  <Trainee>
+    <Person>
+      <ID>777777777</ID>
+      <Name>
+        <FirstName>bh</FirstName>
+        <LastName>bhjbh</LastName>
+      </Name>
+      <Gender>Female</Gender>
+      <Address>
+        <City>hbjhbhj</City>
+        <Street>bhjbj</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1970-01-01T00:00:00</DateOfBirth>
+      <PhoneNumber>8888888888</PhoneNumber>
+    </Person>
+    <CurrCarType>PrivateCarAuto</CurrCarType>
+    <NumOfFinishedLessons>80</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>bgh</SchoolName>
+    <TeacherName>vghvb</TeacherName>
+  </Trainee>
 </Trainees>

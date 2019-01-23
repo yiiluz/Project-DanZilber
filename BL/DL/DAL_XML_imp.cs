@@ -251,7 +251,7 @@ namespace DL
                           LastName = item.Element("Tester").Element("Person").Element("Name").Element("LastName").Value,
                           FirstName = item.Element("Tester").Element("Person").Element("Name").Element("FirstName").Value,
                           PhoneNumber = item.Element("Tester").Element("Person").Element("PhoneNumber").Value,
-                          Gender = (GenderEnum)int.Parse(item.Element("Tester").Element("Tester").Element("Person").Element("Gender").Value),
+                          Gender = (GenderEnum)Enum.Parse(typeof(GenderEnum), item.Element("Tester").Element("Tester").Element("Person").Element("Gender").Value),
                           Address = new Address(item.Element("Tester").Element("Person").Element("Address").Element("City").Value,
                           item.Element("Tester").Element("Person").Element("Address").Element("Street").Value,
                           int.Parse(item.Element("Tester").Element("Person").Element("Address").Element("BuildingNumber").Value)),
@@ -259,7 +259,7 @@ namespace DL
                           Seniority = int.Parse(item.Element("Tester").Element("Seniority").Value),
                           MaxDistance = int.Parse(item.Element("Tester").Element("MaxDistance").Value),
                           MaxTestsPerWeek = int.Parse(item.Element("Tester").Element("MaxTestsPerWeek").Value),
-                          TypeCarToTest = (CarTypeEnum)int.Parse(item.Element("Tester").Element("TypeCarToTest").Value),
+                          TypeCarToTest = (CarTypeEnum)Enum.Parse(typeof(CarTypeEnum), item.Element("Tester").Element("TypeCarToTest").Value),
                       }).ToList();
 
             return it;
@@ -276,22 +276,22 @@ namespace DL
             }
             var x = TraineesRoot.Elements().ToList()[0];
             var it = (from item in TraineesRoot.Elements()
-                      select new Trainee(item.Element("ID").Value)
+                      select new Trainee(item.Element("Person").Element("ID").Value)
                       {
-                          LastName = item.Element("Trainee").Element("Person").Element("Name").Element("LastName").Value,
-                          FirstName = item.Element("Trainee").Element("Person").Element("Name").Element("FirstName").Value,
-                          PhoneNumber = item.Element("Trainee").Element("Person").Element("PhoneNumber").Value,
-                          Gender = (GenderEnum)int.Parse(item.Element("Trainee").Element("Person").Element("Gender").Value),
-                          Address = new Address(item.Element("Trainee").Element("Person").Element("Address").Element("City").Value,
-                          item.Element("Trainee").Element("Person").Element("Address").Element("Street").Value,
-                          int.Parse(item.Element("Trainee").Element("Person").Element("Address").Element("BuildingNumber").Value)),
-                          DateOfBirth = DateTime.Parse(item.Element("Trainee").Element("Person").Element("DateOfBirth").Value),
-                          CurrCarType = (CarTypeEnum)int.Parse(item.Element("Trainee").Element("CurrCarType").Value),
-                          NumOfFinishedLessons = int.Parse(item.Element("Trainee").Element("NumOfFinishedLessons").Value),
-                          NumOfTests = int.Parse(item.Element("Trainee").Element("NumOfTests").Value),
-                          IsAlreadyDidTest = bool.Parse(item.Element("Trainee").Element("IsAlreadyDidTest").Value),
-                          SchoolName = item.Element("Trainee").Element("SchoolName").Value,
-                          TeacherName = item.Element("Trainee").Element("TeacherName").Value,
+                          LastName = item.Element("Person").Element("Name").Element("LastName").Value,
+                          FirstName = item.Element("Person").Element("Name").Element("FirstName").Value,
+                          PhoneNumber = item.Element("Person").Element("PhoneNumber").Value,
+                          Gender = (GenderEnum)Enum.Parse(typeof(GenderEnum), (item.Element("Person").Element("Gender")).Value),
+                          Address = new Address(item.Element("Person").Element("Address").Element("City").Value,
+                          item.Element("Person").Element("Address").Element("Street").Value,
+                          int.Parse(item.Element("Person").Element("Address").Element("BuildingNumber").Value)),
+                          DateOfBirth = DateTime.Parse(item.Element("Person").Element("DateOfBirth").Value),
+                          CurrCarType = (CarTypeEnum)Enum.Parse(typeof(CarTypeEnum), item.Element("CurrCarType").Value),
+                          NumOfFinishedLessons = int.Parse(item.Element("NumOfFinishedLessons").Value),
+                          NumOfTests = int.Parse(item.Element("NumOfTests").Value),
+                          IsAlreadyDidTest = bool.Parse(item.Element("IsAlreadyDidTest").Value),
+                          SchoolName = item.Element("SchoolName").Value,
+                          TeacherName = item.Element("TeacherName").Value,
                       }).ToList();
             TraineesRoot.Save(TraineesRootPath);
             return it;

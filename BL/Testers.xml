@@ -1,4 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Testers>
-  
+  <Tester>
+    <Person>
+      <ID>888888888</ID>
+      <Name>
+        <FirstName> bj</FirstName>
+        <LastName> jbj</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>jbnjhb</City>
+        <Street>jb</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1970-01-01T00:00:00</DateOfBirth>
+      <PhoneNumber>8888888888</PhoneNumber>
+    </Person>
+    <Seniority>80</Seniority>
+    <MaxDistance>90</MaxDistance>
+    <MaxTestsPerWeek>23</MaxTestsPerWeek>
+    <TypeCarToTest>MotorCycle</TypeCarToTest>
+  </Tester>
 </Testers>
