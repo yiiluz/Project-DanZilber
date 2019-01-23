@@ -12,24 +12,21 @@ namespace BL
         public readonly static bool upDate;
         private static IDAL instance;
         private static AllConfiguretion configurations = null;
-        public readonly static Dictionary<string, Object> ConfiguretionsDictionary; 
+        public readonly static Dictionary<string, Object> ConfiguretionsDictionary;
         static AllConfiguretion()
         {
             try
             {
                 instance = DO.Factory.GetDLObj("xml");
+                ConfiguretionsDictionary = new Dictionary<string, Object>(instance.GetConfig());                                
+               upDate = true;
             }
-            catch (NotImplementedException e)
+            catch (Exception e)
             {
                 throw e;
             }
-            ConfiguretionsDictionary = new Dictionary<string, Object>();
-            foreach (var item in instance.GetConfig())
-            {
-                ConfiguretionsDictionary.Add(item.Key, instance.GetConfig(item.Key));
-            }
-            upDate = true;
-         }       
+           
+        }
         public static AllConfiguretion ConfigurationFactory()
         {
             if (configurations == null)
@@ -40,20 +37,20 @@ namespace BL
         }
         public Object GetConfiguretion(string s)
         {
-            foreach(var item in ConfiguretionsDictionary)
+            foreach (var item in ConfiguretionsDictionary)
             {
                 if (item.Key == s)
                 {
                     return item.Value;
                 }
             }
-           throw new KeyNotFoundException("ERROR! There is no configuration feature with this name. from AllConfig");
+            throw new KeyNotFoundException("ERROR! There is no configuration feature with this name. from AllConfig");
         }
         public void UpdateSerialNumber()
         {
             ConfiguretionsDictionary["Serial Number Test"] = instance.GetConfig("Serial Number Test");
         }
-    }   
+    }
 }
 
 

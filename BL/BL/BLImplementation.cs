@@ -21,7 +21,7 @@ namespace BL
         {
             try
             {
-                instance = DO.Factory.GetDLObj("lists");
+                instance = DO.Factory.GetDLObj("xml");
                 allConfiguretion = AllConfiguretion.ConfigurationFactory();
             }
             catch (NotImplementedException e)
@@ -190,7 +190,7 @@ namespace BL
             }
             catch (KeyNotFoundException e)
             {
-                throw new KeyNotFoundException("Can't remove this trainee becauze he is not on the system.");
+                throw new KeyNotFoundException("Can't remove this trainee because he is not on the system.");
             }
             foreach (var item in GetTestsList())
                 if (item.ExTrainee.Id == trainee.Id)

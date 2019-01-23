@@ -11,6 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIWpf", "UIWpf\UIWpf.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI_Ver2", "UI_Ver2\UI_Ver2.csproj", "{10C26C25-E3F2-4072-9268-CECBC0507C4E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XmlFile", "XmlFile", "{D6FC74A1-4047-488D-8084-E58A24C113FB}"
+	ProjectSection(SolutionItems) = preProject
+		Config.xml = Config.xml
+		Testers.xml = Testers.xml
+		Tests.xml = Tests.xml
+		Trainees.xml = Trainees.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

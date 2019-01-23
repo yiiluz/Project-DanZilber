@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Trainees>
+  <Trainee>
+    <Person>
+      <ID>123456789</ID>
+      <Name>
+        <FirstName>qqq</FirstName>
+        <LastName>aaa</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>qqq</City>
+        <Street>eee</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1990-01-01T00:00:00</DateOfBirth>
+      <PhoneNumber>0501111111</PhoneNumber>
+    </Person>
+    <CurrCarType>MotorCycle</CurrCarType>
+    <NumOfFinishedLessons>0</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>sss</SchoolName>
+    <TeacherName>zzz</TeacherName>
+  </Trainee>
+</Trainees>
