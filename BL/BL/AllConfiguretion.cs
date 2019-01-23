@@ -17,7 +17,7 @@ namespace BL
         {
             try
             {
-                instance = DO.Factory.GetDLObj("lists");
+                instance = DO.Factory.GetDLObj("xml");
             }
             catch (NotImplementedException e)
             {

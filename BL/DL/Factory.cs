@@ -19,9 +19,14 @@ namespace DO
             {
                 case "lists":
                     return DL.DLObject.GetDLObject;
+                    break;
+                case "xml":
+                    return DL.DAL_XML_imp.GetAL_XML_Imp;
+                    break;
                 default:
                     throw new MissingFieldException("There is no such DL object");
             }
+
 
         }
     }

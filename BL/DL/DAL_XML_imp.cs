@@ -8,10 +8,11 @@ using System.Xml.Linq;
 using DO;
 namespace DL
 {
-    class DAL_XML_imp //: IDAL
+    class DAL_XML_imp : IDAL
     {
         protected static DAL_XML_imp dAL_XML_ = new DAL_XML_imp();
         protected DAL_XML_imp() { }
+        public static DAL_XML_imp GetAL_XML_Imp { get => dAL_XML_; }
         private void Load(XElement t, string a)
         {
             try
@@ -391,6 +392,11 @@ namespace DL
                 }
             }
             throw new KeyNotFoundException("ERROR! There is no configuration feature with this name in this document: " + ConfigRootPath);
+        }
+
+        public void AddTesterSchedule(string id, bool[,] sched)
+        {
+            throw new NotImplementedException();
         }
     }
 
