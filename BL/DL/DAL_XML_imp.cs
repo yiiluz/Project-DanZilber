@@ -54,12 +54,11 @@ namespace DL
                 throw r;
             }
             var it = (from item in TestersRoot.Elements()
-                      where item.Element("Tester").Element("Person").Element("ID").Value.ToString() == T.Id
+                      where item.Element("Person").Element("ID").Value == T.Id
                       select item).FirstOrDefault();
             if (it != null)
             {
-                throw new DuplicateWaitObjectException("A Tester with this ID already exists in this" +
-   " document: " + testersRootPath);
+                throw new DuplicateWaitObjectException("A Tester with this ID already exists in this document: " + testersRootPath);
             }
             TestersRoot.Add(new XElement("Tester", PersonCreatorToXML(T), new XElement("Seniority", T.Seniority),
             new XElement("MaxDistance", T.MaxDistance), new XElement("MaxTestsPerWeek", T.MaxTestsPerWeek),
@@ -79,7 +78,7 @@ namespace DL
             try
             {
                 var it = (from item in TestersRoot.Elements()
-                          where item.Element("Tester").Element("Person").Element("ID").Value.ToString() == id
+                          where item.Element("Person").Element("ID").Value == id
                           select item).FirstOrDefault();
                 it.Remove();
                 TestersRoot.Save(testersRootPath);
@@ -106,17 +105,17 @@ namespace DL
                 throw e;
             }
             var it = (from item in TraineesRoot.Elements()
-                      where item.Element("Trainee").Element("Person").Element("ID").Value.ToString() == T.Id
+                      where item.Element("Person").Element("ID").Value == T.Id
                       select item).FirstOrDefault();
             if (it != null)
             {
                 throw new DuplicateWaitObjectException("A Trainee with this ID already exists in this document: " + TraineesRootPath);
             }
-            TraineesRoot.Add(new XElement("Trainee",PersonCreatorToXML(T), new XElement("CurrCarType", T.CurrCarType),
+            TraineesRoot.Add(new XElement("Trainee", PersonCreatorToXML(T), new XElement("CurrCarType", T.CurrCarType),
                 new XElement("NumOfFinishedLessons", T.NumOfFinishedLessons), new XElement("NumOfTests", T.NumOfTests),
                 new XElement("IsAlreadyDidTest", T.IsAlreadyDidTest), new XElement("SchoolName", T.SchoolName),
                 new XElement("TeacherName", T.TeacherName)));
-            TraineesRoot.Save(TraineesRootPath);
+                TraineesRoot.Save(TraineesRootPath);
         }
         public void RemoveTrainee(string id)
         {
@@ -131,7 +130,7 @@ namespace DL
             try
             {
                 var it = (from item in TraineesRoot.Elements()
-                          where item.Element("Trainee").Element("Person").Element("ID").Value == id
+                          where item.Element("Person").Element("ID").Value == id
                           select item).FirstOrDefault();
                 it.Remove();
                 TraineesRoot.Save(TraineesRootPath);
@@ -157,7 +156,7 @@ namespace DL
             try
             {
                 Load(ref TestsRoot, TestsRootPath);
-                Load(ref  TraineesRoot, TraineesRootPath);
+                Load(ref TraineesRoot, TraineesRootPath);
                 Load(ref TestersRoot, testersRootPath);
             }
             catch (DirectoryNotFoundException e)
@@ -165,28 +164,28 @@ namespace DL
                 throw e;
             }
             var it = (from item in TestersRoot.Elements()
-                      where item.Element("Test").Element("TestId").Value == t.TestId
+                      where item.Element("TestId").Value == t.TestId
                       select item).FirstOrDefault();
             if (it != null)
             {
                 throw new DuplicateWaitObjectException("Test with this ID already exists in this document: "
-   + testersRootPath);
+                 + testersRootPath);
             }
             it = (from item in TraineesRoot.Elements()
-                  where item.Element("Trainee").Element("Person").Element("ID").Value.ToString() == t.TraineeId
+                  where item.Element("Person").Element("ID").Value == t.TraineeId
                   select item).FirstOrDefault();
             if (it == null)
             {
                 throw new KeyNotFoundException("ERROR! The trainee does not exist in this document: "
-   + TraineesRootPath);
+                            + TraineesRootPath);
             }
             it = (from item in TestersRoot.Elements()
-                  where item.Element("Tester").Element("Person").Element("ID").Value.ToString() == t.TesterId
+                  where item.Element("Person").Element("ID").Value == t.TesterId
                   select item).FirstOrDefault();
             if (it == null)
             {
                 throw new KeyNotFoundException("ERROR! The tester does not exist in this document: "
-   + testersRootPath);
+                            + testersRootPath);
             }
             TestsRoot.Add(new XElement("Test", new XElement("TestId", t.TestId), new XElement("TesterId", t.TesterId),
                 new XElement("TraineeId", t.TraineeId), new XElement("DateOfTest", t.DateOfTest),
@@ -215,7 +214,7 @@ namespace DL
             try
             {
                 var it = (from item in TestsRoot.Elements()
-                          where item.Element("Test").Element("TestId").Value.ToString() == id
+                          where item.Element("TestId").Value == id
                           select item).FirstOrDefault();
                 it.Remove();
                 TestsRoot.Save(TestsRootPath);
@@ -247,7 +246,7 @@ namespace DL
                 throw e;
             }
             var it = (from item in TestersRoot.Elements()
-                      select new Tester(item.Element("Tester").Element("Person").Element("ID").Value.ToString())
+                      select new Tester(item.Element("Person").Element("ID").Value)
                       {
                           LastName = item.Element("Tester").Element("Person").Element("Name").Element("LastName").Value,
                           FirstName = item.Element("Tester").Element("Person").Element("Name").Element("FirstName").Value,
@@ -262,7 +261,7 @@ namespace DL
                           MaxTestsPerWeek = int.Parse(item.Element("Tester").Element("MaxTestsPerWeek").Value),
                           TypeCarToTest = (CarTypeEnum)int.Parse(item.Element("Tester").Element("TypeCarToTest").Value),
                       }).ToList();
-      
+
             return it;
         }
         public List<Trainee> GetTraineeList()
@@ -318,7 +317,7 @@ namespace DL
                           item.Element("Test").Element("StartTestAddress").Element("Street").Value,
                           int.Parse(item.Element("Test").Element("StartTestAddress").Element("BuildingNumber").Value)),
                           CarType = (CarTypeEnum)int.Parse(item.Element("Test").Element("CarType").Value),
-                          DistanceKeeping =Convert.ToBoolean(item.Element("Test").Element("DistanceKeeping").Value),
+                          DistanceKeeping = Convert.ToBoolean(item.Element("Test").Element("DistanceKeeping").Value),
                           ReverseParking = Convert.ToBoolean(item.Element("Test").Element("ReverseParking").Value),
                           MirrorsCheck = Convert.ToBoolean(item.Element("Test").Element("MirrorsCheck").Value),
                           Signals = Convert.ToBoolean(item.Element("Test").Element("Signals").Value),
@@ -344,9 +343,9 @@ namespace DL
             Dictionary<string, object> keyValues = new Dictionary<string, object>();
             foreach (var item in ConfigRoot.Elements())
             {
-                if (Convert.ToBoolean(item.Element("Configuration").Element("Value").Element("Readable").Value))
+                if (Convert.ToBoolean(item.Element("Value").Element("Readable").Value))
                 {
-                    keyValues.Add(item.Element("Configuration").Element("Key").Value, int.Parse(item.Element("Value").Element("value").Value));
+                    keyValues.Add(item.Element("Key").Value, int.Parse(item.Element("Value").Element("value").Value));
                 }
             }
             ConfigRoot.Save(ConfigRootPath);
@@ -364,7 +363,7 @@ namespace DL
             }
             foreach (var X in ConfigRoot.Elements())
             {
-                if (X.Element("Configuration").Element("Key").Value == s)
+                if (X.Element("Key").Value == s)
                 {
                     if (Convert.ToBoolean(X.Element("Value").Element("Readable").Value))
                         return int.Parse(X.Element("Value").Element("value").Value);
@@ -385,11 +384,11 @@ namespace DL
             }
             foreach (var item in ConfigRoot.Elements())
             {
-                if (item.Element("Configuration").Element("Key").Value == parm)
+                if (item.Element("Key").Value == parm)
                 {
-                    if (Convert.ToBoolean(item.Element("Configuration").Element("Value").Element("Writeable").Value))
+                    if (Convert.ToBoolean(item.Element("Value").Element("Writeable").Value))
                     {
-                        item.Element("Configuration").Element("Value").Element("value").Value = value.ToString();
+                        item.Element("Value").Element("value").Value = value.ToString();
                         ConfigRoot.Save(ConfigRootPath);
                         return;
                     }

@@ -18,8 +18,8 @@ namespace BL
             try
             {
                 instance = DO.Factory.GetDLObj("xml");
-                ConfiguretionsDictionary = new Dictionary<string, Object>(instance.GetConfig());                                
-               upDate = true;
+                ConfiguretionsDictionary = instance.GetConfig();                                
+                upDate = true;
             }
             catch (Exception e)
             {
