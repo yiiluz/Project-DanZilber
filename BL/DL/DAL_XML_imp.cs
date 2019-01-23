@@ -398,6 +398,9 @@ namespace DL
         {
             throw new NotImplementedException();
         }
+        public void UpdateTesterSchedule(string id, bool[,] sched) { }
+        public bool[,] GetTesterSchedule(string id) { return null; }
+        public void RemoveTesterSchedule(string id) { }
     }
 
 }
