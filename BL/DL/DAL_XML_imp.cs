@@ -374,7 +374,7 @@ namespace DL
             {
                 Load(ref ConfigRoot, ConfigRootPath);
             }
-            catch (Exception e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }

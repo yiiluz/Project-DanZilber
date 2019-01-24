@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 using System.Threading.Tasks;
+using System.IO;
 using DO;
 namespace BL
 {
@@ -21,7 +23,7 @@ namespace BL
                 ConfiguretionsDictionary = instance.GetConfig();                                
                 upDate = true;
             }
-            catch (Exception e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
