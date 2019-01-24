@@ -15,18 +15,18 @@ namespace DL
         {
             try
             {
-                Load( ref TestersRoot, testersRootPath);
+                Load(ref TestersRoot, testersRootPath);
             }
-            catch 
+            catch
             {
                 TestersRoot = new XElement("Testers");
             }
             try
             {
-                Load(ref TestsRoot,TestsRootPath);
+                Load(ref TestsRoot, TestsRootPath);
             }
             catch
-            { 
+            {
                 TestsRoot = new XElement("Tests");
             }
             try
@@ -153,7 +153,7 @@ namespace DL
                 new XElement("NumOfFinishedLessons", T.NumOfFinishedLessons), new XElement("NumOfTests", T.NumOfTests),
                 new XElement("IsAlreadyDidTest", T.IsAlreadyDidTest), new XElement("SchoolName", T.SchoolName),
                 new XElement("TeacherName", T.TeacherName)));
-                TraineesRoot.Save(TraineesRootPath);
+            TraineesRoot.Save(TraineesRootPath);
         }
         public void RemoveTrainee(string id)
         {
@@ -442,25 +442,26 @@ namespace DL
             {
                 Load(ref SchedulesRoot, SchedulesRootPath);
             }
-            catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
             var it = (from item in SchedulesRoot.Elements()
                       where item.Element("Schedule").Element("ID").Value == id
                       select item).FirstOrDefault();
-            if(it != null) { throw new DuplicateWaitObjectException("This testerSchedule already exists in this document: " + SchedulesRootPath); }
-            SchedulesRoot.Add(new XElement("Schedule", new XElement("ID",id), new XElement("WorkDays",
-                new XElement("Day",new XElement("Hour",sched[0,0]),new XElement("Hour", sched[0,1]),new XElement("Hour", sched[0,2]),
-                new XElement("Hour", sched[0,3]), new XElement("Hour", sched[0, 4]), new XElement("Hour", sched[0, 5])),
+            if (it != null) { throw new DuplicateWaitObjectException("This testerSchedule already exists in this document: " + SchedulesRootPath); }
+            SchedulesRoot.Add(new XElement("Schedule", new XElement("ID", id), new XElement("WorkDays",
+                new XElement("Day", new XElement("Hour", sched[0, 0]), new XElement("Hour", sched[0, 1]), new XElement("Hour", sched[0, 2]),
+                new XElement("Hour", sched[0, 3]), new XElement("Hour", sched[0, 4]), new XElement("Hour", sched[0, 5])),
                 new XElement("Day", new XElement("Hour", sched[1, 0]), new XElement("Hour", sched[1, 1]), new XElement("Hour", sched[1, 2]),
                 new XElement("Hour", sched[1, 3]), new XElement("Hour", sched[1, 4]), new XElement("Hour", sched[1, 5])),
                 new XElement("Day", new XElement("Hour", sched[2, 0]), new XElement("Hour", sched[2, 1]), new XElement("Hour", sched[2, 2]),
                 new XElement("Hour", sched[2, 3]), new XElement("Hour", sched[2, 4]), new XElement("Hour", sched[2, 5])),
-                new XElement("Day",new XElement("Hour", sched[3, 0]), new XElement("Hour", sched[3, 1]), new XElement("Hour", sched[3, 2]),
+                new XElement("Day", new XElement("Hour", sched[3, 0]), new XElement("Hour", sched[3, 1]), new XElement("Hour", sched[3, 2]),
                 new XElement("Hour", sched[3, 3]), new XElement("Hour", sched[3, 4]), new XElement("Hour", sched[3, 5])),
                 new XElement("Day", new XElement("Hour", sched[4, 0]), new XElement("Hour", sched[4, 1]), new XElement("Hour", sched[4, 2]),
                 new XElement("Hour", sched[4, 3]), new XElement("Hour", sched[4, 4]), new XElement("Hour", sched[4, 5])))));
+            SchedulesRoot.Save(SchedulesRootPath);
         }
 
         public void UpdateTesterSchedule(string id, bool[,] sched)
@@ -470,30 +471,31 @@ namespace DL
         }
         public bool[,] GetTesterSchedule(string id)
         {
-            bool[,] temp = new bool[5,6];
+            bool[,] temp = new bool[5, 6];
             int j = 0, i = 0;
             try
             {
                 Load(ref SchedulesRoot, SchedulesRootPath);
             }
-            catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
-            }                       
-                var it = (from item in SchedulesRoot.Elements()
-                          where item.Element("ID").Value == id
-                          select item).FirstOrDefault();
+            }
+            var it = (from item in SchedulesRoot.Elements()
+                      where item.Element("ID").Value == id
+                      select item).FirstOrDefault();
             if (it == null) { throw new KeyNotFoundException("There is not testerSchedule in this document: " + SchedulesRootPath); }
-                foreach(var x in it.Element("WorkDays").Elements())
+            foreach (var x in it.Element("WorkDays").Elements())
+            {
+                foreach (var v in x.Elements())
                 {
-                    foreach(var v in x.Elements())
-                    {
-                        temp[j, i] = Convert.ToBoolean(v.Value);
-                        i++;
-                    }
-                    j++;
+                    temp[j, i] = Convert.ToBoolean(v.Value);
+                    i++;
                 }
-                return temp;                    
+                j++;
+                i = 0;
+            }
+            return temp;
         }
         public void RemoveTesterSchedule(string id)
         {
@@ -501,7 +503,7 @@ namespace DL
             {
                 Load(ref SchedulesRoot, SchedulesRootPath);
             }
-            catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }

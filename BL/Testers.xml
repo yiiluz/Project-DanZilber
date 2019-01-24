@@ -2,23 +2,23 @@
 <Testers>
   <Tester>
     <Person>
-      <ID>888888888</ID>
+      <ID>999999999</ID>
       <Name>
-        <FirstName> bj</FirstName>
-        <LastName> jbj</LastName>
+        <FirstName>igyi</FirstName>
+        <LastName>gg</LastName>
       </Name>
       <Gender>Male</Gender>
       <Address>
-        <City>jbnjhb</City>
-        <Street>jb</Street>
+        <City>ihb</City>
+        <Street>yigyiiy</Street>
         <BuildingNumber>0</BuildingNumber>
       </Address>
       <DateOfBirth>1970-01-01T00:00:00</DateOfBirth>
-      <PhoneNumber>8888888888</PhoneNumber>
+      <PhoneNumber>9999999999</PhoneNumber>
     </Person>
-    <Seniority>80</Seniority>
+    <Seniority>9</Seniority>
     <MaxDistance>90</MaxDistance>
-    <MaxTestsPerWeek>23</MaxTestsPerWeek>
+    <MaxTestsPerWeek>90</MaxTestsPerWeek>
     <TypeCarToTest>MotorCycle</TypeCarToTest>
   </Tester>
 </Testers>
