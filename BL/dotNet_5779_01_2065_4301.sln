@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XmlFile", "XmlFile", "{D6FC74A1-4047-488D-8084-E58A24C113FB}"
 	ProjectSection(SolutionItems) = preProject
 		Config.xml = Config.xml
+		Schedules.xml = Schedules.xml
 		Testers.xml = Testers.xml
 		Tests.xml = Tests.xml
 		Trainees.xml = Trainees.xml

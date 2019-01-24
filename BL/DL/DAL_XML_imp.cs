@@ -11,7 +11,41 @@ namespace DL
     class DAL_XML_imp : IDAL
     {
         protected static DAL_XML_imp dAL_XML_ = new DAL_XML_imp();
-        protected DAL_XML_imp() { }
+        protected DAL_XML_imp()
+        {
+            try
+            {
+                Load( ref TestersRoot, testersRootPath);
+            }
+            catch 
+            {
+                TestersRoot = new XElement("Testers");
+            }
+            try
+            {
+                Load(ref TestsRoot,TestsRootPath);
+            }
+            catch
+            { 
+                TestsRoot = new XElement("Tests");
+            }
+            try
+            {
+                Load(ref TraineesRoot, TraineesRootPath);
+            }
+            catch
+            {
+                TraineesRoot = new XElement("Trainees");
+            }
+            try
+            {
+                Load(ref ConfigRoot, ConfigRootPath);
+            }
+            catch
+            {
+                ConfigRoot = new XElement("Configuration");
+            }
+        }
         public static DAL_XML_imp GetAL_XML_Imp { get => dAL_XML_; }
         private void Load(ref XElement t, string a)
         {
@@ -31,10 +65,12 @@ namespace DL
         private XElement TraineesRoot;
         private XElement TestsRoot;
         private XElement ConfigRoot;
+        private XElement SchedulesRoot;
         private const string testersRootPath = @"..\..\..\Testers.xml";
         private const string TraineesRootPath = @"..\..\..\Trainees.xml";
         private const string TestsRootPath = @"..\..\..\Tests.xml";
         private const string ConfigRootPath = @"..\..\..\Config.xml";
+        private const string SchedulesRootPath = @"..\..\..\Schedules.xml";
         private XElement PersonCreatorToXML(Person t)
         {
             return new XElement("Person", new XElement("ID", t.Id),
@@ -250,18 +286,18 @@ namespace DL
             var it = (from item in TestersRoot.Elements()
                       select new Tester(item.Element("Person").Element("ID").Value)
                       {
-                          LastName = item.Element("Tester").Element("Person").Element("Name").Element("LastName").Value,
-                          FirstName = item.Element("Tester").Element("Person").Element("Name").Element("FirstName").Value,
-                          PhoneNumber = item.Element("Tester").Element("Person").Element("PhoneNumber").Value,
-                          Gender = (GenderEnum)Enum.Parse(typeof(GenderEnum), item.Element("Tester").Element("Tester").Element("Person").Element("Gender").Value),
-                          Address = new Address(item.Element("Tester").Element("Person").Element("Address").Element("City").Value,
-                          item.Element("Tester").Element("Person").Element("Address").Element("Street").Value,
-                          int.Parse(item.Element("Tester").Element("Person").Element("Address").Element("BuildingNumber").Value)),
-                          DateOfBirth = DateTime.Parse(item.Element("Tester").Element("Person").Element("DateOfBirth").Value),
-                          Seniority = int.Parse(item.Element("Tester").Element("Seniority").Value),
-                          MaxDistance = int.Parse(item.Element("Tester").Element("MaxDistance").Value),
-                          MaxTestsPerWeek = int.Parse(item.Element("Tester").Element("MaxTestsPerWeek").Value),
-                          TypeCarToTest = (CarTypeEnum)Enum.Parse(typeof(CarTypeEnum), item.Element("Tester").Element("TypeCarToTest").Value),
+                          LastName = item.Element("Person").Element("Name").Element("LastName").Value,
+                          FirstName = item.Element("Person").Element("Name").Element("FirstName").Value,
+                          PhoneNumber = item.Element("Person").Element("PhoneNumber").Value,
+                          Gender = (GenderEnum)Enum.Parse(typeof(GenderEnum), item.Element("Person").Element("Gender").Value),
+                          Address = new Address(item.Element("Person").Element("Address").Element("City").Value,
+                          item.Element("Person").Element("Address").Element("Street").Value,
+                          int.Parse(item.Element("Person").Element("Address").Element("BuildingNumber").Value)),
+                          DateOfBirth = DateTime.Parse(item.Element("Person").Element("DateOfBirth").Value),
+                          Seniority = int.Parse(item.Element("Seniority").Value),
+                          MaxDistance = int.Parse(item.Element("MaxDistance").Value),
+                          MaxTestsPerWeek = int.Parse(item.Element("MaxTestsPerWeek").Value),
+                          TypeCarToTest = (CarTypeEnum)Enum.Parse(typeof(CarTypeEnum), item.Element("TypeCarToTest").Value),
                       }).ToList();
 
             return it;
@@ -402,11 +438,86 @@ namespace DL
 
         public void AddTesterSchedule(string id, bool[,] sched)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Load(ref SchedulesRoot, SchedulesRootPath);
+            }
+            catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+            var it = (from item in SchedulesRoot.Elements()
+                      where item.Element("Schedule").Element("ID").Value == id
+                      select item).FirstOrDefault();
+            if(it != null) { throw new DuplicateWaitObjectException("This testerSchedule already exists in this document: " + SchedulesRootPath); }
+            SchedulesRoot.Add(new XElement("Schedule", new XElement("ID",id), new XElement("WorkDays",
+                new XElement("Day",new XElement("Hour",sched[0,0]),new XElement("Hour", sched[0,1]),new XElement("Hour", sched[0,2]),
+                new XElement("Hour", sched[0,3]), new XElement("Hour", sched[0, 4]), new XElement("Hour", sched[0, 5])),
+                new XElement("Day", new XElement("Hour", sched[1, 0]), new XElement("Hour", sched[1, 1]), new XElement("Hour", sched[1, 2]),
+                new XElement("Hour", sched[1, 3]), new XElement("Hour", sched[1, 4]), new XElement("Hour", sched[1, 5])),
+                new XElement("Day", new XElement("Hour", sched[2, 0]), new XElement("Hour", sched[2, 1]), new XElement("Hour", sched[2, 2]),
+                new XElement("Hour", sched[2, 3]), new XElement("Hour", sched[2, 4]), new XElement("Hour", sched[2, 5])),
+                new XElement("Day",new XElement("Hour", sched[3, 0]), new XElement("Hour", sched[3, 1]), new XElement("Hour", sched[3, 2]),
+                new XElement("Hour", sched[3, 3]), new XElement("Hour", sched[3, 4]), new XElement("Hour", sched[3, 5])),
+                new XElement("Day", new XElement("Hour", sched[4, 0]), new XElement("Hour", sched[4, 1]), new XElement("Hour", sched[4, 2]),
+                new XElement("Hour", sched[4, 3]), new XElement("Hour", sched[4, 4]), new XElement("Hour", sched[4, 5])))));
         }
 
-        public void UpdateTesterSchedule(string id, bool[,] sched) { }
-        public bool[,] GetTesterSchedule(string id) { return null; }
-        public void RemoveTesterSchedule(string id) { }
+        public void UpdateTesterSchedule(string id, bool[,] sched)
+        {
+            RemoveTesterSchedule(id);
+            AddTesterSchedule(id, sched);
+        }
+        public bool[,] GetTesterSchedule(string id)
+        {
+            bool[,] temp = new bool[5,6];
+            int j = 0, i = 0;
+            try
+            {
+                Load(ref SchedulesRoot, SchedulesRootPath);
+            }
+            catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }                       
+                var it = (from item in SchedulesRoot.Elements()
+                          where item.Element("ID").Value == id
+                          select item).FirstOrDefault();
+            if (it == null) { throw new KeyNotFoundException("There is not testerSchedule in this document: " + SchedulesRootPath); }
+                foreach(var x in it.Element("WorkDays").Elements())
+                {
+                    foreach(var v in x.Elements())
+                    {
+                        temp[j, i] = Convert.ToBoolean(v.Value);
+                        i++;
+                    }
+                    j++;
+                }
+                return temp;                    
+        }
+        public void RemoveTesterSchedule(string id)
+        {
+            try
+            {
+                Load(ref SchedulesRoot, SchedulesRootPath);
+            }
+            catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+            try
+            {
+                var it = (from item in SchedulesRoot.Elements()
+                          where item.Element("ID").Value == id
+                          select item).FirstOrDefault();
+                it.Remove();
+                SchedulesRoot.Save(SchedulesRootPath);
+            }
+            catch
+            {
+                throw new KeyNotFoundException("There is not testerSchedule in this document: " + SchedulesRootPath);
+            }
+
+        }
     }
 }
