@@ -54,6 +54,7 @@ namespace DL
             {
                 throw r;
             }
+
             var it = (from item in TestersRoot.Elements()
                       where item.Element("Person").Element("ID").Value == T.Id
                       select item).FirstOrDefault();
