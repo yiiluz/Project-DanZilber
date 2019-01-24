@@ -1074,7 +1074,7 @@ namespace BL
                        group item by item.City
                        into g
                        orderby g.Key
-                       select g;
+                       select g;               
             }
             catch (DirectoryNotFoundException e)
             {
