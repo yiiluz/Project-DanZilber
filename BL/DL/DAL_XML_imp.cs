@@ -365,6 +365,7 @@ namespace DL
                           IsTesterUpdateStatus = Convert.ToBoolean(item.Element("Test").Element("IsTesterUpdateStatus").Value),
                           IsTestAborted = Convert.ToBoolean(item.Element("Test").Element("IsTestAborted").Value)
                       }).ToList();
+
             TestsRoot.Save(TestsRootPath);
             return it;
         }
