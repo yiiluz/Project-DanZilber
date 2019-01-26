@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 using BO;
 
 namespace UI_Ver2
@@ -81,27 +82,38 @@ namespace UI_Ver2
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TabControl tabControl = sender as TabControl;
-            if (tabControl.SelectedIndex == 1)
+            try
             {
-                OfficeMainWindowBorder.Visibility = Visibility.Collapsed;
-                OfficeStatistics.Visibility = Visibility.Collapsed;
-                OfficePasswordBorder.Visibility = Visibility.Visible;
+                TabControl tabControl = sender as TabControl;
+                if (tabControl.SelectedIndex == 1)
+                {
+                    OfficeMainWindowBorder.Visibility = Visibility.Collapsed;
+                    OfficeStatistics.Visibility = Visibility.Collapsed;
+                    OfficePasswordBorder.Visibility = Visibility.Visible;
 
-                testersCollection = new ObservableCollection<Tester>(bl.GetTestersList());
-                traineeCollection = new ObservableCollection<Trainee>(bl.GetTraineeList());
-                testCollection = new ObservableCollection<Test>(bl.GetTestsList());
-                //ListView_Testers.ItemsSource = testersCollection;
+                    testersCollection = new ObservableCollection<Tester>(bl.GetTestersList());
+                    traineeCollection = new ObservableCollection<Trainee>(bl.GetTraineeList());
+                    testCollection = new ObservableCollection<Test>(bl.GetTestsList());
+                    //ListView_Testers.ItemsSource = testersCollection;
+                }
+                if (tabControl.SelectedIndex == 2)
+                {
+                    ExistingTesterMainWindowBorder.Visibility = Visibility.Collapsed;
+                    ExistingTesterIDBorder.Visibility = Visibility.Visible;
+                }
+                if (tabControl.SelectedIndex == 3)
+                {
+                    ExistingTraineeMainWindowBorder.Visibility = Visibility.Collapsed;
+                    ExistingTraineeIDBorder.Visibility = Visibility.Visible;
+                }
             }
-            if (tabControl.SelectedIndex == 2)
+            catch(DirectoryNotFoundException D)
             {
-                ExistingTesterMainWindowBorder.Visibility = Visibility.Collapsed;
-                ExistingTesterIDBorder.Visibility = Visibility.Visible;
+                MessageBox.Show(D.Message, "MainWindow", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            if (tabControl.SelectedIndex == 3)
+            catch(KeyNotFoundException a)
             {
-                ExistingTraineeMainWindowBorder.Visibility = Visibility.Collapsed;
-                ExistingTraineeIDBorder.Visibility = Visibility.Visible;
+                MessageBox.Show(a.Message, "MainWindow", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

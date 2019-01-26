@@ -24,11 +24,7 @@ namespace BL
             {
                 instance = DO.Factory.GetDLObj("xml");
                 allConfiguretion = AllConfiguretion.ConfigurationFactory();
-            }
-            catch (NotImplementedException e)
-            {
-                throw e;
-            }
+            }         
             catch(DirectoryNotFoundException e)
             {
                 throw e;
