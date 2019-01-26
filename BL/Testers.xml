@@ -21,4 +21,25 @@
     <MaxTestsPerWeek>90</MaxTestsPerWeek>
     <TypeCarToTest>MotorCycle</TypeCarToTest>
   </Tester>
+  <Tester>
+    <Person>
+      <ID>123433654</ID>
+      <Name>
+        <FirstName>aa</FirstName>
+        <LastName>aa</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>efsrd</City>
+        <Street>arlozorov</Street>
+        <BuildingNumber>4</BuildingNumber>
+      </Address>
+      <DateOfBirth>1970-01-01T00:00:00</DateOfBirth>
+      <PhoneNumber>0523333333</PhoneNumber>
+    </Person>
+    <Seniority>100</Seniority>
+    <MaxDistance>100</MaxDistance>
+    <MaxTestsPerWeek>30</MaxTestsPerWeek>
+    <TypeCarToTest>MotorCycle</TypeCarToTest>
+  </Tester>
 </Testers>

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Xml.Linq;
 using BO;
-
 namespace BL
 {
     public class BLImplementation : IBL
@@ -23,8 +24,8 @@ namespace BL
             {
                 instance = DO.Factory.GetDLObj("xml");
                 allConfiguretion = AllConfiguretion.ConfigurationFactory();
-            }
-            catch (NotImplementedException e)
+            }         
+            catch(DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -46,6 +47,10 @@ namespace BL
             {
                 throw e;
             }
+            catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }
             int testerAge = (DateTime.Now.Year - t.DateOfBirth.Year);
             if (testerAge < minAge || testerAge > maxAge)
             {
@@ -62,6 +67,10 @@ namespace BL
                 {
                     throw e;
                 }
+                catch(DirectoryNotFoundException e)
+                {
+                    throw e;
+                }
             }
         }
         /// <summary>
@@ -72,7 +81,14 @@ namespace BL
         {
             bool exist;
             List<TesterTest> abortedTests = new List<TesterTest>();
-            exist = instance.GetTestersList().Exists(x => x.Id == id);
+            try
+            {
+                exist = instance.GetTestersList().Exists(x => x.Id == id);
+            }
+          catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }
             if (!exist)
             {
                 throw new KeyNotFoundException("Can't remove this tester becauze he is not on the system.");
@@ -97,6 +113,10 @@ namespace BL
                 {
                     throw e;
                 }
+                catch (DirectoryNotFoundException e)
+                {
+                    throw e;
+                }
             }
             return abortedTests;
         }
@@ -115,6 +135,10 @@ namespace BL
             {
                 throw new KeyNotFoundException("Internal Error. Can't Update tester Deteails with id " + t.Id + ex.Message);
             }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
             if (!exist)
                 throw new KeyNotFoundException("Can't update this tester becauze he is not on the system.");
             else
@@ -129,6 +153,10 @@ namespace BL
                 {
                     throw e;
                 }
+                catch (DirectoryNotFoundException e)
+                {
+                    throw e;
+                }
                 int testerAge = (DateTime.Now.Year - t.DateOfBirth.Year);
                 if (testerAge < minAge || testerAge > maxAge)
                 {
@@ -140,6 +168,10 @@ namespace BL
                     instance.UpdateTesterSchedule(t.Id, t.AvailiableWorkTime);
                 }
                 catch (KeyNotFoundException e)
+                {
+                    throw e;
+                }
+                catch (DirectoryNotFoundException e)
                 {
                     throw e;
                 }
@@ -162,6 +194,10 @@ namespace BL
             {
                 throw e;
             }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
             int traineeAge = (DateTime.Now.Year - t.DateOfBirth.Year);
             if (traineeAge < minAge)
             {
@@ -172,6 +208,10 @@ namespace BL
                     instance.AddTrainee(Converters.CreateDoTrainee(t));
                 }
                 catch (DuplicateWaitObjectException e)
+                {
+                    throw e;
+                }
+                catch (DirectoryNotFoundException e)
                 {
                     throw e;
                 }
@@ -192,6 +232,10 @@ namespace BL
             {
                 throw new KeyNotFoundException("Can't remove this trainee because he is not on the system.");
             }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
             foreach (var item in GetTestsList())
                 if (item.ExTrainee.Id == trainee.Id)
                     AbortTest(item.TestId);
@@ -203,7 +247,10 @@ namespace BL
             {
                 throw e;
             }
-
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
         }
         /// <summary>
         /// Update trainee
@@ -225,6 +272,10 @@ namespace BL
                 {
                     throw e;
                 }
+                catch (DirectoryNotFoundException e)
+                {
+                    throw e;
+                }
                 int traineeAge = (DateTime.Now.Year - t.DateOfBirth.Year);
                 if (traineeAge < minAge)
                 {
@@ -235,6 +286,10 @@ namespace BL
                     instance.UpdateTraineeDetails(Converters.CreateDoTrainee(t));
                 }
                 catch (KeyNotFoundException e)
+                {
+                    throw e;
+                }
+                catch (DirectoryNotFoundException e)
                 {
                     throw e;
                 }
@@ -256,6 +311,10 @@ namespace BL
             try
             {
                 testerExist = GetTestersList().Exists(x => x.Id == t.ExTester.Id);
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
             }
             catch (KeyNotFoundException ex)
             {
@@ -292,6 +351,10 @@ namespace BL
                     {
                         minDaysBetweenTests = (int)allConfiguretion.GetConfiguretion("Minimum days between tests");
                     }
+                    catch (DirectoryNotFoundException e)
+                    {
+                        throw e;
+                    }
                     catch (KeyNotFoundException e)
                     {
                         errors += (e.Message + "\n");
@@ -321,6 +384,10 @@ namespace BL
                 {
                     errors += (e.Message + "\n");
                 }
+                catch (DirectoryNotFoundException e)
+                {
+                    throw e;
+                }
                 if (minLesson != -1 && trainee.NumOfFinishedLessons < minLesson) //if trainee didnt did enough lessons
                 {
                     errors += "Trainee did not passed enough lessons for test.\n";
@@ -339,6 +406,10 @@ namespace BL
                     {
                         errors += (e.Message + "\n");
                     }
+                    catch (DirectoryNotFoundException e)
+                    {
+                        throw e;
+                    }
                     if (serial > 0)
                     {
                         bool flag = true;
@@ -346,6 +417,10 @@ namespace BL
                         {
                             instance.SetConfig("Serial Number Test", ++serial); //update the test serial number
                             allConfiguretion.UpdateSerialNumber();
+                        }
+                        catch (DirectoryNotFoundException e)
+                        {
+                            throw e;
                         }
                         catch (AccessViolationException e)
                         {
@@ -365,6 +440,10 @@ namespace BL
                                 instance.AddTest(Converters.CreateDOTest(t, Convert.ToString(serial))); //add the test
                                 testId = serial.ToString();
                             }
+                            catch (DirectoryNotFoundException e)
+                            {
+                                throw e;
+                            }
                             catch (DuplicateWaitObjectException e)
                             {
                                 errors += (e.Message + "\n");
@@ -382,6 +461,10 @@ namespace BL
                                     try
                                     {
                                         UpdateTraineeDetails(trainee);
+                                    }
+                                    catch (DirectoryNotFoundException e)
+                                    {
+                                        throw e;
                                     }
                                     catch (KeyNotFoundException e)
                                     {
@@ -411,6 +494,10 @@ namespace BL
             {
                 test = GetTestByID(id);
             }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
             catch (KeyNotFoundException e)
             {
                 throw e;
@@ -438,6 +525,10 @@ namespace BL
             {
                 test = GetTestByID(serial);
             }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
             catch (KeyNotFoundException e)
             {
                 throw e;
@@ -447,6 +538,10 @@ namespace BL
             try
             {
                 trainee = GetTraineeByID(test.ExTrainee.Id);
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
             }
             catch (KeyNotFoundException e)
             {
@@ -466,6 +561,10 @@ namespace BL
                 try
                 {
                     instance.UpdateTestDetails(Converters.CreateDOTest(test, serial));
+                }
+                catch (DirectoryNotFoundException e)
+                {
+                    throw e;
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -490,6 +589,10 @@ namespace BL
                 {
                     temp.AvailiableWorkTime = instance.GetTesterSchedule(temp.Id);
                 }
+                catch (DirectoryNotFoundException e)
+                {
+                    throw e;
+                }
                 catch (KeyNotFoundException ex)
                 {
                     throw new KeyNotFoundException("Internal Error. Can't import Testers list. " + ex.Message);
@@ -499,11 +602,18 @@ namespace BL
             //var lst = from item in instance.GetTestersList() select CreateDOFromBO.GetBOTester(item);
             foreach (var x in lst)
             {
-                var lstTests = from item in instance.GetTestsList()
-                               where item.TesterId == x.Id
-                               orderby item.DateOfTest
-                               select new TesterTest(Converters.CreateBOTest(item));
-                x.TestList = lstTests.ToList();
+                try
+                {
+                    var lstTests = from item in instance.GetTestsList()
+                                   where item.TesterId == x.Id
+                                   orderby item.DateOfTest
+                                   select new TesterTest(Converters.CreateBOTest(item));
+                    x.TestList = lstTests.ToList();
+                }
+                catch(DirectoryNotFoundException e)
+                {
+                    throw e;
+                }
             }
             return lst;
         }
@@ -546,15 +656,23 @@ namespace BL
         public List<Test> GetTestsList()
         {
             List<Test> lst = new List<Test>();
-            foreach (var item in instance.GetTestsList())
-                lst.Add(Converters.CreateBOTest(item));
-            //var lst = from item in instance.GetTestsList() orderby item.DateOfTest select new Test(item);
-            foreach (var x in lst)
+            try
+            {          
+                foreach (var item in instance.GetTestsList())
+                    lst.Add(Converters.CreateBOTest(item));
+                //var lst = from item in instance.GetTestsList() orderby item.DateOfTest select new Test(item);
+                foreach (var x in lst)
+                {
+                    if (instance.GetTestersList().Exists(t => t.Id == x.ExTester.Id)) //if tester hasnt deleted
+                        x.ExTester = new ExternalTester(GetTesterByID(x.ExTester.Id));
+                    if (instance.GetTraineeList().Exists(t => t.Id == x.ExTrainee.Id))
+                        x.ExTrainee = new ExternalTrainee(GetTraineeByID(x.ExTrainee.Id));
+                }
+                
+            }
+            catch(DirectoryNotFoundException e)
             {
-                if (instance.GetTestersList().Exists(t => t.Id == x.ExTester.Id)) //if tester hasnt deleted
-                    x.ExTester = new ExternalTester(GetTesterByID(x.ExTester.Id));
-                if (instance.GetTraineeList().Exists(t => t.Id == x.ExTrainee.Id))
-                    x.ExTrainee = new ExternalTrainee(GetTraineeByID(x.ExTrainee.Id));
+                throw e;
             }
             return lst;
         }
@@ -566,32 +684,39 @@ namespace BL
         /// <returns></returns>
         public Trainee GetTraineeByID(string id)
         {
-            if (!(instance.GetTraineeList().Exists(x => x.Id == id)))
-                throw new KeyNotFoundException("Trainee id not exist on system.\n");
-            else
+            try
             {
-                Trainee trainee = Converters.CreateBOTrainee(instance.GetTraineeList().Find(x => x.Id == id));
-                TraineeStatistics statistics = new TraineeStatistics();
-                foreach (var item in instance.GetTestsList())
+                if (!(instance.GetTraineeList().Exists(x => x.Id == id)))
+                    throw new KeyNotFoundException("Trainee id not exist on system.\n");
+                else
                 {
-                    if (item.TraineeId == trainee.Id)
+                    Trainee trainee = Converters.CreateBOTrainee(instance.GetTraineeList().Find(x => x.Id == id));
+                    TraineeStatistics statistics = new TraineeStatistics();
+                    foreach (var item in instance.GetTestsList())
                     {
-                        statistics.NumOfTests++;
-                        if (item.DateOfTest > trainee.LastTest)
-                            trainee.LastTest = item.DateOfTest;
-                        if (item.IsTesterUpdateStatus)
-                            if (item.IsPassed)
-                            {
-                                trainee.ExistingLicenses.Add((CarTypeEnum)item.CarType);
-                                statistics.SuccessTests++;
-                            }
-                            else
-                                statistics.FailedTests++;
-                        trainee.TestList.Add(new TraineeTest(Converters.CreateBOTest(item)));
+                        if (item.TraineeId == trainee.Id)
+                        {
+                            statistics.NumOfTests++;
+                            if (item.DateOfTest > trainee.LastTest)
+                                trainee.LastTest = item.DateOfTest;
+                            if (item.IsTesterUpdateStatus)
+                                if (item.IsPassed)
+                                {
+                                    trainee.ExistingLicenses.Add((CarTypeEnum)item.CarType);
+                                    statistics.SuccessTests++;
+                                }
+                                else
+                                    statistics.FailedTests++;
+                            trainee.TestList.Add(new TraineeTest(Converters.CreateBOTest(item)));
+                        }
+                        trainee.Statistics = statistics;
                     }
-                    trainee.Statistics = statistics;
+                    return trainee;
                 }
-                return trainee;
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
             }
         }
         /// <summary>
@@ -601,7 +726,16 @@ namespace BL
         /// <returns></returns>
         public Tester GetTesterByID(string id)
         {
-            if (!(instance.GetTestersList().Exists(x => x.Id == id)))
+            bool exists;
+            try
+            {
+                exists = instance.GetTestersList().Exists(x => x.Id == id);
+            }    
+            catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+            if (!exists)
                 throw new KeyNotFoundException("Tester id not exist on system.\n");
             else
             {
@@ -617,6 +751,10 @@ namespace BL
                 {
                     tester.AvailiableWorkTime = instance.GetTesterSchedule(tester.Id);
                 }
+                catch (DirectoryNotFoundException e)
+                {
+                    throw e;
+                }
                 catch (KeyNotFoundException ex)
                 {
                     throw new KeyNotFoundException("Tester schedule can not be imported. " + ex.Message);
@@ -631,16 +769,24 @@ namespace BL
         /// <returns></returns>
         public Test GetTestByID(string id)
         {
-            if (!(instance.GetTestsList().Exists(x => x.TestId == id)))
-                throw new KeyNotFoundException("Test's serial number not exist on system.\n");
-            else
+            Test test;
+            try
             {
-                Test test = Converters.CreateBOTest(instance.GetTestsList().Find(x => x.TestId == id));
-                if (instance.GetTestersList().Exists(x => x.Id == test.ExTester.Id))
-                    test.ExTester = new ExternalTester(GetTesterByID(test.ExTester.Id));
-                if (instance.GetTraineeList().Exists(x => x.Id == test.ExTrainee.Id))
-                    test.ExTrainee = new ExternalTrainee(GetTraineeByID(test.ExTrainee.Id));
-                return test;
+                if (!(instance.GetTestsList().Exists(x => x.TestId == id)))
+                    throw new KeyNotFoundException("Test's serial number not exist on system.\n");
+                else
+                {
+                    test = Converters.CreateBOTest(instance.GetTestsList().Find(x => x.TestId == id));
+                    if (instance.GetTestersList().Exists(x => x.Id == test.ExTester.Id))
+                        test.ExTester = new ExternalTester(GetTesterByID(test.ExTester.Id));
+                    if (instance.GetTraineeList().Exists(x => x.Id == test.ExTrainee.Id))
+                        test.ExTrainee = new ExternalTrainee(GetTraineeByID(test.ExTrainee.Id));
+                    return test;
+                }
+            }
+            catch(DirectoryNotFoundException e)
+            {
+                throw e;
             }
         }
 
@@ -717,16 +863,40 @@ namespace BL
         }
 
         public List<Test> GetTestsPartialListByPredicate(Func<BO.Test, bool> func)
-        {
-            return (from item in GetTestsList() where func(item) orderby item.DateOfTest, item.HourOfTest select item).ToList();
+        {           
+            try
+            {
+                var it = (from item in GetTestsList() where func(item) orderby item.DateOfTest, item.HourOfTest select item).ToList();
+                return it;
+            }
+            catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }
         }
         public List<Tester> GetTestersPartialListByPredicate(Func<BO.Tester, bool> func)
         {
-            return (from item in GetTestersList() where func(item) orderby item.LastName, item.FirstName select item).ToList();
+            try
+            {
+                var ot=(from item in GetTestersList() where func(item) orderby item.LastName, item.FirstName select item).ToList();
+                return ot;
+            }
+           catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }
         }
         public List<Trainee> GetTraineesPartialListByPredicate(Func<BO.Trainee, bool> func)
         {
-            return (from item in GetTraineeList() where func(item) orderby item.LastName, item.FirstName select item).ToList();
+            try
+            {
+                var it = (from item in GetTraineeList() where func(item) orderby item.LastName, item.FirstName select item).ToList();
+                return it;
+            }
+            catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }           
         }
 
 
@@ -738,6 +908,10 @@ namespace BL
             try
             {
                 trainee = GetTraineeByID(id);
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
             }
             catch (KeyNotFoundException)
             {
@@ -757,6 +931,10 @@ namespace BL
             {
                 trainee = GetTraineeByID(id);
             }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
             catch (KeyNotFoundException)
             {
                 throw;
@@ -772,79 +950,133 @@ namespace BL
 
         public IEnumerable<IGrouping<string, Tester>> GetTestersGroupedByCity()
         {
-            return from item in GetTestersList()
-                   orderby item.LastName, item.FirstName
-                   group item by item.City
-                        into g
-                   orderby g.Key
-                   select g;
+            try
+            {
+                return from item in GetTestersList()
+                       orderby item.LastName, item.FirstName
+                       group item by item.City
+                            into g
+                       orderby g.Key
+                       select g;
+            }
+            catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }
         }
         public IEnumerable<IGrouping<int, Tester>> GetTestersGropedBySeniority()
         {
-            return from item in GetTestersList()
-                   orderby item.LastName, item.FirstName
-                   group item by item.Seniority
-                        into g
-                   orderby g.Key
-                   select g;
+            try
+            {
+                return from item in GetTestersList()
+                       orderby item.LastName, item.FirstName
+                       group item by item.Seniority
+                            into g
+                       orderby g.Key
+                       select g;
+            }
+            catch( DirectoryNotFoundException e)
+            {
+                throw e;
+            }
         }
         public IEnumerable<IGrouping<CarTypeEnum, Tester>> GetTestersGrupedBySpecialization()
         {
-            return from item in GetTestersList()
-                   orderby item.LastName, item.FirstName
-                   group item by item.TypeCarToTest
-                   into g
-                   orderby g.Key
-                   select g;
+            try
+            {
+                return from item in GetTestersList()
+                       orderby item.LastName, item.FirstName
+                       group item by item.TypeCarToTest
+                       into g
+                       orderby g.Key
+                       select g;
+            }
+            catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }
         }
         public IEnumerable<IGrouping<int, Tester>> GetTestersGropedByMaxDistance()
         {
-            return from item in GetTestersList()
-                   orderby item.LastName, item.FirstName
-                   group item by item.MaxDistance
-                        into g
-                   orderby g.Key
-                   select g;
+            try
+            {
+                return from item in GetTestersList()
+                       orderby item.LastName, item.FirstName
+                       group item by item.MaxDistance
+                            into g
+                       orderby g.Key
+                       select g;
+            }
+            catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }
         }
 
         public IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsBySchool()
         {
-            return from item in GetTraineeList()
-                   orderby item.LastName, item.FirstName
-                   group item by item.SchoolName
-                   into g
-                   orderby g.Key
-                   select g;
+            try
+            {
+                return from item in GetTraineeList()
+                       orderby item.LastName, item.FirstName
+                       group item by item.SchoolName
+                       into g
+                       orderby g.Key
+                       select g;
+            }
+            catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }
         }
         public IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsByTeacher()
         {
-            return from item in GetTraineeList()
-                   orderby item.LastName, item.FirstName
-                   group item by item.SchoolName
-                   into g
-                   orderby g.Key
-                   select g;
+            try
+            {
+                return from item in GetTraineeList()
+                       orderby item.LastName, item.FirstName
+                       group item by item.SchoolName
+                       into g
+                       orderby g.Key
+                       select g;
+            }
+            catch(DirectoryNotFoundException e)
+            {
+                throw e;
+            }
         }
         public IEnumerable<IGrouping<int, Trainee>> GetTraineesGroupedByNumOfTests()
         {
-            return from item in GetTraineeList()
-                   orderby item.LastName, item.FirstName
-                   group item by item.NumOfTests
-                   into g
-                   orderby g.Key
-                   select g;
+            try
+            {
+                return from item in GetTraineeList()
+                       orderby item.LastName, item.FirstName
+                       group item by item.NumOfTests
+                       into g
+                       orderby g.Key
+                       select g;
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
         }
         public IEnumerable<IGrouping<string, Trainee>> GetTraineessGroupedByCity()
         {
-            return from item in GetTraineeList()
-                   orderby item.LastName, item.FirstName
-                   group item by item.City
-                   into g
-                   orderby g.Key
-                   select g;
+            try
+            {
+                return from item in GetTraineeList()
+                       orderby item.LastName, item.FirstName
+                       group item by item.City
+                       into g
+                       orderby g.Key
+                       select g;               
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
         }
-
-
         private int GetTesterNumOfTestForDateWeek(Tester tester, DateTime a)
         {
             int num = 0;

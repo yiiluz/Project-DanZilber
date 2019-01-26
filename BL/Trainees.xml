@@ -46,4 +46,27 @@
     <SchoolName>bgh</SchoolName>
     <TeacherName>vghvb</TeacherName>
   </Trainee>
+  <Trainee>
+    <Person>
+      <ID>034536797</ID>
+      <Name>
+        <FirstName>Miri</FirstName>
+        <LastName>Perlov</LastName>
+      </Name>
+      <Gender>Female</Gender>
+      <Address>
+        <City>BeniBarak</City>
+        <Street>LviYzchak</Street>
+        <BuildingNumber>11</BuildingNumber>
+      </Address>
+      <DateOfBirth>1977-10-28T00:00:00</DateOfBirth>
+      <PhoneNumber>0538249362</PhoneNumber>
+    </Person>
+    <CurrCarType>Bus</CurrCarType>
+    <NumOfFinishedLessons>30</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>avi</SchoolName>
+    <TeacherName>Shlomo</TeacherName>
+  </Trainee>
 </Trainees>
