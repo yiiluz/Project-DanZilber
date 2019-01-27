@@ -180,5 +180,8 @@
     <Resource Include="Icons\ICON.png" />
     <Resource Include="Icons\CarIcon2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Plus_Icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

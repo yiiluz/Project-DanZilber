@@ -89,13 +89,17 @@
                                                     <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
                                                 <TextBlock Text="Tester" HorizontalAlignment="Center"/>
-                                                <Button Content="Add Tester" Margin="5 20 5 5" Click="Button_Click_AddTester" ToolTipService.ShowDuration="8000">
+                                                <Button Margin="5 20 5 5" Click="Button_Click_AddTester" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Add Tester</TextBlock>
                                                             <TextBlock>Window will open, inside you will fill the new Tester details.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="Add Tester" Margin="30 0"/>
+                                                        <Image Source="Icons/Plus_Icon.png" Height="20" Width="20"/>
+                                                    </StackPanel>
                                                 </Button>
                                                 <Button Content="Update Tester Details" Grid.Row="1" Margin="5" Click="Button_Click_UpdateTester" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
@@ -105,6 +109,7 @@
                                                             <TextBlock>If the ID Exist, Window will open where you can change the details.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
+                                                    
                                                 </Button>
                                                 <Button Content="Remove Tester" Grid.Row="2" Margin="5" Click="Button_Click_RemoveTester" ToolTipService.ShowDuration="8000">
 
@@ -146,13 +151,17 @@
                                                     <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
                                                 <TextBlock Text="Trainee" HorizontalAlignment="Center"/>
-                                                <Button Content="Add Trainee" Margin="5 20 5 5" Click="Button_Click_AddTrainee" ToolTipService.ShowDuration="8000">
+                                                <Button Margin="5 20 5 5" Click="Button_Click_AddTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Add Trainee</TextBlock>
                                                             <TextBlock>Window will open, inside you will fill the new Trainee details.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="Add Trainee" Margin="30 0"/>
+                                                        <Image Source="Icons/Plus_Icon.png" Height="20" Width="20"/>
+                                                    </StackPanel>
                                                 </Button>
                                                 <Button Content="Update Trainee Details" Grid.Row="1" Margin="5" Click="Button_Click_UpdateTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
@@ -187,7 +196,7 @@
                                         <Border Grid.Column="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
                                             <StackPanel>
                                                 <TextBlock Text="Test" HorizontalAlignment="Center"/>
-                                                <Button Content="Add Test" Margin="20 15 20 0" Click="Button_Click_AddTest" ToolTipService.ShowDuration="8000">
+                                                <Button Margin="20 15 20 0" Click="Button_Click_AddTest" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Create New Test</TextBlock>
@@ -196,6 +205,10 @@
                                                             <TextBlock>Choose one suitable time from list, then click 'Add Chosen Test'.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="Add Test" Margin="30 0"/>
+                                                        <Image Source="Icons/Plus_Icon.png" Height="20" Width="20"/>
+                                                    </StackPanel>
                                                 </Button>
                                                 <Button Content="Abort Test" Margin="20 15 20 0" Click="Button_Click_AbortTest" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>

@@ -1,2 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Tests></Tests>
+<Tests>
+  <Test>
+    <TestId>10000001</TestId>
+    <TesterId>999999999</TesterId>
+    <TraineeId>444444444</TraineeId>
+    <DateOfTest>2019-01-28T00:00:00+02:00</DateOfTest>
+    <HourOfTest>10</HourOfTest>
+    <StartTestAddress>
+      <City>ו</City>
+      <Street>עב</Street>
+      <BuildingNumber>0</BuildingNumber>
+    </StartTestAddress>
+    <CarType>MotorCycle</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes></TesterNotes>
+    <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
+    <IsTestAborted>true</IsTestAborted>
+  </Test>
+</Tests>

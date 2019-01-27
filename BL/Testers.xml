@@ -23,23 +23,44 @@
   </Tester>
   <Tester>
     <Person>
-      <ID>123433654</ID>
+      <ID>777777777</ID>
       <Name>
-        <FirstName>aa</FirstName>
-        <LastName>aa</LastName>
+        <FirstName>uhvug</FirstName>
+        <LastName>vug</LastName>
       </Name>
       <Gender>Male</Gender>
       <Address>
-        <City>efsrd</City>
-        <Street>arlozorov</Street>
-        <BuildingNumber>4</BuildingNumber>
+        <City>ihbig</City>
+        <Street>vv</Street>
+        <BuildingNumber>0</BuildingNumber>
       </Address>
       <DateOfBirth>1970-01-01T00:00:00</DateOfBirth>
-      <PhoneNumber>0523333333</PhoneNumber>
+      <PhoneNumber>9999999999</PhoneNumber>
     </Person>
-    <Seniority>100</Seniority>
-    <MaxDistance>100</MaxDistance>
-    <MaxTestsPerWeek>30</MaxTestsPerWeek>
+    <Seniority>90</Seniority>
+    <MaxDistance>90</MaxDistance>
+    <MaxTestsPerWeek>90</MaxTestsPerWeek>
+    <TypeCarToTest>MotorCycle</TypeCarToTest>
+  </Tester>
+  <Tester>
+    <Person>
+      <ID>333333333</ID>
+      <Name>
+        <FirstName>moti</FirstName>
+        <LastName>abramoviz</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>Elad</City>
+        <Street>Meir</Street>
+        <BuildingNumber>16</BuildingNumber>
+      </Address>
+      <DateOfBirth>1975-01-01T00:00:00</DateOfBirth>
+      <PhoneNumber>0522234556</PhoneNumber>
+    </Person>
+    <Seniority>7</Seniority>
+    <MaxDistance>30</MaxDistance>
+    <MaxTestsPerWeek>3</MaxTestsPerWeek>
     <TypeCarToTest>MotorCycle</TypeCarToTest>
   </Tester>
 </Testers>

@@ -201,7 +201,7 @@ namespace DL
             {
                 throw e;
             }
-            var it = (from item in TestersRoot.Elements()
+            var it = (from item in TestsRoot.Elements()
                       where item.Element("TestId").Value == t.TestId
                       select item).FirstOrDefault();
             if (it != null)
@@ -347,23 +347,23 @@ namespace DL
             var it = (from item in TestsRoot.Elements()
                       select new Test(item.Element("TestId").Value)
                       {
-                          TesterId = item.Element("Test").Element("TesterId").Value,
-                          TraineeId = item.Element("Test").Element("TraineeId").Value,
-                          DateOfTest = DateTime.Parse(item.Element("Test").Element("DateOfTest").Value),
-                          HourOfTest = int.Parse(item.Element("Test").Element("HourOfTest").Value),
-                          StartTestAddress = new Address(item.Element("Test").Element("StartTestAddress").Element("City").Value,
-                          item.Element("Test").Element("StartTestAddress").Element("Street").Value,
-                          int.Parse(item.Element("Test").Element("StartTestAddress").Element("BuildingNumber").Value)),
-                          CarType = (CarTypeEnum)int.Parse(item.Element("Test").Element("CarType").Value),
-                          DistanceKeeping = Convert.ToBoolean(item.Element("Test").Element("DistanceKeeping").Value),
-                          ReverseParking = Convert.ToBoolean(item.Element("Test").Element("ReverseParking").Value),
-                          MirrorsCheck = Convert.ToBoolean(item.Element("Test").Element("MirrorsCheck").Value),
-                          Signals = Convert.ToBoolean(item.Element("Test").Element("Signals").Value),
-                          CorrectSpeed = Convert.ToBoolean(item.Element("Test").Element("CorrectSpeed").Value),
-                          IsPassed = Convert.ToBoolean(item.Element("Test").Element("IsPassed").Value),
-                          TesterNotes = item.Element("Test").Element("TesterNotes").Value,
-                          IsTesterUpdateStatus = Convert.ToBoolean(item.Element("Test").Element("IsTesterUpdateStatus").Value),
-                          IsTestAborted = Convert.ToBoolean(item.Element("Test").Element("IsTestAborted").Value)
+                          TesterId = item.Element("TesterId").Value,
+                          TraineeId = item.Element("TraineeId").Value,
+                          DateOfTest = DateTime.Parse(item.Element("DateOfTest").Value),
+                          HourOfTest = int.Parse(item.Element("HourOfTest").Value),
+                          StartTestAddress = new Address(item.Element("StartTestAddress").Element("City").Value,
+                          item.Element("StartTestAddress").Element("Street").Value,
+                          int.Parse(item.Element("StartTestAddress").Element("BuildingNumber").Value)),
+                          CarType = (CarTypeEnum)Enum.Parse(typeof(CarTypeEnum), item.Element("CarType").Value),
+                          DistanceKeeping = Convert.ToBoolean(item.Element("DistanceKeeping").Value),
+                          ReverseParking = Convert.ToBoolean(item.Element("ReverseParking").Value),
+                          MirrorsCheck = Convert.ToBoolean(item.Element("MirrorsCheck").Value),
+                          Signals = Convert.ToBoolean(item.Element("Signals").Value),
+                          CorrectSpeed = Convert.ToBoolean(item.Element("CorrectSpeed").Value),
+                          IsPassed = Convert.ToBoolean(item.Element("IsPassed").Value),
+                          TesterNotes = item.Element("TesterNotes").Value,
+                          IsTesterUpdateStatus = Convert.ToBoolean(item.Element("IsTesterUpdateStatus").Value),
+                          IsTestAborted = Convert.ToBoolean(item.Element("IsTestAborted").Value)
                       }).ToList();
             TestsRoot.Save(TestsRootPath);
             return it;
@@ -424,7 +424,7 @@ namespace DL
             {
                 if (item.Element("Key").Value == parm)
                 {
-                    if (Convert.ToBoolean(item.Element("Value").Element("Writeable").Value))
+                    if (Convert.ToBoolean(item.Element("Value").Element("Writable").Value))
                     {
                         item.Element("Value").Element("value").Value = value.ToString();
                         ConfigRoot.Save(ConfigRootPath);
@@ -447,7 +447,7 @@ namespace DL
                 throw e;
             }
             var it = (from item in SchedulesRoot.Elements()
-                      where item.Element("Schedule").Element("ID").Value == id
+                      where item.Element("ID").Value == id
                       select item).FirstOrDefault();
             if (it != null) { throw new DuplicateWaitObjectException("This testerSchedule already exists in this document: " + SchedulesRootPath); }
             SchedulesRoot.Add(new XElement("Schedule", new XElement("ID", id), new XElement("WorkDays",

@@ -69,4 +69,27 @@
     <SchoolName>avi</SchoolName>
     <TeacherName>Shlomo</TeacherName>
   </Trainee>
+  <Trainee>
+    <Person>
+      <ID>444444444</ID>
+      <Name>
+        <FirstName>elimelech</FirstName>
+        <LastName>romano</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>elad</City>
+        <Street>rashi</Street>
+        <BuildingNumber>2</BuildingNumber>
+      </Address>
+      <DateOfBirth>0001-01-01T00:00:00</DateOfBirth>
+      <PhoneNumber>0532655432</PhoneNumber>
+    </Person>
+    <CurrCarType>MotorCycle</CurrCarType>
+    <NumOfFinishedLessons>80</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>Amit</SchoolName>
+    <TeacherName>Lesner</TeacherName>
+  </Trainee>
 </Trainees>

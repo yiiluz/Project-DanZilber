@@ -74,12 +74,12 @@
             <Label  Margin="30 0 0 0" Grid.Column="4"  Grid.Row="5" Content="Wednesday" VerticalAlignment="Center"/>
             <Label  Margin="30 0 0 0" Grid.Column="4"  Grid.Row="6" Content="Thursday" VerticalAlignment="Center"/>
             <StackPanel Grid.Row="1" Grid.Column="5" Orientation="Horizontal" VerticalAlignment="Bottom">
-                <Label Content="9:00"  Width="60" HorizontalContentAlignment="Center"/>
-                <Label Content="10:00" Width="60" HorizontalContentAlignment="Center"/>
-                <Label Content="11:00" Width="60" HorizontalContentAlignment="Center"/>
-                <Label Content="12:00" Width="60" HorizontalContentAlignment="Center"/>
-                <Label Content="13:00" Width="60" HorizontalContentAlignment="Center"/>
-                <Label Content="14:00" Width="60" HorizontalContentAlignment="Center"/>
+                <Label Content="9:00"  Width="52" HorizontalContentAlignment="Center"/>
+                <Label Content="10:00" Width="52" HorizontalContentAlignment="Center"/>
+                <Label Content="11:00" Width="52" HorizontalContentAlignment="Center"/>
+                <Label Content="12:00" Width="52" HorizontalContentAlignment="Center"/>
+                <Label Content="13:00" Width="52" HorizontalContentAlignment="Center"/>
+                <Label Content="14:00" Width="52" HorizontalContentAlignment="Center"/>
             </StackPanel>   
             <Grid x:Name="HoursWork" ShowGridLines="True" Grid.Row="2" Grid.Column="5" Grid.RowSpan="5">
                 <Grid.RowDefinitions>
