@@ -8,6 +8,7 @@ namespace BL
 {
     public class Converters
     {
+
         public static DO.Tester CreateDOTester(BO.Tester other)
         {
             DO.Tester tester = new DO.Tester(other.Id);
