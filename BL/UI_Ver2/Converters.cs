@@ -98,6 +98,7 @@ namespace UI_Ver2
         }
     }
 
+
     public class BoolToGreenOrRed : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
