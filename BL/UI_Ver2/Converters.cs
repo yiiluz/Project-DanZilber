@@ -105,7 +105,7 @@ namespace UI_Ver2
             if ((bool)value == true)
                 return "Green";
             else
-                return "LightRed";
+                return "Red";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
