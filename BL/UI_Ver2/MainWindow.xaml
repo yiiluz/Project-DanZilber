@@ -383,8 +383,9 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <Border Grid.Column="0" Grid.RowSpan="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
+                                        <Border Grid.Column="0" Grid.RowSpan="3" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
                                             <Grid>
                                                 <TextBlock Text="Your Tests List" HorizontalAlignment="Center"/>
                                                 <ListView x:Name="ListView_TraineeTests" Grid.Row="1" Margin="20" SelectionChanged="ListView_TraineeTests_SelectionChanged" 
@@ -454,12 +455,7 @@
                                         </Border>
                                         <Border Grid.Column="1" Grid.Row="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
                                             <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Border Grid.Column="1" BorderThickness="1" BorderBrush="LightBlue" CornerRadius="5" Margin="5 0 0 0">
-                                                    <Grid>
+                                                     <Grid>
                                                         <Grid.RowDefinitions>
                                                             <RowDefinition Height="30"/>
                                                             <RowDefinition Height="*"/>
@@ -468,32 +464,36 @@
                                                         <ListView x:Name="ListView_TraineeExistingLicenses" Grid.Row="1" Margin="5" SelectionChanged="ListView_TraineeExistingLicenses_SelectionChanged">
                                                         </ListView>
                                                     </Grid>
-                                                </Border>
-                                                <Border x:Name="TraineeStatisticsBorder" BorderThickness="1" BorderBrush="LightBlue" CornerRadius="5" Margin="0 0 5 0">
-                                                    <Grid Margin="5">
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition Height="30"/>
-                                                            <RowDefinition Height="*"/>
-                                                            <RowDefinition Height="*"/>
-                                                            <RowDefinition Height="*"/>
-                                                            <RowDefinition Height="*"/>
-                                                        </Grid.RowDefinitions>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="2*"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
-                                                        <TextBlock Text="Your Statistics:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
-                                                        <TextBlock Grid.Row="1" Text="Num Of Test:"/>
-                                                        <TextBlock Grid.Row="2" Text="Success Tests Num:"/>
-                                                        <TextBlock Grid.Row="3" Text="Failed Tests Num:"/>
-                                                        <TextBlock Grid.Row="4" Text="Success Proportion:"/>
-                                                        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NumOfTests}"/>
-                                                        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SuccessTests}"/>
-                                                        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding FailedTests}"/>
-                                                        <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding SuccessProportion}"/>
-                                                    </Grid>
-                                                </Border>
+                                                
+                                                
                                             </Grid>
+                                        </Border>
+                                        <Border Grid.Column="1" Grid.Row="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
+
+                                            <Border x:Name="TraineeStatisticsBorder" Grid.Column="1" Grid.Row="2" BorderThickness="1" BorderBrush="LightBlue" CornerRadius="5" Margin="0 0 5 0">
+                                                <Grid Margin="5">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="30"/>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="Your Statistics:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+                                                    <TextBlock Grid.Row="1" Text="Num Of Test:"/>
+                                                    <TextBlock Grid.Row="2" Text="Success Tests Num:"/>
+                                                    <TextBlock Grid.Row="3" Text="Failed Tests Num:"/>
+                                                    <TextBlock Grid.Row="4" Text="Success Proportion:"/>
+                                                    <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NumOfTests}"/>
+                                                    <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SuccessTests}"/>
+                                                    <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding FailedTests}"/>
+                                                    <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding SuccessProportion}"/>
+                                                </Grid>
+                                            </Border>
                                         </Border>
                                     </Grid>
                                 </Border>
