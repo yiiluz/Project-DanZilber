@@ -97,6 +97,7 @@ namespace UI_Ver2
             throw new NotImplementedException();
         }
     }
+
     public class BoolToGreenOrRed : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
