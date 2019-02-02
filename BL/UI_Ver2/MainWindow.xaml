@@ -35,11 +35,33 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="18*"/>
             </Grid.RowDefinitions>
-            <Border Background="LightGreen" CornerRadius="20" Height="60"/>
+            <Border  CornerRadius="20" Height="60">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Offset="0" Color="Lavender"/>
+                        <GradientStop Offset="0.33" Color="Turquoise"/>
+                        <GradientStop Offset="0.66" Color="DarkOliveGreen"/>
+                        <GradientStop Offset="1" Color="DarkBlue"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <TextBlock Text="Test System" Margin="40 10 0 0" FontSize="16"/>
+            </Border>
             <StackPanel x:Name="ManageButtonStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 50 0">
-                <Button Click="Button_Click_MinimizeWindow" Content="-" Width="30" Height="25" Template="{StaticResource TitleBarButtons}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
-                <Button Click="Button_Click_MaximizeWindow" Content="□" Width="30" Height="25" Template="{StaticResource TitleBarButtons}" Margin="10 0" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
-                <Button Click="Button_Click_CloseWindow" Content="X" Width="30" Height="25" Template="{StaticResource TitleBarButtons}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+                <Button Click="Button_Click_MinimizeWindow" Width="25" Height="25" Template="{StaticResource TitleBarButtons}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+                    <Button.Content>
+                        <Image Source="Icons/minusIcon.png" Margin="5"/>
+                    </Button.Content>
+                </Button>
+                <Button Click="Button_Click_MaximizeWindow" Width="25" Height="25" Template="{StaticResource TitleBarButtons}" Margin="10 0" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+                <Button.Content>
+                    <Image Source="Icons/squareIcon.png" Margin="5"/>
+                </Button.Content>
+                </Button>
+                <Button Click="Button_Click_CloseWindow" Width="25" Height="25" Template="{StaticResource TitleBarButtons}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+                    <Button.Content>
+                        <Image Source="Icons/xIcon.png" Margin="5"/>
+                    </Button.Content>
+                </Button>
             </StackPanel>
             <DockPanel Grid.Row="1">
                 <Menu DockPanel.Dock="Top" VerticalAlignment="Center">
@@ -54,7 +76,7 @@
             </DockPanel>
             <Grid Grid.Row="2" Margin="20">
                 <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
-                    <TabItem Header="Admin" Width="200" Height="40">
+                    <TabItem Header="Admin" Width="200" Height="40" >
 
 
                         <!-- Office Window -->
@@ -257,7 +279,7 @@
                                 <Border x:Name="ExistingTesterMainWindowBorder" Margin="10" Visibility="Visible" >
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Border Grid.Column="0" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
@@ -305,6 +327,7 @@
                                                                     </MultiBinding>
                                                                 </GridViewColumn.DisplayMemberBinding>
                                                             </GridViewColumn>
+                                                            <GridViewColumn Header="Test Location" DisplayMemberBinding="{Binding City}" Width="100"/>
                                                         </GridView>
                                                     </ListView.View>
                                                     <ListView.ContextMenu >
@@ -354,7 +377,7 @@
                                 <Border x:Name="ExistingTraineeMainWindowBorder" Margin="10" Visibility="Visible" >
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
@@ -409,6 +432,7 @@
                                                                     </MultiBinding>
                                                                 </GridViewColumn.DisplayMemberBinding>
                                                             </GridViewColumn>
+                                                            <GridViewColumn Header="Test Location" DisplayMemberBinding="{Binding City}" Width="100"/>
                                                         </GridView>
                                                     </ListView.View>
                                                     <ListView.ContextMenu >

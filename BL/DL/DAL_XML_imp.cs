@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Linq;
 using DO;
+using System.Threading;
+
 namespace DL
 {
-    class DAL_XML_imp : IDAL
+    class DAL_XML_imp : BaseDL
     {
-        protected static DAL_XML_imp dAL_XML_ = new DAL_XML_imp();
+        protected static DAL_XML_imp instance = new DAL_XML_imp();
         protected DAL_XML_imp()
         {
             try
@@ -45,8 +47,26 @@ namespace DL
             {
                 ConfigRoot = new XElement("Configuration");
             }
+            (new Thread(ConfigUpdatedThreadFunc)).Start();
         }
-        public static DAL_XML_imp GetAL_XML_Imp { get => dAL_XML_; }
+        public static DAL_XML_imp GetAL_XML_Imp { get => instance; }
+        public static void ConfigUpdatedAddEvent(Action action)
+        {
+            instance.ConfigUpdated += action;
+        }
+        private static volatile bool isConfigUpdated = false;
+        static void ConfigUpdatedThreadFunc()
+        {
+            while (true)
+            {
+                if (isConfigUpdated)
+                {
+                    isConfigUpdated = false;
+                    instance?.ConfigUpdated?.Invoke();
+                }
+                Thread.Sleep(1000);
+            }
+        }
         private void Load(ref XElement t, string a)
         {
             try
@@ -80,7 +100,7 @@ namespace DL
             new XElement("BuildingNumber", t.Address.BuildingNumber)),
             new XElement("DateOfBirth", t.DateOfBirth), new XElement("PhoneNumber", t.PhoneNumber));
         }
-        public void AddTester(Tester T)
+        public override void AddTester(Tester T)
         {
             try
             {
@@ -103,7 +123,7 @@ namespace DL
             new XElement("TypeCarToTest", T.TypeCarToTest)));
             TestersRoot.Save(testersRootPath);
         }
-        public void RemoveTester(string id)
+        public override void RemoveTester(string id)
         {
             try
             {
@@ -126,13 +146,13 @@ namespace DL
                 throw new KeyNotFoundException("There is no Tester with this ID in this document:" + testersRootPath);
             }
         }
-        public void UpdateTesterDetails(Tester T)
+        public override void UpdateTesterDetails(Tester T)
         {
             RemoveTester(T.Id);
             AddTester(T);
             TestersRoot.Save(testersRootPath);
         }
-        public void AddTrainee(Trainee T)
+        public override void AddTrainee(Trainee T)
         {
             try
             {
@@ -155,7 +175,7 @@ namespace DL
                 new XElement("TeacherName", T.TeacherName)));
             TraineesRoot.Save(TraineesRootPath);
         }
-        public void RemoveTrainee(string id)
+        public override void RemoveTrainee(string id)
         {
             try
             {
@@ -178,7 +198,7 @@ namespace DL
                 throw new KeyNotFoundException("There is no Trainee with this ID in this document: " + TraineesRootPath);
             }
         }
-        public void UpdateTraineeDetails(Trainee T)
+        public override void UpdateTraineeDetails(Trainee T)
         {
             try
             {
@@ -189,7 +209,7 @@ namespace DL
             catch (KeyNotFoundException e) { throw e; }
             catch (DirectoryNotFoundException d) { throw d; }
         }
-        public void AddTest(Test t)
+        public override void AddTest(Test t)
         {
             try
             {
@@ -239,7 +259,7 @@ namespace DL
             TraineesRoot.Save(TraineesRootPath);
             TestsRoot.Save(TestsRootPath);
         }
-        public void RemoveTest(string id)
+        public override void RemoveTest(string id)
         {
             try
             {
@@ -262,7 +282,7 @@ namespace DL
                 throw new KeyNotFoundException("There is no Test with this testId in this document: " + TestsRootPath);
             }
         }
-        public void UpdateTestDetails(Test t)
+        public override void UpdateTestDetails(Test t)
         {
             try
             {
@@ -273,7 +293,7 @@ namespace DL
             catch (KeyNotFoundException e) { throw e; }
             catch (DirectoryNotFoundException d) { throw d; }
         }
-        public List<Tester> GetTestersList()
+        public override List<Tester> GetTestersList()
         {
             try
             {
@@ -302,7 +322,7 @@ namespace DL
 
             return it;
         }
-        public List<Trainee> GetTraineeList()
+        public override List<Trainee> GetTraineeList()
         {
             try
             {
@@ -334,7 +354,7 @@ namespace DL
             TraineesRoot.Save(TraineesRootPath);
             return it;
         }
-        public List<Test> GetTestsList()
+        public override List<Test> GetTestsList()
         {
             try
             {
@@ -368,7 +388,7 @@ namespace DL
             TestsRoot.Save(TestsRootPath);
             return it;
         }
-        public Dictionary<String, Object> GetConfig()
+        public override Dictionary<String, Object> GetConfig()
         {
             try
             {
@@ -389,7 +409,7 @@ namespace DL
             ConfigRoot.Save(ConfigRootPath);
             return keyValues;
         }
-        public Object GetConfig(String s)
+        public override Object GetConfig(String s)
         {
             try
             {
@@ -410,7 +430,7 @@ namespace DL
             }
             throw new KeyNotFoundException("ERROR! There is no configuration feature with this name in this document: " + ConfigRootPath);
         }
-        public void SetConfig(String parm, Object value)
+        public override void SetConfig(String parm, Object value)
         {
             try
             {
@@ -428,6 +448,7 @@ namespace DL
                     {
                         item.Element("Value").Element("value").Value = value.ToString();
                         ConfigRoot.Save(ConfigRootPath);
+                        isConfigUpdated = true;
                         return;
                     }
                     throw new AccessViolationException("ERROR! There is no permission to write on this configutation property in this document: " + ConfigRootPath);
@@ -435,8 +456,7 @@ namespace DL
             }
             throw new KeyNotFoundException("ERROR! There is no configuration feature with this name in this document: " + ConfigRootPath);
         }
-
-        public void AddTesterSchedule(string id, bool[,] sched)
+        public override void AddTesterSchedule(string id, bool[,] sched)
         {
             try
             {
@@ -463,13 +483,12 @@ namespace DL
                 new XElement("Hour", sched[4, 3]), new XElement("Hour", sched[4, 4]), new XElement("Hour", sched[4, 5])))));
             SchedulesRoot.Save(SchedulesRootPath);
         }
-
-        public void UpdateTesterSchedule(string id, bool[,] sched)
+        public override void UpdateTesterSchedule(string id, bool[,] sched)
         {
             RemoveTesterSchedule(id);
             AddTesterSchedule(id, sched);
         }
-        public bool[,] GetTesterSchedule(string id)
+        public override bool[,] GetTesterSchedule(string id)
         {
             bool[,] temp = new bool[5, 6];
             int j = 0, i = 0;
@@ -497,7 +516,7 @@ namespace DL
             }
             return temp;
         }
-        public void RemoveTesterSchedule(string id)
+        public override void RemoveTesterSchedule(string id)
         {
             try
             {

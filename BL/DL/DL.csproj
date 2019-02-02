@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="BaseDL.cs" />
     <Compile Include="DAL_XML_imp.cs" />
     <Compile Include="DataSource.cs" />
     <Compile Include="DLObject.cs" />

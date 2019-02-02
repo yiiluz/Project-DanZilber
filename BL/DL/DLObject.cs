@@ -2,17 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using DO;
 namespace DL
 {
-    internal class DLObject : IDAL
+    internal class DLObject : BaseDL
     {
         protected static DLObject instance = new DLObject();
-        protected DLObject() { }
+        protected DLObject()
+        {
+            (new Thread(ConfigUpdatedThreadFunc)).Start();
+        }
         public static DLObject GetDLObject { get => instance; }
+ 
+        public static void ConfigUpdatedAddEvent(Action action)
+        {
+            instance.ConfigUpdated += action;
+        }
+        private static volatile bool isConfigUpdated = false;
+        static void ConfigUpdatedThreadFunc()
+        {
+            while (true)
+            {
+                if (isConfigUpdated)
+                {
+                    isConfigUpdated = false;
+                    instance?.ConfigUpdated?.Invoke();
+                }
+                Thread.Sleep(1000);
+            }
+        }
 
-        void IDAL.AddTest(Test t)
+        public override void AddTest(Test t)
         {
             if (DataSource.tests.Find(x => x.TestId == t.TestId) != null)
             {
@@ -31,7 +53,7 @@ namespace DL
                 DataSource.tests.Add(t);
             }
         }
-        void IDAL.AddTester(Tester t)
+        public override void AddTester(Tester t)
         {
             if (DataSource.testers.Find(x => x.Id == t.Id) != null)
             {
@@ -42,7 +64,7 @@ namespace DL
                 DataSource.testers.Add(t);
             }
         }
-        void IDAL.AddTrainee(Trainee t)
+        public override void AddTrainee(Trainee t)
         {
             if (DataSource.trainees.Find(x => x.Id == t.Id) != null)
             {
@@ -53,7 +75,7 @@ namespace DL
                 DataSource.trainees.Add(t);
             }
         }
-        public void AddTesterSchedule(string id, bool[,] sched)
+        public override void AddTesterSchedule(string id, bool[,] sched)
         {
             try
             {
@@ -65,21 +87,21 @@ namespace DL
             }
         }
 
-        List<Tester> IDAL.GetTestersList()
+        public override List<Tester> GetTestersList()
         {
             return new List<Tester>(DataSource.testers);
 
         }
-        List<Test> IDAL.GetTestsList()
+        public override List<Test> GetTestsList()
         {
             return new List<Test>(DataSource.tests);
         }
-        List<Trainee> IDAL.GetTraineeList()
+        public override List<Trainee> GetTraineeList()
         {
             return new List<Trainee>(DataSource.trainees);
         }
 
-        void IDAL.RemoveTester(string id)
+        public override void RemoveTester(string id)
         {
             if (DataSource.testers.Exists(x => x.Id == id))
             {
@@ -90,7 +112,7 @@ namespace DL
                 throw new KeyNotFoundException("This tester does not exist in the system");
             }
         }
-        void IDAL.RemoveTrainee(string id)
+        public override void RemoveTrainee(string id)
         {
             if (DataSource.trainees.Find(x => x.Id == id) != null)
             {
@@ -101,7 +123,7 @@ namespace DL
                 throw new KeyNotFoundException("This trainee does not exist in the system");
             }
         }
-        void IDAL.RemoveTest(string id)
+        public override void RemoveTest(string id)
         {
             if (DataSource.tests.Exists(x => x.TestId == id))
             {
@@ -112,7 +134,7 @@ namespace DL
                 throw new KeyNotFoundException("This test does not exist in the system");
             }
         }
-        public void RemoveTesterSchedule(string id)
+        public override void RemoveTesterSchedule(string id)
         {
             try
             {
@@ -124,7 +146,7 @@ namespace DL
             }
         }
 
-        void IDAL.UpdateTestDetails(Test t)
+        public override void UpdateTestDetails(Test t)
         {
             int index = DataSource.tests.FindIndex(x => x.TestId == t.TestId);
             if (index > -1)
@@ -136,7 +158,7 @@ namespace DL
                 throw new KeyNotFoundException("This test does not exist in the system");
             }
         }
-        void IDAL.UpdateTesterDetails(Tester T)
+        public override void UpdateTesterDetails(Tester T)
         {
             int index = DataSource.testers.FindIndex(x => x.Id == T.Id);
             if (index > -1)
@@ -148,7 +170,7 @@ namespace DL
                 throw new KeyNotFoundException("This tester does not exist in the system");
             }
         }
-        void IDAL.UpdateTraineeDetails(Trainee T)
+        public override void UpdateTraineeDetails(Trainee T)
         {
             int index = DataSource.trainees.FindIndex(x => x.Id == T.Id);
             if (index > -1)
@@ -160,7 +182,7 @@ namespace DL
                 throw new KeyNotFoundException("this trainee does not exist in the system");
             }
         }
-        public void UpdateTesterSchedule(string id, bool[,] sched)
+        public override void UpdateTesterSchedule(string id, bool[,] sched)
         {
             try
             {
@@ -172,7 +194,7 @@ namespace DL
             }
         }
 
-        Dictionary<string, Object> IDAL.GetConfig()
+        public override Dictionary<string, Object> GetConfig()
         {
             Dictionary<string, Object> keyValues = new Dictionary<string, Object>();
             foreach (var item in DataSource.Configuration)
@@ -184,7 +206,7 @@ namespace DL
             }
             return keyValues;
         }
-        void IDAL.SetConfig(string parm, Object value)
+        public override void SetConfig(string parm, Object value)
         {
             foreach (var item in DataSource.Configuration)
             {
@@ -193,26 +215,27 @@ namespace DL
                     if (item.Value.Writable == true)
                     {
                         item.Value.Value = value;
+                        isConfigUpdated = true;
                         return;
                     }
                     throw new AccessViolationException("ERROR! There is no permission to change this configuration property");
                 }
             }
         }
-        Object IDAL.GetConfig(string s)
+        public override Object GetConfig(string s)
         {
             foreach (var item in DataSource.Configuration)
             {
                 if (item.Key == s)
                 {
-                    if (item.Value.Readable == true)                
-                        return item.Value.Value;                                      
-                   throw new AccessViolationException("ERROR! There is no permission to read this configutation property");                   
+                    if (item.Value.Readable == true)
+                        return item.Value.Value;
+                    throw new AccessViolationException("ERROR! There is no permission to read this configutation property");
                 }
             }
             throw new KeyNotFoundException("ERROR! There is no configuration feature with this name");
         }
-        public bool[,] GetTesterSchedule(string id)
+        public override bool[,] GetTesterSchedule(string id)
         {
             bool[,] tmp;
             try

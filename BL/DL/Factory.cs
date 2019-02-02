@@ -8,6 +8,7 @@ namespace DO
 {
     public class Factory
     {
+        private static string typeOfDLObject = null;
         /// <summary>
         /// Factory class to get specific type of data layer object..
         /// </summary>
@@ -18,16 +19,25 @@ namespace DO
             switch (type)
             {
                 case "lists":
+                    typeOfDLObject = "lists";
                     return DL.DLObject.GetDLObject;
-                    break;
                 case "xml":
+                    typeOfDLObject = "xml";
                     return DL.DAL_XML_imp.GetAL_XML_Imp;
-                    break;
                 default:
                     throw new MissingFieldException("There is no such DL object");
             }
+        }
 
-
+        public static void AddConfigUpdatedObserver(Action action)
+        {
+            if (typeOfDLObject != null)
+            {
+                if (typeOfDLObject == "xml")
+                    DL.DAL_XML_imp.ConfigUpdatedAddEvent(action);
+                if (typeOfDLObject == "lists")
+                    DL.DLObject.ConfigUpdatedAddEvent(action);
+            }
         }
     }
 }

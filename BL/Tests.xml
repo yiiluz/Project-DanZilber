@@ -22,4 +22,48 @@
     <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
     <IsTestAborted>true</IsTestAborted>
   </Test>
+  <Test>
+    <TestId>10000002</TestId>
+    <TesterId>333333333</TesterId>
+    <TraineeId>444444444</TraineeId>
+    <DateOfTest>2019-01-25T00:00:00+02:00</DateOfTest>
+    <HourOfTest>12</HourOfTest>
+    <StartTestAddress>
+      <City>אכוכו</City>
+      <Street>בטא</Street>
+      <BuildingNumber>0</BuildingNumber>
+    </StartTestAddress>
+    <CarType>MotorCycle</CarType>
+    <DistanceKeeping>true</DistanceKeeping>
+    <ReverseParking>true</ReverseParking>
+    <MirrorsCheck>true</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes>מווטיטעטנטעטעהטעהעהעטהטההטריעסהכ</TesterNotes>
+    <IsTesterUpdateStatus>true</IsTesterUpdateStatus>
+    <IsTestAborted>false</IsTestAborted>
+  </Test>
+  <Test>
+    <TestId>10000003</TestId>
+    <TesterId>333333333</TesterId>
+    <TraineeId>444444444</TraineeId>
+    <DateOfTest>2019-01-27T00:00:00+02:00</DateOfTest>
+    <HourOfTest>12</HourOfTest>
+    <StartTestAddress>
+      <City>אכוכו</City>
+      <Street>בטא</Street>
+      <BuildingNumber>0</BuildingNumber>
+    </StartTestAddress>
+    <CarType>MotorCycle</CarType>
+    <DistanceKeeping>true</DistanceKeeping>
+    <ReverseParking>true</ReverseParking>
+    <MirrorsCheck>true</MirrorsCheck>
+    <Signals>true</Signals>
+    <CorrectSpeed>true</CorrectSpeed>
+    <IsPassed>true</IsPassed>
+    <TesterNotes>hhyuygygyugygygyg7g7tg45y45yyg7yg7</TesterNotes>
+    <IsTesterUpdateStatus>true</IsTesterUpdateStatus>
+    <IsTestAborted>false</IsTestAborted>
+  </Test>
 </Tests>
