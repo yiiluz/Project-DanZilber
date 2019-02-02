@@ -30,9 +30,9 @@
                         <Label Grid.Row="0" Grid.Column="0" FontSize="18" Content="Enter first name: "/>
                         <Label Grid.Row="1" Grid.Column="0" FontSize="18" Content="Enter Lest name: "/>
                         <Label Grid.Row="2" Grid.Column="0" FontSize="18" Content="Enter ID: " />
-                        <TextBox Name="FirstName" Grid.Row="0" Grid.Column="1" TextChanged="FirstNameTextChanged" Margin="1" VerticalContentAlignment="Center"/>
-                        <TextBox Name="LestName" Grid.Row="1" Grid.Column="1" TextChanged="LestNameTextChanged"  Margin="1" VerticalContentAlignment="Center"/>
-                        <TextBox Name="ID" Grid.Row="2" MaxLength="9" Grid.Column="1" TextChanged="IDTextChanged" Margin="1" VerticalContentAlignment="Center"/>
+                        <TextBox Name="FirstName" Grid.Row="0" Grid.Column="1" TextChanged="SearchFilterChanged" Margin="1" VerticalContentAlignment="Center"/>
+                        <TextBox Name="LestName" Grid.Row="1" Grid.Column="1" TextChanged="SearchFilterChanged"  Margin="1" VerticalContentAlignment="Center"/>
+                        <TextBox Name="ID" Grid.Row="2" MaxLength="9" Grid.Column="1" TextChanged="SearchFilterChanged" Margin="1" VerticalContentAlignment="Center"/>
                     </Grid>
                 </Border>
 

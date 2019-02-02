@@ -63,6 +63,9 @@
     <Compile Include="OfficeSearchTrainee.xaml.cs">
       <DependentUpon>OfficeSearchTrainee.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OfficeTestSearchWindow.xaml.cs">
+      <DependentUpon>OfficeTestSearchWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OfficeViewTraineesListWindow.xaml.cs">
       <DependentUpon>OfficeViewTraineesListWindow.xaml</DependentUpon>
     </Compile>
@@ -96,6 +99,10 @@
     <Page Include="OfficeSearchTrainee.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OfficeTestSearchWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OfficeViewTraineesListWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

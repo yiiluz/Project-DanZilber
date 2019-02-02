@@ -41,7 +41,7 @@ namespace UI_Ver2
             listToFilter = mainList;
         }
 
-        private bool ChackIfStringsAreEqual(string a, string b)
+        private bool CheckIfStringsAreEqual(string a, string b)
         {
             int c = Math.Min(a.Length, b.Length);
             a = a.ToLower();
@@ -56,13 +56,13 @@ namespace UI_Ver2
         private void SearchFilterChanged(object sender, TextChangedEventArgs e)
         {
             ObservableCollection<Tester> it = new ObservableCollection<Tester>((from item in listToFilter
-                                                                                where ChackIfStringsAreEqual(FirstName.Text, item.FirstName)
+                                                                                where CheckIfStringsAreEqual(FirstName.Text, item.FirstName)
                                                                                 select item
                                                                             into g
-                                                                                where ChackIfStringsAreEqual(LestName.Text, g.LastName)
+                                                                                where CheckIfStringsAreEqual(LestName.Text, g.LastName)
                                                                                 select g
                                                                             into j
-                                                                                where ChackIfStringsAreEqual(ID.Text, j.Id)
+                                                                                where CheckIfStringsAreEqual(ID.Text, j.Id)
                                                                                 select j).ToList());
             TestersList.ItemsSource = it;
         }

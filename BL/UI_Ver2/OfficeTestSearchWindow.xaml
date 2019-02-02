@@ -1,0 +1,74 @@
+﻿<Window x:Class="UI_Ver2.OfficeTestSearchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI_Ver2"
+        mc:Ignorable="d"
+          Title="SearchTester" Height="700" Width="700" WindowStyle="None"
+        AllowsTransparency="True" Background="Transparent">
+
+    <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20" Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock Text="Start enter details" HorizontalAlignment="Center" FontSize="18" Margin="0 10"/>
+                <Border BorderBrush="LightBlue" BorderThickness="1" Margin="0 10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label x:Name="label" FontSize="16" Content="Enter TestID: " />
+                        <TextBox Name="TestID" Grid.Column="1" Text=""  Margin="1" VerticalContentAlignment="Center" TextChanged="SearchFilterChanged"/>
+                        <Label Grid.Row="2" Grid.Column="0" x:Name="label2" FontSize="16" Content="Enter Tester ID: " VerticalContentAlignment="Center"/>
+                        <TextBox Name="TraineeID" Grid.Row="1" Grid.Column="1" Text=""  Margin="1" VerticalContentAlignment="Center" TextChanged="SearchFilterChanged"/>
+                        <Label Grid.Row="1" Grid.Column="0" FontSize="16" Content="Enter Trainee ID: "/>
+                        <TextBox Name="TesterID" Grid.Row="2" MaxLength="9" Grid.Column="1" Margin="1" TextChanged="SearchFilterChanged"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="blue" Padding="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Choose how to group" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="ComboBox_GroupOptions" Grid.Column="1" Margin="5 0" VerticalAlignment="Center" SelectionChanged="ComboBox_GroupOptions_SelectionChanged" />
+                    <TextBlock Text="Choose group name:" Grid.Column="2" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="ComboBox_GroupNames" Grid.Column="3" SelectionChanged="ComboBox_GroupNames_SelectionChanged"/>
+                </Grid>
+    </Border>
+    <TextBlock Text="Double Click on specific Test for more operations."/>
+
+            </StackPanel>
+            <ListView Grid.Row="1" x:Name="TestsList" BorderBrush="Green" Margin="0 0 0 50" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="TestID" DisplayMemberBinding="{Binding TestId}" Width="100"/>
+                        <GridViewColumn Header="TesterID" DisplayMemberBinding="{Binding ExTester.Id}" Width="100"/>
+                        <GridViewColumn Header="TraineeID" DisplayMemberBinding="{Binding ExTrainee.Id}" Width="100"/>
+                        <GridViewColumn Header="Test Date" DisplayMemberBinding="{Binding DateOfTest, StringFormat=d}" Width="100"/>
+                        <GridViewColumn Header="City" DisplayMemberBinding="{Binding City}" Width="100"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.ContextMenu >
+                    <ContextMenu>
+                        <MenuItem Header="Information " Click="MenuItem_Click"  />
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+            <Button Name="CloseButton" Grid.Row="2" HorizontalAlignment="Stretch" Content="Close"  Margin="0 5" VerticalAlignment="Bottom" Click="CloseButton_Click"/>
+        </Grid>
+    </Border>
+</Window>

@@ -226,7 +226,16 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                 </Button>
-
+                                                <Button Content="View, Search and group Tests" Margin="20 15 20 0" ToolTipService.ShowDuration="8000" Click="SearchTestsButton_Click">
+                                                    <Button.ToolTip>
+                                                        <ToolTip>
+                                                            <StackPanel>
+                                                                <TextBlock FontWeight="Bold">Click To View Existing Test Details</TextBlock>
+                                                                <TextBlock>Window will open. you will see all Tests there ara in system.</TextBlock>
+                                                            </StackPanel>
+                                                        </ToolTip>
+                                                    </Button.ToolTip>
+                                                </Button>
                                             </StackPanel>
                                         </Border>
                                     </Grid>

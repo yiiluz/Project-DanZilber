@@ -947,7 +947,51 @@ namespace BL
             }
             return num;
         }
-
+        public IEnumerable<IGrouping<CarTypeEnum,Test>>GetTestsGroupedByCarType()
+        {
+            try
+            {
+                return from item in GetTestsList()
+                       orderby item.TestId
+                       group item by item.CarType
+                            into g
+                       orderby g.Key
+                       select g;               
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+        }
+        public IEnumerable<IGrouping<bool,Test>>GetTestsGroupedByPassedOrNonPassed()
+        {
+            try
+            {
+                return from item in GetTestsList()
+                       orderby item.TestId
+                       group item by item.IsPassed;                    
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+        }
+        public IEnumerable<IGrouping<string,Test>>GetTestsGroupedByCity()
+        {
+            try
+            {
+                return from item in GetTestsList()
+                       orderby item.TestId
+                       group item by item.City
+                       into g
+                       orderby g.Key
+                       select g;                      
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+        }
         public IEnumerable<IGrouping<string, Tester>> GetTestersGroupedByCity()
         {
             try

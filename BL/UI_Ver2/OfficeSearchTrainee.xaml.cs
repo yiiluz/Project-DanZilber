@@ -38,7 +38,7 @@ namespace UI_Ver2
             ComboBox_GroupNames.IsEnabled = false;
             listToFilter = mainList;
         }
-        private bool ChackIfStringsAreEqual(string a, string b)
+        private bool CheckIfStringsAreEqual(string a, string b)
         {
             int c = Math.Min(a.Length, b.Length);
             a = a.ToLower();
@@ -58,46 +58,19 @@ namespace UI_Ver2
             traineeDetailsWindow.ShowDialog();
         }
 
-        private void FirstNameTextChanged(object sender, TextChangedEventArgs e)
+        private void SearchFilterChanged(object sender, TextChangedEventArgs e)
         {
-            var it = from item in MainWindow.bl.GetTraineeList()
-                     where ChackIfStringsAreEqual(FirstName.Text, item.FirstName)
-                     select item
-                     into g
-                     where ChackIfStringsAreEqual(LestName.Text, g.LastName)
-                     select g
-                     into j
-                     where ChackIfStringsAreEqual(ID.Text, j.Id)
-                     select j;
+            ObservableCollection<Trainee> it = new ObservableCollection<Trainee>((from item in listToFilter
+                                                                                where CheckIfStringsAreEqual(FirstName.Text, item.FirstName)
+                                                                                select item
+                                                                            into g
+                                                                                where CheckIfStringsAreEqual(LestName.Text, g.LastName)
+                                                                                select g
+                                                                            into j
+                                                                                where CheckIfStringsAreEqual(ID.Text, j.Id)
+                                                                                select j).ToList());
             TraineeList.ItemsSource = it;
         }
-        private void LestNameTextChanged(object sender, TextChangedEventArgs e)
-        {
-            var it = from item in MainWindow.bl.GetTraineeList()
-                     where ChackIfStringsAreEqual(FirstName.Text, item.FirstName)
-                     select item
-                    into g
-                     where ChackIfStringsAreEqual(LestName.Text, g.LastName)
-                     select g
-                    into j
-                     where ChackIfStringsAreEqual(ID.Text, j.Id)
-                     select j;
-            TraineeList.ItemsSource = it;
-        }
-        private void IDTextChanged(object sender, TextChangedEventArgs e)
-        {
-            var it = from item in MainWindow.bl.GetTraineeList()
-                     where ChackIfStringsAreEqual(FirstName.Text, item.FirstName)
-                     select item
-                    into g
-                     where ChackIfStringsAreEqual(LestName.Text, g.LastName)
-                     select g
-                    into j
-                     where ChackIfStringsAreEqual(ID.Text, j.Id)
-                     select j;
-            TraineeList.ItemsSource = it;
-        }
-
         private void MenuItem_ClickRemoveTrainee(object sender, RoutedEventArgs e)
         {
             try
@@ -111,13 +84,13 @@ namespace UI_Ver2
             }
             MessageBox.Show("Trainee with ID " + (((Trainee)TraineeList.SelectedItem).Id) + " successfuly deleted.", "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
             var it = from item in MainWindow.bl.GetTraineeList()
-                     where ChackIfStringsAreEqual(FirstName.Text, item.FirstName)
+                     where CheckIfStringsAreEqual(FirstName.Text, item.FirstName)
                      select item
                   into g
-                     where ChackIfStringsAreEqual(LestName.Text, g.LastName)
+                     where CheckIfStringsAreEqual(LestName.Text, g.LastName)
                      select g
                   into j
-                     where ChackIfStringsAreEqual(ID.Text, j.Id)
+                     where CheckIfStringsAreEqual(ID.Text, j.Id)
                      select j;
             TraineeList.ItemsSource = it;
         }

@@ -482,6 +482,13 @@ namespace UI_Ver2
             //    dataView.Refresh();
             //}
         }
+
+        private void SearchTestsButton_Click(object sender, RoutedEventArgs e)
+        {
+            OfficeTestSearchWindow officeTestSearchWindow = new OfficeTestSearchWindow();
+            officeTestSearchWindow.ShowDialog();
+        }
+
         public void GridViewColumnHeaderClickedHandler(object sender, RoutedEventArgs e)
         {
             var headerClicked = e.OriginalSource as GridViewColumnHeader;
