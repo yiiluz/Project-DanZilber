@@ -190,5 +190,17 @@
   <ItemGroup>
     <Resource Include="Icons\Plus_Icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\minusIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\minus-empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\xIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\squareIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

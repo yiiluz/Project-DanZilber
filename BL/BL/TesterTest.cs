@@ -41,6 +41,9 @@ namespace BO
         public Address StartTestAddress { get => startTestAddress; set => startTestAddress = value; }
         public bool IsTesterUpdateStatus { get => isTesterUpdateStatus; set => isTesterUpdateStatus = value; }
         public bool IsTestAborted { get => isTestAborted; set => isTestAborted = value; }
+        public string City { get => StartTestAddress.City; set => startTestAddress.City = value; }
+        public string Street { get => StartTestAddress.Street; set => startTestAddress.Street = value; }
+        public int BuildingNumber { get => StartTestAddress.BuildingNumber; set => startTestAddress.BuildingNumber = value; }
 
         public override string ToString()
         {
