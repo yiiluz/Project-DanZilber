@@ -136,6 +136,7 @@ namespace UI_Ver2
                                     listToFilter = new ObservableCollection<Test>(item);
                         }
                         else
+
                             foreach (var item in GroupByPassedOrNonPassed)
                                 if (!item.Key)
                                     listToFilter = new ObservableCollection<Test>(item);
