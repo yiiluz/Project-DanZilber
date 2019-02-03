@@ -1207,5 +1207,18 @@ namespace BL
             test.TesterNotes = other.TesterNotes;
             test.IsTesterUpdateStatus = true;
         }
+       public IEnumerable<IGrouping<Object, Test>>GetTestsGroupedByredicate (Func<BO.Test, bool> func)
+        {
+            try
+            {
+                  var it= from item in GetTestsList() orderby item.TestId group item by func(item);
+                return it;
+               
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+        }
     }
 }

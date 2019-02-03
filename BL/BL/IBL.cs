@@ -51,5 +51,6 @@ namespace BO
         IEnumerable<IGrouping<CarTypeEnum, Test>> GetTestsGroupedByCarType();
         IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByPassedOrNonPassed();
         IEnumerable<IGrouping<string, Test>> GetTestsGroupedByCity();
+       
     }
 }

@@ -131,7 +131,7 @@ namespace UI_Ver2
                     break;
                 case (int)HowToGroupTest.typeOfCAR:
                     listToFilter = new ObservableCollection<Test>((from item in GroupedByCarType
-                                                               where item.Key == (CarTypeEnum)ComboBox_GroupNames.SelectedItem
+                                                                   where item.Key == (CarTypeEnum)Enum.Parse(typeof(CarTypeEnum),ComboBox_GroupNames.SelectedItem.ToString())
                                                                select item).FirstOrDefault().ToList());
                     break;
             }
