@@ -15,16 +15,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Threading;
 using BO;
 
 namespace UI_Ver2
 {
+
     enum ScreenChoose { Admin, Office, ExistingTester, ExistingTrainee }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
         //for resizing option
         static int resizeMode = 0;
         //passwords
@@ -44,11 +48,15 @@ namespace UI_Ver2
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
+            //bl.AddEventIfConfigChanged(IsNeedToUpdate);
+            (new Thread(IsNeedToUpdateThreadFunc)).Start();
         }
+
 
         private void Button_Click_CloseWindow(object sender, RoutedEventArgs e)
         {
-            SystemCommands.CloseWindow(this);
+            this.Close();
+            Environment.Exit(Environment.ExitCode);
         }
         private void Button_Click_MinimizeWindow(object sender, RoutedEventArgs e)
         {
@@ -85,6 +93,11 @@ namespace UI_Ver2
             try
             {
                 TabControl tabControl = sender as TabControl;
+                if (tabControl.SelectedIndex == 0)
+                {
+                    AdminMainWindowBorder.Visibility = Visibility.Collapsed;
+                    AdminPasswordBorder.Visibility = Visibility.Visible;
+                }
                 if (tabControl.SelectedIndex == 1)
                 {
                     OfficeMainWindowBorder.Visibility = Visibility.Collapsed;
@@ -107,11 +120,11 @@ namespace UI_Ver2
                     ExistingTraineeIDBorder.Visibility = Visibility.Visible;
                 }
             }
-            catch(DirectoryNotFoundException D)
+            catch (DirectoryNotFoundException D)
             {
                 MessageBox.Show(D.Message, "MainWindow", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch(KeyNotFoundException a)
+            catch (KeyNotFoundException a)
             {
                 MessageBox.Show(a.Message, "MainWindow", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -429,6 +442,67 @@ namespace UI_Ver2
         {
             e.Handled = true;
         }
+
+        //Admin implement
+        //------------------------------------------------------------------------------------------------------------
+        DateTime lastUpdate;
+
+        private void PassBox_passAdmin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+                Button_Click_EnterAsAdmin(null, null);
+        }
+        private void Button_Click_EnterAsAdmin(object sender, RoutedEventArgs e)
+        {
+            if (PassBox_passAdmin.Password == adminPass)
+            {
+                PassBox_passAdmin.Password = "";
+                AdminPasswordBorder.Visibility = Visibility.Collapsed;
+                AdminMainWindowBorder.Visibility = Visibility.Visible;
+                ListView_Configurations.ItemsSource = bl.GetConfig();
+                lastUpdate = BL.Configuretion.LastUpdate;
+                return;
+            }
+            MessageBox.Show("Password is not correct. Try again.", "Security Alert", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        private void ListView_Configurations_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            e.Handled = true;
+        }
+        private void MenuItem_Click_SetConfig(object sender, RoutedEventArgs e)
+        {
+            KeyValuePair<string, Object> x = (KeyValuePair<string, Object>)(ListView_Configurations.SelectedValue);
+            if (x.Key == "Serial Number Test")
+            {
+                MessageBox.Show("This Configuration is not to be changed manualy!", "Access Violation", MessageBoxButton.OK, MessageBoxImage.Stop);
+                return;
+            }
+            (new SetConfigWindow(x)).ShowDialog();
+        }
+
+        void IsNeedToUpdateThreadFunc()
+        {
+            while (true)
+            {
+                Action action = IsNeedToUpdate;
+                Dispatcher.BeginInvoke(action);
+                Thread.Sleep(1000);
+            }
+        }
+        void IsNeedToUpdate()
+        {
+            if (lastUpdate < BL.Configuretion.LastUpdate)
+            {
+                ListView_Configurations.ItemsSource = bl.GetConfig();
+                lastUpdate = BL.Configuretion.LastUpdate;
+            }
+        }
+
+
+
+
+
+
         //private void MenuItem_Click_UpdateTestResult(object sender, RoutedEventArgs e)
         //{
         //    string ErrorList = "";
@@ -457,31 +531,29 @@ namespace UI_Ver2
         ListSortDirection _lastDirection = ListSortDirection.Ascending;
         private void Sort(string sortBy, ListSortDirection direction)
         {
+            ICollectionView dataView = null;
+            if (TabControl_Login.SelectedIndex == 0)
+            {
+                dataView = CollectionViewSource.GetDefaultView(ListView_Configurations.ItemsSource);
+            }
             if (TabControl_Login.SelectedIndex == 2)
             {
-                ICollectionView dataView = CollectionViewSource.GetDefaultView(ListView_TesterTests.ItemsSource);
-                dataView.SortDescriptions.Clear();
-                SortDescription sd = new SortDescription(sortBy, direction);
-                dataView.SortDescriptions.Add(sd);
-                dataView.Refresh();
+                dataView = CollectionViewSource.GetDefaultView(ListView_TesterTests.ItemsSource);
+                
             }
             if (TabControl_Login.SelectedIndex == 3)
             {
-                ICollectionView dataView = CollectionViewSource.GetDefaultView(ListView_TraineeTests.ItemsSource);
+                dataView = CollectionViewSource.GetDefaultView(ListView_TraineeTests.ItemsSource);
+            }
+            if (dataView != null)
+            {
                 dataView.SortDescriptions.Clear();
                 SortDescription sd = new SortDescription(sortBy, direction);
                 dataView.SortDescriptions.Add(sd);
                 dataView.Refresh();
             }
-            //if (tmpTab.TabIndex == 3)
-            //{
-            //    ICollectionView dataView = CollectionViewSource.GetDefaultView(TestsList.ItemsSource);
-            //    dataView.SortDescriptions.Clear();
-            //    SortDescription sd = new SortDescription(sortBy, direction);
-            //    dataView.SortDescriptions.Add(sd);
-            //    dataView.Refresh();
-            //}
         }
+
         public void GridViewColumnHeaderClickedHandler(object sender, RoutedEventArgs e)
         {
             var headerClicked = e.OriginalSource as GridViewColumnHeader;
@@ -535,5 +607,13 @@ namespace UI_Ver2
             }
         }
         //------------------------------------------------------------------------------------------------------------
+
+
+
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            (new MainWindow()).Show();
+        }
     }
 }

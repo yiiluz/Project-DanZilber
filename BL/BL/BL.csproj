@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
-    <Compile Include="AllConfiguretion.cs" />
+    <Compile Include="Configuretion.cs" />
     <Compile Include="BLImplementation.cs" />
     <Compile Include="Converters.cs" />
     <Compile Include="Enums.cs" />

@@ -62,7 +62,7 @@ namespace DL
                 if (isConfigUpdated)
                 {
                     isConfigUpdated = false;
-                    instance?.ConfigUpdated?.Invoke();
+                    instance?.ConfigUpdated();
                 }
                 Thread.Sleep(1000);
             }
@@ -75,7 +75,6 @@ namespace DL
             }
             catch
             {
-
                 throw new DirectoryNotFoundException(a + " upload problem");
             }
 
@@ -430,7 +429,7 @@ namespace DL
             }
             throw new KeyNotFoundException("ERROR! There is no configuration feature with this name in this document: " + ConfigRootPath);
         }
-        public override void SetConfig(String parm, Object value)
+        public override void SetConfig(string parm, Object value)
         {
             try
             {

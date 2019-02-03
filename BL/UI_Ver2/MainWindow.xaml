@@ -53,9 +53,9 @@
                     </Button.Content>
                 </Button>
                 <Button Click="Button_Click_MaximizeWindow" Width="25" Height="25" Template="{StaticResource TitleBarButtons}" Margin="10 0" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
-                <Button.Content>
-                    <Image Source="Icons/squareIcon.png" Margin="5"/>
-                </Button.Content>
+                    <Button.Content>
+                        <Image Source="Icons/squareIcon.png" Margin="5"/>
+                    </Button.Content>
                 </Button>
                 <Button Click="Button_Click_CloseWindow" Width="25" Height="25" Template="{StaticResource TitleBarButtons}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
                     <Button.Content>
@@ -66,7 +66,7 @@
             <DockPanel Grid.Row="1">
                 <Menu DockPanel.Dock="Top" VerticalAlignment="Center">
                     <MenuItem Header="_Themes">
-                        <MenuItem Header="Dark"/>
+                        <MenuItem Header="Open MoreWindow" Click="MenuItem_Click"/>
                         <Separator/>
                         <MenuItem Header="White"/>
                         <Separator />
@@ -77,10 +77,48 @@
             <Grid Grid.Row="2" Margin="20">
                 <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
                     <TabItem Header="Admin" Width="200" Height="40" >
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border x:Name="AdminPasswordBorder" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
+                                <StackPanel Height="120" Width="300">
+                                    <TextBlock Text="Enter Password:"/>
+                                    <PasswordBox x:Name="PassBox_passAdmin" Height="30" Padding="2" VerticalContentAlignment="Center" Margin="0 10" KeyDown="PassBox_passAdmin_KeyDown"/>
+                                    <Button Content="Enter" Click="Button_Click_EnterAsAdmin"/>
+                                </StackPanel>
+                            </Border>
+                            <Border x:Name="AdminMainWindowBorder" Margin="10" Visibility="Visible" Grid.RowSpan="2">
+                                <ListView x:Name="ListView_Configurations" Margin="20" SelectionChanged="ListView_Configurations_SelectionChanged"
+                                                          GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" MouseDoubleClick="ListView_TesterTests_MouseDoubleClick">
+
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ListViewItem}">
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Configuration Name" DisplayMemberBinding="{Binding Key}" Width="200"/>
+                                            <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="100"/>
+
+                                        </GridView>
+                                    </ListView.View>
+                                    <ListView.ContextMenu >
+                                        <ContextMenu>
+                                            <MenuItem Header="Change Value" Click="MenuItem_Click_SetConfig"/>
+                                        </ContextMenu>
+                                    </ListView.ContextMenu>
+                                </ListView>
+
+                            </Border>
+                        </Grid>
 
 
-                        <!-- Office Window -->
                     </TabItem>
+
+                    <!-- Office Window -->
                     <TabItem Header="Office" Width="200" Height="40">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -131,7 +169,7 @@
                                                             <TextBlock>If the ID Exist, Window will open where you can change the details.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
-                                                    
+
                                                 </Button>
                                                 <Button Content="Remove Tester" Grid.Row="2" Margin="5" Click="Button_Click_RemoveTester" ToolTipService.ShowDuration="8000">
 
@@ -455,17 +493,17 @@
                                         </Border>
                                         <Border Grid.Column="1" Grid.Row="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
                                             <Grid>
-                                                     <Grid>
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition Height="30"/>
-                                                            <RowDefinition Height="*"/>
-                                                        </Grid.RowDefinitions>
-                                                        <TextBlock Text="Your Existing Licenses:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        <ListView x:Name="ListView_TraineeExistingLicenses" Grid.Row="1" Margin="5" SelectionChanged="ListView_TraineeExistingLicenses_SelectionChanged">
-                                                        </ListView>
-                                                    </Grid>
-                                                
-                                                
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="30"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Text="Your Existing Licenses:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    <ListView x:Name="ListView_TraineeExistingLicenses" Grid.Row="1" Margin="5" SelectionChanged="ListView_TraineeExistingLicenses_SelectionChanged">
+                                                    </ListView>
+                                                </Grid>
+
+
                                             </Grid>
                                         </Border>
                                         <Border Grid.Column="1" Grid.Row="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">

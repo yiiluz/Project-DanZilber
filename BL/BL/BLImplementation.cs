@@ -8,13 +8,14 @@ using System.Xml.Linq;
 using BO;
 namespace BL
 {
+    
     public class BLImplementation : IBL
     {
+        string typeOfDL = "xml";
         /// <summary>
         /// static variable of DL
         /// </summary>
         private static DO.IDAL instance = null;
-        private AllConfiguretion allConfiguretion;
         /// <summary>
         /// default ctor. initialize the instance of DL
         /// </summary>
@@ -22,12 +23,44 @@ namespace BL
         {
             try
             {
-                instance = DO.Factory.GetDLObj("xml");
-                allConfiguretion = AllConfiguretion.ConfigurationFactory();
+                instance = DO.Factory.GetDLObj(typeOfDL);
+                DO.Factory.AddConfigUpdatedObserver(ConfigChanged);
             }         
             catch(DirectoryNotFoundException e)
             {
                 throw e;
+            }
+            
+        }
+
+        public void AddEventIfConfigChanged(Action action)
+        {
+            DO.Factory.AddConfigUpdatedObserver(action);
+        }
+
+        public static void ConfigChanged()
+        {
+            Configuretion.UpdateDictonary();
+        }
+
+        public Dictionary<String, Object> GetConfig()
+        {
+            return Configuretion.ConfiguretionsDictionary;
+        }
+
+        public void SetConfig(String parm, Object value)
+        {
+            try
+            {
+                instance.SetConfig(parm, value);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException("Error. Can't update this configuration. " + ex.Message);
+            }
+            catch(AccessViolationException ex)
+            {
+                throw new AccessViolationException("Error. Can't update this configuration. " + ex.Message);
             }
         }
 
@@ -40,14 +73,10 @@ namespace BL
             int minAge, maxAge;
             try
             {
-                minAge = (int)allConfiguretion.GetConfiguretion("Tester minimum age");
-                maxAge = (int)allConfiguretion.GetConfiguretion("Tester maximum age");
+                minAge = (int)Configuretion.ConfiguretionsDictionary["Tester minimum age"];
+                maxAge = (int)Configuretion.ConfiguretionsDictionary["Tester maximum age"];
             }
             catch (KeyNotFoundException e)
-            {
-                throw e;
-            }
-            catch(DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -146,14 +175,10 @@ namespace BL
                 int minAge, maxAge;
                 try
                 {
-                    minAge = (int)allConfiguretion.GetConfiguretion("Tester minimum age");
-                    maxAge = (int)allConfiguretion.GetConfiguretion("Tester maximum age");
+                    minAge = (int)Configuretion.ConfiguretionsDictionary["Tester minimum age"];
+                    maxAge = (int)Configuretion.ConfiguretionsDictionary["Tester maximum age"];
                 }
                 catch (KeyNotFoundException e)
-                {
-                    throw e;
-                }
-                catch (DirectoryNotFoundException e)
                 {
                     throw e;
                 }
@@ -188,13 +213,9 @@ namespace BL
             int minAge;
             try
             {
-                minAge = (int)allConfiguretion.GetConfiguretion("Trainee minimum age");
+                minAge = (int)Configuretion.ConfiguretionsDictionary["Trainee minimum age"];
             }
             catch (KeyNotFoundException e)
-            {
-                throw e;
-            }
-            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -266,13 +287,9 @@ namespace BL
                 int minAge;
                 try
                 {
-                    minAge = (int)allConfiguretion.GetConfiguretion("Trainee minimum age");
+                    minAge = (int)Configuretion.ConfiguretionsDictionary["Trainee minimum age"];
                 }
                 catch (KeyNotFoundException e)
-                {
-                    throw e;
-                }
-                catch (DirectoryNotFoundException e)
                 {
                     throw e;
                 }
@@ -349,11 +366,7 @@ namespace BL
                     int minDaysBetweenTests = -1;
                     try
                     {
-                        minDaysBetweenTests = (int)allConfiguretion.GetConfiguretion("Minimum days between tests");
-                    }
-                    catch (DirectoryNotFoundException e)
-                    {
-                        throw e;
+                        minDaysBetweenTests = (int)Configuretion.ConfiguretionsDictionary["Minimum days between tests"];
                     }
                     catch (KeyNotFoundException e)
                     {
@@ -378,15 +391,11 @@ namespace BL
                 int minLesson = -1;
                 try
                 {
-                    minLesson = (int)allConfiguretion.GetConfiguretion("Minimum lessons");
+                    minLesson = (int)Configuretion.ConfiguretionsDictionary["Minimum lessons"];
                 }
                 catch (KeyNotFoundException e)
                 {
                     errors += (e.Message + "\n");
-                }
-                catch (DirectoryNotFoundException e)
-                {
-                    throw e;
                 }
                 if (minLesson != -1 && trainee.NumOfFinishedLessons < minLesson) //if trainee didnt did enough lessons
                 {
@@ -400,15 +409,11 @@ namespace BL
                     int serial = -1;
                     try
                     {
-                        serial = (int)allConfiguretion.GetConfiguretion("Serial Number Test"); //get the serial number of the test
+                        serial = (int)Configuretion.ConfiguretionsDictionary["Serial Number Test"]; //get the serial number of the test
                     }
                     catch (KeyNotFoundException e)
                     {
                         errors += (e.Message + "\n");
-                    }
-                    catch (DirectoryNotFoundException e)
-                    {
-                        throw e;
                     }
                     if (serial > 0)
                     {
@@ -416,11 +421,7 @@ namespace BL
                         try
                         {
                             instance.SetConfig("Serial Number Test", ++serial); //update the test serial number
-                            allConfiguretion.UpdateSerialNumber();
-                        }
-                        catch (DirectoryNotFoundException e)
-                        {
-                            throw e;
+                            Configuretion.UpdateSerialNumber();
                         }
                         catch (AccessViolationException e)
                         {

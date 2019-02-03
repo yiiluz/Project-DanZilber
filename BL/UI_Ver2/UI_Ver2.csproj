@@ -73,6 +73,9 @@
     <Compile Include="GetIDWindow.xaml.cs">
       <DependentUpon>GetIDWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SetConfigWindow.xaml.cs">
+      <DependentUpon>SetConfigWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TesterDetailsWindow.xaml.cs">
       <DependentUpon>TesterDetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -121,6 +124,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SetConfigWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TesterDetailsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

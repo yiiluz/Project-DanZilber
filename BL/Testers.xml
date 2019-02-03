@@ -63,4 +63,25 @@
     <MaxTestsPerWeek>3</MaxTestsPerWeek>
     <TypeCarToTest>MotorCycle</TypeCarToTest>
   </Tester>
+  <Tester>
+    <Person>
+      <ID>206741274</ID>
+      <Name>
+        <FirstName>nachman</FirstName>
+        <LastName>maimon</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>elad</City>
+        <Street>yehuda hanasi</Street>
+        <BuildingNumber>90</BuildingNumber>
+      </Address>
+      <DateOfBirth>1970-01-20T00:00:00</DateOfBirth>
+      <PhoneNumber>0542248083</PhoneNumber>
+    </Person>
+    <Seniority>90</Seniority>
+    <MaxDistance>100</MaxDistance>
+    <MaxTestsPerWeek>100</MaxTestsPerWeek>
+    <TypeCarToTest>MotorCycle</TypeCarToTest>
+  </Tester>
 </Testers>
