@@ -23,47 +23,25 @@
     <IsTestAborted>true</IsTestAborted>
   </Test>
   <Test>
-    <TestId>10000002</TestId>
-    <TesterId>333333333</TesterId>
+    <TestId>10000005</TestId>
+    <TesterId>999999999</TesterId>
     <TraineeId>444444444</TraineeId>
-    <DateOfTest>2019-01-25T00:00:00+02:00</DateOfTest>
-    <HourOfTest>12</HourOfTest>
+    <DateOfTest>2019-01-28T00:00:00+02:00</DateOfTest>
+    <HourOfTest>10</HourOfTest>
     <StartTestAddress>
-      <City>אכוכו</City>
-      <Street>בטא</Street>
+      <City>עוכטוד</City>
+      <Street>עב</Street>
       <BuildingNumber>0</BuildingNumber>
     </StartTestAddress>
-    <CarType>MotorCycle</CarType>
-    <DistanceKeeping>true</DistanceKeeping>
-    <ReverseParking>true</ReverseParking>
-    <MirrorsCheck>true</MirrorsCheck>
+    <CarType>PrivateCar</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
     <Signals>false</Signals>
     <CorrectSpeed>false</CorrectSpeed>
     <IsPassed>false</IsPassed>
-    <TesterNotes>מווטיטעטנטעטעהטעהעהעטהטההטריעסהכ</TesterNotes>
-    <IsTesterUpdateStatus>true</IsTesterUpdateStatus>
-    <IsTestAborted>false</IsTestAborted>
-  </Test>
-  <Test>
-    <TestId>10000003</TestId>
-    <TesterId>333333333</TesterId>
-    <TraineeId>444444444</TraineeId>
-    <DateOfTest>2019-01-27T00:00:00+02:00</DateOfTest>
-    <HourOfTest>12</HourOfTest>
-    <StartTestAddress>
-      <City>אכוכו</City>
-      <Street>בטא</Street>
-      <BuildingNumber>0</BuildingNumber>
-    </StartTestAddress>
-    <CarType>MotorCycle</CarType>
-    <DistanceKeeping>true</DistanceKeeping>
-    <ReverseParking>true</ReverseParking>
-    <MirrorsCheck>true</MirrorsCheck>
-    <Signals>true</Signals>
-    <CorrectSpeed>true</CorrectSpeed>
-    <IsPassed>true</IsPassed>
-    <TesterNotes>hhyuygygyugygygyg7g7tg45y45yyg7yg7</TesterNotes>
-    <IsTesterUpdateStatus>true</IsTesterUpdateStatus>
-    <IsTestAborted>false</IsTestAborted>
+    <TesterNotes></TesterNotes>
+    <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
+    <IsTestAborted>true</IsTestAborted>
   </Test>
 </Tests>

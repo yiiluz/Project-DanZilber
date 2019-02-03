@@ -49,5 +49,11 @@ namespace BO
         IEnumerable<IGrouping<CarTypeEnum, Tester>> GetTestersGrupedBySpecialization();
         IEnumerable<IGrouping<int, Tester>> GetTestersGropedByMaxDistance();
 
+
+
+        IEnumerable<IGrouping<CarTypeEnum, Test>> GetTestsGroupedByCarType();
+        IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByPassedOrNonPassed();
+        IEnumerable<IGrouping<string, Test>> GetTestsGroupedByCity();
+       
     }
 }

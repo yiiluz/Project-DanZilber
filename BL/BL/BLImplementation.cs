@@ -974,7 +974,51 @@ namespace BL
             }
             return num;
         }
-
+        public IEnumerable<IGrouping<CarTypeEnum,Test>>GetTestsGroupedByCarType()
+        {
+            try
+            {
+                return from item in GetTestsList()
+                       orderby item.TestId
+                       group item by item.CarType
+                            into g
+                       orderby g.Key
+                       select g;               
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+        }
+        public IEnumerable<IGrouping<bool,Test>>GetTestsGroupedByPassedOrNonPassed()
+        {
+            try
+            {
+                return from item in GetTestsList()
+                       orderby item.TestId
+                       group item by item.IsPassed;                    
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+        }
+        public IEnumerable<IGrouping<string,Test>>GetTestsGroupedByCity()
+        {
+            try
+            {
+                return from item in GetTestsList()
+                       orderby item.TestId
+                       group item by item.City
+                       into g
+                       orderby g.Key
+                       select g;                      
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+        }
         public IEnumerable<IGrouping<string, Tester>> GetTestersGroupedByCity()
         {
             try
@@ -1189,6 +1233,19 @@ namespace BL
             test.IsPassed = other.IsPassed;
             test.TesterNotes = other.TesterNotes;
             test.IsTesterUpdateStatus = true;
+        }
+       public IEnumerable<IGrouping<Object, Test>>GetTestsGroupedByredicate (Func<BO.Test, bool> func)
+        {
+            try
+            {
+                  var it= from item in GetTestsList() orderby item.TestId group item by func(item);
+                return it;
+               
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
         }
     }
 }
