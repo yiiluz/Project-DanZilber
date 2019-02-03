@@ -89,7 +89,6 @@
                 <RadioButton x:Name="IsPassed1" VerticalAlignment="Center" Content="Yes " IsChecked="{Binding Path=IsPassed,Mode=OneWayToSource}" Margin="15 0"/>
                 <RadioButton x:Name="IsPassed2" VerticalAlignment="Center" Content="No "/>
             </StackPanel>
-
             <TextBox Margin="150 5 0 5" AcceptsReturn="True" TextWrapping="Wrap" VerticalAlignment="Stretch" x:Name="TesterNotes" Grid.ColumnSpan="2" Grid.Row="7" Text="{Binding Path=TesterNotes,Mode=OneWayToSource}"/>
             <StackPanel Grid.Row="8" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                 <Button x:Name="UpdateButton" Grid.ColumnSpan="2" Content="Update"  Grid.Row="8" Click="ClickUpdate"/>
