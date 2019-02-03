@@ -8,6 +8,9 @@ namespace BO
 {
     public interface IBL
     {
+        Dictionary<String, Object> GetConfig();
+        void SetConfig(String parm, Object value);
+        void AddEventIfConfigChanged(Action action);
         void AddTester(Tester T);
         List<TesterTest> RemoveTester(string id);
         void UpdateTesterDetails(Tester T);

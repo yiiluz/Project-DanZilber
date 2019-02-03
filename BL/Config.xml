@@ -4,23 +4,23 @@
     <Key>Tester minimum age</Key>
     <Value>
       <Readable>True</Readable>
-      <Writable>False</Writable>
-      <value>40</value>
+      <Writable>True</Writable>
+      <value>41</value>
     </Value>
   </Configuration>
   <Configuration>
     <Key>Minimum days between tests</Key>
     <Value>
       <Readable>True</Readable>
-      <Writable>False</Writable>
-      <value>14</value>
+      <Writable>True</Writable>
+      <value>7</value>
     </Value>
   </Configuration>
   <Configuration>
     <Key>Trainee minimum age</Key>
     <Value>
       <Readable>True</Readable>
-      <Writable>False</Writable>
+      <Writable>True</Writable>
       <value>18</value>
     </Value>
   </Configuration>
@@ -28,7 +28,7 @@
     <Key>Minimum lessons</Key>
     <Value>
       <Readable>True</Readable>
-      <Writable>False</Writable>
+      <Writable>True</Writable>
       <value>20</value>
     </Value>
   </Configuration>
@@ -36,7 +36,7 @@
     <Key>Tester maximum age</Key>
     <Value>
       <Readable>True</Readable>
-      <Writable>False</Writable>
+      <Writable>True</Writable>
       <value>67</value>
     </Value>
   </Configuration>

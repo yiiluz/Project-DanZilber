@@ -92,4 +92,27 @@
     <SchoolName>Amit</SchoolName>
     <TeacherName>Lesner</TeacherName>
   </Trainee>
+  <Trainee>
+    <Person>
+      <ID>767676768</ID>
+      <Name>
+        <FirstName>uihui</FirstName>
+        <LastName>iui</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>ihbhihu</City>
+        <Street>iuhiu</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>2001-02-03T00:00:00</DateOfBirth>
+      <PhoneNumber>7867867867</PhoneNumber>
+    </Person>
+    <CurrCarType>MotorCycle</CurrCarType>
+    <NumOfFinishedLessons>0</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>ugiyfy</SchoolName>
+    <TeacherName>fgyuff</TeacherName>
+  </Trainee>
 </Trainees>

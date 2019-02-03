@@ -53,9 +53,9 @@
                     </Button.Content>
                 </Button>
                 <Button Click="Button_Click_MaximizeWindow" Width="25" Height="25" Template="{StaticResource TitleBarButtons}" Margin="10 0" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
-                <Button.Content>
-                    <Image Source="Icons/squareIcon.png" Margin="5"/>
-                </Button.Content>
+                    <Button.Content>
+                        <Image Source="Icons/squareIcon.png" Margin="5"/>
+                    </Button.Content>
                 </Button>
                 <Button Click="Button_Click_CloseWindow" Width="25" Height="25" Template="{StaticResource TitleBarButtons}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
                     <Button.Content>
@@ -66,7 +66,7 @@
             <DockPanel Grid.Row="1">
                 <Menu DockPanel.Dock="Top" VerticalAlignment="Center">
                     <MenuItem Header="_Themes">
-                        <MenuItem Header="Dark"/>
+                        <MenuItem Header="Open MoreWindow" Click="MenuItem_Click"/>
                         <Separator/>
                         <MenuItem Header="White"/>
                         <Separator />
@@ -76,12 +76,52 @@
             </DockPanel>
             <Grid Grid.Row="2" Margin="20">
                 <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
-                    <TabItem Header="Admin" Width="200" Height="40" >
+                    <TabItem Header="Admin" Width="200" Height="40" FontSize="16">
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border x:Name="AdminPasswordBorder" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
+                                <StackPanel Height="120" Width="300">
+                                    <TextBlock Text="Enter Password:"/>
+                                    <PasswordBox x:Name="PassBox_passAdmin" Height="30" Padding="2" VerticalContentAlignment="Center" Margin="0 10" KeyDown="PassBox_passAdmin_KeyDown"/>
+                                    <Button Content="Enter" Click="Button_Click_EnterAsAdmin"/>
+                                </StackPanel>
+                            </Border>
+                            <Border x:Name="AdminMainWindowBorder" Margin="10" Visibility="Visible" Grid.RowSpan="2">
+                                <Grid>
+                                    <TextBlock Text="Last Update At:" Margin="20 10"/>
+                                    <TextBlock x:Name="TextBlock_LastUpdate" Text="{Binding}" Margin="150 10"/>
+                                    <ListView x:Name="ListView_Configurations" Margin="20 40 20 20" SelectionChanged="ListView_Configurations_SelectionChanged"
+                                                          GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" MouseDoubleClick="ListView_TesterTests_MouseDoubleClick">
+
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListViewItem}">
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Configuration Name" DisplayMemberBinding="{Binding Key}" Width="200"/>
+                                                <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="100"/>
+                                            </GridView>
+                                        </ListView.View>
+                                        <ListView.ContextMenu >
+                                            <ContextMenu>
+                                                <MenuItem Header="Change Value" Click="MenuItem_Click_SetConfig"/>
+                                            </ContextMenu>
+                                        </ListView.ContextMenu>
+                                    </ListView>
+                                </Grid>
+                            </Border>
+                        </Grid>
 
 
-                        <!-- Office Window -->
                     </TabItem>
-                    <TabItem Header="Office" Width="200" Height="40">
+
+                    <!-- Office Window -->
+                    <TabItem Header="Office" Width="200" Height="40" FontSize="16">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -131,7 +171,7 @@
                                                             <TextBlock>If the ID Exist, Window will open where you can change the details.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
-                                                    
+
                                                 </Button>
                                                 <Button Content="Remove Tester" Grid.Row="2" Margin="5" Click="Button_Click_RemoveTester" ToolTipService.ShowDuration="8000">
 
@@ -270,12 +310,13 @@
                     </TabItem>
 
                     <!-- Existing Tester Window -->
-                    <TabItem Header="Existing Tester"  Width="200" Height="40">
+                    <TabItem Header="Existing Tester"  Width="200" Height="40" FontSize="16">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
+
                             <Border x:Name="ExistingTesterIDBorder" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
                                 <StackPanel Height="120" Width="300">
                                     <TextBlock Text="Enter Your ID:"/>
@@ -291,7 +332,12 @@
                                             <ColumnDefinition Width="2*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Border Grid.Column="0" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+
+                                        </Grid.RowDefinitions>
+                                        <Border Grid.RowSpan="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
                                             <Grid>
                                                 <TextBlock Text="Your Tests List" HorizontalAlignment="Center"/>
                                                 <ListView x:Name="ListView_TesterTests" Grid.Row="1" Margin="20" SelectionChanged="ListView_TesterTests_SelectionChanged" 
@@ -357,7 +403,34 @@
                                                     <Button Content="View your Details" Click="Button_Click_ViewTesterDetails"/>
                                                 </StackPanel>
                                             </Grid>
+                                        </Border>
+                                        <Border x:Name="TesterStatisticsBorder" Grid.Column="2" Grid.Row="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
+                                            <Grid Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="30"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="5*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="Your Statistics:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+                                                <TextBlock Grid.Row="1" Text="Num Of Test:"/>
+                                                <TextBlock Grid.Row="2" Text="Success Tests Num:"/>
+                                                <TextBlock Grid.Row="3" Text="Failed Tests Num:"/>
+                                                <TextBlock Grid.Row="4" Text="Success Proportion:"/>
+                                                <TextBlock Grid.Row="5" Text="Future Tests:"/>
+                                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NumOfTests}"/>
+                                                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SuccessTests}"/>
+                                                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding FailedTests}"/>
+                                                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding SuccessProportion}"/>
+                                                <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding FutureTests}"/>
 
+                                            </Grid>
                                         </Border>
                                     </Grid>
                                 </Border>
@@ -367,7 +440,7 @@
                     </TabItem>
 
                     <!-- Existing Trainee Window -->
-                    <TabItem Header="Existing Trainee"  Width="200" Height="40">
+                    <TabItem Header="Existing Trainee"  Width="200" Height="40" FontSize="16">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -396,7 +469,7 @@
                                         </Grid.RowDefinitions>
                                         <Border Grid.Column="0" Grid.RowSpan="3" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
                                             <Grid>
-                                                <TextBlock Text="Your Tests List" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="Your Tests List" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Top"/>
                                                 <ListView x:Name="ListView_TraineeTests" Grid.Row="1" Margin="20" SelectionChanged="ListView_TraineeTests_SelectionChanged" 
                                                           GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" MouseDoubleClick="ListView_TraineeTests_MouseDoubleClick">
                                                     <ListView.ItemContainerStyle>
@@ -459,22 +532,23 @@
                                             <Grid>
                                                 <StackPanel>
                                                     <Button Content="View your Details" Click="Button_Click_ViewTraineeDetails"/>
+                                                    <Button Content="Add Test" Click="Button_Click_TraineeAddTest"/>
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
                                         <Border Grid.Column="1" Grid.Row="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
                                             <Grid>
-                                                     <Grid>
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition Height="30"/>
-                                                            <RowDefinition Height="*"/>
-                                                        </Grid.RowDefinitions>
-                                                        <TextBlock Text="Your Existing Licenses:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        <ListView x:Name="ListView_TraineeExistingLicenses" Grid.Row="1" Margin="5" SelectionChanged="ListView_TraineeExistingLicenses_SelectionChanged">
-                                                        </ListView>
-                                                    </Grid>
-                                                
-                                                
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="30"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Text="Your Existing Licenses:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    <ListView x:Name="ListView_TraineeExistingLicenses" Grid.Row="1" Margin="5" SelectionChanged="ListView_TraineeExistingLicenses_SelectionChanged">
+                                                    </ListView>
+                                                </Grid>
+
+
                                             </Grid>
                                         </Border>
                                         <Border Grid.Column="1" Grid.Row="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">

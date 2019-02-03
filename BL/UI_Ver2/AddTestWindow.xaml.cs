@@ -21,7 +21,7 @@ namespace UI_Ver2
     {
         Test test = new Test();
         //List<Tester> lst;
-        public AddTestWindow()
+        public AddTestWindow(Trainee trainee = null)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
@@ -32,6 +32,15 @@ namespace UI_Ver2
             
             DatePicker_DateOfTest_ByHour.BlackoutDates.Add(new CalendarDateRange( DateTime.MinValue, DateTime.Now));
             DatePicker_DateOfTest_ByDate.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now));
+
+            if (trainee != null)
+            {
+                TxtBx_ID.Text = trainee.Id;
+                TxtBx_ID.IsEnabled = false;
+                TxtBx_City.Text = trainee.City;
+                TxtBx_Street.Text = trainee.Street;
+                TxtBx_BuildNum.Text = trainee.BuildingNumber.ToString();
+            }
         }
 
 

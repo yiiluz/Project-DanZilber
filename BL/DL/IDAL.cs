@@ -19,9 +19,9 @@ namespace DO
         List<Tester> GetTestersList();
         List<Trainee> GetTraineeList();
         List<Test> GetTestsList();
-        Dictionary<String, Object> GetConfig();
-        Object GetConfig(String s);
-        void SetConfig(String parm, Object value);
+        Dictionary<string, Object> GetConfig();
+        Object GetConfig(string s);
+        void SetConfig(string parm, Object value);
         void AddTesterSchedule(string id, bool[,] sched);
         void UpdateTesterSchedule(string id, bool[,] sched);
         bool[,] GetTesterSchedule(string id);

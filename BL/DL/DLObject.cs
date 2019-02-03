@@ -28,7 +28,7 @@ namespace DL
                 if (isConfigUpdated)
                 {
                     isConfigUpdated = false;
-                    instance?.ConfigUpdated?.Invoke();
+                    instance?.ConfigUpdated();
                 }
                 Thread.Sleep(1000);
             }
@@ -224,15 +224,10 @@ namespace DL
         }
         public override Object GetConfig(string s)
         {
-            foreach (var item in DataSource.Configuration)
-            {
-                if (item.Key == s)
-                {
-                    if (item.Value.Readable == true)
-                        return item.Value.Value;
-                    throw new AccessViolationException("ERROR! There is no permission to read this configutation property");
-                }
-            }
+
+            if (DataSource.Configuration[s] != null)
+                return DataSource.Configuration[s];
+            else
             throw new KeyNotFoundException("ERROR! There is no configuration feature with this name");
         }
         public override bool[,] GetTesterSchedule(string id)

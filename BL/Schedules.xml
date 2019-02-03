@@ -135,4 +135,49 @@
       </Day>
     </WorkDays>
   </Schedule>
+  <Schedule>
+    <ID>206741274</ID>
+    <WorkDays>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>true</Hour>
+      </Day>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>true</Hour>
+      </Day>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>true</Hour>
+      </Day>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>true</Hour>
+      </Day>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>true</Hour>
+      </Day>
+    </WorkDays>
+  </Schedule>
 </Schedules>
