@@ -81,7 +81,7 @@ namespace BL
             test.IsTestAborted = other.IsTestAborted;
             return test;
         }
-        public static Tester CreateBOTester(DO.Tester other)
+        public static BO.Tester CreateBOTester(DO.Tester other)
         {
             BO.Tester temp = new Tester(other.Id);
             temp.LastName = other.LastName;

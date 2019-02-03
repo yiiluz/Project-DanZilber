@@ -610,6 +610,21 @@ namespace BL
                                    orderby item.DateOfTest
                                    select new TesterTest(Converters.CreateBOTest(item));
                     x.TestList = lstTests.ToList();
+                    TesterStatistics statistics = new TesterStatistics();
+                    foreach(var test in lstTests)
+                    {
+                        if (test.IsTesterUpdateStatus)
+                            if (test.IsPassed)
+                            {
+                                statistics.SuccessTests++;
+                            }
+                            else
+                                statistics.FailedTests++;
+                        if (test.DateOfTest > DateTime.Now)
+                            statistics.FutureTests++;
+                        statistics.NumOfTests++;
+                    }
+
                 }
                 catch(DirectoryNotFoundException e)
                 {
@@ -741,11 +756,22 @@ namespace BL
             else
             {
                 Tester tester = Converters.CreateBOTester(instance.GetTestersList().Find(x => x.Id == id));
-                foreach (var item in instance.GetTestsList())
+                tester.Statistics = new TesterStatistics();
+                foreach (var test in instance.GetTestsList())
                 {
-                    if (item.TesterId == tester.Id)
+                    if (test.TesterId == tester.Id)
                     {
-                        tester.TestList.Add(new TesterTest(Converters.CreateBOTest(item)));
+                        tester.TestList.Add(new TesterTest(Converters.CreateBOTest(test)));
+                        if (test.IsTesterUpdateStatus)
+                            if (test.IsPassed)
+                            {
+                                tester.Statistics.SuccessTests++;
+                            }
+                            else
+                                tester.Statistics.FailedTests++;
+                        if (test.DateOfTest > DateTime.Now)
+                            tester.Statistics.FutureTests++;
+                        tester.Statistics.NumOfTests++;
                     }
                 }
                 try

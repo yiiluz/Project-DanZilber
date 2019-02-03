@@ -48,8 +48,7 @@ namespace UI_Ver2
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
-            //bl.AddEventIfConfigChanged(IsNeedToUpdate);
-            (new Thread(IsNeedToUpdateThreadFunc)).Start();
+            bl.AddEventIfConfigChanged(IsNeedToUpdateThreadFunc);
         }
 
 
@@ -330,6 +329,7 @@ namespace UI_Ver2
                 ExistingTesterMainWindowBorder.Visibility = Visibility.Visible;
                 TextBox_TesterID.Text = "";
                 ListView_TesterTests.ItemsSource = new ObservableCollection<TesterTest>(tester.TestList);
+                TesterStatisticsBorder.DataContext = tester.Statistics;
                 return;
             }
         }
@@ -442,6 +442,13 @@ namespace UI_Ver2
         {
             e.Handled = true;
         }
+        private void Button_Click_TraineeAddTest(object sender, RoutedEventArgs e)
+        {
+            AddTestWindow testWindow = new AddTestWindow(trainee);
+            testWindow.ShowDialog();
+            trainee = bl.GetTraineeByID(trainee.Id);
+            ListView_TraineeTests.ItemsSource = trainee.TestList;
+        }
 
         //Admin implement
         //------------------------------------------------------------------------------------------------------------
@@ -461,6 +468,7 @@ namespace UI_Ver2
                 AdminMainWindowBorder.Visibility = Visibility.Visible;
                 ListView_Configurations.ItemsSource = bl.GetConfig();
                 lastUpdate = BL.Configuretion.LastUpdate;
+                TextBlock_LastUpdate.DataContext = lastUpdate;
                 return;
             }
             MessageBox.Show("Password is not correct. Try again.", "Security Alert", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -482,12 +490,8 @@ namespace UI_Ver2
 
         void IsNeedToUpdateThreadFunc()
         {
-            while (true)
-            {
-                Action action = IsNeedToUpdate;
-                Dispatcher.BeginInvoke(action);
-                Thread.Sleep(1000);
-            }
+            Action action = IsNeedToUpdate;
+            Dispatcher.BeginInvoke(action);
         }
         void IsNeedToUpdate()
         {
@@ -495,6 +499,7 @@ namespace UI_Ver2
             {
                 ListView_Configurations.ItemsSource = bl.GetConfig();
                 lastUpdate = BL.Configuretion.LastUpdate;
+                TextBlock_LastUpdate.DataContext = lastUpdate;
             }
         }
 
@@ -539,7 +544,7 @@ namespace UI_Ver2
             if (TabControl_Login.SelectedIndex == 2)
             {
                 dataView = CollectionViewSource.GetDefaultView(ListView_TesterTests.ItemsSource);
-                
+
             }
             if (TabControl_Login.SelectedIndex == 3)
             {

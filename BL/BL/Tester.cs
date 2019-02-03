@@ -14,6 +14,7 @@ namespace BO
         private CarTypeEnum typeCarToTest;
         private bool[,] availableWorkTime = new bool[5, 6];
         private List<TesterTest> testList = new List<TesterTest>();
+        private TesterStatistics statistics;
 
         //Ctors
         //--------------------------------------------------------------------------------------------------------
@@ -37,6 +38,7 @@ namespace BO
             MaxTestsPerWeek = other.MaxTestsPerWeek;
             TypeCarToTest = other.TypeCarToTest;
             AvailiableWorkTime = other.AvailiableWorkTime;
+            Statistics = other.Statistics;
             foreach (var item in other.TestList)
                 TestList.Add(item);
         }
@@ -50,10 +52,9 @@ namespace BO
             DateOfBirth = other.DateOfBirth;
             Seniority = other.Seniority;
             MaxDistance = other.MaxDistance;
-
             MaxTestsPerWeek = other.MaxTestsPerWeek;
             TypeCarToTest = other.TypeCarToTest;
-
+            Statistics = other.Statistics;
             AvailiableWorkTime = other.AvailiableWorkTime;
             foreach (var item in other.TestList)
                 TestList.Add(item);
@@ -67,6 +68,8 @@ namespace BO
         public CarTypeEnum TypeCarToTest { get => typeCarToTest; set => typeCarToTest = value; }
         public bool[,] AvailiableWorkTime { get => availableWorkTime; set => availableWorkTime = value; }
         public List<TesterTest> TestList { get => testList; set => testList = value; }
+        public TesterStatistics Statistics { get => statistics; set => statistics = value; }
+
         //--------------------------------------------------------------------------------------------------------
 
         private void Days(int day, string t)

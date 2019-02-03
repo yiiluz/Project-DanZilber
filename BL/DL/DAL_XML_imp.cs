@@ -502,7 +502,7 @@ namespace DL
             var it = (from item in SchedulesRoot.Elements()
                       where item.Element("ID").Value == id
                       select item).FirstOrDefault();
-            if (it == null) { throw new KeyNotFoundException("There is not testerSchedule in this document: " + SchedulesRootPath +". For this ID" +id); }
+            if (it == null) { throw new KeyNotFoundException("There is not testerSchedule in this document: " + SchedulesRootPath + ". For this ID" + id); }
             foreach (var x in it.Element("WorkDays").Elements())
             {
                 foreach (var v in x.Elements())
