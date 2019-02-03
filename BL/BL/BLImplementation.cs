@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using BO;
 namespace BL
 {
-    
+
     public class BLImplementation : IBL
     {
         string typeOfDL = "xml";
@@ -25,12 +25,12 @@ namespace BL
             {
                 instance = DO.Factory.GetDLObj(typeOfDL);
                 DO.Factory.AddConfigUpdatedObserver(ConfigChanged);
-            }         
-            catch(DirectoryNotFoundException e)
+            }
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
-            
+
         }
 
         public void AddEventIfConfigChanged(Action action)
@@ -58,7 +58,7 @@ namespace BL
             {
                 throw new KeyNotFoundException("Error. Can't update this configuration. " + ex.Message);
             }
-            catch(AccessViolationException ex)
+            catch (AccessViolationException ex)
             {
                 throw new AccessViolationException("Error. Can't update this configuration. " + ex.Message);
             }
@@ -96,7 +96,7 @@ namespace BL
                 {
                     throw e;
                 }
-                catch(DirectoryNotFoundException e)
+                catch (DirectoryNotFoundException e)
                 {
                     throw e;
                 }
@@ -114,7 +114,7 @@ namespace BL
             {
                 exist = instance.GetTestersList().Exists(x => x.Id == id);
             }
-          catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -611,7 +611,7 @@ namespace BL
                                    select new TesterTest(Converters.CreateBOTest(item));
                     x.TestList = lstTests.ToList();
                     TesterStatistics statistics = new TesterStatistics();
-                    foreach(var test in lstTests)
+                    foreach (var test in lstTests)
                     {
                         if (test.IsTesterUpdateStatus)
                             if (test.IsPassed)
@@ -626,7 +626,7 @@ namespace BL
                     }
 
                 }
-                catch(DirectoryNotFoundException e)
+                catch (DirectoryNotFoundException e)
                 {
                     throw e;
                 }
@@ -673,7 +673,7 @@ namespace BL
         {
             List<Test> lst = new List<Test>();
             try
-            {          
+            {
                 foreach (var item in instance.GetTestsList())
                     lst.Add(Converters.CreateBOTest(item));
                 //var lst = from item in instance.GetTestsList() orderby item.DateOfTest select new Test(item);
@@ -684,9 +684,9 @@ namespace BL
                     if (instance.GetTraineeList().Exists(t => t.Id == x.ExTrainee.Id))
                         x.ExTrainee = new ExternalTrainee(GetTraineeByID(x.ExTrainee.Id));
                 }
-                
+
             }
-            catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -746,8 +746,8 @@ namespace BL
             try
             {
                 exists = instance.GetTestersList().Exists(x => x.Id == id);
-            }    
-            catch(DirectoryNotFoundException e)
+            }
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -811,7 +811,7 @@ namespace BL
                     return test;
                 }
             }
-            catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -890,13 +890,13 @@ namespace BL
         }
 
         public List<Test> GetTestsPartialListByPredicate(Func<BO.Test, bool> func)
-        {           
+        {
             try
             {
                 var it = (from item in GetTestsList() where func(item) orderby item.DateOfTest, item.HourOfTest select item).ToList();
                 return it;
             }
-            catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -905,10 +905,10 @@ namespace BL
         {
             try
             {
-                var ot=(from item in GetTestersList() where func(item) orderby item.LastName, item.FirstName select item).ToList();
+                var ot = (from item in GetTestersList() where func(item) orderby item.LastName, item.FirstName select item).ToList();
                 return ot;
             }
-           catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -920,10 +920,10 @@ namespace BL
                 var it = (from item in GetTraineeList() where func(item) orderby item.LastName, item.FirstName select item).ToList();
                 return it;
             }
-            catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
-            }           
+            }
         }
 
 
@@ -974,7 +974,7 @@ namespace BL
             }
             return num;
         }
-        public IEnumerable<IGrouping<CarTypeEnum,Test>>GetTestsGroupedByCarType()
+        public IEnumerable<IGrouping<CarTypeEnum, Test>> GetTestsGroupedByCarType()
         {
             try
             {
@@ -983,27 +983,27 @@ namespace BL
                        group item by item.CarType
                             into g
                        orderby g.Key
-                       select g;               
+                       select g;
             }
             catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
         }
-        public IEnumerable<IGrouping<bool,Test>>GetTestsGroupedByPassedOrNonPassed()
+        public IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByPassedOrNonPassed()
         {
             try
             {
                 return from item in GetTestsList()
                        orderby item.TestId
-                       group item by item.IsPassed;                    
+                       group item by item.IsPassed;
             }
             catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
         }
-        public IEnumerable<IGrouping<string,Test>>GetTestsGroupedByCity()
+        public IEnumerable<IGrouping<string, Test>> GetTestsGroupedByCity()
         {
             try
             {
@@ -1012,7 +1012,7 @@ namespace BL
                        group item by item.City
                        into g
                        orderby g.Key
-                       select g;                      
+                       select g;
             }
             catch (DirectoryNotFoundException e)
             {
@@ -1030,7 +1030,7 @@ namespace BL
                        orderby g.Key
                        select g;
             }
-            catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -1046,7 +1046,7 @@ namespace BL
                        orderby g.Key
                        select g;
             }
-            catch( DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -1062,7 +1062,7 @@ namespace BL
                        orderby g.Key
                        select g;
             }
-            catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -1078,7 +1078,7 @@ namespace BL
                        orderby g.Key
                        select g;
             }
-            catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -1095,7 +1095,7 @@ namespace BL
                        orderby g.Key
                        select g;
             }
-            catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -1111,7 +1111,7 @@ namespace BL
                        orderby g.Key
                        select g;
             }
-            catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
@@ -1141,7 +1141,7 @@ namespace BL
                        group item by item.City
                        into g
                        orderby g.Key
-                       select g;               
+                       select g;
             }
             catch (DirectoryNotFoundException e)
             {
@@ -1234,18 +1234,18 @@ namespace BL
             test.TesterNotes = other.TesterNotes;
             test.IsTesterUpdateStatus = true;
         }
-       public IEnumerable<IGrouping<Object, Test>>GetTestsGroupedByredicate (Func<BO.Test, bool> func)
-        {
-            try
-            {
-                  var it= from item in GetTestsList() orderby item.TestId group item by func(item);
-                return it;
-               
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                throw e;
-            }
-        }
+        //public IEnumerable<IGrouping<Object, Test>> GetTestsGroupedByredicate(Func<BO.Test, bool> func)
+        //{
+        //    try
+        //    {
+        //        var it = from item in GetTestsList() orderby item.TestId group item by func(item);
+        //        return it;
+
+        //    }
+        //    catch (DirectoryNotFoundException e)
+        //    {
+        //        throw e;
+        //    }
+        //}
     }
 }

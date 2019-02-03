@@ -31,22 +31,23 @@ namespace UI_Ver2
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            this.TestsList.ItemsSource = mainList;
+            listToFilter = mainList;
+            this.TestsList.ItemsSource = listToFilter;
             this.ComboBox_GroupOptions.ItemsSource = Enum.GetValues(typeof(HowToGroupTest));
             this.ComboBox_GroupNames.IsEnabled = false;
         }
         private void renewListTest()
         {
-            mainList = new ObservableCollection<Test>((from item in mainList
-                                                       where CheckIfStringsAreEqual(item.ExTester.Id, TesterID.Text)
-                                                       select item).ToList());
-            mainList = new ObservableCollection<Test>((from item in mainList
-                                                       where CheckIfStringsAreEqual(item.ExTrainee.Id, TraineeID.Text)
-                                                       select item).ToList());
-            mainList = new ObservableCollection<Test>((from item in mainList
-                                                       where CheckIfStringsAreEqual(item.TestId, TestID.Text)
-                                                       select item).ToList());
-            TestsList.ItemsSource = mainList;
+            listToFilter = new ObservableCollection<Test>((from item in mainList
+                                                           where CheckIfStringsAreEqual(item.ExTester.Id, TesterID.Text)
+                                                           select item).ToList());
+            listToFilter = new ObservableCollection<Test>((from item in mainList
+                                                           where CheckIfStringsAreEqual(item.ExTrainee.Id, TraineeID.Text)
+                                                           select item).ToList());
+            listToFilter = new ObservableCollection<Test>((from item in mainList
+                                                           where CheckIfStringsAreEqual(item.TestId, TestID.Text)
+                                                           select item).ToList());
+            TestsList.ItemsSource = listToFilter;
         }
 
         private bool CheckIfStringsAreEqual(string a, string b)
@@ -101,7 +102,8 @@ namespace UI_Ver2
                 case (int)HowToGroupTest.typeOfCAR:
                     //renewListTest();
                     GroupedByCarType = new ObservableCollection<IGrouping<CarTypeEnum, Test>>(MainWindow.bl.GetTestsGroupedByCarType());
-                    ComboBox_GroupNames.ItemsSource = Enum.GetValues(typeof(CarTypeEnum));
+                    CarTypeEnum[] keysOfCars = (from item in GroupedByCarType select item.Key).ToArray();
+                    ComboBox_GroupNames.ItemsSource = keysOfCars;
                     break;
             }
             ComboBox_GroupNames.SelectedIndex = 0;
@@ -110,34 +112,47 @@ namespace UI_Ver2
 
         private void ComboBox_GroupNames_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (ComboBox_GroupOptions.SelectedIndex)
+            if (ComboBox_GroupOptions.SelectedItem != null)
             {
-                case (int)HowToGroupTest.City:
-                    listToFilter = new ObservableCollection<Test>((from item in groupedByCity
-                                                                   where item.Key == (string)ComboBox_GroupNames.SelectedItem
-                                                                   select item).FirstOrDefault().ToList());
-                    break;
-                case (int)HowToGroupTest.PassedNonPassed:
-                    if ((Passed)ComboBox_GroupNames.SelectedItem == Passed.Passed)
-                    {
-                        foreach (var item in GroupByPassedOrNonPassed)
-                            if (item.Key)
-                                listToFilter = new ObservableCollection<Test>(item);
-                    }
-                    else
-                        foreach (var item in GroupByPassedOrNonPassed)
-                            if (!item.Key)
-                                listToFilter = new ObservableCollection<Test>(item);
-                    break;
-                case (int)HowToGroupTest.typeOfCAR:
-                    listToFilter = new ObservableCollection<Test>((from item in GroupedByCarType
-                                                                   where item.Key == (CarTypeEnum)Enum.Parse(typeof(CarTypeEnum),ComboBox_GroupNames.SelectedItem.ToString())
-                                                               select item).FirstOrDefault().ToList());
-                    break;
+                switch (ComboBox_GroupOptions.SelectedIndex)
+                {
+                    case (int)HowToGroupTest.City:
+                        foreach (var item in groupedByCity)
+                            if (ComboBox_GroupNames.SelectedItem != null && item.Key == (string)ComboBox_GroupNames.SelectedItem)
+                            {
+                                listToFilter = new ObservableCollection<Test>(item.ToList());
+                                break;
+                            }
+                        break;
+                    //listToFilter = new ObservableCollection<Test>((from item in groupedByCity
+                    //                                               where item.Key == (string)ComboBox_GroupNames.SelectedItem
+                    //                                               select item).FirstOrDefault().ToList());
+                    //break;
+                    case (int)HowToGroupTest.PassedNonPassed:
+                        if ((Passed)ComboBox_GroupNames.SelectedItem == Passed.Passed)
+                        {
+                            foreach (var item in GroupByPassedOrNonPassed)
+                                if (item.Key)
+                                    listToFilter = new ObservableCollection<Test>(item);
+                        }
+                        else
+                            foreach (var item in GroupByPassedOrNonPassed)
+                                if (!item.Key)
+                                    listToFilter = new ObservableCollection<Test>(item);
+                        break;
+                    case (int)HowToGroupTest.typeOfCAR:
+                        foreach (var item in GroupedByCarType)
+                            if (ComboBox_GroupNames.SelectedItem != null && item.Key == (CarTypeEnum)ComboBox_GroupNames.SelectedItem)
+                            {
+                                listToFilter = new ObservableCollection<Test>(item.ToList());
+                                break;
+                            }
+                        break;
+                }
+                TestsList.ItemsSource = listToFilter;
             }
-            TestsList.ItemsSource = listToFilter;
-            if (TestID.Text.Length != 0 || TesterID.Text.Length != 0 || TraineeID.Text.Length != 0)
-                renewListTest();
+            //if (TestID.Text.Length != 0 || TesterID.Text.Length != 0 || TraineeID.Text.Length != 0)
+            //    renewListTest();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

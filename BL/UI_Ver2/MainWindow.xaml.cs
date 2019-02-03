@@ -282,6 +282,11 @@ namespace UI_Ver2
             GetSerialWindow getSerialWindow = new GetSerialWindow("View");
             getSerialWindow.ShowDialog();
         }
+        private void SearchTestsButton_Click(object sender, RoutedEventArgs e)
+        {
+            (new OfficeTestSearchWindow()).ShowDialog();
+        }
+        
         //------------------------------------------------------------------------------------------------------------
 
         //Existing Tester Implement
