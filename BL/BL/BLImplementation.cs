@@ -1234,6 +1234,38 @@ namespace BL
             test.TesterNotes = other.TesterNotes;
             test.IsTesterUpdateStatus = true;
         }
+       public IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByAbortedOrNonAborted()
+        {
+            try
+            {
+                return from item in GetTestsList()
+                       orderby item.TestId
+                       group item by item.IsTestAborted
+                       into G
+                       orderby G.Key
+                       select G;
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+        }
+        public IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByUpdateStatusOrNonUpdateStatus()
+        {
+            try
+            {
+                return from item in GetTestsList()
+                       orderby item.TestId
+                       group item by item.IsTesterUpdateStatus
+                       into G
+                       orderby G.Key
+                       select G;
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+        }
         //public IEnumerable<IGrouping<Object, Test>> GetTestsGroupedByredicate(Func<BO.Test, bool> func)
         //{
         //    try

@@ -18,14 +18,16 @@ namespace UI_Ver2
     /// <summary>
     /// Interaction logic for OfficeTestSearchWindow.xaml
     /// </summary>
-    enum HowToGroupTest { ALL, City, PassedNonPassed, typeOfCAR };
-    enum Passed { Passed, NonPassed };
+    enum HowToGroupTest { ALL, City,Status, typeOfCAR };
+    enum Status { Aborted, NonAborted,Passed, NonPassed, UpdateStatus, NonUpdateStatus};
     public partial class OfficeTestSearchWindow : Window
     {
         ObservableCollection<Test> mainList = new ObservableCollection<Test>(BO.Factory.GetBLObj().GetTestsList());
         ObservableCollection<IGrouping<string, Test>> groupedByCity;
         ObservableCollection<IGrouping<CarTypeEnum, Test>> GroupedByCarType;
         ObservableCollection<IGrouping<bool, Test>> GroupByPassedOrNonPassed;
+        ObservableCollection<IGrouping<bool, Test>> GroupedByAbortedOrNonAborted;
+        ObservableCollection<IGrouping<bool, Test>> GroupedByUpdateStatusOrNonUpdateStatus;
         ObservableCollection<Test> listToFilter;
         public OfficeTestSearchWindow()
         {
@@ -93,11 +95,12 @@ namespace UI_Ver2
                     string[] keysOfCity = (from item in groupedByCity select item.Key).ToArray();
                     ComboBox_GroupNames.ItemsSource = keysOfCity;
                     break;
-                case (int)HowToGroupTest.PassedNonPassed:
+                case (int)HowToGroupTest.Status:
                     //renewListTest();
                     GroupByPassedOrNonPassed = new ObservableCollection<IGrouping<bool, Test>>(MainWindow.bl.GetTestsGroupedByPassedOrNonPassed());
-                    ComboBox_GroupNames.ItemsSource = Enum.GetValues(typeof(Passed));
-
+                    GroupedByUpdateStatusOrNonUpdateStatus = new ObservableCollection<IGrouping<bool, Test>>(MainWindow.bl.GetTestsGroupedByUpdateStatusOrNonUpdateStatus());
+                    GroupedByAbortedOrNonAborted = new ObservableCollection<IGrouping<bool, Test>>(MainWindow.bl.GetTestsGroupedByAbortedOrNonAborted());
+                    ComboBox_GroupNames.ItemsSource = Enum.GetValues(typeof(Status));
                     break;
                 case (int)HowToGroupTest.typeOfCAR:
                     //renewListTest();
@@ -128,18 +131,73 @@ namespace UI_Ver2
                     //                                               where item.Key == (string)ComboBox_GroupNames.SelectedItem
                     //                                               select item).FirstOrDefault().ToList());
                     //break;
-                    case (int)HowToGroupTest.PassedNonPassed:
-                        if ((Passed)ComboBox_GroupNames.SelectedItem == Passed.Passed)
+                    case (int)HowToGroupTest.Status:
+                       if(ComboBox_GroupNames.SelectedItem != null)
                         {
-                            foreach (var item in GroupByPassedOrNonPassed)
-                                if (item.Key)
-                                    listToFilter = new ObservableCollection<Test>(item);
+                            switch (ComboBox_GroupNames.SelectedIndex)
+                            {
+                                case (int)Status.Aborted:
+                                    foreach (var item in GroupedByAbortedOrNonAborted)
+                                    {
+                                        if (item.Key)
+                                        {
+                                            listToFilter = new ObservableCollection<Test>(item.ToList());
+                                            break;
+                                        }   
+                                    }
+                                    break;
+                                case (int)Status.NonAborted:
+                                    foreach (var item in GroupedByAbortedOrNonAborted)
+                                    {
+                                        if (!item.Key)
+                                        {
+                                            listToFilter = new ObservableCollection<Test>(item.ToList());
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                case (int)Status.Passed:
+                                    foreach(var item in GroupByPassedOrNonPassed)
+                                    {
+                                        if (item.Key)
+                                        {
+                                            listToFilter = new ObservableCollection<Test>(item.ToList());
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                case (int)Status.NonPassed:
+                                    foreach (var item in GroupByPassedOrNonPassed)
+                                    {
+                                        if (!item.Key)
+                                        {
+                                            listToFilter = new ObservableCollection<Test>(item.ToList());
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                case (int)Status.UpdateStatus:
+                                    foreach (var item in GroupedByUpdateStatusOrNonUpdateStatus)
+                                    {
+                                        if (item.Key)
+                                        {
+                                            listToFilter = new ObservableCollection<Test>(item.ToList());
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                case (int)Status.NonUpdateStatus:
+                                    foreach (var item in GroupedByUpdateStatusOrNonUpdateStatus)
+                                    {
+                                        if (!item.Key)
+                                        {
+                                            listToFilter = new ObservableCollection<Test>(item.ToList());
+                                            break;
+                                        }
+                                    }
+                                    break;
+                            }
                         }
-                        else
-
-                            foreach (var item in GroupByPassedOrNonPassed)
-                                if (!item.Key)
-                                    listToFilter = new ObservableCollection<Test>(item);
                         break;
                     case (int)HowToGroupTest.typeOfCAR:
                         foreach (var item in GroupedByCarType)
