@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,8 +19,8 @@ namespace UI_Ver2
     /// <summary>
     /// Interaction logic for OfficeTestSearchWindow.xaml
     /// </summary>
-    enum HowToGroupTest { ALL, City,Status, typeOfCAR };
-    enum Status { Aborted, NonAborted,Passed, NonPassed, UpdateStatus, NonUpdateStatus};
+    enum HowToGroupTest { ALL, City, Status, typeOfCAR };
+    enum Status { Aborted, NonAborted, Passed, NonPassed, UpdateStatus, NonUpdateStatus };
     public partial class OfficeTestSearchWindow : Window
     {
         ObservableCollection<Test> mainList = new ObservableCollection<Test>(BO.Factory.GetBLObj().GetTestsList());
@@ -37,19 +38,6 @@ namespace UI_Ver2
             this.TestsList.ItemsSource = listToFilter;
             this.ComboBox_GroupOptions.ItemsSource = Enum.GetValues(typeof(HowToGroupTest));
             this.ComboBox_GroupNames.IsEnabled = false;
-        }
-        private void renewListTest()
-        {
-            listToFilter = new ObservableCollection<Test>((from item in mainList
-                                                           where CheckIfStringsAreEqual(item.ExTester.Id, TesterID.Text)
-                                                           select item).ToList());
-            listToFilter = new ObservableCollection<Test>((from item in mainList
-                                                           where CheckIfStringsAreEqual(item.ExTrainee.Id, TraineeID.Text)
-                                                           select item).ToList());
-            listToFilter = new ObservableCollection<Test>((from item in mainList
-                                                           where CheckIfStringsAreEqual(item.TestId, TestID.Text)
-                                                           select item).ToList());
-            TestsList.ItemsSource = listToFilter;
         }
 
         private bool CheckIfStringsAreEqual(string a, string b)
@@ -84,7 +72,7 @@ namespace UI_Ver2
             {
                 case (int)HowToGroupTest.ALL:
                     mainList = new ObservableCollection<Test>(BO.Factory.GetBLObj().GetTestsList());
-                    renewListTest();
+                    SearchFilterChanged(null,null);
                     ComboBox_GroupNames.SelectedItem = null;
                     ComboBox_GroupNames.IsEnabled = false;
                     return;
@@ -132,8 +120,9 @@ namespace UI_Ver2
                     //                                               select item).FirstOrDefault().ToList());
                     //break;
                     case (int)HowToGroupTest.Status:
-                       if(ComboBox_GroupNames.SelectedItem != null)
+                        if (ComboBox_GroupNames.SelectedItem != null)
                         {
+                            listToFilter = null;
                             switch (ComboBox_GroupNames.SelectedIndex)
                             {
                                 case (int)Status.Aborted:
@@ -143,7 +132,7 @@ namespace UI_Ver2
                                         {
                                             listToFilter = new ObservableCollection<Test>(item.ToList());
                                             break;
-                                        }   
+                                        }
                                     }
                                     break;
                                 case (int)Status.NonAborted:
@@ -157,7 +146,7 @@ namespace UI_Ver2
                                     }
                                     break;
                                 case (int)Status.Passed:
-                                    foreach(var item in GroupByPassedOrNonPassed)
+                                    foreach (var item in GroupByPassedOrNonPassed)
                                     {
                                         if (item.Key)
                                         {
@@ -210,8 +199,8 @@ namespace UI_Ver2
                 }
                 TestsList.ItemsSource = listToFilter;
             }
-            //if (TestID.Text.Length != 0 || TesterID.Text.Length != 0 || TraineeID.Text.Length != 0)
-            //    renewListTest();
+            if ((TestID.Text.Length != 0 || TesterID.Text.Length != 0 || TraineeID.Text.Length != 0) && listToFilter != null)
+                SearchFilterChanged(null,null);
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -222,6 +211,69 @@ namespace UI_Ver2
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(TestsList.SelectedItem.ToString(), "OfficeTestSearchWindow", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        GridViewColumnHeader _lastHeaderClicked = null;
+        ListSortDirection _lastDirection = ListSortDirection.Ascending;
+        private void Sort(string sortBy, ListSortDirection direction)
+        {
+            ICollectionView dataView = CollectionViewSource.GetDefaultView(TestsList.ItemsSource);
+            dataView.SortDescriptions.Clear();
+            SortDescription sd = new SortDescription(sortBy, direction);
+            dataView.SortDescriptions.Add(sd);
+            dataView.Refresh();
+        }
+        private void GridViewColumnHeaderClickedHandler(object sender, RoutedEventArgs e)
+        {
+            var headerClicked = e.OriginalSource as GridViewColumnHeader;
+            ListSortDirection direction;
+
+            if (headerClicked != null)
+            {
+                if (headerClicked.Role != GridViewColumnHeaderRole.Padding)
+                {
+                    if (headerClicked != _lastHeaderClicked)
+                    {
+                        direction = ListSortDirection.Ascending;
+                    }
+                    else
+                    {
+                        if (_lastDirection == ListSortDirection.Ascending)
+                        {
+                            direction = ListSortDirection.Descending;
+                        }
+                        else
+                        {
+                            direction = ListSortDirection.Ascending;
+                        }
+                    }
+
+                    var columnBinding = headerClicked.Column.DisplayMemberBinding as Binding;
+                    var sortBy = columnBinding?.Path.Path ?? headerClicked.Column.Header as string;
+
+                    Sort(sortBy, direction);
+
+                    if (direction == ListSortDirection.Ascending)
+                    {
+                        headerClicked.Column.HeaderTemplate =
+                          Resources["HeaderTemplateArrowUp"] as DataTemplate;
+                    }
+                    else
+                    {
+                        headerClicked.Column.HeaderTemplate =
+                          Resources["HeaderTemplateArrowDown"] as DataTemplate;
+                    }
+
+                    // Remove arrow from previously sorted header  
+                    if (_lastHeaderClicked != null && _lastHeaderClicked != headerClicked)
+                    {
+                        _lastHeaderClicked.Column.HeaderTemplate = null;
+                    }
+
+                    _lastHeaderClicked = headerClicked;
+                    _lastDirection = direction;
+                }
+            }
         }
     }
 }

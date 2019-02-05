@@ -76,6 +76,13 @@
             </DockPanel>
             <Grid Grid.Row="2" Margin="20">
                 <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
+                    <TabControl.Background>
+                        <RadialGradientBrush>
+                            <GradientStop Color="#FF9CFFDF" Offset="0.2"/>
+                            <GradientStop Color="#FFB7E4E7" Offset="0.595"/>
+                            <GradientStop Color="#FFDAFFF3" Offset="1"/>
+                        </RadialGradientBrush>
+                    </TabControl.Background>
                     <TabItem Header="Admin" Width="200" Height="40" FontSize="16">
                         <Grid>
 
@@ -92,7 +99,8 @@
                             </Border>
                             <Border x:Name="AdminMainWindowBorder" Margin="10" Visibility="Visible" Grid.RowSpan="2">
                                 <Grid>
-                                    <TextBlock Text="Last Update At:" Margin="20 10"/>
+                                    <Button Content="Log Out" VerticalAlignment="Top" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" Click="Button_Click_LogOut"/>
+                                    <TextBlock Text="Last Update At:" Margin="20 10" HorizontalAlignment="Left"/>
                                     <TextBlock x:Name="TextBlock_LastUpdate" Text="{Binding}" Margin="150 10"/>
                                     <ListView x:Name="ListView_Configurations" Margin="20 40 20 20" SelectionChanged="ListView_Configurations_SelectionChanged"
                                                           GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" MouseDoubleClick="ListView_TesterTests_MouseDoubleClick">
@@ -141,6 +149,8 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            
                                         </Grid.ColumnDefinitions>
                                         <Border Grid.Column="0" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
                                             <Grid>
@@ -256,9 +266,15 @@
                                             </Grid>
                                         </Border>
                                         <Border Grid.Column="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
-                                            <StackPanel>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="1.5*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
                                                 <TextBlock Text="Test" HorizontalAlignment="Center"/>
-                                                <Button Margin="20 15 20 0" Click="Button_Click_AddTest" ToolTipService.ShowDuration="8000">
+                                                <Button Margin="5 20 5 5" Click="Button_Click_AddTest" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Create New Test</TextBlock>
@@ -272,7 +288,7 @@
                                                         <Image Source="Icons/Plus_Icon.png" Height="20" Width="20"/>
                                                     </StackPanel>
                                                 </Button>
-                                                <Button Content="Abort Test" Margin="20 15 20 0" Click="Button_Click_AbortTest" ToolTipService.ShowDuration="8000">
+                                                <Button Content="Abort Test" Grid.Row="1" Click="Button_Click_AbortTest" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Abort Existing Test</TextBlock>
@@ -280,7 +296,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                 </Button>
-                                                <Button Content="View Test Details" Margin="20 15 20 0" Click="Button_Click_ViewTestDetails" ToolTipService.ShowDuration="8000">
+                                                <Button Content="View Test Details" Grid.Row="2" Click="Button_Click_ViewTestDetails" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To View Existing Test Details</TextBlock>
@@ -288,7 +304,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                 </Button>
-                                                <Button Content="View, Search and group Tests" Margin="20 15 20 0" ToolTipService.ShowDuration="8000" Click="SearchTestsButton_Click">
+                                                <Button Content="View, Search and group Tests" Grid.Row="3"  ToolTipService.ShowDuration="8000" Click="SearchTestsButton_Click">
                                                     <Button.ToolTip>
                                                         <ToolTip>
                                                             <StackPanel>
@@ -298,13 +314,85 @@
                                                         </ToolTip>
                                                     </Button.ToolTip>
                                                 </Button>
-                                            </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                        <Border Grid.Column="3" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
+                                            <Grid ShowGridLines="False" Margin="8">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="5*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Tests:"/>
+                                                <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Aborted Tests:"/>
+                                                <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Success Test:"/>
+                                                <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Failed Tests:"/>
+                                                <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Unupdated Tests:"/>
+                                                <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Text="Success Proportion:"/>
+                                                <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Text="Average Max Test P.W:"/>
+
+                                            </Grid>
                                         </Border>
                                     </Grid>
                                 </Border>
+                                
                             </Grid>
-                            <Border x:Name="OfficeStatistics" Grid.Row="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="13">
+                            <Border x:Name="OfficeStatistics" Grid.Row="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="13 0 13 13">
+                                <Grid Margin="10" ShowGridLines="False">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
 
+                                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Num Of MotorCycle Tests:"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Private Car Tests:"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Auto Private Tests:"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Truck 12T Tests:"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Unlimit Truck Tests:"/>
+                                    <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Bus Tests:"/>
+                                    <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Text="Total Number Of Bus Tests:"/>
+
+
+                                    <TextBlock Grid.Row="0" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Num Of MotorCycle Trainees:"/>
+                                    <TextBlock Grid.Row="1" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Num Of Private Car Trainees:"/>
+                                    <TextBlock Grid.Row="2" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Num Of Auto Private Trainees:"/>
+                                    <TextBlock Grid.Row="3" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Num Of Truck 12T Trainees:"/>
+                                    <TextBlock Grid.Row="4" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Num Of Unlimit Truck Trainees:"/>
+                                    <TextBlock Grid.Row="5" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Num Of Bus Trainees:"/>
+                                    <TextBlock Grid.Row="6" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Total Number Of Bus Trainees:"/>
+
+
+                                    <TextBlock Grid.Row="0" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Num Of MotorCycle Testers:"/>
+                                    <TextBlock Grid.Row="1" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Num Of Private Car Testers:"/>
+                                    <TextBlock Grid.Row="2" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Num Of Auto Private Testers:"/>
+                                    <TextBlock Grid.Row="3" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Num Of Truck 12T Testers:"/>
+                                    <TextBlock Grid.Row="4" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Num Of Unlimit Truck Testers:"/>
+                                    <TextBlock Grid.Row="5" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Num Of Bus Testers:"/>
+                                    <TextBlock Grid.Row="6" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Total Number Of Bus Testers:"/>
+
+
+                                </Grid>
                             </Border>
                         </Grid>
                     </TabItem>
@@ -401,6 +489,7 @@
                                                 <StackPanel>
                                                     <Button Content="Update Test Result By Test Serial" Click="Button_Click_UpdateTestResultByID"/>
                                                     <Button Content="View your Details" Click="Button_Click_ViewTesterDetails"/>
+                                                    <Button Content="LogOut" Click="Button_Click_LogOut"/>
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -408,6 +497,7 @@
                                             <Grid Margin="5">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="30"/>
+                                                    <RowDefinition Height="*"/>
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="*"/>
@@ -424,12 +514,13 @@
                                                 <TextBlock Grid.Row="3" Text="Failed Tests Num:"/>
                                                 <TextBlock Grid.Row="4" Text="Success Proportion:"/>
                                                 <TextBlock Grid.Row="5" Text="Future Tests:"/>
-                                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NumOfTests}"/>
-                                                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SuccessTests}"/>
-                                                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding FailedTests}"/>
-                                                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding SuccessProportion}"/>
-                                                <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding FutureTests}"/>
-
+                                                <TextBlock Grid.Row="6" Text="Num Of Tests This Week:"/>
+                                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NumOfTests, Mode=OneWay}"/>
+                                                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SuccessTests, Mode=OneWay}"/>
+                                                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding FailedTests, Mode=OneWay}"/>
+                                                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding SuccessProportion, Mode=OneWay}"/>
+                                                <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding FutureTests, Mode=OneWay}"/>
+                                                <TextBlock Grid.Column="1" Grid.Row="6" Name="TextBlock_Statistics_NumOfTestPerWeek"/>
                                             </Grid>
                                         </Border>
                                     </Grid>
@@ -533,6 +624,7 @@
                                                 <StackPanel>
                                                     <Button Content="View your Details" Click="Button_Click_ViewTraineeDetails"/>
                                                     <Button Content="Add Test" Click="Button_Click_TraineeAddTest"/>
+                                                    <Button Content="LogOut" Click="Button_Click_LogOut"/>
                                                 </StackPanel>
                                             </Grid>
                                         </Border>

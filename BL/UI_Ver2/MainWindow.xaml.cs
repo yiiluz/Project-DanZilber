@@ -209,6 +209,7 @@ namespace UI_Ver2
             officeSearchTester.ShowDialog();
         }
         //------------------------------------------------------------------------------------------------------------
+
         //office trainee implement
         //------------------------------------------------------------------------------------------------------------
         private void Button_Click_AddTrainee(object sender, RoutedEventArgs e)
@@ -265,6 +266,7 @@ namespace UI_Ver2
             searchTrainee.ShowDialog();
         }
         //------------------------------------------------------------------------------------------------------------
+
         //office test implement
         //------------------------------------------------------------------------------------------------------------
         private void Button_Click_AddTest(object sender, RoutedEventArgs e)
@@ -335,6 +337,7 @@ namespace UI_Ver2
                 TextBox_TesterID.Text = "";
                 ListView_TesterTests.ItemsSource = new ObservableCollection<TesterTest>(tester.TestList);
                 TesterStatisticsBorder.DataContext = tester.Statistics;
+                TextBlock_Statistics_NumOfTestPerWeek.Text = bl.GetTesterNumOfTestForDateWeek(tester, DateTime.Today).ToString();
                 return;
             }
         }
@@ -350,6 +353,8 @@ namespace UI_Ver2
             {
                 tester = MainWindow.bl.GetTesterByID(tester.Id);
                 this.ListView_TesterTests.ItemsSource = tester.TestList;
+                TesterStatisticsBorder.DataContext = tester.Statistics;
+                
             }
             catch (KeyNotFoundException ex)
             {
@@ -616,6 +621,12 @@ namespace UI_Ver2
                 }
             }
         }
+
+        private void Button_Click_LogOut(object sender, RoutedEventArgs e)
+        {
+            TabControl_SelectionChanged(TabControl_Login, null);
+        }
+
         //------------------------------------------------------------------------------------------------------------
 
 

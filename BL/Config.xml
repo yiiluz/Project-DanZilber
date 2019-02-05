@@ -13,7 +13,7 @@
     <Value>
       <Readable>True</Readable>
       <Writable>True</Writable>
-      <value>7</value>
+      <value>14</value>
     </Value>
   </Configuration>
   <Configuration>
@@ -45,7 +45,7 @@
     <Value>
       <Readable>True</Readable>
       <Writable>True</Writable>
-      <value>10000003</value>
+      <value>10000004</value>
     </Value>
   </Configuration>
 </Configurations>

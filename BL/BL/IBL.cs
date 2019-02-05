@@ -35,7 +35,10 @@ namespace BO
         List<Trainee> GetTraineesPartialListByPredicate(Func<BO.Trainee, bool> func);
         string GetStringOfTraineeLicenses(string id);
         int GetTraineeNumTestedTest(string id);
-        
+
+        int GetTesterNumOfTestForDateWeek(Tester tester, DateTime a);
+
+
         IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsBySchool();
         IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsByTeacher();
         IEnumerable<IGrouping<int, Trainee>> GetTraineesGroupedByNumOfTests();

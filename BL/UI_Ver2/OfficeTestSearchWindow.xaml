@@ -28,11 +28,11 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Label x:Name="label" FontSize="16" Content="Enter TestID: " />
-                        <TextBox Name="TestID" Grid.Column="1" Text=""  Margin="1" VerticalContentAlignment="Center" TextChanged="SearchFilterChanged"/>
+                        <TextBox Name="TestID" MaxLength="8" Grid.Column="1" Text=""  Margin="1" VerticalContentAlignment="Center" TextChanged="SearchFilterChanged"/>
                         <Label Grid.Row="2" Grid.Column="0" x:Name="label2" FontSize="16" Content="Enter Tester ID: " VerticalContentAlignment="Center"/>
-                        <TextBox Name="TraineeID" Grid.Row="1" Grid.Column="1" Text=""  Margin="1" VerticalContentAlignment="Center" TextChanged="SearchFilterChanged"/>
+                        <TextBox Name="TraineeID" MaxLength="9" Grid.Row="1" Grid.Column="1" Text=""  Margin="1" VerticalContentAlignment="Center" TextChanged="SearchFilterChanged"/>
                         <Label Grid.Row="1" Grid.Column="0" FontSize="16" Content="Enter Trainee ID: "/>
-                        <TextBox Name="TesterID" Grid.Row="2" MaxLength="9" Grid.Column="1" Margin="1" TextChanged="SearchFilterChanged"/>
+                        <TextBox Name="TesterID" MaxLength="9" Grid.Row="2" Grid.Column="1" Margin="1" TextChanged="SearchFilterChanged"/>
                     </Grid>
                 </Border>
                 <Border BorderThickness="1" BorderBrush="blue" Padding="2">
@@ -52,7 +52,7 @@
     <TextBlock Text="Double Click on specific Test for more operations."/>
 
             </StackPanel>
-            <ListView Grid.Row="1" x:Name="TestsList" BorderBrush="Green" Margin="0 0 0 50" >
+            <ListView Grid.Row="1" x:Name="TestsList" BorderBrush="Green" Margin="0 0 0 50" GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="TestID" DisplayMemberBinding="{Binding TestId}" Width="100"/>

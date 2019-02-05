@@ -60,16 +60,19 @@ namespace UI_Ver2
 
         private void SearchFilterChanged(object sender, TextChangedEventArgs e)
         {
-            ObservableCollection<Trainee> it = new ObservableCollection<Trainee>((from item in listToFilter
-                                                                                where CheckIfStringsAreEqual(FirstName.Text, item.FirstName)
-                                                                                select item
-                                                                            into g
-                                                                                where CheckIfStringsAreEqual(LestName.Text, g.LastName)
-                                                                                select g
-                                                                            into j
-                                                                                where CheckIfStringsAreEqual(ID.Text, j.Id)
-                                                                                select j).ToList());
-            TraineeList.ItemsSource = it;
+            if (listToFilter != null)
+            {
+                ObservableCollection<Trainee> it = new ObservableCollection<Trainee>((from item in listToFilter
+                                                                                      where CheckIfStringsAreEqual(FirstName.Text, item.FirstName)
+                                                                                      select item
+                                                                                into g
+                                                                                      where CheckIfStringsAreEqual(LestName.Text, g.LastName)
+                                                                                      select g
+                                                                                into j
+                                                                                      where CheckIfStringsAreEqual(ID.Text, j.Id)
+                                                                                      select j).ToList());
+                TraineeList.ItemsSource = it;
+            }
         }
         private void MenuItem_ClickRemoveTrainee(object sender, RoutedEventArgs e)
         {
@@ -180,6 +183,8 @@ namespace UI_Ver2
                     break;
             }
             TraineeList.ItemsSource = listToFilter;
+            if ((FirstName.Text.Length != 0 || LestName.Text.Length != 0 || ID.Text.Length != 0) && listToFilter != null)
+                SearchFilterChanged(null, null);
         }
 
         private void ButtonClick_Close(object sender, RoutedEventArgs e)

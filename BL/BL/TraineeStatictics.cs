@@ -15,6 +15,6 @@ namespace BO
         public int NumOfTests { get => numOfTests; set => numOfTests = value; }
         public int SuccessTests { get => successTests; set => successTests = value; }
         public int FailedTests { get => failedTests; set => failedTests = value; }
-        public double SuccessProportion { get => numOfTests != 0 ? (double)successTests * 100 / (successTests + failedTests) : 0; }
+        public double SuccessProportion { get => numOfTests != 0 && (successTests + failedTests) != 0 ? (double)successTests * 100 / (successTests + failedTests) : 0; }
     }
 }

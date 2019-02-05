@@ -6,16 +6,22 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Linq;
 using BO;
+using System.Threading;
+
 namespace BL
 {
 
     public class BLImplementation : IBL
     {
+        Action StatisticsChanged;
+        volatile bool isStatisticsChanged = false;
+
         string typeOfDL = "xml";
         /// <summary>
         /// static variable of DL
         /// </summary>
         private static DO.IDAL instance = null;
+        private static BO.SystemStatistics systemStatistics;
         /// <summary>
         /// default ctor. initialize the instance of DL
         /// </summary>
@@ -30,7 +36,19 @@ namespace BL
             {
                 throw e;
             }
-
+            StatisticsChanged += UpdateSystemStatistics;
+            new Thread(() =>
+            {
+                while (true)
+                {
+                    if (isStatisticsChanged)
+                    {
+                        isStatisticsChanged = false;
+                        StatisticsChanged();
+                    }
+                    Thread.Sleep(2000);
+                }
+            }).Start();
         }
 
         public void AddEventIfConfigChanged(Action action)
@@ -91,6 +109,7 @@ namespace BL
                 {
                     instance.AddTester(Converters.CreateDOTester(t));
                     instance.AddTesterSchedule(t.Id, t.AvailiableWorkTime);
+                    isStatisticsChanged = true;
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -101,6 +120,7 @@ namespace BL
                     throw e;
                 }
             }
+            
         }
         /// <summary>
         /// Remove tester
@@ -137,6 +157,7 @@ namespace BL
 
                     }
                     instance.RemoveTesterSchedule(id);
+                    isStatisticsChanged = true;
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -227,6 +248,7 @@ namespace BL
             else try
                 {
                     instance.AddTrainee(Converters.CreateDoTrainee(t));
+                    isStatisticsChanged = true;
                 }
                 catch (DuplicateWaitObjectException e)
                 {
@@ -263,6 +285,7 @@ namespace BL
             try
             {
                 instance.RemoveTrainee(id);
+                isStatisticsChanged = true;
             }
             catch (KeyNotFoundException e)
             {
@@ -440,6 +463,7 @@ namespace BL
                             {
                                 instance.AddTest(Converters.CreateDOTest(t, Convert.ToString(serial))); //add the test
                                 testId = serial.ToString();
+                                isStatisticsChanged = true;
                             }
                             catch (DirectoryNotFoundException e)
                             {
@@ -507,6 +531,7 @@ namespace BL
             {
                 test.IsTestAborted = true;
                 instance.UpdateTestDetails(Converters.CreateDOTest(test, test.TestId));
+                isStatisticsChanged = true;
             }
             catch (KeyNotFoundException e)
             {
@@ -562,6 +587,7 @@ namespace BL
                 try
                 {
                     instance.UpdateTestDetails(Converters.CreateDOTest(test, serial));
+                    isStatisticsChanged = true;
                 }
                 catch (DirectoryNotFoundException e)
                 {
@@ -769,7 +795,7 @@ namespace BL
                             }
                             else
                                 tester.Statistics.FailedTests++;
-                        if (test.DateOfTest > DateTime.Now)
+                        if (test.DateOfTest > DateTime.Now || (test.DateOfTest.Date == DateTime.Now.Date && test.HourOfTest > DateTime.Now.Hour))
                             tester.Statistics.FutureTests++;
                         tester.Statistics.NumOfTests++;
                     }
@@ -990,19 +1016,7 @@ namespace BL
                 throw e;
             }
         }
-        public IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByPassedOrNonPassed()
-        {
-            try
-            {
-                return from item in GetTestsList()
-                       orderby item.TestId
-                       group item by item.IsPassed;
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                throw e;
-            }
-        }
+
         public IEnumerable<IGrouping<string, Test>> GetTestsGroupedByCity()
         {
             try
@@ -1148,12 +1162,20 @@ namespace BL
                 throw e;
             }
         }
-        private int GetTesterNumOfTestForDateWeek(Tester tester, DateTime a)
+        public int GetTesterNumOfTestForDateWeek(Tester tester, DateTime a)
         {
             int num = 0;
+            //DateTime weekStart = a.AddDays(-(int)a.DayOfWeek);
+            //List<TesterTest> temp = tester.TestList;
+            //var x = from item in temp where (item.DateOfTest.AddDays(-(int)item.DateOfTest.DayOfWeek) == weekStart) where !item.IsTestAborted select num++;
+
             foreach (var item in tester.TestList)
+            {
                 if (item.DateOfTest.AddDays(-(int)item.DateOfTest.DayOfWeek) == a.AddDays(-(int)a.DayOfWeek) && !item.IsTestAborted)
+                {
                     num++;
+                }
+            }
             return num;
         }
         private List<int> GetAvailiableHoursOfTesterForSpesificDate(Tester tester, DateTime date)
@@ -1234,7 +1256,7 @@ namespace BL
             test.TesterNotes = other.TesterNotes;
             test.IsTesterUpdateStatus = true;
         }
-       public IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByAbortedOrNonAborted()
+        public IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByAbortedOrNonAborted()
         {
             try
             {
@@ -1266,6 +1288,21 @@ namespace BL
                 throw e;
             }
         }
+        public IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByPassedOrNonPassed()
+        {
+            try
+            {
+                return from item in GetTestsList()
+                       where item.IsTesterUpdateStatus
+                       orderby item.TestId
+                       group item by item.IsPassed;
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+        }
+
         //public IEnumerable<IGrouping<Object, Test>> GetTestsGroupedByredicate(Func<BO.Test, bool> func)
         //{
         //    try
@@ -1279,5 +1316,91 @@ namespace BL
         //        throw e;
         //    }
         //}
+
+        void UpdateSystemStatistics()
+        {
+            foreach(var item in GetTraineeList())
+            {
+                switch (item.CurrCarType)
+                {
+                    case CarTypeEnum.Bus:
+                        SystemStatistics.NumOfTraineesBus++;
+                        break;
+                    case CarTypeEnum.MotorCycle:
+                        SystemStatistics.NumOfTraineesMotorCycle++;
+                        break;
+                    case CarTypeEnum.PrivateCar:
+                        SystemStatistics.NumOfTraineesPrivateCar++;
+                        break;
+                    case CarTypeEnum.PrivateCarAuto:
+                        SystemStatistics.NumOfTraineesAutoPrivateCar++;
+                        break;
+                    case CarTypeEnum.Truck12Tons:
+                        SystemStatistics.NumOfTraineesTruck12Ton++;
+                        break;
+                    case CarTypeEnum.TruckUnlimited:
+                        SystemStatistics.NumOfTraineesTruckUnlimited++;
+                        break;
+                }
+            }
+            foreach (var item in GetTestersList())
+            {
+                switch (item.TypeCarToTest)
+                {
+                    case CarTypeEnum.Bus:
+                        SystemStatistics.NumOfTestersBus++;
+                        break;
+                    case CarTypeEnum.MotorCycle:
+                        SystemStatistics.NumOfTestersMotorCycle++;
+                        break;
+                    case CarTypeEnum.PrivateCar:
+                        SystemStatistics.NumOfTestersPrivateCar++;
+                        break;
+                    case CarTypeEnum.PrivateCarAuto:
+                        SystemStatistics.NumOfTestersAutoPrivateCar++;
+                        break;
+                    case CarTypeEnum.Truck12Tons:
+                        SystemStatistics.NumOfTestersTruck12Ton++;
+                        break;
+                    case CarTypeEnum.TruckUnlimited:
+                        SystemStatistics.NumOfTestersTruckUnlimited++;
+                        break;
+                }
+                SystemStatistics.SumTesterDistanceToTest += item.MaxDistance;
+                SystemStatistics.SumNumOfTestsPerWeek += item.MaxTestsPerWeek;
+            }
+            foreach (var item in GetTestsList())
+            {
+                switch (item.CarType)
+                {
+                    case CarTypeEnum.Bus:
+                        SystemStatistics.NumOfTestsBus++;
+                        break;
+                    case CarTypeEnum.MotorCycle:
+                        SystemStatistics.NumOfTestsMotorCycle++;
+                        break;
+                    case CarTypeEnum.PrivateCar:
+                        SystemStatistics.NumOfTestsPrivateCar++;
+                        break;
+                    case CarTypeEnum.PrivateCarAuto:
+                        SystemStatistics.NumOfTestsAutoPrivateCar++;
+                        break;
+                    case CarTypeEnum.Truck12Tons:
+                        SystemStatistics.NumOfTestsTruck12Ton++;
+                        break;
+                    case CarTypeEnum.TruckUnlimited:
+                        SystemStatistics.NumOfTestsTruckUnlimited++;
+                        break;
+                }
+                if (item.IsTestAborted)
+                    SystemStatistics.NumOfAbortedTests++;
+                else if (!item.IsTesterUpdateStatus)
+                    SystemStatistics.NumOfTestWaitForUpdate++;
+                else if (item.IsPassed)
+                    SystemStatistics.NumOfSuccessedTests++;
+                else if (!item.IsPassed)
+                    SystemStatistics.NumOfFailedTest++;
+            }
+        }
     }
 }
