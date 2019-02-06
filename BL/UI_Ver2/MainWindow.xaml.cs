@@ -101,6 +101,10 @@ namespace UI_Ver2
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            PassBox_passAdmin.Password = "";
+            PassBox_passOffice.Password = "";
+            TextBox_TesterID.Text = "";
+            TextBox_TraineeID.Text = "";
             try
             {
                 TabControl tabControl = sender as TabControl;
@@ -267,11 +271,6 @@ namespace UI_Ver2
                 MessageBox.Show("Trainee with ID " + getIDWindow.TxtBx_ID.Text + " successfuly deleted.", "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-        private void Button_Click_ViewAllTrainees(object sender, RoutedEventArgs e)
-        {
-            OfficeViewTraineesListWindow adminViewTraineesListWindow = new OfficeViewTraineesListWindow();
-            adminViewTraineesListWindow.ShowDialog();
-        }
         private void Button_Click_SearchTrainee(object sender, RoutedEventArgs e)
         {
             OfficeSearchTrainee searchTrainee = new OfficeSearchTrainee();
@@ -359,6 +358,16 @@ namespace UI_Ver2
             if (ListView_TesterTests.SelectedIndex == -1)
                 return;
             TesterTest temp = (TesterTest)ListView_TesterTests.SelectedItem;
+            if (temp.IsTesterUpdateStatus)
+            {
+                MessageBox.Show("You already updated status for this Test!", "Duplicate Block", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (temp.IsTestAborted)
+            {
+                MessageBox.Show("That test can NOT Updated, because he was Canceld.", "Test Aborted Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             TesterResultUpdateWindow testerResultUpdateWindow = new TesterResultUpdateWindow(temp);
             testerResultUpdateWindow.ShowDialog();
             try

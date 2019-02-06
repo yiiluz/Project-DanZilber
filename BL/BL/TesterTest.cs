@@ -16,7 +16,7 @@ namespace BO
         private bool isTesterUpdateStatus;
         private bool isTestAborted;
 
-        public TesterTest(Test test)
+        public TesterTest(Test test)//used to create TesterTest from TestObject
         {
             TestId = test.TestId;
             DateOfTest = test.DateOfTest;

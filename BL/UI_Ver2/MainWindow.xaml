@@ -111,7 +111,7 @@
                                         </ListView.ItemContainerStyle>
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="Configuration Name" DisplayMemberBinding="{Binding Key}" Width="200"/>
+                                                <GridViewColumn Header="Configuration Name" DisplayMemberBinding="{Binding Key}" Width="300"/>
                                                 <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="100"/>
                                             </GridView>
                                         </ListView.View>

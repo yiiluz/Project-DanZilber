@@ -22,7 +22,7 @@ namespace BO
 
         public Trainee(string id) : base(id) { }
 
-        public Trainee(string id, Trainee other) : base(id)
+        public Trainee(string id, Trainee other) : base(id)//needed for clone the trainee from binding
         {
             LastName = other.LastName;
             FirstName = other.FirstName;

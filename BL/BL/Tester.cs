@@ -25,23 +25,7 @@ namespace BO
                 for (int j = 0; j < 6; ++j)
                     AvailiableWorkTime[i, j] = false;
         }
-        public Tester(Tester other) : base(other.Id)
-        {
-            LastName = other.LastName;
-            FirstName = other.FirstName;
-            PhoneNumber = other.PhoneNumber;
-            Gender = other.Gender;
-            Address = new Address(other.Address);
-            DateOfBirth = other.DateOfBirth;
-            Seniority = other.Seniority;
-            MaxDistance = other.MaxDistance;
-            MaxTestsPerWeek = other.MaxTestsPerWeek;
-            TypeCarToTest = other.TypeCarToTest;
-            AvailiableWorkTime = other.AvailiableWorkTime;
-            Statistics = other.Statistics;
-            foreach (var item in other.TestList)
-                TestList.Add(item);
-        }
+
         public Tester(string id, Tester other) : base(id)
         {
             LastName = other.LastName;

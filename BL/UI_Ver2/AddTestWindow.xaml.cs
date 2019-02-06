@@ -126,8 +126,6 @@ namespace UI_Ver2
                     return;
                 }
                 Trainee trainee = null;
-
-
                 try
                 {
                     trainee = MainWindow.bl.GetTraineeByID(TxtBx_ID.Text);
