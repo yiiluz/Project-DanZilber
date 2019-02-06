@@ -98,7 +98,6 @@ namespace UI_Ver2
             ((Button)sender).Height /= 1.1;
         }
 
-
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PassBox_passAdmin.Password = "";
