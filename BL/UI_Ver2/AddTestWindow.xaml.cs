@@ -29,7 +29,8 @@ namespace UI_Ver2
             test.DateOfTest = DateTime.Today.AddDays(1);
             test.HourOfTest = 9;
             this.DataContext = test;
-            
+            CmbBx_City.ItemsSource = MainWindow.cities;
+            CmbBx_Street.IsEnabled = false;
             DatePicker_DateOfTest_ByHour.BlackoutDates.Add(new CalendarDateRange( DateTime.MinValue, DateTime.Now));
             DatePicker_DateOfTest_ByDate.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now));
 
@@ -37,8 +38,8 @@ namespace UI_Ver2
             {
                 TxtBx_ID.Text = trainee.Id;
                 TxtBx_ID.IsEnabled = false;
-                TxtBx_City.Text = trainee.City;
-                TxtBx_Street.Text = trainee.Street;
+                CmbBx_City.Text = trainee.City;
+                CmbBx_Street.Text = trainee.Street;
                 TxtBx_BuildNum.Text = trainee.BuildingNumber.ToString();
             }
         }
@@ -62,30 +63,6 @@ namespace UI_Ver2
         {
             TxtBx_ID.Background = Brushes.White;
             TxtBx_ID.BorderBrush = Brushes.Gray;
-        }
-        private void TxtBx_City_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (TxtBx_City.Text.Length == 0 || !TxtBx_City.Text.All(x => x == ' ' || char.IsLetter(x)))
-                TxtBx_City.Background = Brushes.Red;
-            else
-                TxtBx_City.BorderBrush = Brushes.Green;
-        }
-        private void TxtBx_City_GotFocus(object sender, RoutedEventArgs e)
-        {
-            TxtBx_City.Background = Brushes.White;
-            TxtBx_City.BorderBrush = Brushes.Gray;
-        }
-        private void TxtBx_Street_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (TxtBx_Street.Text.Length == 0 || !TxtBx_Street.Text.All(x => x == ' ' || char.IsLetter(x)))
-                TxtBx_Street.Background = Brushes.Red;
-            else
-                TxtBx_Street.BorderBrush = Brushes.Green;
-        }
-        private void TxtBx_Street_GotFocus(object sender, RoutedEventArgs e)
-        {
-            TxtBx_Street.Background = Brushes.White;
-            TxtBx_Street.BorderBrush = Brushes.Gray;
         }
         private void TxtBx_BuildNum_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -140,11 +117,14 @@ namespace UI_Ver2
             if (
                 (TxtBx_HourByDate.Text.All(char.IsDigit) && (int.Parse(TxtBx_HourByDate.Text) < 15 && (int.Parse(TxtBx_HourByDate.Text)) >= 9)) &&
                 (TxtBx_BuildNum.Text.All(char.IsDigit) && (TxtBx_BuildNum.Text.Length != 0)) &&
-                (TxtBx_Street.Text.Length != 0 || TxtBx_Street.Text.All(x => x == ' ' || char.IsLetter(x))) &&
-                (TxtBx_City.Text.Length != 0 || TxtBx_City.Text.All(x => x == ' ' || char.IsLetter(x))) &&
                 (TxtBx_ID.Text.All(char.IsDigit) && (TxtBx_ID.Text.Length == 9))
                 )
             {
+                if (!MainWindow.cities.Exists(x => x == (string)CmbBx_City.SelectedItem) || !MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem).ToList().Exists(x => x == (string)CmbBx_Street.SelectedItem))
+                {
+                    MessageBox.Show("Address input was wrong.", "Wrong Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 Trainee trainee = null;
 
 
@@ -166,7 +146,16 @@ namespace UI_Ver2
                     }
                 }
                 test.CarType = trainee.CurrCarType;
-                var lst = MainWindow.bl.GetOptionalTestsByDate(this.test, trainee);
+                List<Test> lst = new List<Test>();
+                try
+                {
+                    lst = MainWindow.bl.GetOptionalTestsByDate(this.test, trainee);
+                }
+                catch(KeyNotFoundException ex)
+                {
+                    MessageBox.Show("Can't find Test time. " + ex.Message + "\nYou can try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Hand);
+                    return;
+                }
                 if (lst.Count == 0)
                 {
                     MessageBox.Show("There is no Availiable test on this Date. Try another", "OOPS", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -189,11 +178,14 @@ namespace UI_Ver2
             if (
                 (TxtBx_HourByHour.Text.All(char.IsDigit) && (int.Parse(TxtBx_HourByHour.Text) < 15 && (int.Parse(TxtBx_HourByHour.Text)) >= 9)) &&
                 (TxtBx_BuildNum.Text.All(char.IsDigit) && (TxtBx_BuildNum.Text.Length != 0)) &&
-                (TxtBx_Street.Text.Length != 0 || TxtBx_Street.Text.All(x => x == ' ' || char.IsLetter(x))) &&
-                (TxtBx_City.Text.Length != 0 || TxtBx_City.Text.All(x => x == ' ' || char.IsLetter(x))) &&
                 (TxtBx_ID.Text.All(char.IsDigit) && (TxtBx_ID.Text.Length == 9))
                 )
             {
+                if (!MainWindow.cities.Exists(x => x == (string)CmbBx_City.SelectedItem) || !MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem).ToList().Exists(x => x == (string)CmbBx_Street.SelectedItem))
+                {
+                    MessageBox.Show("Address input was wrong.", "Wrong Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 Trainee trainee = null;
                 try
                 {
@@ -213,7 +205,16 @@ namespace UI_Ver2
                     }
                 }
                 test.CarType = trainee.CurrCarType;
-                var lst = MainWindow.bl.GetOptionalTestsByHour(this.test, trainee);
+                List<Test> lst = new List<Test>();
+                try
+                {
+                    lst = MainWindow.bl.GetOptionalTestsByDate(this.test, trainee);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    MessageBox.Show("Can't find Test time. " + ex.Message + "\nYou can try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Hand);
+                    return;
+                }
                 if (lst.Count == 0)
                 {
                     MessageBox.Show("There is no Availiable test on this Hour. Try another", "OOPS", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -266,6 +267,11 @@ namespace UI_Ver2
                     return;
                 }
             }
+        }
+        private void CmbBx_City_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CmbBx_Street.IsEnabled = true;
+            CmbBx_Street.ItemsSource = MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem);
         }
     }
 

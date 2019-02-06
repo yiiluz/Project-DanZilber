@@ -47,7 +47,7 @@ namespace DL
             {
                 ConfigRoot = new XElement("Configuration");
             }
-            (new Thread(ConfigUpdatedThreadFunc)).Start();
+            (new Thread(ConfigUpdatdThreadFunc)).Start();
         }
         public static DAL_XML_imp GetAL_XML_Imp { get => instance; }
         public static void ConfigUpdatedAddEvent(Action action)
@@ -55,7 +55,7 @@ namespace DL
             instance.ConfigUpdated += action;
         }
         private static volatile bool isConfigUpdated = false;
-        static void ConfigUpdatedThreadFunc()
+        static void ConfigUpdatdThreadFunc()
         {
             while (true)
             {

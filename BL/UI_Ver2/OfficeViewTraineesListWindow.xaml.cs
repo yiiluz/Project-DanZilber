@@ -67,8 +67,8 @@ namespace UI_Ver2
             AddTestWindow testWindow = new AddTestWindow();
             testWindow.TxtBx_ID.Text = (ListBox_TraineesList.SelectedItem as Trainee).Id;
             testWindow.TxtBx_ID.IsEnabled = false;
-            testWindow.TxtBx_City.Text = (ListBox_TraineesList.SelectedItem as Trainee).City;
-            testWindow.TxtBx_Street.Text = (ListBox_TraineesList.SelectedItem as Trainee).Street;
+            testWindow.CmbBx_City.Text = (ListBox_TraineesList.SelectedItem as Trainee).City;
+            testWindow.CmbBx_Street.Text = (ListBox_TraineesList.SelectedItem as Trainee).Street;
             testWindow.TxtBx_BuildNum.Text = (ListBox_TraineesList.SelectedItem as Trainee).BuildingNumber.ToString();
             testWindow.ShowDialog();
         }

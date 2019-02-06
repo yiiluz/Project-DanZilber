@@ -32,6 +32,8 @@ namespace UI_Ver2
             CombBx_CurrCar.SelectedItem = BO.CarTypeEnum.MotorCycle;
             CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
             CombBx_Gender.SelectedItem = BO.GenderEnum.Male;
+            CmbBx_City.ItemsSource = MainWindow.cities;
+            CmbBx_Street.IsEnabled = false;
         }
         public TraineeDetailsWindow(Trainee t, string oper)
         {
@@ -42,12 +44,16 @@ namespace UI_Ver2
             InitializeComponent();
             CombBx_CurrCar.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
             CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
+            CmbBx_City.ItemsSource = MainWindow.cities;
+            CmbBx_City.Text = t.City;
+            CmbBx_Street.Text = t.Street;
             switch (oper)
             {
                 case "Update":
                     TxtBx_ID.IsEnabled = false;
                     Button_Add.Content = oper;
                     Label_Header.Content = "Change Details, and then click 'Update'.";
+                    
                     break;
                 case "View":
                     TxtBx_ID.IsEnabled = false;
@@ -57,8 +63,10 @@ namespace UI_Ver2
                     TxtBx_School.IsEnabled = false;
                     TxtBx_Phone.IsEnabled = false;
                     TxtBx_NumLessons.IsEnabled = false;
-                    TxtBx_City.IsEnabled = false;
-                    TxtBx_Street.IsEnabled = false;
+                    //TxtBx_City.IsEnabled = false;
+                    CmbBx_City.IsEnabled = false;
+                    //TxtBx_Street.IsEnabled = false;
+                    CmbBx_Street.IsEnabled = false;
                     TxtBx_BuildNum.IsEnabled = false;
                     DatePicker_BirthDay.IsEnabled = false;
                     CombBx_CurrCar.IsEnabled = false;
@@ -93,11 +101,15 @@ namespace UI_Ver2
                 (TxtBx_Teacher.Text.Length == 0 || !TxtBx_Teacher.Text.All(x => x == ' ' || char.IsLetter(x))) ||
                 (!TxtBx_Phone.Text.All(char.IsDigit) || (TxtBx_Phone.Text.Length != 10)) ||
                 (!int.TryParse(TxtBx_NumLessons.Text, out num) || (TxtBx_NumLessons.Text.Length == 0)) ||
-                (TxtBx_Street.Text.Length == 0 || !TxtBx_Street.Text.All(x => x == ' ' || char.IsLetter(x))) ||
                 (!TxtBx_BuildNum.Text.All(char.IsDigit) || (TxtBx_BuildNum.Text.Length == 0))
                 )
             {
                 MessageBox.Show("You must fill all fields as needed.", "Can't " + operation, MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!MainWindow.cities.Exists(x => x == (string)CmbBx_City.SelectedItem) || !MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem).ToList().Exists(x => x == (string)CmbBx_Street.SelectedItem))
+            {
+                MessageBox.Show("Address input was wrong.", "Can't " + operation, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             trainee.IsAlreadyDidTest = trainee.LastTest.ToShortDateString() != "01/01/0001" && trainee.LastTest < DateTime.Now;
@@ -252,34 +264,6 @@ namespace UI_Ver2
             TxtBx_NumLessons.BorderBrush = Brushes.Gray;
         }
 
-        private void TxtBx_City_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (TxtBx_City.Text.Length == 0 || !TxtBx_City.Text.All(x => x == ' ' || char.IsLetter(x)))
-                TxtBx_City.Background = Brushes.Red;
-            else
-                TxtBx_City.BorderBrush = Brushes.Green;
-        }
-
-        private void TxtBx_City_GotFocus(object sender, RoutedEventArgs e)
-        {
-            TxtBx_City.Background = Brushes.White;
-            TxtBx_City.BorderBrush = Brushes.Gray;
-        }
-
-        private void TxtBx_Street_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (TxtBx_Street.Text.Length == 0 || !TxtBx_Street.Text.All(x => x == ' ' || char.IsLetter(x)))
-                TxtBx_Street.Background = Brushes.Red;
-            else
-                TxtBx_Street.BorderBrush = Brushes.Green;
-        }
-
-        private void TxtBx_Street_GotFocus(object sender, RoutedEventArgs e)
-        {
-            TxtBx_Street.Background = Brushes.White;
-            TxtBx_Street.BorderBrush = Brushes.Gray;
-        }
-
         private void TxtBx_BuildNum_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!TxtBx_BuildNum.Text.All(char.IsDigit) || (TxtBx_BuildNum.Text.Length == 0))
@@ -313,6 +297,12 @@ namespace UI_Ver2
         private void Button_OK_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void CmbBx_City_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CmbBx_Street.IsEnabled = true;
+            CmbBx_Street.ItemsSource = MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem);
         }
     }
 }

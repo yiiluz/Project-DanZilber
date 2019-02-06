@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Threading;
 using BO;
+using System.Xml.Linq;
+
 
 namespace UI_Ver2
 {
@@ -40,6 +42,9 @@ namespace UI_Ver2
         private ObservableCollection<Trainee> traineeCollection;
         private ObservableCollection<Test> testCollection;
 
+        public static List<string> cities = new List<string>();
+        public static List<IGrouping<string, string>> streetsGroupedByCity = new List<IGrouping<string, string>>();
+
         //Object To Bind
         Tester tester;
         Trainee trainee;
@@ -49,6 +54,13 @@ namespace UI_Ver2
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             bl.AddEventIfConfigChanged(IsNeedToUpdateThreadFunc);
+
+            string cityPath = @"..\..\..\Cities and Streets xml\CitiesList.xml";
+            XElement citiesRoot = XElement.Load(cityPath);
+            cities = (from item in citiesRoot.Elements() select item.Value).ToList();
+            string streetPath = @"..\..\..\Cities and Streets xml\StreetsList.xml";
+            XElement streetsRoot = XElement.Load(streetPath);
+            streetsGroupedByCity = (from item in streetsRoot.Elements() group item.Element("Street").Value by item.Element("City").Value).ToList();
         }
 
 
@@ -497,6 +509,8 @@ namespace UI_Ver2
             }
             (new SetConfigWindow(x)).ShowDialog();
         }
+
+
 
         void IsNeedToUpdateThreadFunc()
         {

@@ -78,8 +78,8 @@
       </Name>
       <Gender>Male</Gender>
       <Address>
-        <City>elad</City>
-        <Street>rashi</Street>
+        <City>אלעד</City>
+        <Street>רשי</Street>
         <BuildingNumber>2</BuildingNumber>
       </Address>
       <DateOfBirth>0001-01-01T00:00:00</DateOfBirth>
@@ -114,5 +114,74 @@
     <IsAlreadyDidTest>false</IsAlreadyDidTest>
     <SchoolName>ugiyfy</SchoolName>
     <TeacherName>fgyuff</TeacherName>
+  </Trainee>
+  <Trainee>
+    <Person>
+      <ID>890890790</ID>
+      <Name>
+        <FirstName>הילה</FirstName>
+        <LastName>יהיהח</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>אלעד</City>
+        <Street>מוטי</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>0001-01-01T00:00:00</DateOfBirth>
+      <PhoneNumber>8923647632</PhoneNumber>
+    </Person>
+    <CurrCarType>MotorCycle</CurrCarType>
+    <NumOfFinishedLessons>20</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>ניניל</SchoolName>
+    <TeacherName>ללענלנ</TeacherName>
+  </Trainee>
+  <Trainee>
+    <Person>
+      <ID>888888888</ID>
+      <Name>
+        <FirstName>ןיען</FirstName>
+        <LastName>עוןעןוע</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>אלעד</City>
+        <Street>רבי מאיר</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>0001-01-01T00:00:00</DateOfBirth>
+      <PhoneNumber>6896896896</PhoneNumber>
+    </Person>
+    <CurrCarType>MotorCycle</CurrCarType>
+    <NumOfFinishedLessons>80</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>וןעוןע</SchoolName>
+    <TeacherName>וןעןוע</TeacherName>
+  </Trainee>
+  <Trainee>
+    <Person>
+      <ID>666767687</ID>
+      <Name>
+        <FirstName>bihb</FirstName>
+        <LastName>bhib</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>אל סייד</City>
+        <Street>אל סייד</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>0001-01-01T00:00:00</DateOfBirth>
+      <PhoneNumber>8979879789</PhoneNumber>
+    </Person>
+    <CurrCarType>MotorCycle</CurrCarType>
+    <NumOfFinishedLessons>90</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>hbbuh</SchoolName>
+    <TeacherName>bhubuh</TeacherName>
   </Trainee>
 </Trainees>

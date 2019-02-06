@@ -34,7 +34,7 @@ namespace DL
             tests = new List<Test>();
             testers = new List<Tester>();
             trainees = new List<Trainee>();
-            Configuration.Add("Tester minimum age", new ConfigurationParameter() { Readable = true, Writable = false, Value = 40 });
+            Configuration.Add("Tester minimum age", new ConfigurationParameter() { Readable = true, Writable = true, Value = 40 });
             Configuration.Add("Minimum days between tests", new ConfigurationParameter() { Readable = true, Writable = false, Value = 14 });
             Configuration.Add("Trainee minimum age", new ConfigurationParameter() { Readable = true, Writable = false, Value = 18 });
             Configuration.Add("Minimum lessons", new ConfigurationParameter() { Readable = true, Writable = false, Value = 20 });

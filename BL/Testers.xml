@@ -9,79 +9,17 @@
       </Name>
       <Gender>Male</Gender>
       <Address>
-        <City>ihb</City>
-        <Street>yigyiiy</Street>
-        <BuildingNumber>0</BuildingNumber>
+        <City>פתח תקווה</City>
+        <Street>יהודה הלוי</Street>
+        <BuildingNumber>6</BuildingNumber>
       </Address>
       <DateOfBirth>1970-01-01T00:00:00</DateOfBirth>
       <PhoneNumber>9999999999</PhoneNumber>
     </Person>
     <Seniority>9</Seniority>
-    <MaxDistance>90</MaxDistance>
-    <MaxTestsPerWeek>90</MaxTestsPerWeek>
+    <MaxDistance>5</MaxDistance>
+    <MaxTestsPerWeek>5</MaxTestsPerWeek>
     <TypeCarToTest>MotorCycle</TypeCarToTest>
   </Tester>
-  <Tester>
-    <Person>
-      <ID>777777777</ID>
-      <Name>
-        <FirstName>uhvug</FirstName>
-        <LastName>vug</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>ihbig</City>
-        <Street>vv</Street>
-        <BuildingNumber>0</BuildingNumber>
-      </Address>
-      <DateOfBirth>1970-01-01T00:00:00</DateOfBirth>
-      <PhoneNumber>9999999999</PhoneNumber>
-    </Person>
-    <Seniority>90</Seniority>
-    <MaxDistance>90</MaxDistance>
-    <MaxTestsPerWeek>90</MaxTestsPerWeek>
-    <TypeCarToTest>MotorCycle</TypeCarToTest>
-  </Tester>
-  <Tester>
-    <Person>
-      <ID>333333333</ID>
-      <Name>
-        <FirstName>moti</FirstName>
-        <LastName>abramoviz</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>Elad</City>
-        <Street>Meir</Street>
-        <BuildingNumber>16</BuildingNumber>
-      </Address>
-      <DateOfBirth>1975-01-01T00:00:00</DateOfBirth>
-      <PhoneNumber>0522234556</PhoneNumber>
-    </Person>
-    <Seniority>7</Seniority>
-    <MaxDistance>30</MaxDistance>
-    <MaxTestsPerWeek>3</MaxTestsPerWeek>
-    <TypeCarToTest>MotorCycle</TypeCarToTest>
-  </Tester>
-  <Tester>
-    <Person>
-      <ID>206741274</ID>
-      <Name>
-        <FirstName>nachman</FirstName>
-        <LastName>maimon</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>elad</City>
-        <Street>yehuda hanasi</Street>
-        <BuildingNumber>90</BuildingNumber>
-      </Address>
-      <DateOfBirth>1970-01-20T00:00:00</DateOfBirth>
-      <PhoneNumber>0542248083</PhoneNumber>
-    </Person>
-    <Seniority>90</Seniority>
-    <MaxDistance>100</MaxDistance>
-    <MaxTestsPerWeek>100</MaxTestsPerWeek>
-    <TypeCarToTest>MotorCycle</TypeCarToTest>
-  </Tester>
+  
 </Testers>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UI_Ver2"
         xmlns:BO="clr-namespace:BO;assembly=BL" 
         mc:Ignorable="d"
-        Title="Trainee Details Window" Height="500" Width="600" ResizeMode="NoResize" WindowStyle="None"
+        Title="Trainee Details Window" Height="500" Width="720" ResizeMode="NoResize" WindowStyle="None"
         AllowsTransparency="True" Background="Transparent">
 
 
@@ -14,9 +14,6 @@
         <local:ComboBoxSelectedItemToIsEnable x:Key="comboBoxIsSelectedToEnable"/>
         <local:DateTimeToShortString x:Key="dateTimeToShortString"/>
         <Style TargetType="{x:Type Label}">
-
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontFamily" Value="Consolas"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -74,9 +71,9 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -110,8 +107,8 @@
             <Label x:Name="Label_NumLessons" Content="Enter num of finished Lessons" Grid.Row="7" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_NumLessons"  Grid.Column="1" Grid.Row="7" LostFocus="TxtBx_NumLessons_LostFocus" GotFocus="TxtBx_NumLessons_GotFocus" Text="{Binding Path=NumOfFinishedLessons, Mode=TwoWay}" Grid.ColumnSpan="3"/>
             <Label x:Name="Label_Address" Content="Enter Trainee's Address" Grid.Row="8" Grid.Column="0"/>
-            <TextBox x:Name="TxtBx_City" Grid.Column="1" Grid.Row="8" Text="{Binding Path=City, Mode=TwoWay}" LostFocus="TxtBx_City_LostFocus" GotFocus="TxtBx_City_GotFocus"/>
-            <TextBox x:Name="TxtBx_Street" Grid.Column="2" Grid.Row="8" Text="{Binding Path=Street, Mode=TwoWay}" LostFocus="TxtBx_Street_LostFocus" GotFocus="TxtBx_Street_GotFocus"/>
+            <ComboBox x:Name="CmbBx_City" IsEditable="True" Grid.Column="1" Grid.Row="8" SelectedItem="{Binding Path=City, Mode=TwoWay}" Text="Choose City" SelectionChanged="CmbBx_City_SelectionChanged"/>
+            <ComboBox x:Name="CmbBx_Street" Grid.Column="2" Grid.Row="8" SelectedItem="{Binding Path=Street, Mode=TwoWay}" IsEditable="True" Text="Choose Street"/>
             <TextBox x:Name="TxtBx_BuildNum" Grid.Column="3" Grid.Row="8" Text="{Binding Path=BuildingNumber, Mode=TwoWay}" LostFocus="TxtBx_BuildNum_LostFocus" GotFocus="TxtBx_BuildNum_GotFocus"/>
             <Label x:Name="Label_BirthDay" Content="Choose Trainee's Birth Day" Grid.Row="9" Grid.Column="0"/>
             <DatePicker x:Name="DatePicker_BirthDay" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3" SelectedDate="{Binding Path=DateOfBirth, Mode=TwoWay}" DisplayDate="{Binding Path=DateOfBirth}"/>
