@@ -20,7 +20,7 @@
     <IsPassed>false</IsPassed>
     <TesterNotes></TesterNotes>
     <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
-    <IsTestAborted>true</IsTestAborted>
+    <IsTestAborted>false</IsTestAborted>
   </Test>
   <Test>
     <TestId>10000005</TestId>
@@ -42,7 +42,7 @@
     <IsPassed>false</IsPassed>
     <TesterNotes></TesterNotes>
     <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
-    <IsTestAborted>true</IsTestAborted>
+    <IsTestAborted>false</IsTestAborted>
   </Test>
   <Test>
     <TestId>10000008</TestId>

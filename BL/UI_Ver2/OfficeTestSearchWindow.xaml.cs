@@ -275,6 +275,37 @@ namespace UI_Ver2
                 }
             }
         }
+
+        private void MenuItem_Click_Abort(object sender, RoutedEventArgs e)
+        {
+            Test test = MainWindow.bl.GetTestByID((TestsList.SelectedItem as Test).TestId);
+            if (test.IsTestAborted)
+            {
+                MessageBox.Show("The test allready Aborted!", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var isWantToAbort = MessageBox.Show("Test details are:\n" + test.ToString() + "Are you sure you want to abort this test?" +
+                " This action is not reversible."
+                , "Abort Test", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (isWantToAbort == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    MainWindow.bl.AbortTest(test.TestId);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    var result = MessageBox.Show("internal error\n" + ex.Message + "\nDo you want to try again?",
+                        "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    if (result == MessageBoxResult.No)
+                        //Close();
+                    return;
+                }
+                MessageBox.Show("The test with id " + test.TestId + " successfuly Aborted", "Operation Status",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
     }
 }
 
