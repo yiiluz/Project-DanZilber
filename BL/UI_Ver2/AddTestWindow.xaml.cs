@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +22,10 @@ namespace UI_Ver2
     public partial class AddTestWindow : Window
     {
         Test test = new Test();
+        Trainee trainee = null;
+        List<Test> lst = new List<Test>();
         //List<Tester> lst;
+        BackgroundWorker worker = new BackgroundWorker();
         public AddTestWindow(Trainee trainee = null)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -31,9 +36,10 @@ namespace UI_Ver2
             this.DataContext = test;
             CmbBx_City.ItemsSource = MainWindow.cities;
             CmbBx_Street.IsEnabled = false;
-            DatePicker_DateOfTest_ByHour.BlackoutDates.Add(new CalendarDateRange( DateTime.MinValue, DateTime.Now));
+            DatePicker_DateOfTest_ByHour.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now));
             DatePicker_DateOfTest_ByDate.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now));
-
+            CombBx_TestsListByHour.IsEnabled = false;
+            CombBx_TestsListByDate.IsEnabled = false;
             if (trainee != null)
             {
                 TxtBx_ID.Text = trainee.Id;
@@ -42,6 +48,9 @@ namespace UI_Ver2
                 CmbBx_Street.Text = trainee.Street;
                 TxtBx_BuildNum.Text = trainee.BuildingNumber.ToString();
             }
+            worker.DoWork += AddChosenTestThreadFunc;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.WorkerSupportsCancellation = false;
         }
 
 
@@ -89,7 +98,7 @@ namespace UI_Ver2
             TxtBx_HourByDate.BorderBrush = Brushes.Gray;
         }
 
-        private void Button_Click_AddByDate(object sender, RoutedEventArgs e)
+        private void Button_AddChosenTest(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -113,19 +122,23 @@ namespace UI_Ver2
         }
         private void Button_Click_GetTestsListByDate(object sender, RoutedEventArgs e)
         {
-            
+            if (worker.IsBusy)
+            {
+                return;
+            }
+
             if (
-                (TxtBx_HourByDate.Text.All(char.IsDigit) && (int.Parse(TxtBx_HourByDate.Text) < 15 && (int.Parse(TxtBx_HourByDate.Text)) >= 9)) &&
-                (TxtBx_BuildNum.Text.All(char.IsDigit) && (TxtBx_BuildNum.Text.Length != 0)) &&
-                (TxtBx_ID.Text.All(char.IsDigit) && (TxtBx_ID.Text.Length == 9))
-                )
+            (TxtBx_HourByDate.Text.All(char.IsDigit) && (int.Parse(TxtBx_HourByDate.Text) < 15 && (int.Parse(TxtBx_HourByDate.Text)) >= 9)) &&
+            (TxtBx_BuildNum.Text.All(char.IsDigit) && (TxtBx_BuildNum.Text.Length != 0)) &&
+            (TxtBx_ID.Text.All(char.IsDigit) && (TxtBx_ID.Text.Length == 9))
+            )
             {
                 if (!MainWindow.cities.Exists(x => x == (string)CmbBx_City.SelectedItem) || !MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem).ToList().Exists(x => x == (string)CmbBx_Street.SelectedItem))
                 {
                     MessageBox.Show("Address input was wrong.", "Wrong Input", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                Trainee trainee = null;
+
                 try
                 {
                     trainee = MainWindow.bl.GetTraineeByID(TxtBx_ID.Text);
@@ -140,29 +153,15 @@ namespace UI_Ver2
                     }
                     else
                     {
+
                         return;
                     }
                 }
                 test.CarType = trainee.CurrCarType;
-                List<Test> lst = new List<Test>();
-                try
+                if (!worker.IsBusy)
                 {
-                    lst = MainWindow.bl.GetOptionalTestsByDate(this.test, trainee);
-                }
-                catch(KeyNotFoundException ex)
-                {
-                    MessageBox.Show("Can't find Test time. " + ex.Message + "\nYou can try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Hand);
-                    return;
-                }
-                if (lst.Count == 0)
-                {
-                    MessageBox.Show("There is no Availiable test on this Date. Try another", "OOPS", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    CombBx_TestsListByDate.ItemsSource = lst;
-                    CombBx_TestsListByDate.SelectedItem = lst[0];
-                    CombBx_TestsListByDate.IsEnabled = true;
+                    worker.RunWorkerAsync("Add Test By Date");
+                    AddTestProgressBarByDate.Visibility = Visibility.Visible;
                 }
             }
             else
@@ -173,6 +172,11 @@ namespace UI_Ver2
 
         private void Button_Click_GetTestsListByHour(object sender, RoutedEventArgs e)
         {
+            if (worker.IsBusy)
+            {
+                return;
+            }
+
             if (
                 (TxtBx_HourByHour.Text.All(char.IsDigit) && (int.Parse(TxtBx_HourByHour.Text) < 15 && (int.Parse(TxtBx_HourByHour.Text)) >= 9)) &&
                 (TxtBx_BuildNum.Text.All(char.IsDigit) && (TxtBx_BuildNum.Text.Length != 0)) &&
@@ -203,25 +207,10 @@ namespace UI_Ver2
                     }
                 }
                 test.CarType = trainee.CurrCarType;
-                List<Test> lst = new List<Test>();
-                try
+                if (!worker.IsBusy)
                 {
-                    lst = MainWindow.bl.GetOptionalTestsByDate(this.test, trainee);
-                }
-                catch (KeyNotFoundException ex)
-                {
-                    MessageBox.Show("Can't find Test time. " + ex.Message + "\nYou can try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Hand);
-                    return;
-                }
-                if (lst.Count == 0)
-                {
-                    MessageBox.Show("There is no Availiable test on this Hour. Try another", "OOPS", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    CombBx_TestsListByHour.ItemsSource = lst;
-                    CombBx_TestsListByHour.SelectedItem = lst[0];
-                    CombBx_TestsListByHour.IsEnabled = true;
+                    worker.RunWorkerAsync("Add Test By Hour");
+                    AddTestProgressBarByHour.Visibility = Visibility.Visible;
                 }
             }
             else
@@ -244,33 +233,112 @@ namespace UI_Ver2
             TxtBx_HourByHour.BorderBrush = Brushes.Gray;
         }
 
-        private void Button_AddByHour_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                string serialOfTest = MainWindow.bl.AddTest((CombBx_TestsListByHour.SelectedItem) as Test);
-                MessageBox.Show("Test added successfuly. Test ID: " + serialOfTest, "Add Status", MessageBoxButton.OK, MessageBoxImage.Information);
-                Close();
-            }
-            catch (Exception ex)
-            {
-                var result = MessageBox.Show("Internal ERROR: " + ex.Message + ". Do you want to try agein?", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                if (result == MessageBoxResult.No)
-                {
-                    MessageBox.Show("The test has'nt Added.", "Operation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Close();
-                }
-                else
-                {
-                    return;
-                }
-            }
-        }
+        //private void Button_AddByHour_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        string serialOfTest = MainWindow.bl.AddTest((CombBx_TestsListByHour.SelectedItem) as Test);
+        //        MessageBox.Show("Test added successfuly. Test ID: " + serialOfTest, "Add Status", MessageBoxButton.OK, MessageBoxImage.Information);
+        //        Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        var result = MessageBox.Show("Internal ERROR: " + ex.Message + ". Do you want to try agein?", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        //        if (result == MessageBoxResult.No)
+        //        {
+        //            MessageBox.Show("The test has'nt Added.", "Operation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+        //            Close();
+        //        }
+        //        else
+        //        {
+        //            return;
+        //        }
+        //    }
+        //}
         private void CmbBx_City_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CmbBx_Street.IsEnabled = true;
             CmbBx_Street.ItemsSource = MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem);
         }
-    }
 
+        private void AddChosenTestThreadFunc(Object sender, DoWorkEventArgs e)
+        {
+
+            switch ((string)e.Argument)
+            {
+                case "Add Test By Date":
+                    try
+                    {
+                        lst = MainWindow.bl.GetOptionalTestsByDate(this.test, trainee);
+                    }
+                    catch (KeyNotFoundException ex)
+                    {
+                        MessageBox.Show("Can't find Test time. " + ex.Message + "\nYou can try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Hand);
+                        return;
+                    }
+                    if (lst.Count == 0)
+                    {
+                        MessageBox.Show("There is no Availiable test on this Date. Try another", "OOPS", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        e.Result = "Add Test By Date";
+                    }
+                    break;
+
+                case "Add Test By Hour":
+                    try
+                    {
+                        lst = MainWindow.bl.GetOptionalTestsByHour(this.test, trainee);
+                    }
+                    catch (KeyNotFoundException ex)
+                    {
+                        MessageBox.Show("Can't find Test time. " + ex.Message + "\nYou can try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Hand);
+                        return;
+                    }
+                    if (lst.Count == 0)
+                    {
+                        MessageBox.Show("There is no Availiable test on this Hour. Try another", "OOPS", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        e.Result = "Add Test By Hour";
+                    }
+                    break;
+            }
+        }
+        void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled == true)
+            {
+            }
+            else if (e.Error != null)
+            {
+                AddTestProgressBarByDate.Visibility = Visibility.Hidden;
+                AddTestProgressBarByHour.Visibility = Visibility.Hidden;
+                MessageBox.Show("Can't find test. Check your internet Conection.", "Error", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+
+            }
+            else
+            {
+                switch ((string)e.Result)
+                {
+                    case "Add Test By Hour":
+                        CombBx_TestsListByHour.ItemsSource = lst;
+                        CombBx_TestsListByHour.SelectedItem = lst[0];
+                        CombBx_TestsListByHour.IsEnabled = true;
+                        AddTestProgressBarByHour.Visibility = Visibility.Hidden;
+                        break;
+                    case "Add Test By Date":
+                        CombBx_TestsListByDate.ItemsSource = lst;
+                        CombBx_TestsListByDate.SelectedItem = lst[0];
+                        CombBx_TestsListByDate.IsEnabled = true;
+                        AddTestProgressBarByDate.Visibility = Visibility.Hidden;
+                        break;
+                }
+
+            }
+
+        }
+    }
 }

@@ -350,7 +350,6 @@ namespace DL
                           SchoolName = item.Element("SchoolName").Value,
                           TeacherName = item.Element("TeacherName").Value,
                       }).ToList();
-            TraineesRoot.Save(TraineesRootPath);
             return it;
         }
         public override List<Test> GetTestsList()
@@ -384,7 +383,12 @@ namespace DL
                           IsTesterUpdateStatus = Convert.ToBoolean(item.Element("IsTesterUpdateStatus").Value),
                           IsTestAborted = Convert.ToBoolean(item.Element("IsTestAborted").Value)
                       }).ToList();
-            TestsRoot.Save(TestsRootPath);
+            try
+            {
+
+                TestsRoot.Save(TestsRootPath);
+            }
+            catch { }
             return it;
         }
         public override Dictionary<String, Object> GetConfig()

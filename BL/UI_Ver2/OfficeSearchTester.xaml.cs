@@ -150,8 +150,11 @@ namespace UI_Ver2
             switch (ComboBox_GroupOptions.SelectedIndex)
             {
                 case (int)TesterGroupCategorys.All:
+                    ComboBox_GroupNames.IsEnabled = false;
+                    ComboBox_GroupNames.SelectedItem = null;
                     mainList = new ObservableCollection<Tester>(MainWindow.bl.GetTestersList());
                     listToFilter = mainList;
+                    SearchFilterChanged(null, null);
                     break;
                 case (int)TesterGroupCategorys.Seniority:
                     foreach (var item in groupedBySeniority)

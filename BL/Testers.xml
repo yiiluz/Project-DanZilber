@@ -17,9 +17,8 @@
       <PhoneNumber>9999999999</PhoneNumber>
     </Person>
     <Seniority>9</Seniority>
-    <MaxDistance>5</MaxDistance>
+    <MaxDistance>90</MaxDistance>
     <MaxTestsPerWeek>5</MaxTestsPerWeek>
     <TypeCarToTest>MotorCycle</TypeCarToTest>
   </Tester>
-  
 </Testers>

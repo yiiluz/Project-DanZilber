@@ -57,8 +57,8 @@
             <Label x:Name="Label_MaxDistance" Content="Enter Max Distance from Test" Grid.Row="7" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_MaxDistance"  Grid.Column="1" Grid.Row="7" LostFocus="TxtBx_MaxDistance_LostFocus" GotFocus="TxtBx_MaxDistance_GotFocus" Text="{Binding Path=MaxDistance, Mode=TwoWay}" Grid.ColumnSpan="3"/>
             <Label x:Name="Label_Address" Content="Enter Tester's Address" Grid.Row="8" Grid.Column="0"/>
-            <ComboBox x:Name="CmbBx_City" Grid.Column="1" Grid.Row="8" SelectedItem="{Binding Path=City, Mode=TwoWay}" Text="Choose City" IsEditable="True" VerticalContentAlignment="Center" SelectionChanged="CmbBx_City_SelectionChanged"/>
-            <ComboBox x:Name="CmbBx_Street" Grid.Column="2" Grid.Row="8" SelectedItem="{Binding Path=Street, Mode=TwoWay}" Text="Choose Street" IsEditable="True" VerticalContentAlignment="Center"/>
+            <ComboBox x:Name="CmbBx_City" Margin="2" Grid.Column="1" Grid.Row="8" SelectedItem="{Binding Path=City, Mode=TwoWay}" Text="Choose City" IsEditable="True" VerticalContentAlignment="Center" SelectionChanged="CmbBx_City_SelectionChanged"/>
+            <ComboBox x:Name="CmbBx_Street" Margin="2" Grid.Column="2" Grid.Row="8" SelectedItem="{Binding Path=Street, Mode=TwoWay}" Text="Choose Street" IsEditable="True" VerticalContentAlignment="Center"/>
             <TextBox x:Name="TxtBx_BuildNum" Grid.Column="3" Grid.Row="8" Text="{Binding Path=BuildingNumber, Mode=TwoWay}" LostFocus="TxtBx_BuildNum_LostFocus" GotFocus="TxtBx_BuildNum_GotFocus"/>
             <Label x:Name="Label_BirthDay" Content="Choose Tester's Birth Day" Grid.Row="9" Grid.Column="0"/>
             <DatePicker x:Name="DatePicker_BirthDay" Margin="2" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3"  VerticalContentAlignment="Center" SelectedDate="{Binding Path=DateOfBirth, Mode=TwoWay}" DisplayDate="{Binding Path=DateOfBirth}"/>

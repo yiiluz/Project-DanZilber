@@ -852,10 +852,17 @@ namespace BL
                                                 IsTestersWorkAtSpesificHour(x, dataSourse.HourOfTest));
             if (optionalTesters.Count == 0)
                 throw new KeyNotFoundException("There is no testers that work at wanted hour. Try another.");
-            optionalTesters = (from tester in optionalTesters
-                               let x = GetDistanceBetweenTwoAddresses(dataSourse.StartTestAddress, tester.Address)
-                               where x <= tester.MaxDistance && x >= 0
-                               select tester).ToList();
+            try
+            {
+                optionalTesters = (from tester in optionalTesters
+                                   let x = GetDistanceBetweenTwoAddresses(dataSourse.StartTestAddress, tester.Address)
+                                   where x <= tester.MaxDistance && x >= 0
+                                   select tester).ToList();
+            }
+            catch (InternalBufferOverflowException)
+            {
+                throw new InternalBufferOverflowException();
+            }
             if (optionalTesters.Count == 0)
                 throw new KeyNotFoundException("There is no testers for this address.");
             //if there is no tester availiable for this hour
@@ -901,10 +908,17 @@ namespace BL
                                             GetAvailiableHoursOfTesterForSpesificDate(x, dataSourse.DateOfTest).Count != 0);
             if (optionalTesters.Count == 0)
                 throw new KeyNotFoundException("There is no testers that work at wanted date. Try another.");
-            optionalTesters = (from tester in optionalTesters
-                               let x = GetDistanceBetweenTwoAddresses(dataSourse.StartTestAddress, tester.Address)
-                               where x <= tester.MaxDistance && x >= 0
-                               select tester).ToList();
+            try
+            {
+                optionalTesters = (from tester in optionalTesters
+                                   let x = GetDistanceBetweenTwoAddresses(dataSourse.StartTestAddress, tester.Address)
+                                   where x <= tester.MaxDistance && x >= 0
+                                   select tester).ToList();
+            }
+            catch(InternalBufferOverflowException)
+            {
+                throw new InternalBufferOverflowException();
+            }
             if (optionalTesters.Count == 0)
                 throw new KeyNotFoundException("There is no testers for this address.");
             bool[] tmp = new bool[6]; //tmp array for delete dublicates.
@@ -1423,51 +1437,59 @@ namespace BL
 
         double GetDistanceBetweenTwoAddresses(Address a, Address b)
         {
-            //string origin = "pisga 45 st. jerusalem"; //or "תקווה פתח 100 העם אחד "etc.
-            string origin = a.Street + " " + a.BuildingNumber + " " + a.City;
-            //string destination = "gilgal 78 st. ramat-gan";//or "גן רמת 10 בוטינסקי'ז "etc.
-            string destination = b.Street + " " + b.BuildingNumber + " " + b.City;
             double CalculatedDistance = 0;
-            string KEY = @"8D0srxBcNkZk8VBRA0LBDrJEHO9KNMni";
-            string url = @"https://www.mapquestapi.com/directions/v2/route" +
-             @"?key=" + KEY +
-             @"&from=" + origin +
-             @"&to=" + destination +
-             @"&outFormat=xml" +
-             @"&ambiguities=ignore&routeType=fastest&doReverseGeocode=false" +
-             @"&enhancedNarrative=false&avoidTimedConditions=false";
-            //request from MapQuest service the distance between the 2 addresses
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            WebResponse response = request.GetResponse();
-            Stream dataStream = response.GetResponseStream();
-            StreamReader sreader = new StreamReader(dataStream);
-            string responsereader = sreader.ReadToEnd();
-            response.Close();
-            //the response is given in an XML format
-            XmlDocument xmldoc = new XmlDocument();
-            xmldoc.LoadXml(responsereader);
-            if (xmldoc.GetElementsByTagName("statusCode")[0].ChildNodes[0].InnerText == "0")
-            //we have the expected answer
+            bool isNetBuisy = false;
+            int i = 0;
+            do
             {
-                //display the returned distance
-                XmlNodeList distance = xmldoc.GetElementsByTagName("distance");
-                CalculatedDistance = Convert.ToDouble(distance[0].ChildNodes[0].InnerText) * 1.609344;
-                //Console.WriteLine("Distance In KM: " + distInMiles * 1.609344);
-                //display the returned driving time
-                XmlNodeList formattedTime = xmldoc.GetElementsByTagName("formattedTime");
-                //CalculatedDistance = double.Parse(formattedTime[0].ChildNodes[0].InnerText);
-                //Console.WriteLine("Driving Time: " + CalculatedDistance);
+                //string origin = "pisga 45 st. jerusalem"; //or "תקווה פתח 100 העם אחד "etc.
+                string origin = a.Street + " " + a.BuildingNumber + " " + a.City;
+                //string destination = "gilgal 78 st. ramat-gan";//or "גן רמת 10 בוטינסקי'ז "etc.
+                string destination = b.Street + " " + b.BuildingNumber + " " + b.City;
+                string KEY = @"8D0srxBcNkZk8VBRA0LBDrJEHO9KNMni";
+                string url = @"https://www.mapquestapi.com/directions/v2/route" +
+                 @"?key=" + KEY +
+                 @"&from=" + origin +
+                 @"&to=" + destination +
+                 @"&outFormat=xml" +
+                 @"&ambiguities=ignore&routeType=fastest&doReverseGeocode=false" +
+                 @"&enhancedNarrative=false&avoidTimedConditions=false";
+                //request from MapQuest service the distance between the 2 addresses
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                WebResponse response = request.GetResponse();
+                Stream dataStream = response.GetResponseStream();
+                StreamReader sreader = new StreamReader(dataStream);
+                string responsereader = sreader.ReadToEnd();
+                response.Close();
+                //the response is given in an XML format
+                XmlDocument xmldoc = new XmlDocument();
+                xmldoc.LoadXml(responsereader);
+                if (xmldoc.GetElementsByTagName("statusCode")[0].ChildNodes[0].InnerText == "0")
+                //we have the expected answer
+                {
+                    //display the returned distance
+                    XmlNodeList distance = xmldoc.GetElementsByTagName("distance");
+                    CalculatedDistance = Convert.ToDouble(distance[0].ChildNodes[0].InnerText) * 1.609344;
+                    //Console.WriteLine("Distance In KM: " + distInMiles * 1.609344);
+                    //display the returned driving time
+                    XmlNodeList formattedTime = xmldoc.GetElementsByTagName("formattedTime");
+                    //CalculatedDistance = double.Parse(formattedTime[0].ChildNodes[0].InnerText);
+                    //Console.WriteLine("Driving Time: " + CalculatedDistance);
+                }
+                else if (xmldoc.GetElementsByTagName("statusCode")[0].ChildNodes[0].InnerText ==
+                "402")
+                //we have an answer that an error occurred, one of the addresses is not found
+                {
+                    return -1;
+                }
+                else //busy network or other error...
+                {
+                    Thread.Sleep(2000);
+                }
             }
-            else if (xmldoc.GetElementsByTagName("statusCode")[0].ChildNodes[0].InnerText ==
-            "402")
-            //we have an answer that an error occurred, one of the addresses is not found
-            {
-                return -1;
-            }
-            else //busy network or other error...
-            {
-                Console.WriteLine("We have'nt got an answer, maybe the net is busy...");
-            }
+            while (isNetBuisy && i++ < 10);
+            if (i >= 10)
+                throw new InternalBufferOverflowException();
             return CalculatedDistance;
         }
     }

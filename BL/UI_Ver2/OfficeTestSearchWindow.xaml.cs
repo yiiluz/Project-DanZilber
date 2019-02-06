@@ -72,6 +72,8 @@ namespace UI_Ver2
             {
                 case (int)HowToGroupTest.ALL:
                     mainList = new ObservableCollection<Test>(BO.Factory.GetBLObj().GetTestsList());
+                    listToFilter = mainList;
+                    ComboBox_GroupOptions.ItemsSource = listToFilter;
                     SearchFilterChanged(null,null);
                     ComboBox_GroupNames.SelectedItem = null;
                     ComboBox_GroupNames.IsEnabled = false;

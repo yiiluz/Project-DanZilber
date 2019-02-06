@@ -109,8 +109,10 @@ namespace UI_Ver2
                 case (int)TraineeGroupCategorys.All:
                     ComboBox_GroupNames.IsEnabled = false;
                     ComboBox_GroupNames.SelectedItem = null;
+                    mainList = new ObservableCollection<Trainee>(MainWindow.bl.GetTraineeList());
                     listToFilter = mainList;
                     TraineeList.ItemsSource = listToFilter;
+                    SearchFilterChanged(null, null);
                     return;
                 case (int)TraineeGroupCategorys.City:
                     groupedByCity = new ObservableCollection<IGrouping<string, Trainee>>(MainWindow.bl.GetTraineessGroupedByCity());

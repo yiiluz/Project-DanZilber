@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UI_Ver2"
         xmlns:BO="clr-namespace:BO;assembly=BL" 
         mc:Ignorable="d"
-        Title="Trainee Details Window" Height="500" Width="720" ResizeMode="NoResize" WindowStyle="None"
+        Title="Trainee Details Window" Height="550" Width="600" ResizeMode="NoResize" WindowStyle="None"
         AllowsTransparency="True" Background="Transparent">
 
 
@@ -70,12 +70,13 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
@@ -116,9 +117,9 @@
             <ComboBox x:Name="CombBx_CurrCar" Grid.Row="10" Grid.ColumnSpan="3" Grid.Column="1" SelectedValue="{Binding Path=CurrCarType}"/>
             <Label x:Name="Label_Gender" Content="Choose Trainee's Gender" Grid.Row="11" Grid.Column="0"/>
             <ComboBox x:Name="CombBx_Gender" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" SelectedValue="{Binding Path=Gender}"/>
-            <Button x:Name="Button_Add" Content="Add" Grid.Column="3" Grid.Row="16" Margin="2" Click="Button_Click_Add"/>
-            <Button x:Name="Button_Cancel" Content="Cancel" Grid.Column="1" Grid.Row="16" Margin="2" Click="Button_Click_Cancel"/>
-            <Button x:Name="Button_OK" Content="OK" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="16" Margin="2" Visibility="Collapsed" Click="Button_OK_Click"/>
+            <Button x:Name="Button_Add" Content="Add" Grid.ColumnSpan="4" Grid.Row="12" Margin="2" Click="Button_Click_Add"/>
+            <Button x:Name="Button_Cancel" Content="Cancel" Grid.ColumnSpan="4" Grid.Row="13" Margin="2" Click="Button_Click_Cancel"/>
+            <Button x:Name="Button_OK" Content="OK" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="13" Margin="2" Visibility="Collapsed" Click="Button_OK_Click"/>
 
 
 
