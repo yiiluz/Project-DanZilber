@@ -170,10 +170,10 @@
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="Add Tester" Margin="30 0"/>
-                                                        <Image Source="Icons/Plus_Icon.png" Height="20" Width="20"/>
+                                                        <Image Source="Icons/greenplus.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
-                                                <Button Content="Update Tester Details" Grid.Row="1" Margin="5" Click="Button_Click_UpdateTester" ToolTipService.ShowDuration="8000">
+                                                <Button  Grid.Row="1" Margin="5" Click="Button_Click_UpdateTester" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Update Exisiting Tester Details</TextBlock>
@@ -181,10 +181,12 @@
                                                             <TextBlock>If the ID Exist, Window will open where you can change the details.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
-
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="Update Tester Details   " />
+                                                        <Image Source="Icons/reload_edition.png" Height="18" Width="18"/>
+                                                    </StackPanel>
                                                 </Button>
-                                                <Button Content="Remove Tester" Grid.Row="2" Margin="5" Click="Button_Click_RemoveTester" ToolTipService.ShowDuration="8000">
-
+                                                <Button Grid.Row="2" Margin="5" Click="Button_Click_RemoveTester" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Remove Exisiting Tester Details</TextBlock>
@@ -193,8 +195,12 @@
                                                             <TextBlock>Deletion of tester will Abort all his Future Tests. You will get note about the Aborted Tests.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="Remove Tester  " />
+                                                        <Image Source="Icons/delete.png" Height="18" Width="18"/>
+                                                    </StackPanel>
                                                 </Button>
-                                                <Button Content="View, Search and group Testers" Grid.Row="3" Padding="5" Margin="5" Click="Button_Click_SearchTesterByName" ToolTipService.ShowDuration="8000">
+                                                <Button  Grid.Row="3" Padding="5" Margin="5" Click="Button_Click_SearchTesterByName" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To View Exisiting Testers List</TextBlock>
@@ -202,6 +208,10 @@
                                                             <TextBlock>You can filter the Trainees by grouping, and by searching.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock FontSize="12" Text="View, Search and group Testers" Width="180" />
+                                                        <Image HorizontalAlignment="Left" Source="Icons/SearchImage.png" Height="18" Width="18"/>
+                                                    </StackPanel>
                                                 </Button>
                                             </Grid>
                                             <!--ListView x:Name="ListView_Testers" Grid.Row="1" Margin="20">
@@ -232,10 +242,10 @@
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="Add Trainee" Margin="30 0"/>
-                                                        <Image Source="Icons/Plus_Icon.png" Height="20" Width="20"/>
+                                                        <Image Source="Icons/greenplus.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
-                                                <Button Content="Update Trainee Details" Grid.Row="1" Margin="5" Click="Button_Click_UpdateTrainee" ToolTipService.ShowDuration="8000">
+                                                <Button Grid.Row="1" Margin="5" Click="Button_Click_UpdateTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Update Exisiting Trainee Details</TextBlock>
@@ -243,8 +253,12 @@
                                                             <TextBlock>If the ID Exist, Window will open where you can change the details.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="Update Trainee Details  " />
+                                                        <Image Source="Icons/reload_edition.png" Height="18" Width="18"/>
+                                                    </StackPanel>
                                                 </Button>
-                                                <Button Content="Remove Trainee" Grid.Row="2" Margin="5" Click="Button_Click_RemoveTrainee" ToolTipService.ShowDuration="8000">
+                                                <Button  Grid.Row="2" Margin="5" Click="Button_Click_RemoveTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Remove Exisiting Trainee Details</TextBlock>
@@ -252,8 +266,12 @@
                                                             <TextBlock>If the ID Exist, the Trainee will deleted from the system.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="Remove Trainee  " />
+                                                        <Image Source="Icons/delete.png" Height="18" Width="18"/>
+                                                    </StackPanel>
                                                 </Button>
-                                                <Button Content="View, Search and group Trainees" Grid.Row="3" Margin="5" Click="Button_Click_SearchTrainee" ToolTipService.ShowDuration="8000">
+                                                <Button Grid.Row="3" Margin="5" Click="Button_Click_SearchTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To View Exisiting Trainees List</TextBlock>
@@ -261,6 +279,10 @@
                                                             <TextBlock>You can filter the Trainees by grouping, and by searching.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock FontSize="12" Text="View, Search and group Trainees " Width="180" />
+                                                        <Image HorizontalAlignment="Left" Source="Icons/SearchImage.png" Height="18" Width="18"/>
+                                                    </StackPanel>
                                                 </Button>
 
                                             </Grid>
@@ -285,26 +307,34 @@
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="Add Test" Margin="30 0"/>
-                                                        <Image Source="Icons/Plus_Icon.png" Height="20" Width="20"/>
+                                                        <Image Source="Icons/greenplus.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
-                                                <Button Content="Abort Test" Grid.Row="1" Click="Button_Click_AbortTest" ToolTipService.ShowDuration="8000">
+                                                <Button  Grid.Row="1" Click="Button_Click_AbortTest" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To Abort Existing Test</TextBlock>
                                                             <TextBlock>Window will open. you need to enter Test Serial Number to Abort.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="Abort Test" Margin="30 0"/>
+                                                        <Image Source="Icons/Ab.png" Height="18" Width="18"/>
+                                                    </StackPanel>
                                                 </Button>
-                                                <Button Content="View Test Details" Grid.Row="2" Click="Button_Click_ViewTestDetails" ToolTipService.ShowDuration="8000">
+                                                <Button  Grid.Row="2" Click="Button_Click_ViewTestDetails" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">Click To View Existing Test Details</TextBlock>
                                                             <TextBlock>Window will open. you need to enter Test Serial Number to View.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="View Test Details" Margin="30 0"/>
+                                                        <Image Source="Icons/View.png" Height="18" Width="18"/>
+                                                    </StackPanel>
                                                 </Button>
-                                                <Button Content="View, Search and group Tests" Grid.Row="3"  ToolTipService.ShowDuration="8000" Click="SearchTestsButton_Click">
+                                                <Button  Grid.Row="3"  ToolTipService.ShowDuration="8000" Click="SearchTestsButton_Click">
                                                     <Button.ToolTip>
                                                         <ToolTip>
                                                             <StackPanel>
@@ -313,6 +343,10 @@
                                                             </StackPanel>
                                                         </ToolTip>
                                                     </Button.ToolTip>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock FontSize="12" Text="View, Search and group Tests" Width="180" />
+                                                        <Image HorizontalAlignment="Left" Source="Icons/SearchImage.png" Height="18" Width="18"/>
+                                                    </StackPanel>
                                                 </Button>
                                             </Grid>
                                         </Border>

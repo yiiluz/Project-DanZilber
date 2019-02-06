@@ -65,6 +65,7 @@
                 <ListView.ContextMenu >
                     <ContextMenu>
                         <MenuItem Header="Information " Click="MenuItem_Click"  />
+                        <MenuItem Header=" Abort" Click="MenuItem_Click_Abort"/>
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>

@@ -212,5 +212,29 @@
   <ItemGroup>
     <Resource Include="Icons\epic-car-burnout-gif-5.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\SearchImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\greenplus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Abort.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Ab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\View.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Apdate.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\reload_edition.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\delete.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
