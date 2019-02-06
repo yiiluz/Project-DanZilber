@@ -1,0 +1,1273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Cities>
+  <City>אבו גוש</City>
+  <City>אבו סנאן</City>
+  <City>אבו סריחאן (שבט)</City>
+  <City>אבו עבדון (שבט)</City>
+  <City>אבו עמאר (שבט)</City>
+  <City>אבו עמרה (שבט)</City>
+  <City>אבו קורינאת (שבט)</City>
+  <City>אבו קרינאת (יישוב)</City>
+  <City>אבו רובייעה (שבט)</City>
+  <City>אבו רוקייק (שבט)</City>
+  <City>אבו תלול</City>
+  <City>אבטין</City>
+  <City>אבטליון</City>
+  <City>אביאל</City>
+  <City>אביבים</City>
+  <City>אביגדור</City>
+  <City>אביחיל</City>
+  <City>אביטל</City>
+  <City>אביעזר</City>
+  <City>אבירים</City>
+  <City>אבן יהודה</City>
+  <City>אבן מנחם</City>
+  <City>אבן ספיר</City>
+  <City>אבן שמואל</City>
+  <City>אבני איתן</City>
+  <City>אבני חפץ</City>
+  <City>אבנת</City>
+  <City>אבשלום</City>
+  <City>אדורה</City>
+  <City>אדירים</City>
+  <City>אדמית</City>
+  <City>אדרת</City>
+  <City>אודים</City>
+  <City>אודם</City>
+  <City>אוהד</City>
+  <City>אום אל-פחם</City>
+  <City>אום אל-קוטוף</City>
+  <City>אום בטין</City>
+  <City>אומן</City>
+  <City>אומץ</City>
+  <City>אופקים</City>
+  <City>אור הגנוז</City>
+  <City>אור הנר</City>
+  <City>אור יהודה</City>
+  <City>אור עקיבא</City>
+  <City>אורה</City>
+  <City>אורות</City>
+  <City>אורטל</City>
+  <City>אורים</City>
+  <City>אורנים</City>
+  <City>אורנית</City>
+  <City>אושה</City>
+  <City>אזור</City>
+  <City>אחווה</City>
+  <City>אחוזם</City>
+  <City>אחוזת ברק</City>
+  <City>אחיהוד</City>
+  <City>אחיטוב</City>
+  <City>אחיסמך</City>
+  <City>אחיעזר</City>
+  <City>אטרש (שבט)</City>
+  <City>איבים</City>
+  <City>אייל</City>
+  <City>איילת השחר</City>
+  <City>אילון</City>
+  <City>אילות</City>
+  <City>אילניה</City>
+  <City>אילת</City>
+  <City>אירוס</City>
+  <City>איתמר</City>
+  <City>איתן</City>
+  <City>איתנים</City>
+  <City>אכסאל</City>
+  <City>אל סייד</City>
+  <City>אל-עזי</City>
+  <City>אל-עריאן</City>
+  <City>אל-רום</City>
+  <City>אלומה</City>
+  <City>אלומות</City>
+  <City>אלון הגליל</City>
+  <City>אלון מורה</City>
+  <City>אלון שבות</City>
+  <City>אלוני אבא</City>
+  <City>אלוני הבשן</City>
+  <City>אלוני יצחק</City>
+  <City>אלונים</City>
+  <City>אלי-עד</City>
+  <City>אליאב</City>
+  <City>אליכין</City>
+  <City>אליפז</City>
+  <City>אליפלט</City>
+  <City>אליקים</City>
+  <City>אלישיב</City>
+  <City>אלישמע</City>
+  <City>אלמגור</City>
+  <City>אלמוג</City>
+  <City>אלעד</City>
+  <City>אלעזר</City>
+  <City>אלפי מנשה</City>
+  <City>אלקוש</City>
+  <City>אלקנה</City>
+  <City>אמונים</City>
+  <City>אמירים</City>
+  <City>אמנון</City>
+  <City>אמציה</City>
+  <City>אניעם</City>
+  <City>אסד (שבט)</City>
+  <City>אספר</City>
+  <City>אעבלין</City>
+  <City>אעצם (שבט)</City>
+  <City>אפיניש (שבט)</City>
+  <City>אפיק</City>
+  <City>אפיקים</City>
+  <City>אפק</City>
+  <City>אפרת</City>
+  <City>ארבל</City>
+  <City>ארגמן</City>
+  <City>ארז</City>
+  <City>אריאל</City>
+  <City>ארסוף</City>
+  <City>אשבול</City>
+  <City>אשבל</City>
+  <City>אשדוד</City>
+  <City>אשדות יעקב (איחוד)</City>
+  <City>אשדות יעקב (מאוחד)</City>
+  <City>אשחר</City>
+  <City>אשכולות</City>
+  <City>אשל הנשיא</City>
+  <City>אשלים</City>
+  <City>אשקלון</City>
+  <City>אשרת</City>
+  <City>אשתאול</City>
+  <City>אתגר</City>
+  <City>באקה אל-גרביה</City>
+  <City>באר אורה</City>
+  <City>באר גנים</City>
+  <City>באר טוביה</City>
+  <City>באר יעקב</City>
+  <City>באר מילכה</City>
+  <City>באר שבע</City>
+  <City>בארות יצחק</City>
+  <City>בארותיים</City>
+  <City>בארי</City>
+  <City>בוסתן הגליל</City>
+  <City>בועיינה-נוג'ידאת</City>
+  <City>בוקעאתא</City>
+  <City>בורגתה</City>
+  <City>בחן</City>
+  <City>בטחה</City>
+  <City>ביצרון</City>
+  <City>ביר אל-מכסור</City>
+  <City>ביר הדאג'</City>
+  <City>ביריה</City>
+  <City>בית אורן</City>
+  <City>בית אל</City>
+  <City>בית אלעזרי</City>
+  <City>בית אלפא</City>
+  <City>בית אריה</City>
+  <City>בית ברל</City>
+  <City>בית ג'ן</City>
+  <City>בית גוברין</City>
+  <City>בית גמליאל</City>
+  <City>בית דגן</City>
+  <City>בית הגדי</City>
+  <City>בית הלוי</City>
+  <City>בית הלל</City>
+  <City>בית העמק</City>
+  <City>בית הערבה</City>
+  <City>בית השיטה</City>
+  <City>בית זיד</City>
+  <City>בית זית</City>
+  <City>בית זרע</City>
+  <City>בית חורון</City>
+  <City>בית חירות</City>
+  <City>בית חלקיה</City>
+  <City>בית חנן</City>
+  <City>בית חנניה</City>
+  <City>בית חשמונאי</City>
+  <City>בית יהושע</City>
+  <City>בית יוסף</City>
+  <City>בית ינאי</City>
+  <City>בית יצחק-שער חפר</City>
+  <City>בית לחם הגלילית</City>
+  <City>בית מאיר</City>
+  <City>בית נחמיה</City>
+  <City>בית ניר</City>
+  <City>בית נקופה</City>
+  <City>בית עובד</City>
+  <City>בית עוזיאל</City>
+  <City>בית עזרא</City>
+  <City>בית עריף</City>
+  <City>בית צבי</City>
+  <City>בית קמה</City>
+  <City>בית קשת</City>
+  <City>בית רבן</City>
+  <City>בית רימון</City>
+  <City>בית שאן</City>
+  <City>בית שמש</City>
+  <City>בית שערים</City>
+  <City>בית שקמה</City>
+  <City>ביתן אהרן</City>
+  <City>ביתר עילית</City>
+  <City>בלפוריה</City>
+  <City>בן זכאי</City>
+  <City>בן עמי</City>
+  <City>בן שמן (כפר נוער)</City>
+  <City>בן שמן (מושב)</City>
+  <City>בני ברק</City>
+  <City>בני דקלים</City>
+  <City>בני דרום</City>
+  <City>בני דרור</City>
+  <City>בני יהודה</City>
+  <City>בני נצרים</City>
+  <City>בני עטרות</City>
+  <City>בני עי"ש</City>
+  <City>בני ציון</City>
+  <City>בני ראם</City>
+  <City>בניה</City>
+  <City>בנימינה-גבעת עדה</City>
+  <City>בסמ"ה</City>
+  <City>בסמת טבעון</City>
+  <City>בענה</City>
+  <City>בצרה</City>
+  <City>בצת</City>
+  <City>בקוע</City>
+  <City>בקעות</City>
+  <City>בר גיורא</City>
+  <City>בר יוחאי</City>
+  <City>ברוכין</City>
+  <City>ברור חיל</City>
+  <City>ברוש</City>
+  <City>ברכה</City>
+  <City>ברכיה</City>
+  <City>ברעם</City>
+  <City>ברק</City>
+  <City>ברקאי</City>
+  <City>ברקן</City>
+  <City>ברקת</City>
+  <City>בת הדר</City>
+  <City>בת חן</City>
+  <City>בת חפר</City>
+  <City>בת חצור</City>
+  <City>בת ים</City>
+  <City>בת עין</City>
+  <City>בת שלמה</City>
+  <City>ג'דיידה-מכר</City>
+  <City>ג'ולס</City>
+  <City>ג'לג'וליה</City>
+  <City>ג'נאביב (שבט)</City>
+  <City>ג'סר א-זרקא</City>
+  <City>ג'ש (גוש חלב)</City>
+  <City>ג'ת</City>
+  <City>גאולי תימן</City>
+  <City>גאולים</City>
+  <City>גאליה</City>
+  <City>גבולות</City>
+  <City>גבים</City>
+  <City>גבע</City>
+  <City>גבע בנימין</City>
+  <City>גבע כרמל</City>
+  <City>גבעולים</City>
+  <City>גבעון החדשה</City>
+  <City>גבעות בר</City>
+  <City>גבעת אבני</City>
+  <City>גבעת אלה</City>
+  <City>גבעת ברנר</City>
+  <City>גבעת השלושה</City>
+  <City>גבעת זאב</City>
+  <City>גבעת ח"ן</City>
+  <City>גבעת חיים (איחוד)</City>
+  <City>גבעת חיים (מאוחד)</City>
+  <City>גבעת יואב</City>
+  <City>גבעת יערים</City>
+  <City>גבעת ישעיהו</City>
+  <City>גבעת כ"ח</City>
+  <City>גבעת ניל"י</City>
+  <City>גבעת עוז</City>
+  <City>גבעת שמואל</City>
+  <City>גבעת שמש</City>
+  <City>גבעת שפירא</City>
+  <City>גבעתי</City>
+  <City>גבעתיים</City>
+  <City>גברעם</City>
+  <City>גבת</City>
+  <City>גדות</City>
+  <City>גדיש</City>
+  <City>גדעונה</City>
+  <City>גדרה</City>
+  <City>גונן</City>
+  <City>גורן</City>
+  <City>גורנות הגליל</City>
+  <City>גזית</City>
+  <City>גזר</City>
+  <City>גיאה</City>
+  <City>גיבתון</City>
+  <City>גיזו</City>
+  <City>גילון</City>
+  <City>גילת</City>
+  <City>גינוסר</City>
+  <City>גיניגר</City>
+  <City>גינתון</City>
+  <City>גיתה</City>
+  <City>גיתית</City>
+  <City>גלאון</City>
+  <City>גלגל</City>
+  <City>גליל ים</City>
+  <City>גלעד (אבן יצחק)</City>
+  <City>גמזו</City>
+  <City>גן הדרום</City>
+  <City>גן השומרון</City>
+  <City>גן חיים</City>
+  <City>גן יאשיה</City>
+  <City>גן יבנה</City>
+  <City>גן נר</City>
+  <City>גן שורק</City>
+  <City>גן שלמה</City>
+  <City>גן שמואל</City>
+  <City>גנות</City>
+  <City>גנות הדר</City>
+  <City>גני הדר</City>
+  <City>גני טל</City>
+  <City>גני יוחנן</City>
+  <City>גני מודיעין</City>
+  <City>גני עם</City>
+  <City>גני תקווה</City>
+  <City>געש</City>
+  <City>געתון</City>
+  <City>גפן</City>
+  <City>גרופית</City>
+  <City>גשור</City>
+  <City>גשר</City>
+  <City>גשר הזיו</City>
+  <City>גת (קיבוץ)</City>
+  <City>גת רימון</City>
+  <City>דאלית אל-כרמל</City>
+  <City>דבורה</City>
+  <City>דבוריה</City>
+  <City>דבירה</City>
+  <City>דברת</City>
+  <City>דגניה א'</City>
+  <City>דגניה ב'</City>
+  <City>דוב"ב</City>
+  <City>דולב</City>
+  <City>דור</City>
+  <City>דורות</City>
+  <City>דחי</City>
+  <City>דייר אל-אסד</City>
+  <City>דייר חנא</City>
+  <City>דייר ראפאת</City>
+  <City>דימונה</City>
+  <City>דישון</City>
+  <City>דליה</City>
+  <City>דלתון</City>
+  <City>דמיידה</City>
+  <City>דן</City>
+  <City>דפנה</City>
+  <City>דקל</City>
+  <City>דריג'את</City>
+  <City>האון</City>
+  <City>הבונים</City>
+  <City>הגושרים</City>
+  <City>הדר עם</City>
+  <City>הוד השרון</City>
+  <City>הודיה</City>
+  <City>הודיות</City>
+  <City>הוואשלה (שבט)</City>
+  <City>הוזייל (שבט)</City>
+  <City>הושעיה</City>
+  <City>הזורע</City>
+  <City>הזורעים</City>
+  <City>החותרים</City>
+  <City>היוגב</City>
+  <City>הילה</City>
+  <City>המעפיל</City>
+  <City>הסוללים</City>
+  <City>העוגן</City>
+  <City>הר אדר</City>
+  <City>הר גילה</City>
+  <City>הר עמשא</City>
+  <City>הראל</City>
+  <City>הרדוף</City>
+  <City>הרצליה</City>
+  <City>הררית</City>
+  <City>ורד יריחו</City>
+  <City>ורדון</City>
+  <City>זבארגה (שבט)</City>
+  <City>זבדיאל</City>
+  <City>זוהר</City>
+  <City>זיקים</City>
+  <City>זיתן</City>
+  <City>זכרון יעקב</City>
+  <City>זכריה</City>
+  <City>זמר</City>
+  <City>זמרת</City>
+  <City>זנוח</City>
+  <City>זרועה</City>
+  <City>זרזיר</City>
+  <City>זרחיה</City>
+  <City>ח'ואלד</City>
+  <City>ח'ואלד (שבט)</City>
+  <City>חבצלת השרון</City>
+  <City>חבר</City>
+  <City>חברון</City>
+  <City>חגור</City>
+  <City>חגי</City>
+  <City>חגלה</City>
+  <City>חד-נס</City>
+  <City>חדיד</City>
+  <City>חדרה</City>
+  <City>חוג'ייראת (ד'הרה)</City>
+  <City>חולדה</City>
+  <City>חולון</City>
+  <City>חולית</City>
+  <City>חולתה</City>
+  <City>חוסן</City>
+  <City>חוסנייה</City>
+  <City>חופית</City>
+  <City>חוקוק</City>
+  <City>חורה</City>
+  <City>חורפיש</City>
+  <City>חורשים</City>
+  <City>חזון</City>
+  <City>חיבת ציון</City>
+  <City>חיננית</City>
+  <City>חיפה</City>
+  <City>חירות</City>
+  <City>חלוץ</City>
+  <City>חלמיש</City>
+  <City>חלץ</City>
+  <City>חמאם</City>
+  <City>חמד</City>
+  <City>חמדיה</City>
+  <City>חמדת</City>
+  <City>חמרה</City>
+  <City>חניאל</City>
+  <City>חניתה</City>
+  <City>חנתון</City>
+  <City>חספין</City>
+  <City>חפץ חיים</City>
+  <City>חפצי-בה</City>
+  <City>חצב</City>
+  <City>חצבה</City>
+  <City>חצור הגלילית</City>
+  <City>חצור-אשדוד</City>
+  <City>חצר בארותיים</City>
+  <City>חצרות חולדה</City>
+  <City>חצרות יסף</City>
+  <City>חצרות כ"ח</City>
+  <City>חצרים</City>
+  <City>חרב לאת</City>
+  <City>חרוצים</City>
+  <City>חריש</City>
+  <City>חרמש</City>
+  <City>חרשים</City>
+  <City>חשמונאים</City>
+  <City>טבריה</City>
+  <City>טובא-זנגריה</City>
+  <City>טורעאן</City>
+  <City>טייבה</City>
+  <City>טייבה (בעמק)</City>
+  <City>טירה</City>
+  <City>טירת יהודה</City>
+  <City>טירת כרמל</City>
+  <City>טירת צבי</City>
+  <City>טל שחר</City>
+  <City>טל-אל</City>
+  <City>טללים</City>
+  <City>טלמון</City>
+  <City>טמרה</City>
+  <City>טמרה (יזרעאל)</City>
+  <City>טנא</City>
+  <City>טפחות</City>
+  <City>יאנוח-ג'ת</City>
+  <City>יבול</City>
+  <City>יבנאל</City>
+  <City>יבנה</City>
+  <City>יגור</City>
+  <City>יגל</City>
+  <City>יד בנימין</City>
+  <City>יד השמונה</City>
+  <City>יד חנה</City>
+  <City>יד מרדכי</City>
+  <City>יד נתן</City>
+  <City>יד רמב"ם</City>
+  <City>ידידה</City>
+  <City>יהוד-מונוסון</City>
+  <City>יהל</City>
+  <City>יובל</City>
+  <City>יובלים</City>
+  <City>יודפת</City>
+  <City>יונתן</City>
+  <City>יושיביה</City>
+  <City>יזרעאל</City>
+  <City>יחיעם</City>
+  <City>יטבתה</City>
+  <City>ייט"ב</City>
+  <City>יכיני</City>
+  <City>ינוב</City>
+  <City>ינון</City>
+  <City>יסוד המעלה</City>
+  <City>יסודות</City>
+  <City>יסעור</City>
+  <City>יעד</City>
+  <City>יעל</City>
+  <City>יעף</City>
+  <City>יערה</City>
+  <City>יפיע</City>
+  <City>יפית</City>
+  <City>יפעת</City>
+  <City>יפתח</City>
+  <City>יצהר</City>
+  <City>יציץ</City>
+  <City>יקום</City>
+  <City>יקיר</City>
+  <City>יקנעם (מושבה)</City>
+  <City>יקנעם עילית</City>
+  <City>יראון</City>
+  <City>ירדנה</City>
+  <City>ירוחם</City>
+  <City>ירושלים</City>
+  <City>ירחיב</City>
+  <City>ירכא</City>
+  <City>ירקונה</City>
+  <City>ישע</City>
+  <City>ישעי</City>
+  <City>ישרש</City>
+  <City>יתד</City>
+  <City>יתיר</City>
+  <City>כאבול</City>
+  <City>כאוכב אבו אל-היג'א</City>
+  <City>כברי</City>
+  <City>כדורי</City>
+  <City>כדיתה</City>
+  <City>כוכב השחר</City>
+  <City>כוכב יאיר</City>
+  <City>כוכב יעקב</City>
+  <City>כוכב מיכאל</City>
+  <City>כורזים</City>
+  <City>כחל</City>
+  <City>כחלה</City>
+  <City>כיסופים</City>
+  <City>כישור</City>
+  <City>כליל</City>
+  <City>כלנית</City>
+  <City>כמאנה</City>
+  <City>כמהין</City>
+  <City>כמון</City>
+  <City>כנות</City>
+  <City>כנף</City>
+  <City>כנרת (מושבה)</City>
+  <City>כנרת (קבוצה)</City>
+  <City>כסיפה</City>
+  <City>כסלון</City>
+  <City>כסרא-סמיע</City>
+  <City>כעביה-טבאש-חג'אג'רה</City>
+  <City>כפר אביב</City>
+  <City>כפר אדומים</City>
+  <City>כפר אוריה</City>
+  <City>כפר אחים</City>
+  <City>כפר ביאליק</City>
+  <City>כפר ביל"ו</City>
+  <City>כפר בלום</City>
+  <City>כפר בן נון</City>
+  <City>כפר ברא</City>
+  <City>כפר ברוך</City>
+  <City>כפר גדעון</City>
+  <City>כפר גלים</City>
+  <City>כפר גליקסון</City>
+  <City>כפר גלעדי</City>
+  <City>כפר דניאל</City>
+  <City>כפר האורנים</City>
+  <City>כפר החורש</City>
+  <City>כפר המכבי</City>
+  <City>כפר הנגיד</City>
+  <City>כפר הנוער הדתי</City>
+  <City>כפר הנשיא</City>
+  <City>כפר הס</City>
+  <City>כפר הרא"ה</City>
+  <City>כפר הרי"ף</City>
+  <City>כפר ויתקין</City>
+  <City>כפר ורבורג</City>
+  <City>כפר ורדים</City>
+  <City>כפר זוהרים</City>
+  <City>כפר זיתים</City>
+  <City>כפר חב"ד</City>
+  <City>כפר חושן</City>
+  <City>כפר חיטים</City>
+  <City>כפר חיים</City>
+  <City>כפר חנניה</City>
+  <City>כפר חסידים א'</City>
+  <City>כפר חסידים ב'</City>
+  <City>כפר חרוב</City>
+  <City>כפר טרומן</City>
+  <City>כפר יאסיף</City>
+  <City>כפר ידידיה</City>
+  <City>כפר יהושע</City>
+  <City>כפר יונה</City>
+  <City>כפר יחזקאל</City>
+  <City>כפר יעבץ</City>
+  <City>כפר כמא</City>
+  <City>כפר כנא</City>
+  <City>כפר מונש</City>
+  <City>כפר מימון</City>
+  <City>כפר מל"ל</City>
+  <City>כפר מנדא</City>
+  <City>כפר מנחם</City>
+  <City>כפר מסריק</City>
+  <City>כפר מצר</City>
+  <City>כפר מרדכי</City>
+  <City>כפר נטר</City>
+  <City>כפר סאלד</City>
+  <City>כפר סבא</City>
+  <City>כפר סילבר</City>
+  <City>כפר סירקין</City>
+  <City>כפר עבודה</City>
+  <City>כפר עזה</City>
+  <City>כפר עציון</City>
+  <City>כפר פינס</City>
+  <City>כפר קאסם</City>
+  <City>כפר קיש</City>
+  <City>כפר קרע</City>
+  <City>כפר ראש הנקרה</City>
+  <City>כפר רוזנואלד (זרעית)</City>
+  <City>כפר רופין</City>
+  <City>כפר רות</City>
+  <City>כפר שמאי</City>
+  <City>כפר שמואל</City>
+  <City>כפר שמריהו</City>
+  <City>כפר תבור</City>
+  <City>כפר תפוח</City>
+  <City>כרי דשא</City>
+  <City>כרכום</City>
+  <City>כרם בן זמרה</City>
+  <City>כרם בן שמן</City>
+  <City>כרם יבנה (ישיבה)</City>
+  <City>כרם מהר"ל</City>
+  <City>כרם שלום</City>
+  <City>כרמי יוסף</City>
+  <City>כרמי צור</City>
+  <City>כרמי קטיף</City>
+  <City>כרמיאל</City>
+  <City>כרמיה</City>
+  <City>כרמים</City>
+  <City>כרמל</City>
+  <City>לבון</City>
+  <City>לביא</City>
+  <City>לבנים</City>
+  <City>להב</City>
+  <City>להבות הבשן</City>
+  <City>להבות חביבה</City>
+  <City>להבים</City>
+  <City>לוד</City>
+  <City>לוזית</City>
+  <City>לוחמי הגיטאות</City>
+  <City>לוטם</City>
+  <City>לוטן</City>
+  <City>לימן</City>
+  <City>לכיש</City>
+  <City>לפיד</City>
+  <City>לפידות</City>
+  <City>לקיה</City>
+  <City>מאור</City>
+  <City>מאיר שפיה</City>
+  <City>מבוא ביתר</City>
+  <City>מבוא דותן</City>
+  <City>מבוא חורון</City>
+  <City>מבוא חמה</City>
+  <City>מבוא מודיעים</City>
+  <City>מבואות ים</City>
+  <City>מבועים</City>
+  <City>מבטחים</City>
+  <City>מבקיעים</City>
+  <City>מבשרת ציון</City>
+  <City>מג'ד אל-כרום</City>
+  <City>מג'דל שמס</City>
+  <City>מגאר</City>
+  <City>מגדים</City>
+  <City>מגדל</City>
+  <City>מגדל העמק</City>
+  <City>מגדל עוז</City>
+  <City>מגדלים</City>
+  <City>מגידו</City>
+  <City>מגל</City>
+  <City>מגן</City>
+  <City>מגן שאול</City>
+  <City>מגשימים</City>
+  <City>מדרך עוז</City>
+  <City>מדרשת בן גוריון</City>
+  <City>מדרשת רופין</City>
+  <City>מודיעין עילית</City>
+  <City>מודיעין-מכבים-רעות</City>
+  <City>מולדת</City>
+  <City>מוצא עילית</City>
+  <City>מוקייבלה</City>
+  <City>מורן</City>
+  <City>מורשת</City>
+  <City>מזור</City>
+  <City>מזכרת בתיה</City>
+  <City>מזרע</City>
+  <City>מזרעה</City>
+  <City>מחולה</City>
+  <City>מחנה הילה</City>
+  <City>מחנה טלי</City>
+  <City>מחנה יהודית</City>
+  <City>מחנה יוכבד</City>
+  <City>מחנה יפה</City>
+  <City>מחנה יתיר</City>
+  <City>מחנה מרים</City>
+  <City>מחנה תל נוף</City>
+  <City>מחניים</City>
+  <City>מחסיה</City>
+  <City>מטולה</City>
+  <City>מטע</City>
+  <City>מי עמי</City>
+  <City>מיטב</City>
+  <City>מייסר</City>
+  <City>מיצר</City>
+  <City>מירב</City>
+  <City>מירון</City>
+  <City>מישר</City>
+  <City>מיתר</City>
+  <City>מכורה</City>
+  <City>מכחול</City>
+  <City>מכמורת</City>
+  <City>מכמנים</City>
+  <City>מלאה</City>
+  <City>מלילות</City>
+  <City>מלכיה</City>
+  <City>מלכישוע</City>
+  <City>מנוחה</City>
+  <City>מנוף</City>
+  <City>מנות</City>
+  <City>מנחמיה</City>
+  <City>מנרה</City>
+  <City>מנשית זבדה</City>
+  <City>מסד</City>
+  <City>מסדה</City>
+  <City>מסילות</City>
+  <City>מסילת ציון</City>
+  <City>מסלול</City>
+  <City>מסעדה</City>
+  <City>מסעודין אל-עזאזמה</City>
+  <City>מעברות</City>
+  <City>מעגלים</City>
+  <City>מעגן</City>
+  <City>מעגן מיכאל</City>
+  <City>מעוז חיים</City>
+  <City>מעון</City>
+  <City>מעונה</City>
+  <City>מעיליא</City>
+  <City>מעין ברוך</City>
+  <City>מעין צבי</City>
+  <City>מעלה אדומים</City>
+  <City>מעלה אפרים</City>
+  <City>מעלה גלבוע</City>
+  <City>מעלה גמלא</City>
+  <City>מעלה החמישה</City>
+  <City>מעלה לבונה</City>
+  <City>מעלה מכמש</City>
+  <City>מעלה עירון</City>
+  <City>מעלה עמוס</City>
+  <City>מעלה שומרון</City>
+  <City>מעלות-תרשיחא</City>
+  <City>מענית</City>
+  <City>מעש</City>
+  <City>מפלסים</City>
+  <City>מצדות יהודה</City>
+  <City>מצובה</City>
+  <City>מצליח</City>
+  <City>מצפה</City>
+  <City>מצפה אבי"ב</City>
+  <City>מצפה אילן</City>
+  <City>מצפה יריחו</City>
+  <City>מצפה נטופה</City>
+  <City>מצפה רמון</City>
+  <City>מצפה שלם</City>
+  <City>מצר</City>
+  <City>מקווה ישראל</City>
+  <City>מרגליות</City>
+  <City>מרום גולן</City>
+  <City>מרחב עם</City>
+  <City>מרחביה (מושב)</City>
+  <City>מרחביה (קיבוץ)</City>
+  <City>מרכז שפירא</City>
+  <City>משאבי שדה</City>
+  <City>משגב דב</City>
+  <City>משגב עם</City>
+  <City>משהד</City>
+  <City>משואה</City>
+  <City>משואות יצחק</City>
+  <City>משכיות</City>
+  <City>משמר איילון</City>
+  <City>משמר דוד</City>
+  <City>משמר הירדן</City>
+  <City>משמר הנגב</City>
+  <City>משמר העמק</City>
+  <City>משמר השבעה</City>
+  <City>משמר השרון</City>
+  <City>משמרות</City>
+  <City>משמרת</City>
+  <City>משען</City>
+  <City>מתן</City>
+  <City>מתת</City>
+  <City>מתתיהו</City>
+  <City>נאות גולן</City>
+  <City>נאות הכיכר</City>
+  <City>נאות מרדכי</City>
+  <City>נאות סמדר</City>
+  <City>נאעורה</City>
+  <City>נבטים</City>
+  <City>נגבה</City>
+  <City>נגוהות</City>
+  <City>נהורה</City>
+  <City>נהלל</City>
+  <City>נהריה</City>
+  <City>נוב</City>
+  <City>נוגה</City>
+  <City>נווה</City>
+  <City>נווה אבות</City>
+  <City>נווה אור</City>
+  <City>נווה אטי"ב</City>
+  <City>נווה אילן</City>
+  <City>נווה איתן</City>
+  <City>נווה דניאל</City>
+  <City>נווה זוהר</City>
+  <City>נווה זיו</City>
+  <City>נווה חריף</City>
+  <City>נווה ים</City>
+  <City>נווה ימין</City>
+  <City>נווה ירק</City>
+  <City>נווה מבטח</City>
+  <City>נווה מיכאל</City>
+  <City>נווה שלום</City>
+  <City>נועם</City>
+  <City>נוף איילון</City>
+  <City>נופים</City>
+  <City>נופית</City>
+  <City>נופך</City>
+  <City>נוקדים</City>
+  <City>נורדיה</City>
+  <City>נורית</City>
+  <City>נחושה</City>
+  <City>נחל עוז</City>
+  <City>נחלה</City>
+  <City>נחליאל</City>
+  <City>נחלים</City>
+  <City>נחם</City>
+  <City>נחף</City>
+  <City>נחשולים</City>
+  <City>נחשון</City>
+  <City>נחשונים</City>
+  <City>נטועה</City>
+  <City>נטור</City>
+  <City>נטע</City>
+  <City>נטעים</City>
+  <City>נטף</City>
+  <City>ניין</City>
+  <City>ניל"י</City>
+  <City>ניצן</City>
+  <City>ניצן ב'</City>
+  <City>ניצנה (קהילת חינוך)</City>
+  <City>ניצני סיני</City>
+  <City>ניצני עוז</City>
+  <City>ניצנים</City>
+  <City>ניר אליהו</City>
+  <City>ניר בנים</City>
+  <City>ניר גלים</City>
+  <City>ניר דוד (תל עמל)</City>
+  <City>ניר ח"ן</City>
+  <City>ניר יפה</City>
+  <City>ניר יצחק</City>
+  <City>ניר ישראל</City>
+  <City>ניר משה</City>
+  <City>ניר עוז</City>
+  <City>ניר עם</City>
+  <City>ניר עציון</City>
+  <City>ניר עקיבא</City>
+  <City>ניר צבי</City>
+  <City>נירים</City>
+  <City>נירית</City>
+  <City>נירן</City>
+  <City>נמרוד</City>
+  <City>נס הרים</City>
+  <City>נס עמים</City>
+  <City>נס ציונה</City>
+  <City>נעורים</City>
+  <City>נעלה</City>
+  <City>נעמ"ה</City>
+  <City>נען</City>
+  <City>נצאצרה (שבט)</City>
+  <City>נצר חזני</City>
+  <City>נצר סרני</City>
+  <City>נצרת</City>
+  <City>נצרת עילית</City>
+  <City>נשר</City>
+  <City>נתיב הגדוד</City>
+  <City>נתיב הל"ה</City>
+  <City>נתיב העשרה</City>
+  <City>נתיב השיירה</City>
+  <City>נתיבות</City>
+  <City>נתניה</City>
+  <City>סאג'ור</City>
+  <City>סאסא</City>
+  <City>סביון</City>
+  <City>סגולה</City>
+  <City>סואעד (חמרייה)</City>
+  <City>סואעד (כמאנה) (שבט)</City>
+  <City>סולם</City>
+  <City>סוסיה</City>
+  <City>סופה</City>
+  <City>סח'נין</City>
+  <City>סייד (שבט)</City>
+  <City>סלמה</City>
+  <City>סלעית</City>
+  <City>סמר</City>
+  <City>סנסנה</City>
+  <City>סעד</City>
+  <City>סעוה</City>
+  <City>סער</City>
+  <City>ספיר</City>
+  <City>סתריה</City>
+  <City>ע'ג'ר</City>
+  <City>עבדון</City>
+  <City>עברון</City>
+  <City>עגור</City>
+  <City>עדי</City>
+  <City>עדנים</City>
+  <City>עוזה</City>
+  <City>עוזייר</City>
+  <City>עולש</City>
+  <City>עומר</City>
+  <City>עופר</City>
+  <City>עופרה</City>
+  <City>עוצם</City>
+  <City>עוקבי (בנו עוקבה)</City>
+  <City>עזוז</City>
+  <City>עזר</City>
+  <City>עזריאל</City>
+  <City>עזריה</City>
+  <City>עזריקם</City>
+  <City>עטאוונה (שבט)</City>
+  <City>עטרת</City>
+  <City>עידן</City>
+  <City>עיילבון</City>
+  <City>עיינות</City>
+  <City>עילוט</City>
+  <City>עין איילה</City>
+  <City>עין אל-אסד</City>
+  <City>עין גב</City>
+  <City>עין גדי</City>
+  <City>עין דור</City>
+  <City>עין הבשור</City>
+  <City>עין הוד</City>
+  <City>עין החורש</City>
+  <City>עין המפרץ</City>
+  <City>עין הנצי"ב</City>
+  <City>עין העמק</City>
+  <City>עין השופט</City>
+  <City>עין השלושה</City>
+  <City>עין ורד</City>
+  <City>עין זיוון</City>
+  <City>עין חוד</City>
+  <City>עין חצבה</City>
+  <City>עין חרוד (איחוד)</City>
+  <City>עין חרוד (מאוחד)</City>
+  <City>עין יהב</City>
+  <City>עין יעקב</City>
+  <City>עין כרם-בי"ס חקלאי</City>
+  <City>עין כרמל</City>
+  <City>עין מאהל</City>
+  <City>עין נקובא</City>
+  <City>עין עירון</City>
+  <City>עין צורים</City>
+  <City>עין קנייא</City>
+  <City>עין ראפה</City>
+  <City>עין שמר</City>
+  <City>עין שריד</City>
+  <City>עין תמר</City>
+  <City>עינת</City>
+  <City>עיר אובות</City>
+  <City>עכו</City>
+  <City>עלומים</City>
+  <City>עלי</City>
+  <City>עלי זהב</City>
+  <City>עלמה</City>
+  <City>עלמון</City>
+  <City>עמוקה</City>
+  <City>עמיחי</City>
+  <City>עמינדב</City>
+  <City>עמיעד</City>
+  <City>עמיעוז</City>
+  <City>עמיקם</City>
+  <City>עמיר</City>
+  <City>עמנואל</City>
+  <City>עמקה</City>
+  <City>ענב</City>
+  <City>עספיא</City>
+  <City>עפולה</City>
+  <City>עץ אפרים</City>
+  <City>עצמון שגב</City>
+  <City>עראבה</City>
+  <City>עראמשה</City>
+  <City>ערב אל נעים</City>
+  <City>ערד</City>
+  <City>ערוגות</City>
+  <City>ערערה</City>
+  <City>ערערה-בנגב</City>
+  <City>עשרת</City>
+  <City>עתלית</City>
+  <City>עתניאל</City>
+  <City>פארן</City>
+  <City>פדואל</City>
+  <City>פדויים</City>
+  <City>פדיה</City>
+  <City>פוריה - כפר עבודה</City>
+  <City>פוריה - נווה עובד</City>
+  <City>פוריה עילית</City>
+  <City>פוריידיס</City>
+  <City>פורת</City>
+  <City>פטיש</City>
+  <City>פלך</City>
+  <City>פלמחים</City>
+  <City>פני חבר</City>
+  <City>פסגות</City>
+  <City>פסוטה</City>
+  <City>פעמי תש"ז</City>
+  <City>פצאל</City>
+  <City>פקיעין (בוקייעה)</City>
+  <City>פקיעין חדשה</City>
+  <City>פרדס חנה-כרכור</City>
+  <City>פרדסיה</City>
+  <City>פרוד</City>
+  <City>פרזון</City>
+  <City>פרי גן</City>
+  <City>פתח תקווה</City>
+  <City>פתחיה</City>
+  <City>צאלים</City>
+  <City>צביה</City>
+  <City>צבעון</City>
+  <City>צובה</City>
+  <City>צוחר</City>
+  <City>צופיה</City>
+  <City>צופים</City>
+  <City>צופית</City>
+  <City>צופר</City>
+  <City>צוקי ים</City>
+  <City>צוקים</City>
+  <City>צור הדסה</City>
+  <City>צור יצחק</City>
+  <City>צור משה</City>
+  <City>צור נתן</City>
+  <City>צוריאל</City>
+  <City>צורית</City>
+  <City>ציפורי</City>
+  <City>צלפון</City>
+  <City>צנדלה</City>
+  <City>צפריה</City>
+  <City>צפרירים</City>
+  <City>צפת</City>
+  <City>צרופה</City>
+  <City>צרעה</City>
+  <City>קבועה (שבט)</City>
+  <City>קבוצת יבנה</City>
+  <City>קדומים</City>
+  <City>קדימה-צורן</City>
+  <City>קדמה</City>
+  <City>קדמת צבי</City>
+  <City>קדר</City>
+  <City>קדרון</City>
+  <City>קדרים</City>
+  <City>קודייראת א-צאנע(שבט)</City>
+  <City>קוואעין (שבט)</City>
+  <City>קוממיות</City>
+  <City>קורנית</City>
+  <City>קטורה</City>
+  <City>קיסריה</City>
+  <City>קלחים</City>
+  <City>קליה</City>
+  <City>קלנסווה</City>
+  <City>קלע</City>
+  <City>קציר</City>
+  <City>קצר א-סר</City>
+  <City>קצרין</City>
+  <City>קרית אונו</City>
+  <City>קרית ארבע</City>
+  <City>קרית אתא</City>
+  <City>קרית ביאליק</City>
+  <City>קרית גת</City>
+  <City>קרית טבעון</City>
+  <City>קרית ים</City>
+  <City>קרית יערים</City>
+  <City>קרית יערים(מוסד)</City>
+  <City>קרית מוצקין</City>
+  <City>קרית מלאכי</City>
+  <City>קרית נטפים</City>
+  <City>קרית ענבים</City>
+  <City>קרית עקרון</City>
+  <City>קרית שלמה</City>
+  <City>קרית שמונה</City>
+  <City>קרני שומרון</City>
+  <City>קשת</City>
+  <City>ראמה</City>
+  <City>ראס אל-עין</City>
+  <City>ראס עלי</City>
+  <City>ראש העין</City>
+  <City>ראש פינה</City>
+  <City>ראש צורים</City>
+  <City>ראשון לציון</City>
+  <City>רבבה</City>
+  <City>רבדים</City>
+  <City>רביבים</City>
+  <City>רביד</City>
+  <City>רגבה</City>
+  <City>רגבים</City>
+  <City>רהט</City>
+  <City>רווחה</City>
+  <City>רוויה</City>
+  <City>רוח מדבר</City>
+  <City>רוחמה</City>
+  <City>רומאנה</City>
+  <City>רומת הייב</City>
+  <City>רועי</City>
+  <City>רותם</City>
+  <City>רחוב</City>
+  <City>רחובות</City>
+  <City>רחלים</City>
+  <City>ריחאניה</City>
+  <City>ריחן</City>
+  <City>ריינה</City>
+  <City>רימונים</City>
+  <City>רינתיה</City>
+  <City>רכסים</City>
+  <City>רם-און</City>
+  <City>רמות</City>
+  <City>רמות השבים</City>
+  <City>רמות מאיר</City>
+  <City>רמות מנשה</City>
+  <City>רמות נפתלי</City>
+  <City>רמלה</City>
+  <City>רמת גן</City>
+  <City>רמת דוד</City>
+  <City>רמת הכובש</City>
+  <City>רמת השופט</City>
+  <City>רמת השרון</City>
+  <City>רמת יוחנן</City>
+  <City>רמת ישי</City>
+  <City>רמת מגשימים</City>
+  <City>רמת צבי</City>
+  <City>רמת רזיאל</City>
+  <City>רמת רחל</City>
+  <City>רנן</City>
+  <City>רעים</City>
+  <City>רעננה</City>
+  <City>רקפת</City>
+  <City>רשפון</City>
+  <City>רשפים</City>
+  <City>רתמים</City>
+  <City>שאר ישוב</City>
+  <City>שבי דרום</City>
+  <City>שבי ציון</City>
+  <City>שבי שומרון</City>
+  <City>שבלי - אום אל-גנם</City>
+  <City>שגב-שלום</City>
+  <City>שדה אילן</City>
+  <City>שדה אליהו</City>
+  <City>שדה אליעזר</City>
+  <City>שדה בוקר</City>
+  <City>שדה דוד</City>
+  <City>שדה ורבורג</City>
+  <City>שדה יואב</City>
+  <City>שדה יעקב</City>
+  <City>שדה יצחק</City>
+  <City>שדה משה</City>
+  <City>שדה נחום</City>
+  <City>שדה נחמיה</City>
+  <City>שדה ניצן</City>
+  <City>שדה עוזיהו</City>
+  <City>שדה צבי</City>
+  <City>שדות ים</City>
+  <City>שדות מיכה</City>
+  <City>שדי אברהם</City>
+  <City>שדי חמד</City>
+  <City>שדי תרומות</City>
+  <City>שדמה</City>
+  <City>שדמות דבורה</City>
+  <City>שדמות מחולה</City>
+  <City>שדרות</City>
+  <City>שואבה</City>
+  <City>שובה</City>
+  <City>שובל</City>
+  <City>שוהם</City>
+  <City>שומרה</City>
+  <City>שומריה</City>
+  <City>שוקדה</City>
+  <City>שורש</City>
+  <City>שורשים</City>
+  <City>שושנת העמקים</City>
+  <City>שזור</City>
+  <City>שחר</City>
+  <City>שחרות</City>
+  <City>שיבולים</City>
+  <City>שיטים</City>
+  <City>שייח' דנון</City>
+  <City>שילה</City>
+  <City>שילת</City>
+  <City>שכניה</City>
+  <City>שלווה</City>
+  <City>שלווה במדבר</City>
+  <City>שלוחות</City>
+  <City>שלומי</City>
+  <City>שלומית</City>
+  <City>שמיר</City>
+  <City>שמעה</City>
+  <City>שמרת</City>
+  <City>שמשית</City>
+  <City>שני</City>
+  <City>שניר</City>
+  <City>שעב</City>
+  <City>שעורים</City>
+  <City>שעל</City>
+  <City>שעלבים</City>
+  <City>שער אפרים</City>
+  <City>שער הגולן</City>
+  <City>שער העמקים</City>
+  <City>שער מנשה</City>
+  <City>שערי תקווה</City>
+  <City>שפיים</City>
+  <City>שפיר</City>
+  <City>שפר</City>
+  <City>שפרעם</City>
+  <City>שקד</City>
+  <City>שקף</City>
+  <City>שרונה</City>
+  <City>שריגים (לי-און)</City>
+  <City>שריד</City>
+  <City>שרשרת</City>
+  <City>שתולה</City>
+  <City>שתולים</City>
+  <City>תאשור</City>
+  <City>תדהר</City>
+  <City>תובל</City>
+  <City>תומר</City>
+  <City>תושיה</City>
+  <City>תימורים</City>
+  <City>תירוש</City>
+  <City>תל אביב - יפו</City>
+  <City>תל יוסף</City>
+  <City>תל יצחק</City>
+  <City>תל מונד</City>
+  <City>תל עדשים</City>
+  <City>תל קציר</City>
+  <City>תל שבע</City>
+  <City>תל תאומים</City>
+  <City>תלם</City>
+  <City>תלמי אליהו</City>
+  <City>תלמי אלעזר</City>
+  <City>תלמי ביל"ו</City>
+  <City>תלמי יוסף</City>
+  <City>תלמי יחיאל</City>
+  <City>תלמי יפה</City>
+  <City>תלמים</City>
+  <City>תמרת</City>
+  <City>תנובות</City>
+  <City>תעוז</City>
+  <City>תפרח</City>
+  <City>תקומה</City>
+  <City>תקוע</City>
+  <City>תראבין א-צאנע (שבט)</City>
+  <City>תראבין א-צאנע(ישוב)</City>
+  <City>תרום</City>
+</Cities>

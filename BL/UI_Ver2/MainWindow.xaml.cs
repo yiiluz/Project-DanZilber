@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Threading;
 using BO;
+using System.Xml.Linq;
+
 
 namespace UI_Ver2
 {
@@ -40,6 +42,9 @@ namespace UI_Ver2
         private ObservableCollection<Trainee> traineeCollection;
         private ObservableCollection<Test> testCollection;
 
+        public static List<string> cities = new List<string>();
+        public static List<IGrouping<string, string>> streetsGroupedByCity = new List<IGrouping<string, string>>();
+
         //Object To Bind
         Tester tester;
         Trainee trainee;
@@ -49,6 +54,13 @@ namespace UI_Ver2
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             bl.AddEventIfConfigChanged(IsNeedToUpdateThreadFunc);
+
+            string cityPath = @"..\..\..\Cities and Streets xml\CitiesList.xml";
+            XElement citiesRoot = XElement.Load(cityPath);
+            cities = (from item in citiesRoot.Elements() select item.Value).ToList();
+            string streetPath = @"..\..\..\Cities and Streets xml\StreetsList.xml";
+            XElement streetsRoot = XElement.Load(streetPath);
+            streetsGroupedByCity = (from item in streetsRoot.Elements() group item.Element("Street").Value by item.Element("City").Value).ToList();
         }
 
 
@@ -89,6 +101,10 @@ namespace UI_Ver2
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            PassBox_passAdmin.Password = "";
+            PassBox_passOffice.Password = "";
+            TextBox_TesterID.Text = "";
+            TextBox_TraineeID.Text = "";
             try
             {
                 TabControl tabControl = sender as TabControl;
@@ -255,11 +271,6 @@ namespace UI_Ver2
                 MessageBox.Show("Trainee with ID " + getIDWindow.TxtBx_ID.Text + " successfuly deleted.", "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-        private void Button_Click_ViewAllTrainees(object sender, RoutedEventArgs e)
-        {
-            OfficeViewTraineesListWindow adminViewTraineesListWindow = new OfficeViewTraineesListWindow();
-            adminViewTraineesListWindow.ShowDialog();
-        }
         private void Button_Click_SearchTrainee(object sender, RoutedEventArgs e)
         {
             OfficeSearchTrainee searchTrainee = new OfficeSearchTrainee();
@@ -347,6 +358,16 @@ namespace UI_Ver2
             if (ListView_TesterTests.SelectedIndex == -1)
                 return;
             TesterTest temp = (TesterTest)ListView_TesterTests.SelectedItem;
+            if (temp.IsTesterUpdateStatus)
+            {
+                MessageBox.Show("You already updated status for this Test!", "Duplicate Block", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (temp.IsTestAborted)
+            {
+                MessageBox.Show("That test can NOT Updated, because he was Canceld.", "Test Aborted Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             TesterResultUpdateWindow testerResultUpdateWindow = new TesterResultUpdateWindow(temp);
             testerResultUpdateWindow.ShowDialog();
             try
@@ -497,6 +518,8 @@ namespace UI_Ver2
             }
             (new SetConfigWindow(x)).ShowDialog();
         }
+
+
 
         void IsNeedToUpdateThreadFunc()
         {

@@ -18,7 +18,7 @@ namespace BO
         /// <param name="city"></param>
         /// <param name="street"></param>
         /// <param name="building number"></param>
-        public Address(string c, string s, int n)
+        public Address(string c = "City", string s = "City", int n = 0)
         {
             city = c;
             street = s;

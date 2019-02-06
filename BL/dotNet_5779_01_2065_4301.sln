@@ -20,6 +20,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XmlFile", "XmlFile", "{D6FC
 		Trainees.xml = Trainees.xml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Addresses", "Addresses", "{90FAFA74-F5E5-4AA6-AC6D-0C1B55120786}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\YITZHA~1\AppData\Local\Temp\Rar$DRa1068.10763\AddressList.xml = ..\..\..\..\..\YITZHA~1\AppData\Local\Temp\Rar$DRa1068.10763\AddressList.xml
+		..\..\..\..\..\YITZHA~1\AppData\Local\Temp\Rar$DRa1068.10763\CitiesList.xml = ..\..\..\..\..\YITZHA~1\AppData\Local\Temp\Rar$DRa1068.10763\CitiesList.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

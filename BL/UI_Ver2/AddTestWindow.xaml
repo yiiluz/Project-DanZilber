@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UI_Ver2"
         
         mc:Ignorable="d"
-        Title="Add Test" Height="550" Width="520" ResizeMode="NoResize" WindowStyle="None"
+        Title="Add Test" Height="550" Width="600" ResizeMode="NoResize" WindowStyle="None"
         AllowsTransparency="True" Background="Transparent">
 
     
@@ -72,9 +72,9 @@
     <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20" Padding="10">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4.5*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -89,8 +89,8 @@
             <Label Content="Enter Trainee ID" Grid.Row="1" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_ID" Grid.Column="1" Grid.Row="1" MaxLength="9" LostFocus="TxtBx_ID_LostFocus" GotFocus="TxtBx_ID_GotFocus" Text="{Binding Path=Id, Mode=OneWay}" Grid.ColumnSpan="3"/>
             <Label Content="Enter Start Test Address" Grid.Row="2" Grid.Column="0"/>
-            <TextBox x:Name="TxtBx_City" Grid.Column="1" Grid.Row="2" Text="{Binding Path=City, Mode=TwoWay}" LostFocus="TxtBx_City_LostFocus" GotFocus="TxtBx_City_GotFocus"/>
-            <TextBox x:Name="TxtBx_Street" Grid.Column="2" Grid.Row="2" Text="{Binding Path=Street, Mode=TwoWay}" LostFocus="TxtBx_Street_LostFocus" GotFocus="TxtBx_Street_GotFocus"/>
+            <ComboBox x:Name="CmbBx_City" Grid.Column="1" Grid.Row="2" SelectedItem="{Binding Path=City, Mode=TwoWay}" IsEditable="True" Text="Choose City" SelectionChanged="CmbBx_City_SelectionChanged"/>
+            <ComboBox x:Name="CmbBx_Street" Grid.Column="2" Grid.Row="2" SelectedItem="{Binding Path=Street, Mode=TwoWay}" IsEditable="True" Text="Choose Street"/>
             <TextBox x:Name="TxtBx_BuildNum" Grid.Column="3" Grid.Row="2" Text="{Binding Path=BuildingNumber, Mode=TwoWay}" LostFocus="TxtBx_BuildNum_LostFocus" GotFocus="TxtBx_BuildNum_GotFocus"/>
 
 

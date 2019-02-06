@@ -29,7 +29,7 @@ namespace BO
         /// Copy constructor. used for create copy of original test with differents dates.
         /// </summary>
         /// <param name="Test obj to copy"></param>
-        public Test(Test other)
+        public Test(Test other) //needed for copying a few tests from original test with different dates.
         {
             testId = other.TestId;
             ExTrainee = other.ExTrainee;
