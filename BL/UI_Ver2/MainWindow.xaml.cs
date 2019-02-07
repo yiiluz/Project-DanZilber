@@ -53,7 +53,10 @@ namespace UI_Ver2
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
-            bl.AddEventIfConfigChanged(IsNeedToUpdateThreadFunc);
+            bl.AddEventIfConfigChanged(IsNeedToUpdateConfigThreadFunc);
+            StatisticsGrid.DataContext = new BO.SystemStatistics();
+            bl.UpdateStatistics();
+            bl.AddStatisticsChangedObserve(IsNeedToUpdateStatisticsThreadFunc);
 
             string cityPath = @"..\..\..\Cities and Streets xml\CitiesList.xml";
             XElement citiesRoot = XElement.Load(cityPath);
@@ -63,7 +66,10 @@ namespace UI_Ver2
             streetsGroupedByCity = (from item in streetsRoot.Elements() group item.Element("Street").Value by item.Element("City").Value).ToList();
         }
 
-
+        private void Button_Click_CloseWindow(object sender, EventArgs e)
+        {
+            Environment.Exit(Environment.ExitCode);
+        }
         private void Button_Click_CloseWindow(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -353,7 +359,6 @@ namespace UI_Ver2
         }
         private void MenuItem_Click_UpdateTestResult(object sender, RoutedEventArgs e)
         {
-            string ErrorList = "";
             if (ListView_TesterTests.SelectedIndex == -1)
                 return;
             TesterTest temp = (TesterTest)ListView_TesterTests.SelectedItem;
@@ -367,6 +372,11 @@ namespace UI_Ver2
                 MessageBox.Show("That test can NOT Updated, because he was Canceld.", "Test Aborted Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            if (temp.DateOfTest > DateTime.Now)
+            {
+                MessageBox.Show("Wait after the test for updating results.", "Oops", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             TesterResultUpdateWindow testerResultUpdateWindow = new TesterResultUpdateWindow(temp);
             testerResultUpdateWindow.ShowDialog();
             try
@@ -378,7 +388,7 @@ namespace UI_Ver2
             }
             catch (KeyNotFoundException ex)
             {
-                MessageBox.Show("Internal error on Existing Tester Tub at UpdateMenu");
+                MessageBox.Show("Internal error on Existing Tester Tub at UpdateMenu.\n" + ex.Message);
             }
         }
         private void Button_Click_UpdateTestResultByID(object sender, RoutedEventArgs e)
@@ -520,12 +530,12 @@ namespace UI_Ver2
 
 
 
-        void IsNeedToUpdateThreadFunc()
+        void IsNeedToUpdateConfigThreadFunc()
         {
-            Action action = IsNeedToUpdate;
+            Action action = IsNeedToUpdateConfig;
             Dispatcher.BeginInvoke(action);
         }
-        void IsNeedToUpdate()
+        void IsNeedToUpdateConfig()
         {
             if (lastUpdate < BL.Configuretion.LastUpdate)
             {
@@ -534,7 +544,15 @@ namespace UI_Ver2
                 TextBlock_LastUpdate.DataContext = lastUpdate;
             }
         }
-
+        void IsNeedToUpdateStatisticsThreadFunc()
+        {
+            Action action = IsNeedToUpdateStatistics;
+            Dispatcher.BeginInvoke(action);
+        }
+        void IsNeedToUpdateStatistics()
+        {
+            StatisticsGrid.DataContext = new SystemStatistics();
+        }
 
 
 
@@ -649,6 +667,8 @@ namespace UI_Ver2
             TabControl_SelectionChanged(TabControl_Login, null);
         }
 
+        
+
         //------------------------------------------------------------------------------------------------------------
 
 
@@ -657,6 +677,11 @@ namespace UI_Ver2
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             (new MainWindow()).Show();
+        }
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

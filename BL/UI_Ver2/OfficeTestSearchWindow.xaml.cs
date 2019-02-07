@@ -78,7 +78,6 @@ namespace UI_Ver2
                     ComboBox_GroupNames.SelectedItem = null;
                     ComboBox_GroupNames.IsEnabled = false;
                     return;
-                    break;
                 case (int)HowToGroupTest.City:
                     //renewListTest();
                     groupedByCity = new ObservableCollection<IGrouping<string, Test>>(MainWindow.bl.GetTestsGroupedByCity());
@@ -307,6 +306,12 @@ namespace UI_Ver2
                 MessageBox.Show("The test with id " + test.TestId + " successfuly Aborted", "Operation Status",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

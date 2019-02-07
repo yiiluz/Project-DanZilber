@@ -1,19 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schedules>
   <Schedule>
-    <ID>999999999</ID>
+    <ID>209492065</ID>
     <WorkDays>
       <Day>
-        <Hour>true</Hour>
         <Hour>false</Hour>
         <Hour>false</Hour>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-      </Day>
-      <Day>
-        <Hour>false</Hour>
-        <Hour>true</Hour>
         <Hour>false</Hour>
         <Hour>false</Hour>
         <Hour>false</Hour>
@@ -21,28 +13,36 @@
       </Day>
       <Day>
         <Hour>false</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+      </Day>
+      <Day>
         <Hour>false</Hour>
         <Hour>true</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+      </Day>
+      <Day>
         <Hour>false</Hour>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
       </Day>
       <Day>
         <Hour>false</Hour>
         <Hour>false</Hour>
         <Hour>false</Hour>
-        <Hour>true</Hour>
-        <Hour>false</Hour>
-        <Hour>true</Hour>
-      </Day>
-      <Day>
-        <Hour>true</Hour>
         <Hour>false</Hour>
         <Hour>false</Hour>
         <Hour>false</Hour>
-        <Hour>true</Hour>
-        <Hour>true</Hour>
       </Day>
     </WorkDays>
   </Schedule>
-  </Schedules>
+</Schedules>

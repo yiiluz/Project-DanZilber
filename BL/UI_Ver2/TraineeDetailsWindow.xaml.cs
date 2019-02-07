@@ -172,13 +172,11 @@ namespace UI_Ver2
             else
                 TxtBx_ID.BorderBrush = Brushes.Green;
         }
-
         private void TxtBx_ID_GotFocus(object sender, RoutedEventArgs e)
         {
             TxtBx_ID.Background = Brushes.White;
             TxtBx_ID.BorderBrush = Brushes.Gray;
         }
-
         private void TxtBx_FirstName_LostFocus(object sender, RoutedEventArgs e)
         {
             if (TxtBx_FirstName.Text.Length == 0 || !TxtBx_FirstName.Text.All(x => x == ' ' || char.IsLetter(x)))
@@ -186,13 +184,11 @@ namespace UI_Ver2
             else
                 TxtBx_FirstName.BorderBrush = Brushes.Green;
         }
-
         private void TxtBx_FirstName_GotFocus(object sender, RoutedEventArgs e)
         {
             TxtBx_FirstName.Background = Brushes.White;
             TxtBx_FirstName.BorderBrush = Brushes.Gray;
         }
-
         private void TxtBx_LastName_LostFocus(object sender, RoutedEventArgs e)
         {
             if (TxtBx_LastName.Text.Length == 0 || !TxtBx_LastName.Text.All(x => x == ' ' || char.IsLetter(x)))
@@ -200,13 +196,11 @@ namespace UI_Ver2
             else
                 TxtBx_LastName.BorderBrush = Brushes.Green;
         }
-
         private void TxtBx_LastName_GotFocus(object sender, RoutedEventArgs e)
         {
             TxtBx_LastName.Background = Brushes.White;
             TxtBx_LastName.BorderBrush = Brushes.Gray;
         }
-
         private void TxtBx_School_LostFocus(object sender, RoutedEventArgs e)
         {
             if (TxtBx_School.Text.Length == 0 || !TxtBx_School.Text.All(x => x == ' ' || char.IsLetter(x)))
@@ -214,13 +208,11 @@ namespace UI_Ver2
             else
                 TxtBx_School.BorderBrush = Brushes.Green;
         }
-
         private void TxtBx_School_GotFocus(object sender, RoutedEventArgs e)
         {
             TxtBx_School.Background = Brushes.White;
             TxtBx_School.BorderBrush = Brushes.Gray;
         }
-
         private void TxtBx_Teacher_LostFocus(object sender, RoutedEventArgs e)
         {
             if (TxtBx_Teacher.Text.Length == 0 || !TxtBx_Teacher.Text.All(x => x == ' ' || char.IsLetter(x)))
@@ -228,13 +220,11 @@ namespace UI_Ver2
             else
                 TxtBx_Teacher.BorderBrush = Brushes.Green;
         }
-
         private void TxtBx_Teacher_GotFocus(object sender, RoutedEventArgs e)
         {
             TxtBx_Teacher.Background = Brushes.White;
             TxtBx_Teacher.BorderBrush = Brushes.Gray;
         }
-
         private void TxtBx_Phone_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!TxtBx_Phone.Text.All(char.IsDigit) || (TxtBx_Phone.Text.Length != 10))
@@ -242,13 +232,11 @@ namespace UI_Ver2
             else
                 TxtBx_Phone.BorderBrush = Brushes.Green;
         }
-
         private void TxtBx_Phone_GotFocus(object sender, RoutedEventArgs e)
         {
             TxtBx_Phone.Background = Brushes.White;
             TxtBx_Phone.BorderBrush = Brushes.Gray;
         }
-
         private void TxtBx_NumLessons_LostFocus(object sender, RoutedEventArgs e)
         {
             int num;
@@ -257,13 +245,11 @@ namespace UI_Ver2
             else
                 TxtBx_NumLessons.BorderBrush = Brushes.Green;
         }
-
         private void TxtBx_NumLessons_GotFocus(object sender, RoutedEventArgs e)
         {
             TxtBx_NumLessons.Background = Brushes.White;
             TxtBx_NumLessons.BorderBrush = Brushes.Gray;
         }
-
         private void TxtBx_BuildNum_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!TxtBx_BuildNum.Text.All(char.IsDigit) || (TxtBx_BuildNum.Text.Length == 0))
@@ -271,7 +257,6 @@ namespace UI_Ver2
             else
                 TxtBx_BuildNum.BorderBrush = Brushes.Green;
         }
-
         private void TxtBx_BuildNum_GotFocus(object sender, RoutedEventArgs e)
         {
             TxtBx_BuildNum.Background = Brushes.White;
@@ -285,7 +270,6 @@ namespace UI_Ver2
                 Close();
 
         }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -293,16 +277,19 @@ namespace UI_Ver2
             // Load data by setting the CollectionViewSource.Source property:
             // traineeViewSource.Source = [generic data source]
         }
-
         private void Button_OK_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
         private void CmbBx_City_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CmbBx_Street.IsEnabled = true;
             CmbBx_Street.ItemsSource = MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem);
+        }
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

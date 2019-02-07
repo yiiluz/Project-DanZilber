@@ -7,7 +7,7 @@
         xmlns:BO="clr-namespace:BO;assembly=BL" 
         mc:Ignorable="d"
         Title="Trainee Details Window" Height="550" Width="600" ResizeMode="NoResize" WindowStyle="None"
-        AllowsTransparency="True" Background="Transparent">
+        AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown">
 
 
     <Window.Resources>
