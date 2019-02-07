@@ -75,7 +75,7 @@ namespace DL
             }
             catch
             {
-                throw new DirectoryNotFoundException(a + " upload problem");
+                throw new DirectoryNotFoundException(a + "  :שגיאה! בעיית טעינת קובץ");
             }
 
         }
@@ -115,7 +115,7 @@ namespace DL
                       select item).FirstOrDefault();
             if (it != null)
             {
-                throw new DuplicateWaitObjectException("A Tester with this ID already exists in this document: " + testersRootPath);
+                throw new DuplicateWaitObjectException("  :"+"שגיאה! בוחן עם תעודת זהות זו כבר קיים במערכת " );
             }
             TestersRoot.Add(new XElement("Tester", PersonCreatorToXML(T), new XElement("Seniority", T.Seniority),
             new XElement("MaxDistance", T.MaxDistance), new XElement("MaxTestsPerWeek", T.MaxTestsPerWeek),
@@ -142,7 +142,7 @@ namespace DL
             }
             catch
             {
-                throw new KeyNotFoundException("There is no Tester with this ID in this document:" + testersRootPath);
+                throw new KeyNotFoundException( " :"+"שגיאה! לא קיים בוחן במערכת עם תעודת זהות זו " );
             }
         }
         public override void UpdateTesterDetails(Tester T)
@@ -166,7 +166,7 @@ namespace DL
                       select item).FirstOrDefault();
             if (it != null)
             {
-                throw new DuplicateWaitObjectException("A Trainee with this ID already exists in this document: " + TraineesRootPath);
+                throw new DuplicateWaitObjectException(" :"+"שגיאה! תלמיד עם תעודת זהות זו כבר קיים במערכת" );
             }
             TraineesRoot.Add(new XElement("Trainee", PersonCreatorToXML(T), new XElement("CurrCarType", T.CurrCarType),
                 new XElement("NumOfFinishedLessons", T.NumOfFinishedLessons), new XElement("NumOfTests", T.NumOfTests),
@@ -194,7 +194,7 @@ namespace DL
             }
             catch
             {
-                throw new KeyNotFoundException("There is no Trainee with this ID in this document: " + TraineesRootPath);
+                throw new KeyNotFoundException(".שגיאה! לא קיים תלמיד עם תעודת זהות זו במערכת");
             }
         }
         public override void UpdateTraineeDetails(Trainee T)
@@ -225,24 +225,23 @@ namespace DL
                       select item).FirstOrDefault();
             if (it != null)
             {
-                throw new DuplicateWaitObjectException("Test with this ID already exists in this document: "
-                 + testersRootPath);
+                throw new DuplicateWaitObjectException(".שגיאה! מבחן עם מספר מבחן זה כבר קיים במערכת");
             }
             it = (from item in TraineesRoot.Elements()
                   where item.Element("Person").Element("ID").Value == t.TraineeId
                   select item).FirstOrDefault();
             if (it == null)
             {
-                throw new KeyNotFoundException("ERROR! The trainee does not exist in this document: "
-                            + TraineesRootPath);
+                throw new KeyNotFoundException(".שגיאה! תלמיד עם תעודת זהות זו לא קיים במערכת");
+                           
             }
             it = (from item in TestersRoot.Elements()
                   where item.Element("Person").Element("ID").Value == t.TesterId
                   select item).FirstOrDefault();
             if (it == null)
             {
-                throw new KeyNotFoundException("ERROR! The tester does not exist in this document: "
-                            + testersRootPath);
+                throw new KeyNotFoundException(".שגיאה! בוחן עם תעודת זהות זו לא קיים במערכת");
+                            
             }
             TestsRoot.Add(new XElement("Test", new XElement("TestId", t.TestId), new XElement("TesterId", t.TesterId),
                 new XElement("TraineeId", t.TraineeId), new XElement("DateOfTest", t.DateOfTest),
@@ -253,9 +252,7 @@ namespace DL
                 new XElement("MirrorsCheck", t.MirrorsCheck), new XElement("Signals", t.Signals),
                 new XElement("CorrectSpeed", t.CorrectSpeed), new XElement("IsPassed", t.IsPassed),
                 new XElement("TesterNotes", t.TesterNotes), new XElement("IsTesterUpdateStatus", t.IsTesterUpdateStatus),
-                new XElement("IsTestAborted", t.IsTestAborted)));
-            TestersRoot.Save(testersRootPath);
-            TraineesRoot.Save(TraineesRootPath);
+                new XElement("IsTestAborted", t.IsTestAborted)));        
             TestsRoot.Save(TestsRootPath);
         }
         public override void RemoveTest(string id)
@@ -278,7 +275,7 @@ namespace DL
             }
             catch
             {
-                throw new KeyNotFoundException("There is no Test with this testId in this document: " + TestsRootPath);
+                throw new KeyNotFoundException("שגיאה! מבחן עם מספר מבחן זה לא קיים במערכת ");
             }
         }
         public override void UpdateTestDetails(Test t)
@@ -318,7 +315,6 @@ namespace DL
                           MaxTestsPerWeek = int.Parse(item.Element("MaxTestsPerWeek").Value),
                           TypeCarToTest = (CarTypeEnum)Enum.Parse(typeof(CarTypeEnum), item.Element("TypeCarToTest").Value),
                       }).ToList();
-
             return it;
         }
         public override List<Trainee> GetTraineeList()
@@ -361,7 +357,7 @@ namespace DL
             {
                 throw e;
             }
-            var it = (from item in TestsRoot.Elements()
+            return  (from item in TestsRoot.Elements()
                       select new Test(item.Element("TestId").Value)
                       {
                           TesterId = item.Element("TesterId").Value,
@@ -381,14 +377,7 @@ namespace DL
                           TesterNotes = item.Element("TesterNotes").Value,
                           IsTesterUpdateStatus = Convert.ToBoolean(item.Element("IsTesterUpdateStatus").Value),
                           IsTestAborted = Convert.ToBoolean(item.Element("IsTestAborted").Value)
-                      }).ToList();
-            try
-            {
-
-                TestsRoot.Save(TestsRootPath);
-            }
-            catch { }
-            return it;
+                      }).ToList();                       
         }
         public override Dictionary<String, Object> GetConfig()
         {
@@ -407,8 +396,7 @@ namespace DL
                 {
                     keyValues.Add(item.Element("Key").Value, int.Parse(item.Element("Value").Element("value").Value));
                 }
-            }
-            ConfigRoot.Save(ConfigRootPath);
+            }           
             return keyValues;
         }
         public override Object GetConfig(String s)
@@ -427,10 +415,10 @@ namespace DL
                 {
                     if (Convert.ToBoolean(X.Element("Value").Element("Readable").Value))
                         return int.Parse(X.Element("Value").Element("value").Value);
-                    throw new AccessViolationException("ERROR! There is no permission to read this configutation property in this document: " + ConfigRootPath);
+                    throw new AccessViolationException(".שגיאה! אין הרשאה לראות מאפיין קונפיגורציה זה");
                 }
             }
-            throw new KeyNotFoundException("ERROR! There is no configuration feature with this name in this document: " + ConfigRootPath);
+            throw new KeyNotFoundException(".שגיאה! לא קיים קונפיגורציה במערכת בשם זה");
         }
         public override void SetConfig(string parm, Object value)
         {
@@ -453,10 +441,10 @@ namespace DL
                         isConfigUpdated = true;
                         return;
                     }
-                    throw new AccessViolationException("ERROR! There is no permission to write on this configutation property in this document: " + ConfigRootPath);
+                    throw new AccessViolationException( ".שגיאה! אין הרשאה לשנות מאפיין קונפיגורציה זה");
                 }
             }
-            throw new KeyNotFoundException("ERROR! There is no configuration feature with this name in this document: " + ConfigRootPath);
+            throw new KeyNotFoundException(".שגיאה! לא קיים מאפיין קונפיגורציה בשם זה במערכת");
         }
         public override void AddTesterSchedule(string id, bool[,] sched)
         {
@@ -471,7 +459,7 @@ namespace DL
             var it = (from item in SchedulesRoot.Elements()
                       where item.Element("ID").Value == id
                       select item).FirstOrDefault();
-            if (it != null) { throw new DuplicateWaitObjectException("This testerSchedule already exists in this document: " + SchedulesRootPath); }
+            if (it != null) { throw new DuplicateWaitObjectException(" .שגיאה! מערכת שעות של בוחן זה כבר קיימת במערכת"); }
             SchedulesRoot.Add(new XElement("Schedule", new XElement("ID", id), new XElement("WorkDays",
                 new XElement("Day", new XElement("Hour", sched[0, 0]), new XElement("Hour", sched[0, 1]), new XElement("Hour", sched[0, 2]),
                 new XElement("Hour", sched[0, 3]), new XElement("Hour", sched[0, 4]), new XElement("Hour", sched[0, 5])),
@@ -505,7 +493,7 @@ namespace DL
             var it = (from item in SchedulesRoot.Elements()
                       where item.Element("ID").Value == id
                       select item).FirstOrDefault();
-            if (it == null) { throw new KeyNotFoundException("There is not testerSchedule in this document: " + SchedulesRootPath + ". For this ID" + id); }
+            if (it == null) { throw new KeyNotFoundException(".שגיאה! לא קיים במערכת מערכת שעות עבור בוחן זה"); }
             foreach (var x in it.Element("WorkDays").Elements())
             {
                 foreach (var v in x.Elements())
@@ -538,7 +526,7 @@ namespace DL
             }
             catch
             {
-                throw new KeyNotFoundException("There is not testerSchedule in this document: " + SchedulesRootPath);
+                throw new KeyNotFoundException(".שגיאה! לא קיים במערכת מערכת שעות עבור בוחן זה");
             }
 
         }

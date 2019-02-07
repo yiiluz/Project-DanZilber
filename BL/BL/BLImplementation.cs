@@ -76,11 +76,11 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Error. Can't update this configuration. " + ex.Message);
+                throw new KeyNotFoundException(ex.Message + " .שגיאה! לא ניתן לעדכן מאפיין קונפיגורציה זה");
             }
             catch (AccessViolationException ex)
             {
-                throw new AccessViolationException("Error. Can't update this configuration. " + ex.Message);
+                throw new AccessViolationException(ex.Message+ " .שגיאה!לא ניתן לעדכן מאפיין קונפיגורציה זה");
             }
         }
 
@@ -103,7 +103,7 @@ namespace BL
             int testerAge = (DateTime.Now.Year - t.DateOfBirth.Year);
             if (testerAge < minAge || testerAge > maxAge)
             {
-                throw new ArgumentOutOfRangeException("Tester age is not on range of " + minAge + "-" + maxAge);
+                throw new ArgumentOutOfRangeException(  minAge + "-" + maxAge+ " :שגיאה! גיל הבוחן לא בטווח המתאים");
             }
             else
             {
@@ -142,7 +142,7 @@ namespace BL
             }
             if (!exist)
             {
-                throw new KeyNotFoundException("Can't remove this tester becauze he is not on the system.");
+                throw new KeyNotFoundException(".שגיאה! לא ניתן למחוק בוחן שלא קיים במערכת");
             }
             else
             {
@@ -185,14 +185,14 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Internal Error. Can't Update tester Deteails with id " + t.Id + ex.Message);
+                throw new KeyNotFoundException(ex.Message + t.Id + ":שגיאה פנימית! לא ניתן לעדכן בוחן עם תעודת זהות");
             }
             catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
             if (!exist)
-                throw new KeyNotFoundException("Can't update this tester becauze he is not on the system.");
+                throw new KeyNotFoundException(".שגיאה! לא ניתן לעדכן בוחן זה משום שהוא לא קיים במערכת ");
             else
             {
                 int minAge, maxAge;
@@ -208,7 +208,7 @@ namespace BL
                 int testerAge = (DateTime.Now.Year - t.DateOfBirth.Year);
                 if (testerAge < minAge || testerAge > maxAge)
                 {
-                    throw new ArgumentOutOfRangeException("Tester age is not on range of " + minAge + "-" + maxAge);
+                    throw new ArgumentOutOfRangeException(  minAge + "-" + maxAge+ ".שגיאה! גיל הבוחן לא בטווח המתאים");
                 }
                 try
                 {
@@ -246,7 +246,7 @@ namespace BL
             int traineeAge = (DateTime.Now.Year - t.DateOfBirth.Year);
             if (traineeAge < minAge)
             {
-                throw new ArgumentOutOfRangeException("Trainee age is not on above " + minAge + ".");
+                throw new ArgumentOutOfRangeException( minAge + ":שגיאה! גיל התלמיד מתחת לגיל המינימום");
             }
             else try
                 {
@@ -276,7 +276,7 @@ namespace BL
             }
             catch (KeyNotFoundException e)
             {
-                throw new KeyNotFoundException("Can't remove this trainee because he is not on the system.");
+                throw new KeyNotFoundException(".שגיאה! לא ניתן למחוק תלמיד שאינו קיים במערכת");
             }
             catch (DirectoryNotFoundException e)
             {
@@ -307,7 +307,7 @@ namespace BL
         {
             bool exist = GetTraineeList().Exists(x => x.Id == t.Id);
             if (!exist)
-                throw new KeyNotFoundException("Can't update this trainee because he is not on the system.");
+                throw new KeyNotFoundException(".שגיאה! לא ניתן למחוק תלמיד שאינו קיים במערכת");
             else
             {
                 int minAge;
@@ -322,7 +322,7 @@ namespace BL
                 int traineeAge = (DateTime.Now.Year - t.DateOfBirth.Year);
                 if (traineeAge < minAge)
                 {
-                    throw new ArgumentOutOfRangeException("Trainee age is not on above " + minAge + ".");
+                    throw new ArgumentOutOfRangeException(minAge + ":שגיאה! גיל התלמיד מתחת לגיל המינימום");
                 }
                 try
                 {
@@ -348,7 +348,7 @@ namespace BL
         {
             t.IsTesterUpdateStatus = false;
             string testId = "";
-            string errors = "ERROR!\n";
+            string errors = "!שגיאות\n";
             //check if trainee & tester already on system.
             bool traineeExist = GetTraineeList().Exists(x => x.Id == t.ExTrainee.Id);///////////////////////////////////////
             bool testerExist = false;
@@ -367,9 +367,9 @@ namespace BL
             if (!testerExist || !traineeExist)
             {
                 if (!traineeExist)
-                    errors += "The trainee linked to test is not exist on the system.\n";
+                    errors += ".שגיאה! התלמיד רשום למבחן שלא קיים במערכת \n";
                 if (!testerExist)
-                    errors += "The tester linked to test is not exist on the system.\n";
+                    errors += ".שגיאה! הבוחן רשום למבחן שלא קיים במערכת \n";
                 throw new KeyNotFoundException(errors);
             }
             //if trainee and tester on the system
@@ -385,8 +385,10 @@ namespace BL
                     lastTest = GetTestsList().Find(x => x.IsTestAborted == false && x.DateOfTest == trainee.LastTest
                                     && x.ExTrainee.Id == trainee.Id && x.CarType == tester.TypeCarToTest);
                     if (lastTest != null && !lastTest.IsTesterUpdateStatus)
-                        errors += "Can't add to this trainee new test until the results of the test on " + trainee.LastTest.ToShortDateString()
-                            + " will be availiable.\n";
+                    {
+                        errors += " .תיהיה זמינה" + trainee.LastTest.ToShortDateString() + "-שגיאה! לא ניתן להוסיף לתלמיד מבחן עד אשר התוצאה במבחן ב ";
+                        errors += "/n";
+                    }
                 }
                 else
                 {
@@ -412,7 +414,7 @@ namespace BL
                             }
                         }
                         if (flag)
-                            errors += "The date of test is closed than alowed to other trainee test on the same car type.\n";
+                            errors += ".שגיאה! לא ניתן להוסיף מבחן. התלמיד ניגש לבחינה ממש לאחרונה\n";
                     }
                 }
                 int minLesson = -1;
@@ -426,11 +428,11 @@ namespace BL
                 }
                 if (minLesson != -1 && trainee.NumOfFinishedLessons < minLesson) //if trainee didnt did enough lessons
                 {
-                    errors += "Trainee did not passed enough lessons for test.\n";
+                    errors += ".שגיאה! לא ניתן להוסיף מבחן. התלמיד לא השלים מספר שיעורים כנדרש\n";
                 }
                 if (trainee.ExistingLicenses.Exists(x => (x == t.CarType) || (x == CarTypeEnum.PrivateCar && t.CarType == CarTypeEnum.PrivateCarAuto))) //if trainee already have license on the test type car
-                    errors += "Trainee already have that kind of license.\n";
-                if (errors == "ERROR!\n") //if there was no errors
+                    errors += ".שגיאה! לא ניתן להוסיף מבחן. התלמיד  כבר בעל רישיון מדרגה זו\n";
+                if (errors == "!שגיאות\n") //if there was no errors
                 {
                     //
                     int serial = -1;
@@ -497,7 +499,7 @@ namespace BL
                                     }
                                     catch (KeyNotFoundException e)
                                     {
-                                        throw new MemberAccessException(e.Message + "\nCan't update trainee.");
+                                        throw new MemberAccessException(e.Message + "\nשגיאה! לא ניתן לעדכן פרטי תלמיד");
                                     }
                                 }
                             }
@@ -505,7 +507,7 @@ namespace BL
                         }
                     }
                 }
-                if (errors != "ERROR!\n")
+                if (errors != "!שגיאות\n")
                 {
                     throw new ArgumentOutOfRangeException(errors);
                 }
@@ -577,14 +579,14 @@ namespace BL
             {
                 throw e;
             }
-            string errorList = "ERROR!\n";
+            string errorList = "!שגיאות\n";
             if (DateTime.Now == test.DateOfTest && DateTime.Now.Hour < test.HourOfTest || DateTime.Now < test.DateOfTest)
-                errorList += "You can not update test information before the intended date. \n";
+                errorList += ".שגיאה! לא ניתן לעדכן פרטי מבחן לפני המועד המיועד \n";
             if (test.IsTesterUpdateStatus)
-                errorList += "Test results have already been entered. You can not change the test details. \n";
+                errorList += ".שגיאה! תוצאת המבחן כבר הוזנה למערכת. לא ניתן לשנות פרטי מבחן \n";
             if (test.IsTestAborted)
-                errorList += "The test has been canceled. details can not be updated for this test \n";
-            if (errorList == "ERROR!\n")
+                errorList += ".שגיאה! המבחן בוטל. לא ניתן לעדכן פרטים עבור מבחן זה\n";
+            if (errorList == "!שגיאות\n")
             {
 
                 UpdateTestDeteils(test, t);
@@ -733,7 +735,7 @@ namespace BL
             try
             {
                 if (!(instance.GetTraineeList().Exists(x => x.Id == id)))
-                    throw new KeyNotFoundException("Trainee id not exist on system.\n");
+                    throw new KeyNotFoundException(".שגיאה!  לא קיים במערכת תלמיד עם תעודת זהות זו");
                 else
                 {
                     Trainee trainee = Converters.CreateBOTrainee(instance.GetTraineeList().Find(x => x.Id == id));
@@ -782,7 +784,7 @@ namespace BL
                 throw e;
             }
             if (!exists)
-                throw new KeyNotFoundException("Tester id not exist on system.\n");
+                throw new KeyNotFoundException("שגיאה!  לא קיים במערכת בוחן עם תעודת זהות זו\n");
             else
             {
                 Tester tester = Converters.CreateBOTester(instance.GetTestersList().Find(x => x.Id == id));
@@ -814,7 +816,7 @@ namespace BL
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    throw new KeyNotFoundException("Tester schedule can not be imported. " + ex.Message);
+                    throw new KeyNotFoundException( ex.Message + " שגיאה פנימית לא ניתן להטעין מערכת שעות של הבוחן\n");
                 }
                 return tester;
             }
@@ -830,7 +832,7 @@ namespace BL
             try
             {
                 if (!(instance.GetTestsList().Exists(x => x.TestId == id)))
-                    throw new KeyNotFoundException("Test's serial number not exist on system.\n");
+                    throw new KeyNotFoundException(".שגיאה! מספר מבחן לא קיים במערכת\n");
                 else
                 {
                     test = Converters.CreateBOTest(instance.GetTestsList().Find(x => x.TestId == id));
@@ -853,7 +855,7 @@ namespace BL
             List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType &&
                                                 IsTestersWorkAtSpesificHour(x, dataSourse.HourOfTest));
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException("There is no testers that work at wanted hour. Try another.");
+                throw new KeyNotFoundException(".שגיאה! לא קיים בוחן העובד בשעה הרצויה, אנא נסה בשעה אחרת");
             try
             {
                 optionalTesters = (from tester in optionalTesters
@@ -866,7 +868,7 @@ namespace BL
                 throw new InternalBufferOverflowException();
             }
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException("There is no testers for this address.");
+                throw new KeyNotFoundException(".שגיאה!  אין בוחנים עבור כתובת זו");
             //if there is no tester availiable for this hour
             if (optionalTesters.Count == 0)
                 return optionalTests;
@@ -909,7 +911,7 @@ namespace BL
                                             IsTesterAvailiableOnDateAndHour(x, dataSourse.DateOfTest) &&
                                             GetAvailiableHoursOfTesterForSpesificDate(x, dataSourse.DateOfTest).Count != 0);
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException("There is no testers that work at wanted date. Try another.");
+                throw new KeyNotFoundException(".שגיאה!  אין בוחן העובד בתאריך המבוקש, אנא בחר מועד אחר");
             try
             {
                 optionalTesters = (from tester in optionalTesters
@@ -922,7 +924,7 @@ namespace BL
                 throw new InternalBufferOverflowException();
             }
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException("There is no testers for this address.");
+                throw new KeyNotFoundException(".שגיאה!  אין בוחנים עבור כתובת זו");
             bool[] tmp = new bool[6]; //tmp array for delete dublicates.
             for (int i = 0; i < 6; ++i)
                 tmp[i] = false;
