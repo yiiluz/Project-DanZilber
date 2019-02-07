@@ -100,29 +100,32 @@ namespace UI_Ver2
 
         private void Button_AddChosenTest(object sender, RoutedEventArgs e)
         {
-            try
+            if (CombBx_TestsListByDate.SelectedItem != null)
             {
-                string serialOfTest = MainWindow.bl.AddTest(CombBx_TestsListByDate.SelectedItem as Test);
-                MessageBox.Show("Test added successfuly. Test ID: " + serialOfTest, "Add Status", MessageBoxButton.OK, MessageBoxImage.Information);
-                Close();
-            }
-            catch (Exception ex)
-            {
-                var result = MessageBox.Show("Internal ERROR: " + ex.Message + ". Do you want to try agein?", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                if (result == MessageBoxResult.No)
+                try
                 {
-                    MessageBox.Show("The test has'nt Added.", "Operation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    string serialOfTest = MainWindow.bl.AddTest(CombBx_TestsListByDate.SelectedItem as Test);
+                    MessageBox.Show("Test added successfuly. Test ID: " + serialOfTest, "Add Status", MessageBoxButton.OK, MessageBoxImage.Information);
                     Close();
                 }
-                else
+                catch (Exception ex)
                 {
-                    return;
+                    var result = MessageBox.Show("Internal ERROR: " + ex.Message + ". Do you want to try agein?", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    if (result == MessageBoxResult.No)
+                    {
+                        MessageBox.Show("The test has'nt Added.", "Operation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Close();
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
         }
         private void Button_Click_GetTestsListByDate(object sender, RoutedEventArgs e)
         {
-            if (worker.IsBusy)
+            if (worker.IsBusy || CmbBx_City.SelectedItem == null || CmbBx_Street.SelectedItem == null)
             {
                 return;
             }
@@ -172,7 +175,7 @@ namespace UI_Ver2
 
         private void Button_Click_GetTestsListByHour(object sender, RoutedEventArgs e)
         {
-            if (worker.IsBusy)
+            if (worker.IsBusy || CmbBx_City.SelectedItem == null || CmbBx_Street.SelectedItem == null)
             {
                 return;
             }
@@ -257,8 +260,11 @@ namespace UI_Ver2
         //}
         private void CmbBx_City_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CmbBx_Street.IsEnabled = true;
-            CmbBx_Street.ItemsSource = MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem);
+            if (CmbBx_City.SelectedItem != null)
+            {
+                CmbBx_Street.IsEnabled = true;
+                CmbBx_Street.ItemsSource = MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem);
+            }
         }
 
         private void AddChosenTestThreadFunc(Object sender, DoWorkEventArgs e)
@@ -353,6 +359,11 @@ namespace UI_Ver2
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
+        }
+
+        private void CmbBx_City_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            CmbBx_City.IsDropDownOpen = true;
         }
     }
 }

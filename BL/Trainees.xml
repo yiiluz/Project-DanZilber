@@ -23,4 +23,27 @@
     <SchoolName>מבחר</SchoolName>
     <TeacherName>דן זילברשטיין</TeacherName>
   </Trainee>
+  <Trainee>
+    <Person>
+      <ID>675875875</ID>
+      <Name>
+        <FirstName>עיהעיהיעה</FirstName>
+        <LastName>עהעוה</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>אלעד</City>
+        <Street>רבי מאיר</Street>
+        <BuildingNumber>10</BuildingNumber>
+      </Address>
+      <DateOfBirth>1980-01-01T00:00:00</DateOfBirth>
+      <PhoneNumber>8878979878</PhoneNumber>
+    </Person>
+    <CurrCarType>PrivateCar</CurrCarType>
+    <NumOfFinishedLessons>80</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>וטעטוהעטYUG</SchoolName>
+    <TeacherName>VUYV</TeacherName>
+  </Trainee>
 </Trainees>

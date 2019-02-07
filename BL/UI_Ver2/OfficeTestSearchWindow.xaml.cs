@@ -74,7 +74,7 @@ namespace UI_Ver2
                     mainList = new ObservableCollection<Test>(BO.Factory.GetBLObj().GetTestsList());
                     listToFilter = mainList;
                     ComboBox_GroupOptions.ItemsSource = listToFilter;
-                    SearchFilterChanged(null,null);
+                    SearchFilterChanged(null, null);
                     ComboBox_GroupNames.SelectedItem = null;
                     ComboBox_GroupNames.IsEnabled = false;
                     return;
@@ -201,7 +201,7 @@ namespace UI_Ver2
                 TestsList.ItemsSource = listToFilter;
             }
             if ((TestID.Text.Length != 0 || TesterID.Text.Length != 0 || TraineeID.Text.Length != 0) && listToFilter != null)
-                SearchFilterChanged(null,null);
+                SearchFilterChanged(null, null);
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -211,7 +211,8 @@ namespace UI_Ver2
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(TestsList.SelectedItem.ToString(), "OfficeTestSearchWindow", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (TestsList.SelectedItem != null)
+                MessageBox.Show(TestsList.SelectedItem.ToString(), "OfficeTestSearchWindow", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         GridViewColumnHeader _lastHeaderClicked = null;
@@ -279,6 +280,8 @@ namespace UI_Ver2
 
         private void MenuItem_Click_Abort(object sender, RoutedEventArgs e)
         {
+            if (TestsList.SelectedItem == null)
+                return;
             Test test = MainWindow.bl.GetTestByID((TestsList.SelectedItem as Test).TestId);
             if (test.IsTestAborted)
             {
@@ -301,7 +304,7 @@ namespace UI_Ver2
                         "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.No)
                         //Close();
-                    return;
+                        return;
                 }
                 MessageBox.Show("The test with id " + test.TestId + " successfuly Aborted", "Operation Status",
                     MessageBoxButton.OK, MessageBoxImage.Information);

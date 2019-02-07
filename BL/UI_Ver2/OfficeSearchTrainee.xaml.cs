@@ -52,6 +52,8 @@ namespace UI_Ver2
         }
         private void MenuItem_Click_UpdateTraineeDetails(object sender, RoutedEventArgs e)
         {
+            if (TraineeList.SelectedItem == null)
+                return;
             Trainee trainee;
             trainee = MainWindow.bl.GetTraineeByID((TraineeList.SelectedItem as Trainee).Id);
             TraineeDetailsWindow traineeDetailsWindow = new TraineeDetailsWindow(trainee, "Update");
@@ -76,6 +78,8 @@ namespace UI_Ver2
         }
         private void MenuItem_ClickRemoveTrainee(object sender, RoutedEventArgs e)
         {
+            if (TraineeList.SelectedItem == null)
+                return;
             try
             {
                 MainWindow.bl.RemoveTrainee(((Trainee)TraineeList.SelectedItem).Id);
@@ -99,7 +103,8 @@ namespace UI_Ver2
         }
         private void MenuItem_Click_Information(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(TraineeList.SelectedItem.ToString(), "Trainee Details", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (TraineeList.SelectedItem != null)
+                MessageBox.Show(TraineeList.SelectedItem.ToString(), "Trainee Details", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ComboBox_GroupOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -1,24 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Testers>
-  <Tester>
-    <Person>
-      <ID>209492065</ID>
-      <Name>
-        <FirstName>יצחק חיים</FirstName>
-        <LastName>אילוז</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>אלעד</City>
-        <Street>רבי מאיר</Street>
-        <BuildingNumber>16</BuildingNumber>
-      </Address>
-      <DateOfBirth>1970-01-01T00:00:00</DateOfBirth>
-      <PhoneNumber>0532232980</PhoneNumber>
-    </Person>
-    <Seniority>10</Seniority>
-    <MaxDistance>50</MaxDistance>
-    <MaxTestsPerWeek>5</MaxTestsPerWeek>
-    <TypeCarToTest>MotorCycle</TypeCarToTest>
-  </Tester>
-</Testers>
+<Testers />

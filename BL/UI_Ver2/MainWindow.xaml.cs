@@ -360,7 +360,7 @@ namespace UI_Ver2
         }
         private void MenuItem_Click_UpdateTestResult(object sender, RoutedEventArgs e)
         {
-            if (ListView_TesterTests.SelectedIndex == -1)
+            if (ListView_TesterTests.SelectedIndex == -1 || ListView_TesterTests.SelectedItem == null)
                 return;
             TesterTest temp = (TesterTest)ListView_TesterTests.SelectedItem;
             if (temp.IsTesterUpdateStatus)
@@ -416,7 +416,8 @@ namespace UI_Ver2
         }
         private void ListView_TesterTests_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show((((ListView)sender).SelectedItem as TesterTest).ToString(), "Test Details", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (((ListView)sender).SelectedItem != null)
+                MessageBox.Show((((ListView)sender).SelectedItem as TesterTest).ToString(), "Test Details", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         //------------------------------------------------------------------------------------------------------------
 
@@ -477,7 +478,8 @@ namespace UI_Ver2
         }
         private void ListView_TraineeTests_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show((((ListView)sender).SelectedItem as TraineeTest).ToString(), "Test Details", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (((ListView)sender).SelectedItem != null)
+                MessageBox.Show((((ListView)sender).SelectedItem as TraineeTest).ToString(), "Test Details", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         private void ListView_TraineeExistingLicenses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -525,7 +527,7 @@ namespace UI_Ver2
                 KeyValuePair<string, Object> x = (KeyValuePair<string, Object>)(ListView_Configurations.SelectedValue);
                 if (x.Key == "Serial Number Test")
                 {
-                    MessageBox.Show("לא ניתן לעדכן הגדרה זו באופן ידני.", "שגיאת הרשאה", MessageBoxButton.OK, MessageBoxImage.Stop, MessageBoxResult.None , MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    MessageBox.Show("לא ניתן לעדכן הגדרה זו באופן ידני.", "שגיאת הרשאה", MessageBoxButton.OK, MessageBoxImage.Stop, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     return;
                 }
                 (new SetConfigWindow(x)).ShowDialog();
