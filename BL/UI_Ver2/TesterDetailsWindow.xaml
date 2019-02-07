@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UI_Ver2"
         mc:Ignorable="d"
         Title="Tester Details Window" Height="500" Width="900" ResizeMode="NoResize" WindowStyle="None"
-        AllowsTransparency="True" Background="Transparent">
+        AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown">
 
     <Window.Resources>
         <Style TargetType="TextBox">
@@ -68,11 +68,11 @@
             <ComboBox x:Name="CombBx_Gender" Margin="2" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" SelectedValue="{Binding Path=Gender}"/>
 
             <Label Content="Tester's Weekly working times" Grid.Column="5" HorizontalAlignment="Center" VerticalContentAlignment="Bottom"/>
-            <Label  Margin="30 0 0 0" Grid.Column="4"  Grid.Row="2" Content="Sunday" VerticalAlignment="Center"/>
-            <Label  Margin="30 0 0 0" Grid.Column="4"  Grid.Row="3" Content="Monday" VerticalAlignment="Center"/>
-            <Label  Margin="30 0 0 0" Grid.Column="4"  Grid.Row="4" Content="Tuesday" VerticalAlignment="Center"/>
-            <Label  Margin="30 0 0 0" Grid.Column="4"  Grid.Row="5" Content="Wednesday" VerticalAlignment="Center"/>
-            <Label  Margin="30 0 0 0" Grid.Column="4"  Grid.Row="6" Content="Thursday" VerticalAlignment="Center"/>
+            <Label  Margin="5 0 0 0" Grid.Column="4"  Grid.Row="2" Content="Sunday" VerticalAlignment="Center"/>
+            <Label  Margin="5 0 0 0" Grid.Column="4"  Grid.Row="3" Content="Monday" VerticalAlignment="Center"/>
+            <Label  Margin="5 0 0 0" Grid.Column="4"  Grid.Row="4" Content="Tuesday" VerticalAlignment="Center"/>
+            <Label  Margin="5 0 0 0" Grid.Column="4"  Grid.Row="5" Content="Wednesday" VerticalAlignment="Center"/>
+            <Label  Margin="5 0 0 0" Grid.Column="4"  Grid.Row="6" Content="Thursday" VerticalAlignment="Center"/>
             <StackPanel Grid.Row="1" Grid.Column="5" Orientation="Horizontal" VerticalAlignment="Bottom">
                 <Label Content="9:00"  Width="52" HorizontalContentAlignment="Center"/>
                 <Label Content="10:00" Width="52" HorizontalContentAlignment="Center"/>

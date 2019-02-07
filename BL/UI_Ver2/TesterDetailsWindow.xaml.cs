@@ -306,14 +306,6 @@ namespace UI_Ver2
                 Close();
 
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-
-
-        }
-
         private void Button_OK_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -322,6 +314,12 @@ namespace UI_Ver2
         {
             CmbBx_Street.IsEnabled = true;
             CmbBx_Street.ItemsSource = MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem);
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

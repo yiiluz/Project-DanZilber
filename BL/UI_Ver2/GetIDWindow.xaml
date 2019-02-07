@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_Ver2"
         mc:Ignorable="d"
-        Title="ID" Height="420" Width="300" ResizeMode="NoResize" Icon="Icons/UserIcon2.png">
-    <Border Padding="10">
+        Title="ID" Height="420" Width="300" WindowStyle="None"
+        AllowsTransparency="True" Background="Transparent" Icon="Icons/UserIcon2.png">
+    <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20" Padding="10">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
@@ -15,7 +16,10 @@
             </Grid.RowDefinitions>
             <Label x:Name="LableOfInput" Content="Enter ID:" FontFamily="David" FontSize="16" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Foreground="Black"/>
             <TextBox x:Name="TxtBx_ID" KeyDown="TxtBx_ID_KeyDown" FontSize="20" Padding="3" Margin="3,20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Text="" Grid.Row="1" MaxLength="9" GotFocus="TxtBx_ID_GotFocus"/>
-            <Button x:Name="Button_OK" Content="OK" Grid.Row="4" Margin="30" Click="Button_Click" Background="#FFB9F9FF" MouseEnter="Button_OK_MouseEnter" MouseLeave="Button_OK_MouseLeave"/>
+            <StackPanel Grid.Row="4" VerticalAlignment="Bottom">
+                <Button x:Name="Button_OK" Content="OK" Margin="2" Click="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+                <Button x:Name="Button_Cancel" Content="Cancel" Margin="2" Click="Button_Click_Cancel" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+            </StackPanel>
             <Image x:Name="UserImage" HorizontalAlignment="Stretch" Grid.Row="0" VerticalAlignment="Stretch" Height="100" Width="100" Source="Icons/UserIcon2.png" Stretch="Fill" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave"/>
         </Grid>
     </Border>

@@ -327,7 +327,6 @@ namespace DL
             {
                 throw e;
             }
-            var x = TraineesRoot.Elements().ToList()[0];
             var it = (from item in TraineesRoot.Elements()
                       select new Trainee(item.Element("Person").Element("ID").Value)
                       {

@@ -38,7 +38,7 @@ namespace BL
             {
                 throw e;
             }
-            StatisticsChanged += UpdateSystemStatistics;
+            StatisticsChanged += UpdateStatistics;
             new Thread(() =>
             {
                 while (true)
@@ -214,6 +214,7 @@ namespace BL
                 {
                     instance.UpdateTesterDetails(Converters.CreateDOTester(t));
                     instance.UpdateTesterSchedule(t.Id, t.AvailiableWorkTime);
+                    isStatisticsChanged = true;
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -326,6 +327,7 @@ namespace BL
                 try
                 {
                     instance.UpdateTraineeDetails(Converters.CreateDoTrainee(t));
+                    isStatisticsChanged = true;
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -917,7 +919,7 @@ namespace BL
                                    where x <= tester.MaxDistance && x >= 0
                                    select tester).ToList();
             }
-            catch(InternalBufferOverflowException)
+            catch (InternalBufferOverflowException)
             {
                 throw new InternalBufferOverflowException();
             }
@@ -959,6 +961,7 @@ namespace BL
             catch (DirectoryNotFoundException e)
             {
                 throw e;
+                return new List<Test>();
             }
         }
         public List<Tester> GetTestersPartialListByPredicate(Func<BO.Tester, bool> func)
@@ -1351,91 +1354,6 @@ namespace BL
         //    }
         //}
 
-        void UpdateSystemStatistics()
-        {
-            foreach (var item in GetTraineeList())
-            {
-                switch (item.CurrCarType)
-                {
-                    case CarTypeEnum.Bus:
-                        SystemStatistics.NumOfTraineesBus++;
-                        break;
-                    case CarTypeEnum.MotorCycle:
-                        SystemStatistics.NumOfTraineesMotorCycle++;
-                        break;
-                    case CarTypeEnum.PrivateCar:
-                        SystemStatistics.NumOfTraineesPrivateCar++;
-                        break;
-                    case CarTypeEnum.PrivateCarAuto:
-                        SystemStatistics.NumOfTraineesAutoPrivateCar++;
-                        break;
-                    case CarTypeEnum.Truck12Tons:
-                        SystemStatistics.NumOfTraineesTruck12Ton++;
-                        break;
-                    case CarTypeEnum.TruckUnlimited:
-                        SystemStatistics.NumOfTraineesTruckUnlimited++;
-                        break;
-                }
-            }
-            foreach (var item in GetTestersList())
-            {
-                switch (item.TypeCarToTest)
-                {
-                    case CarTypeEnum.Bus:
-                        SystemStatistics.NumOfTestersBus++;
-                        break;
-                    case CarTypeEnum.MotorCycle:
-                        SystemStatistics.NumOfTestersMotorCycle++;
-                        break;
-                    case CarTypeEnum.PrivateCar:
-                        SystemStatistics.NumOfTestersPrivateCar++;
-                        break;
-                    case CarTypeEnum.PrivateCarAuto:
-                        SystemStatistics.NumOfTestersAutoPrivateCar++;
-                        break;
-                    case CarTypeEnum.Truck12Tons:
-                        SystemStatistics.NumOfTestersTruck12Ton++;
-                        break;
-                    case CarTypeEnum.TruckUnlimited:
-                        SystemStatistics.NumOfTestersTruckUnlimited++;
-                        break;
-                }
-                SystemStatistics.SumTesterDistanceToTest += item.MaxDistance;
-                SystemStatistics.SumNumOfTestsPerWeek += item.MaxTestsPerWeek;
-            }
-            foreach (var item in GetTestsList())
-            {
-                switch (item.CarType)
-                {
-                    case CarTypeEnum.Bus:
-                        SystemStatistics.NumOfTestsBus++;
-                        break;
-                    case CarTypeEnum.MotorCycle:
-                        SystemStatistics.NumOfTestsMotorCycle++;
-                        break;
-                    case CarTypeEnum.PrivateCar:
-                        SystemStatistics.NumOfTestsPrivateCar++;
-                        break;
-                    case CarTypeEnum.PrivateCarAuto:
-                        SystemStatistics.NumOfTestsAutoPrivateCar++;
-                        break;
-                    case CarTypeEnum.Truck12Tons:
-                        SystemStatistics.NumOfTestsTruck12Ton++;
-                        break;
-                    case CarTypeEnum.TruckUnlimited:
-                        SystemStatistics.NumOfTestsTruckUnlimited++;
-                        break;
-                }
-                if (item.IsTestAborted)
-                    SystemStatistics.NumOfAbortedTests++;
-                else if (!item.IsTesterUpdateStatus)
-                    SystemStatistics.NumOfTestWaitForUpdate++;
-                else if (item.IsPassed)
-                    SystemStatistics.NumOfSuccessedTests++;
-                else if (!item.IsPassed)
-                    SystemStatistics.NumOfFailedTest++;
-            }
-        }
 
         double GetDistanceBetweenTwoAddresses(Address a, Address b)
         {
@@ -1493,6 +1411,97 @@ namespace BL
             if (i >= 10)
                 throw new InternalBufferOverflowException();
             return CalculatedDistance;
+        }
+
+        public void UpdateStatistics()
+        {
+            SystemStatistics.Format();
+            foreach (var tester in GetTestersList())
+            {
+                SystemStatistics.SumTesterDistanceToTest += tester.MaxDistance;
+                SystemStatistics.SumNumOfTestsPerWeek += tester.MaxTestsPerWeek;
+                switch (tester.TypeCarToTest)
+                {
+                    case CarTypeEnum.Bus:
+                        SystemStatistics.NumOfTestersBus++;
+                        break;
+                    case CarTypeEnum.MotorCycle:
+                        SystemStatistics.NumOfTestersMotorCycle++;
+                        break;
+                    case CarTypeEnum.PrivateCar:
+                        SystemStatistics.NumOfTestersPrivateCar++;
+                        break;
+                    case CarTypeEnum.PrivateCarAuto:
+                        SystemStatistics.NumOfTestersAutoPrivateCar++;
+                        break;
+                    case CarTypeEnum.Truck12Tons:
+                        SystemStatistics.NumOfTestersTruck12Ton++;
+                        break;
+                    case CarTypeEnum.TruckUnlimited:
+                        SystemStatistics.NumOfTestersTruckUnlimited++;
+                        break;
+                }
+            }
+            foreach (var trainee in GetTraineeList())
+            {
+                switch (trainee.CurrCarType)
+                {
+                    case CarTypeEnum.Bus:
+                        SystemStatistics.NumOfTraineesBus++;
+                        break;
+                    case CarTypeEnum.MotorCycle:
+                        SystemStatistics.NumOfTraineesMotorCycle++;
+                        break;
+                    case CarTypeEnum.PrivateCar:
+                        SystemStatistics.NumOfTraineesPrivateCar++;
+                        break;
+                    case CarTypeEnum.PrivateCarAuto:
+                        SystemStatistics.NumOfTraineesAutoPrivateCar++;
+                        break;
+                    case CarTypeEnum.Truck12Tons:
+                        SystemStatistics.NumOfTraineesTruck12Ton++;
+                        break;
+                    case CarTypeEnum.TruckUnlimited:
+                        SystemStatistics.NumOfTraineesTruckUnlimited++;
+                        break;
+                }
+            }
+            foreach (var test in GetTestsList())
+            {
+                if (test.IsTestAborted)
+                    SystemStatistics.NumOfAbortedTests++;
+                else if (!test.IsTesterUpdateStatus)
+                    SystemStatistics.NumOfTestWaitForUpdate++;
+                else if (test.IsPassed)
+                    SystemStatistics.NumOfSuccessedTests++;
+                else
+                    SystemStatistics.NumOfFailedTest++;
+                switch (test.CarType)
+                {
+                    case CarTypeEnum.Bus:
+                        SystemStatistics.NumOfTestsBus++;
+                        break;
+                    case CarTypeEnum.MotorCycle:
+                        SystemStatistics.NumOfTestsMotorCycle++;
+                        break;
+                    case CarTypeEnum.PrivateCar:
+                        SystemStatistics.NumOfTestsPrivateCar++;
+                        break;
+                    case CarTypeEnum.PrivateCarAuto:
+                        SystemStatistics.NumOfTestsAutoPrivateCar++;
+                        break;
+                    case CarTypeEnum.Truck12Tons:
+                        SystemStatistics.NumOfTestsTruck12Ton++;
+                        break;
+                    case CarTypeEnum.TruckUnlimited:
+                        SystemStatistics.NumOfTestsTruckUnlimited++;
+                        break;
+                }
+            }
+        }
+        public void AddStatisticsChangedObserve(Action action)
+        {
+            StatisticsChanged += action;
         }
     }
 }

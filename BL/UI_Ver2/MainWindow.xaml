@@ -5,28 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_Ver2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="620" Width="1000" WindowStyle="None"
-        AllowsTransparency="True" Background="Transparent">
-    <Window.Resources>
-        <!--<Style TargetType="Button">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush>
-                        <GradientStop Offset="0" Color="BlanchedAlmond"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush>
-                        <GradientStop Offset="0" Color="LightBlue"/>
-                        <GradientStop Offset="0.5" Color="LightBlue"/>
-                        <GradientStop Offset="1" Color="LightBlue"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-        </Style>-->
-    </Window.Resources>
+        Title="MainWindow" Height="620" Width="1000" WindowStyle="None" Closed="Button_Click_CloseWindow"
+        AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown">
+
     <!-- Window Border -->
     <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20">
         <Grid>
@@ -44,7 +25,7 @@
                         <GradientStop Offset="1" Color="DarkBlue"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <TextBlock Text="Test System" Margin="40 10 0 0" FontSize="16"/>
+                <TextBlock Text="מערכת לניהול מבחני נהיגה" Margin="40 10 0 0" FontSize="16"/>
             </Border>
             <StackPanel x:Name="ManageButtonStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 50 0">
                 <Button Click="Button_Click_MinimizeWindow" Width="25" Height="25" Template="{StaticResource TitleBarButtons}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
@@ -65,12 +46,8 @@
             </StackPanel>
             <DockPanel Grid.Row="1">
                 <Menu DockPanel.Dock="Top" VerticalAlignment="Center">
-                    <MenuItem Header="_Themes">
-                        <MenuItem Header="Open MoreWindow" Click="MenuItem_Click"/>
-                        <Separator/>
-                        <MenuItem Header="White"/>
-                        <Separator />
-                        <MenuItem Header="Worm"/>
+                    <MenuItem Header="אפשרויות">
+                        <MenuItem Header="פתח חלון נוסף" Click="MenuItem_Click"/>
                     </MenuItem>
                 </Menu>
             </DockPanel>
@@ -83,7 +60,7 @@
                             <GradientStop Color="#FFDAFFF3" Offset="1"/>
                         </RadialGradientBrush>
                     </TabControl.Background>
-                    <TabItem Header="Admin" Width="200" Height="40" FontSize="16">
+                    <TabItem Header="מנהל מערכת" Width="200" Height="30" FontSize="16">
                         <Grid>
 
                             <Grid.RowDefinitions>
@@ -92,16 +69,16 @@
                             </Grid.RowDefinitions>
                             <Border x:Name="AdminPasswordBorder" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
                                 <StackPanel Height="120" Width="300">
-                                    <TextBlock Text="Enter Password:"/>
+                                    <TextBlock Text="הכנס סיסמה:"/>
                                     <PasswordBox x:Name="PassBox_passAdmin" Height="30" Padding="2" VerticalContentAlignment="Center" Margin="0 10" KeyDown="PassBox_passAdmin_KeyDown"/>
-                                    <Button Content="Enter" Click="Button_Click_EnterAsAdmin"/>
+                                    <Button Content="היכנס" Click="Button_Click_EnterAsAdmin"/>
                                 </StackPanel>
                             </Border>
                             <Border x:Name="AdminMainWindowBorder" Margin="10" Visibility="Visible" Grid.RowSpan="2">
                                 <Grid>
-                                    <Button Content="Log Out" VerticalAlignment="Top" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" Click="Button_Click_LogOut"/>
-                                    <TextBlock Text="Last Update At:" Margin="20 10" HorizontalAlignment="Left"/>
-                                    <TextBlock x:Name="TextBlock_LastUpdate" Text="{Binding}" Margin="150 10"/>
+                                    <Button Content="התנתק" VerticalAlignment="Top" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" Click="Button_Click_LogOut"/>
+                                    <TextBlock Text="עודכן לאחרונה בתאריך:" Margin="20 10" HorizontalAlignment="left"/>
+                                    <TextBlock x:Name="TextBlock_LastUpdate" Text="{Binding}" Margin="200 10"/>
                                     <ListView x:Name="ListView_Configurations" Margin="20 40 20 20" SelectionChanged="ListView_Configurations_SelectionChanged"
                                                           GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" MouseDoubleClick="ListView_TesterTests_MouseDoubleClick">
 
@@ -111,13 +88,13 @@
                                         </ListView.ItemContainerStyle>
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="Configuration Name" DisplayMemberBinding="{Binding Key}" Width="300"/>
-                                                <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="100"/>
+                                                <GridViewColumn Header="שם ההגדרה" DisplayMemberBinding="{Binding Key}" Width="300"/>
+                                                <GridViewColumn Header="ערך נוכחי" DisplayMemberBinding="{Binding Value}" Width="100"/>
                                             </GridView>
                                         </ListView.View>
                                         <ListView.ContextMenu >
                                             <ContextMenu>
-                                                <MenuItem Header="Change Value" Click="MenuItem_Click_SetConfig"/>
+                                                <MenuItem Header="שנה ערך" Click="MenuItem_Click_SetConfig"/>
                                             </ContextMenu>
                                         </ListView.ContextMenu>
                                     </ListView>
@@ -129,7 +106,7 @@
                     </TabItem>
 
                     <!-- Office Window -->
-                    <TabItem Header="Office" Width="200" Height="40" FontSize="16">
+                    <TabItem Header="ניהול משרדי" Width="200" Height="30" FontSize="16">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -138,9 +115,9 @@
                             <Grid>
                                 <Border x:Name="OfficePasswordBorder" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
                                     <StackPanel Height="120" Width="300">
-                                        <TextBlock Text="Enter Password:"/>
+                                        <TextBlock Text="הכנס סיסמה:"/>
                                         <PasswordBox x:Name="PassBox_passOffice" Height="30" Padding="2" VerticalContentAlignment="Center" Margin="0 10" KeyDown="PassBox_passOffice_KeyDown"/>
-                                        <Button Content="Enter" Click="Button_Click_EnterAsOffice"/>
+                                        <Button Content="היכנס" Click="Button_Click_EnterAsOffice"/>
                                     </StackPanel>
                                 </Border>
                                 <Border x:Name="OfficeMainWindowBorder" Margin="10" Visibility="Visible">
@@ -149,10 +126,10 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
+
                                             
                                         </Grid.ColumnDefinitions>
-                                        <Border Grid.Column="0" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
+                                        <Border Grid.Column="0" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
                                             <Grid>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="1.5*"/>
@@ -160,56 +137,56 @@
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
-                                                <TextBlock Text="Tester" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="ניהול בוחני נהיגה" HorizontalAlignment="Center"/>
                                                 <Button Margin="5 20 5 5" Click="Button_Click_AddTester" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
-                                                            <TextBlock FontWeight="Bold">Click To Add Tester</TextBlock>
-                                                            <TextBlock>Window will open, inside you will fill the new Tester details.</TextBlock>
+                                                            <TextBlock FontWeight="Bold">לחץ להוספת בוחן נהיגה.</TextBlock>
+                                                            <TextBlock>יפתח חלון חדש, בו יוזנו פרטי הבוחן החדש.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Add Tester" Margin="30 0"/>
+                                                        <TextBlock Text="הוספת בוחן נהיגה" Margin="30 0"/>
                                                         <Image Source="Icons/greenplus.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <Button  Grid.Row="1" Margin="5" Click="Button_Click_UpdateTester" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
-                                                            <TextBlock FontWeight="Bold">Click To Update Exisiting Tester Details</TextBlock>
-                                                            <TextBlock>Window will open to get the Tester ID.</TextBlock>
-                                                            <TextBlock>If the ID Exist, Window will open where you can change the details.</TextBlock>
+                                                            <TextBlock FontWeight="Bold">לחץ על מנת לעדכן פרטי בוחן קיים.</TextBlock>
+                                                            <TextBlock>יפתח חלון מעבר, בו תידרש להזין את מספר ת.ז. של הבוחן.</TextBlock>
+                                                            <TextBlock>במידה וקיים בוחן התואם לת.ז. שהוכנסה, יפתח חלון עידכון פרטי הבוחן.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Update Tester Details   " />
+                                                        <TextBlock Text="עדכן פרטי בוחן קיים" Margin="25 0"/>
                                                         <Image Source="Icons/reload_edition.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <Button Grid.Row="2" Margin="5" Click="Button_Click_RemoveTester" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
-                                                            <TextBlock FontWeight="Bold">Click To Remove Exisiting Tester Details</TextBlock>
-                                                            <TextBlock>Window will open to get the Tester ID.</TextBlock>
-                                                            <TextBlock>If the ID Exist, the Tester will deleted from the system.</TextBlock>
-                                                            <TextBlock>Deletion of tester will Abort all his Future Tests. You will get note about the Aborted Tests.</TextBlock>
+                                                            <TextBlock FontWeight="Bold">לחץ על מנת להסיר בוחן מהמערכת</TextBlock>
+                                                            <TextBlock>אזהרה! פעולה זו אינה הפיכה!</TextBlock>
+                                                            <TextBlock>יפתח חלון מעבר, בו תידרש להזין את מספר ת.ז. של הבוחן למחיקה</TextBlock>
+                                                            <TextBlock>מחיקת בוחן תבטל את כל המבחנים העתידיים שלו. הודעה מפורטת על המבחנים שבוטלו תוצג בסוף התהליך.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Remove Tester  " />
+                                                        <TextBlock Text="מחיקת בוחן" Margin="47 0"/>
                                                         <Image Source="Icons/delete.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <Button  Grid.Row="3" Padding="5" Margin="5" Click="Button_Click_SearchTesterByName" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
-                                                            <TextBlock FontWeight="Bold">Click To View Exisiting Testers List</TextBlock>
-                                                            <TextBlock>Window will open, and will show all the existing Testers.</TextBlock>
-                                                            <TextBlock>You can filter the Trainees by grouping, and by searching.</TextBlock>
+                                                            <TextBlock FontWeight="Bold">לחץ על מנת להציג את רשימת הבוחנים הקיימים</TextBlock>
+                                                            <TextBlock>בחלון שיפתח תוכל לחפש בוחן ע"י מספר מאפיינים שונים.</TextBlock>
+                                                            <TextBlock>בחלון שיפתח תהיה אפשרות להציג תתי קבוצות של בוחנים ע"י בחירת קריטריון לקיבוץ.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock FontSize="12" Text="View, Search and group Testers" Width="180" />
+                                                        <TextBlock FontSize="12" Text="הצג, קבץ, וחפש בוחנים" Margin="20 0"/>
                                                         <Image HorizontalAlignment="Left" Source="Icons/SearchImage.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
@@ -224,7 +201,7 @@
                                                 </ListView.View>
                                             </-->
                                         </Border>
-                                        <Border Grid.Column="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
+                                        <Border Grid.Column="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
                                             <Grid>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="1.5*"/>
@@ -287,7 +264,7 @@
 
                                             </Grid>
                                         </Border>
-                                        <Border Grid.Column="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
+                                        <Border Grid.Column="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
                                             <Grid>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="1.5*"/>
@@ -350,7 +327,7 @@
                                                 </Button>
                                             </Grid>
                                         </Border>
-                                        <Border Grid.Column="3" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
+                                        <Border Grid.Column="3" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Visibility="Collapsed">
                                             <Grid ShowGridLines="False" Margin="8">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="5*"/>
@@ -380,13 +357,15 @@
                                 
                             </Grid>
                             <Border x:Name="OfficeStatistics" Grid.Row="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="13 0 13 13">
-                                <Grid Margin="10" ShowGridLines="False">
+                                <Grid x:Name="StatisticsGrid" Margin="10" ShowGridLines="True">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="4*"/>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="4*"/>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="4*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="4*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
@@ -397,34 +376,77 @@
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Num Of MotorCycle Tests:"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Private Car Tests:"/>
-                                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Auto Private Tests:"/>
-                                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Truck 12T Tests:"/>
-                                    <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Unlimit Truck Tests:"/>
-                                    <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Text="Num Of Bus Tests:"/>
-                                    <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Text="Total Number Of Bus Tests:"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Text="מבחני נהיגה - כמויות:"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="אופנוע:"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="רכב פרטי:"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="רכב פרטי אוטומט:"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="משאית 12 טון:"/>
+                                    <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Text="משאית ללא הגבלה:"/>
+                                    <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Text="אוטובוס:"/>
+                                    <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Text="סך הכל:"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTestsMotorCycle, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTestsPrivateCar, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="1" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTestsAutoPrivateCar, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTestsTruck12Ton, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="5" Grid.Column="1" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTestsTruckUnlimited, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="6" Grid.Column="1" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding  _NumOfTestsBus, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="7" Grid.Column="1" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTests, Mode=OneWay}"/>
+
+                                    <TextBlock Grid.Row="0" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Bottom" Text="נבחנים - כמויות:"/>
+                                    <TextBlock Grid.Row="1" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="אופנוע:"/>
+                                    <TextBlock Grid.Row="2" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="רכב פרטי:"/>
+                                    <TextBlock Grid.Row="3" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="רכב פרטי אוטומט:"/>
+                                    <TextBlock Grid.Row="4" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="משאית 12 טון:"/>
+                                    <TextBlock Grid.Row="5" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="משאית ללא הגבלה:"/>
+                                    <TextBlock Grid.Row="6" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="אוטובוס:"/>
+                                    <TextBlock Grid.Row="7" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="סך הכל:"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="3" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTraineesMotorCycle, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="3" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTraineesPrivateCar, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="3" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTraineesAutoPrivateCar, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="3" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTraineesTruck12Ton, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="5" Grid.Column="3" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTraineesTruckUnlimited, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="6" Grid.Column="3" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding  _NumOfTraineesBus, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="7" Grid.Column="3" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTrainees, Mode=OneWay}"/>
+
+                                    <TextBlock Grid.Row="0" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Bottom" Text="בוחנים - כמויות:"/>
+                                    <TextBlock Grid.Row="1" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="אופנוע:"/>
+                                    <TextBlock Grid.Row="2" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="רכב פרטי:"/>
+                                    <TextBlock Grid.Row="3" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="רכב פרטי אוטומט:"/>
+                                    <TextBlock Grid.Row="4" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="משאית 12 טון:"/>
+                                    <TextBlock Grid.Row="5" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="משאית ללא הגבלה:"/>
+                                    <TextBlock Grid.Row="6" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="אוטובוס:"/>
+                                    <TextBlock Grid.Row="7" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="סך הכל:"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="5" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTestersMotorCycle, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="5" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTestersPrivateCar, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="5" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTestersAutoPrivateCar, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="5" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTestersTruck12Ton, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="5" Grid.Column="5" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTestersTruckUnlimited, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="6" Grid.Column="5" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding  _NumOfTestersBus, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="7" Grid.Column="5" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTesters, Mode=OneWay}"/>
+
+                                    <TextBlock Grid.Row="0" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Bottom" Text="סטטיסטיקות וממוצעים:"/>
+                                    <TextBlock Grid.Row="1" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="מבחנים מבוטלים:"/>
+                                    <TextBlock Grid.Row="2" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="מבחנים מוצלחים:"/>
+                                    <TextBlock Grid.Row="3" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="מבחנים לא מוצלחים:"/>
+                                    <TextBlock Grid.Row="4" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="מבחנים ממתינים לתוצאות:"/>
+                                    <TextBlock Grid.Row="5" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="סיכויים להצלחה במבחן:"/>
+                                    <TextBlock Grid.Row="6" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="ממוצע מרחק מקסימלי"/>
+                                    <TextBlock Grid.Row="7" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="ממוצע מקסימום מבחנים:"/>
 
 
-                                    <TextBlock Grid.Row="0" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Num Of MotorCycle Trainees:"/>
-                                    <TextBlock Grid.Row="1" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Num Of Private Car Trainees:"/>
-                                    <TextBlock Grid.Row="2" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Num Of Auto Private Trainees:"/>
-                                    <TextBlock Grid.Row="3" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Num Of Truck 12T Trainees:"/>
-                                    <TextBlock Grid.Row="4" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Num Of Unlimit Truck Trainees:"/>
-                                    <TextBlock Grid.Row="5" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Num Of Bus Trainees:"/>
-                                    <TextBlock Grid.Row="6" Margin="10 0 0 0" Grid.Column="2" VerticalAlignment="Center" Text="Total Number Of Bus Trainees:"/>
-
-
-                                    <TextBlock Grid.Row="0" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Num Of MotorCycle Testers:"/>
-                                    <TextBlock Grid.Row="1" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Num Of Private Car Testers:"/>
-                                    <TextBlock Grid.Row="2" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Num Of Auto Private Testers:"/>
-                                    <TextBlock Grid.Row="3" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Num Of Truck 12T Testers:"/>
-                                    <TextBlock Grid.Row="4" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Num Of Unlimit Truck Testers:"/>
-                                    <TextBlock Grid.Row="5" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Num Of Bus Testers:"/>
-                                    <TextBlock Grid.Row="6" Margin="10 0 0 0" Grid.Column="4" VerticalAlignment="Center" Text="Total Number Of Bus Testers:"/>
-
+                                    <TextBlock Grid.Row="1" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfAbortedTests, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfSuccessedTests, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfFailedTest, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTestWaitForUpdate, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="5" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _AverageNumOfTestToSuccess, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="6" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _AverageTesterDistanceToTest, Mode=OneWay}"/>
+                                    <TextBlock Grid.Row="7" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _AverageNumOfTestsPerWeek, Mode=OneWay}"/>
 
                                 </Grid>
                             </Border>
@@ -432,7 +454,7 @@
                     </TabItem>
 
                     <!-- Existing Tester Window -->
-                    <TabItem Header="Existing Tester"  Width="200" Height="40" FontSize="16">
+                    <TabItem Header="בוחן נהיגה קיים"  Width="200" Height="30" FontSize="16">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -461,7 +483,7 @@
                                         </Grid.RowDefinitions>
                                         <Border Grid.RowSpan="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
                                             <Grid>
-                                                <TextBlock Text="Your Tests List" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="רשימת המבחנים בהם אתה בוחן:" HorizontalAlignment="Center"/>
                                                 <ListView x:Name="ListView_TesterTests" Grid.Row="1" Margin="20" SelectionChanged="ListView_TesterTests_SelectionChanged" 
                                                           GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" MouseDoubleClick="ListView_TesterTests_MouseDoubleClick">
                                                     <ListView.ItemContainerStyle>
@@ -565,7 +587,7 @@
                     </TabItem>
 
                     <!-- Existing Trainee Window -->
-                    <TabItem Header="Existing Trainee"  Width="200" Height="40" FontSize="16">
+                    <TabItem Header="תלמיד קיים"  Width="200" Height="30" FontSize="16">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>

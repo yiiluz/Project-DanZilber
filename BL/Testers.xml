@@ -2,22 +2,22 @@
 <Testers>
   <Tester>
     <Person>
-      <ID>999999999</ID>
+      <ID>209492065</ID>
       <Name>
-        <FirstName>igyi</FirstName>
-        <LastName>gg</LastName>
+        <FirstName>יצחק חיים</FirstName>
+        <LastName>אילוז</LastName>
       </Name>
       <Gender>Male</Gender>
       <Address>
-        <City>פתח תקווה</City>
-        <Street>יהודה הלוי</Street>
-        <BuildingNumber>6</BuildingNumber>
+        <City>אלעד</City>
+        <Street>רבי מאיר</Street>
+        <BuildingNumber>16</BuildingNumber>
       </Address>
       <DateOfBirth>1970-01-01T00:00:00</DateOfBirth>
-      <PhoneNumber>9999999999</PhoneNumber>
+      <PhoneNumber>0532232980</PhoneNumber>
     </Person>
-    <Seniority>9</Seniority>
-    <MaxDistance>90</MaxDistance>
+    <Seniority>10</Seniority>
+    <MaxDistance>50</MaxDistance>
     <MaxTestsPerWeek>5</MaxTestsPerWeek>
     <TypeCarToTest>MotorCycle</TypeCarToTest>
   </Tester>

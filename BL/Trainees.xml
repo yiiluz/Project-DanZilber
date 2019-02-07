@@ -2,186 +2,25 @@
 <Trainees>
   <Trainee>
     <Person>
-      <ID>123456789</ID>
+      <ID>206914301</ID>
       <Name>
-        <FirstName>qqq</FirstName>
-        <LastName>aaa</LastName>
+        <FirstName>שלמה חיים</FirstName>
+        <LastName>פרלוב</LastName>
       </Name>
       <Gender>Male</Gender>
       <Address>
-        <City>qqq</City>
-        <Street>eee</Street>
-        <BuildingNumber>0</BuildingNumber>
+        <City>בני ברק</City>
+        <Street>צירלסון</Street>
+        <BuildingNumber>13</BuildingNumber>
       </Address>
-      <DateOfBirth>1990-01-01T00:00:00</DateOfBirth>
-      <PhoneNumber>0501111111</PhoneNumber>
+      <DateOfBirth>0001-01-01T00:00:00</DateOfBirth>
+      <PhoneNumber>0585609045</PhoneNumber>
     </Person>
     <CurrCarType>MotorCycle</CurrCarType>
-    <NumOfFinishedLessons>0</NumOfFinishedLessons>
-    <NumOfTests>0</NumOfTests>
-    <IsAlreadyDidTest>false</IsAlreadyDidTest>
-    <SchoolName>sss</SchoolName>
-    <TeacherName>zzz</TeacherName>
-  </Trainee>
-  <Trainee>
-    <Person>
-      <ID>777777777</ID>
-      <Name>
-        <FirstName>bh</FirstName>
-        <LastName>bhjbh</LastName>
-      </Name>
-      <Gender>Female</Gender>
-      <Address>
-        <City>hbjhbhj</City>
-        <Street>bhjbj</Street>
-        <BuildingNumber>0</BuildingNumber>
-      </Address>
-      <DateOfBirth>1970-01-01T00:00:00</DateOfBirth>
-      <PhoneNumber>8888888888</PhoneNumber>
-    </Person>
-    <CurrCarType>PrivateCarAuto</CurrCarType>
-    <NumOfFinishedLessons>80</NumOfFinishedLessons>
-    <NumOfTests>0</NumOfTests>
-    <IsAlreadyDidTest>false</IsAlreadyDidTest>
-    <SchoolName>bgh</SchoolName>
-    <TeacherName>vghvb</TeacherName>
-  </Trainee>
-  <Trainee>
-    <Person>
-      <ID>034536797</ID>
-      <Name>
-        <FirstName>Miri</FirstName>
-        <LastName>Perlov</LastName>
-      </Name>
-      <Gender>Female</Gender>
-      <Address>
-        <City>BeniBarak</City>
-        <Street>LviYzchak</Street>
-        <BuildingNumber>11</BuildingNumber>
-      </Address>
-      <DateOfBirth>1977-10-28T00:00:00</DateOfBirth>
-      <PhoneNumber>0538249362</PhoneNumber>
-    </Person>
-    <CurrCarType>Bus</CurrCarType>
     <NumOfFinishedLessons>30</NumOfFinishedLessons>
     <NumOfTests>0</NumOfTests>
     <IsAlreadyDidTest>false</IsAlreadyDidTest>
-    <SchoolName>avi</SchoolName>
-    <TeacherName>Shlomo</TeacherName>
-  </Trainee>
-  <Trainee>
-    <Person>
-      <ID>444444444</ID>
-      <Name>
-        <FirstName>elimelech</FirstName>
-        <LastName>romano</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>אלעד</City>
-        <Street>רשי</Street>
-        <BuildingNumber>2</BuildingNumber>
-      </Address>
-      <DateOfBirth>0001-01-01T00:00:00</DateOfBirth>
-      <PhoneNumber>0532655432</PhoneNumber>
-    </Person>
-    <CurrCarType>MotorCycle</CurrCarType>
-    <NumOfFinishedLessons>80</NumOfFinishedLessons>
-    <NumOfTests>0</NumOfTests>
-    <IsAlreadyDidTest>false</IsAlreadyDidTest>
-    <SchoolName>Amit</SchoolName>
-    <TeacherName>Lesner</TeacherName>
-  </Trainee>
-  <Trainee>
-    <Person>
-      <ID>767676768</ID>
-      <Name>
-        <FirstName>uihui</FirstName>
-        <LastName>iui</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>ihbhihu</City>
-        <Street>iuhiu</Street>
-        <BuildingNumber>0</BuildingNumber>
-      </Address>
-      <DateOfBirth>2001-02-03T00:00:00</DateOfBirth>
-      <PhoneNumber>7867867867</PhoneNumber>
-    </Person>
-    <CurrCarType>MotorCycle</CurrCarType>
-    <NumOfFinishedLessons>0</NumOfFinishedLessons>
-    <NumOfTests>0</NumOfTests>
-    <IsAlreadyDidTest>false</IsAlreadyDidTest>
-    <SchoolName>ugiyfy</SchoolName>
-    <TeacherName>fgyuff</TeacherName>
-  </Trainee>
-  <Trainee>
-    <Person>
-      <ID>890890790</ID>
-      <Name>
-        <FirstName>הילה</FirstName>
-        <LastName>יהיהח</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>אלעד</City>
-        <Street>מוטי</Street>
-        <BuildingNumber>0</BuildingNumber>
-      </Address>
-      <DateOfBirth>0001-01-01T00:00:00</DateOfBirth>
-      <PhoneNumber>8923647632</PhoneNumber>
-    </Person>
-    <CurrCarType>MotorCycle</CurrCarType>
-    <NumOfFinishedLessons>20</NumOfFinishedLessons>
-    <NumOfTests>0</NumOfTests>
-    <IsAlreadyDidTest>false</IsAlreadyDidTest>
-    <SchoolName>ניניל</SchoolName>
-    <TeacherName>ללענלנ</TeacherName>
-  </Trainee>
-  <Trainee>
-    <Person>
-      <ID>888888888</ID>
-      <Name>
-        <FirstName>ןיען</FirstName>
-        <LastName>עוןעןוע</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>אלעד</City>
-        <Street>רבי מאיר</Street>
-        <BuildingNumber>0</BuildingNumber>
-      </Address>
-      <DateOfBirth>0001-01-01T00:00:00</DateOfBirth>
-      <PhoneNumber>6896896896</PhoneNumber>
-    </Person>
-    <CurrCarType>MotorCycle</CurrCarType>
-    <NumOfFinishedLessons>80</NumOfFinishedLessons>
-    <NumOfTests>0</NumOfTests>
-    <IsAlreadyDidTest>false</IsAlreadyDidTest>
-    <SchoolName>וןעוןע</SchoolName>
-    <TeacherName>וןעןוע</TeacherName>
-  </Trainee>
-  <Trainee>
-    <Person>
-      <ID>666767687</ID>
-      <Name>
-        <FirstName>bihb</FirstName>
-        <LastName>bhib</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>אל סייד</City>
-        <Street>אל סייד</Street>
-        <BuildingNumber>0</BuildingNumber>
-      </Address>
-      <DateOfBirth>0001-01-01T00:00:00</DateOfBirth>
-      <PhoneNumber>8979879789</PhoneNumber>
-    </Person>
-    <CurrCarType>MotorCycle</CurrCarType>
-    <NumOfFinishedLessons>90</NumOfFinishedLessons>
-    <NumOfTests>0</NumOfTests>
-    <IsAlreadyDidTest>false</IsAlreadyDidTest>
-    <SchoolName>hbbuh</SchoolName>
-    <TeacherName>bhubuh</TeacherName>
+    <SchoolName>מבחר</SchoolName>
+    <TeacherName>דן זילברשטיין</TeacherName>
   </Trainee>
 </Trainees>

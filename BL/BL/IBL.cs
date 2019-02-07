@@ -8,6 +8,8 @@ namespace BO
 {
     public interface IBL
     {
+        void UpdateStatistics();
+        void AddStatisticsChangedObserve(Action action);
         Dictionary<String, Object> GetConfig();
         void SetConfig(String parm, Object value);
         void AddEventIfConfigChanged(Action action);

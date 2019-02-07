@@ -132,14 +132,14 @@ namespace UI_Ver2
             }
         }
 
-        private void Button_OK_MouseEnter(object sender, MouseEventArgs e)
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
-            Button_OK.FontSize += 4;
+            ((Button)sender).FontSize += 2;
         }
 
-        private void Button_OK_MouseLeave(object sender, MouseEventArgs e)
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
         {
-            Button_OK.FontSize -= 4;
+            ((Button)sender).FontSize -= 2;
         }
 
         private void Image_MouseEnter(object sender, MouseEventArgs e)
@@ -160,6 +160,10 @@ namespace UI_Ver2
             {
                 Button_Click(sender, new RoutedEventArgs());
             }
+        }
+        private void Button_Click_Cancel(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

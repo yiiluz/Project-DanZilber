@@ -50,7 +50,7 @@ namespace UI_Ver2
             }
             worker.DoWork += AddChosenTestThreadFunc;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.WorkerSupportsCancellation = false;
+            worker.WorkerSupportsCancellation = true;
         }
 
 
@@ -274,11 +274,13 @@ namespace UI_Ver2
                     catch (KeyNotFoundException ex)
                     {
                         MessageBox.Show("Can't find Test time. " + ex.Message + "\nYou can try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Hand);
-                        return;
+                        worker.CancelAsync();
+                        break;
                     }
                     if (lst.Count == 0)
                     {
                         MessageBox.Show("There is no Availiable test on this Date. Try another", "OOPS", MessageBoxButton.OK, MessageBoxImage.Information);
+                        worker.CancelAsync();
                     }
                     else
                     {
@@ -294,11 +296,13 @@ namespace UI_Ver2
                     catch (KeyNotFoundException ex)
                     {
                         MessageBox.Show("Can't find Test time. " + ex.Message + "\nYou can try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Hand);
-                        return;
+                        worker.CancelAsync();
+                        break;
                     }
                     if (lst.Count == 0)
                     {
                         MessageBox.Show("There is no Availiable test on this Hour. Try another", "OOPS", MessageBoxButton.OK, MessageBoxImage.Information);
+                        worker.CancelAsync();
                     }
                     else
                     {
@@ -306,11 +310,15 @@ namespace UI_Ver2
                     }
                     break;
             }
+            if (worker.CancellationPending)
+                e.Cancel = true;
         }
         void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled == true)
             {
+                AddTestProgressBarByDate.Visibility = Visibility.Hidden;
+                AddTestProgressBarByHour.Visibility = Visibility.Hidden;
             }
             else if (e.Error != null)
             {
@@ -339,6 +347,12 @@ namespace UI_Ver2
 
             }
 
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }
