@@ -127,7 +127,7 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
 
-                                            
+
                                         </Grid.ColumnDefinitions>
                                         <Border Grid.Column="0" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
                                             <Grid>
@@ -213,12 +213,12 @@
                                                 <Button Margin="5 20 5 5" Click="Button_Click_AddTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
-                                                            <TextBlock FontWeight="Bold">Click To Add Trainee</TextBlock>
-                                                            <TextBlock>Window will open, inside you will fill the new Trainee details.</TextBlock>
+                                                            <TextBlock FontWeight="Bold">הקש להוספת תלמיד</TextBlock>
+                                                            <TextBlock>יפתח חלון חדש, בו יוזנו פרטי הבוחן החדש.</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Add Trainee" Margin="30 0"/>
+                                                        <TextBlock Text="הוספת תלמיד" Margin="33 0"/>
                                                         <Image Source="Icons/greenplus.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
@@ -231,7 +231,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Update Trainee Details  " />
+                                                        <TextBlock  Text=" עדכון פרטי תלמיד" Margin="21 0" />
                                                         <Image Source="Icons/reload_edition.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
@@ -244,7 +244,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Remove Trainee  " />
+                                                        <TextBlock Text=" מחיקת תלמיד"  Margin="29 0"/>
                                                         <Image Source="Icons/delete.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
@@ -257,7 +257,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock FontSize="12" Text="View, Search and group Trainees " Width="180" />
+                                                        <TextBlock FontSize="12" Text="הצג, קבץ, וחפש תלמידים"  Margin="2 0" Width="139" />
                                                         <Image HorizontalAlignment="Left" Source="Icons/SearchImage.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
@@ -283,7 +283,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Add Test" Margin="30 0"/>
+                                                        <TextBlock Text="הוספת מבחן" Margin="41 0"/>
                                                         <Image Source="Icons/greenplus.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
@@ -295,7 +295,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Abort Test" Margin="30 0"/>
+                                                        <TextBlock Text="ביטול מבחן" Margin="45 0"/>
                                                         <Image Source="Icons/Ab.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
@@ -307,7 +307,7 @@
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="View Test Details" Margin="30 0"/>
+                                                        <TextBlock Text="צפה בפרטי מבחן" Margin="28 0"/>
                                                         <Image Source="Icons/View.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
@@ -321,7 +321,7 @@
                                                         </ToolTip>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock FontSize="12" Text="View, Search and group Tests" Width="180" />
+                                                        <TextBlock FontSize="12" Text="הצג, קבץ, וחיפוש מבחנים" Margin="3 0" Width="145" />
                                                         <Image HorizontalAlignment="Left" Source="Icons/SearchImage.png" Height="18" Width="18"/>
                                                     </StackPanel>
                                                 </Button>
@@ -354,7 +354,7 @@
                                         </Border>
                                     </Grid>
                                 </Border>
-                                
+
                             </Grid>
                             <Border x:Name="OfficeStatistics" Grid.Row="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="13 0 13 13">
                                 <Grid x:Name="StatisticsGrid" Margin="10" ShowGridLines="True">
@@ -517,16 +517,16 @@
                                                     </ListView.ItemContainerStyle>
                                                     <ListView.View>
                                                         <GridView>
-                                                            <GridViewColumn Header="Test Serial" DisplayMemberBinding="{Binding TestId}" Width="100"/>
-                                                            <GridViewColumn Header="Date Of Test" DisplayMemberBinding="{Binding DateOfTest, StringFormat=d}" Width="100"/>
-                                                            <GridViewColumn Header="Hour Of Test" Width="100">
+                                                            <GridViewColumn Header="מספר מבחן" DisplayMemberBinding="{Binding TestId}" Width="100"/>
+                                                            <GridViewColumn Header="תאריך המבחן" DisplayMemberBinding="{Binding DateOfTest, StringFormat=d}" Width="100"/>
+                                                            <GridViewColumn Header="שעת המבחן" Width="100">
                                                                 <GridViewColumn.DisplayMemberBinding>
                                                                     <MultiBinding StringFormat="{}{0}:00">
                                                                         <Binding Path="HourOfTest"/>
                                                                     </MultiBinding>
                                                                 </GridViewColumn.DisplayMemberBinding>
                                                             </GridViewColumn>
-                                                            <GridViewColumn Header="Test Location" DisplayMemberBinding="{Binding City}" Width="100"/>
+                                                            <GridViewColumn Header="מיקום מבחן" DisplayMemberBinding="{Binding City}" Width="100"/>
                                                         </GridView>
                                                     </ListView.View>
                                                     <ListView.ContextMenu >
@@ -543,9 +543,9 @@
                                         <Border Grid.Column="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
                                             <Grid>
                                                 <StackPanel>
-                                                    <Button Content="Update Test Result By Test Serial" Click="Button_Click_UpdateTestResultByID"/>
-                                                    <Button Content="View your Details" Click="Button_Click_ViewTesterDetails"/>
-                                                    <Button Content="LogOut" Click="Button_Click_LogOut"/>
+                                                    <Button Content="עדכן פרטי מבחן לפי מסםר מבחן" Click="Button_Click_UpdateTestResultByID"/>
+                                                    <Button Content="צפה פרטיך" Click="Button_Click_ViewTesterDetails"/>
+                                                    <Button Content="התנתק" Click="Button_Click_LogOut"/>
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -564,13 +564,13 @@
                                                     <ColumnDefinition Width="5*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Text="Your Statistics:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
-                                                <TextBlock Grid.Row="1" Text="Num Of Test:"/>
-                                                <TextBlock Grid.Row="2" Text="Success Tests Num:"/>
-                                                <TextBlock Grid.Row="3" Text="Failed Tests Num:"/>
-                                                <TextBlock Grid.Row="4" Text="Success Proportion:"/>
-                                                <TextBlock Grid.Row="5" Text="Future Tests:"/>
-                                                <TextBlock Grid.Row="6" Text="Num Of Tests This Week:"/>
+                                                <TextBlock Text="הסטטיסטיקה שלך:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+                                                <TextBlock Grid.Row="1" Text="מספר מבחנים:"/>
+                                                <TextBlock Grid.Row="2" Text="מספר מבחנים מוצלחים:"/>
+                                                <TextBlock Grid.Row="3" Text="מספר מבחנים כושלים:"/>
+                                                <TextBlock Grid.Row="4" Text="אחוזי הצלחה:"/>
+                                                <TextBlock Grid.Row="5" Text="בדיקות עתידיות:"/>
+                                                <TextBlock Grid.Row="6" Text="מספר המבחנים בשבוע זה:"/>
                                                 <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NumOfTests, Mode=OneWay}"/>
                                                 <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SuccessTests, Mode=OneWay}"/>
                                                 <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding FailedTests, Mode=OneWay}"/>
@@ -616,7 +616,7 @@
                                         </Grid.RowDefinitions>
                                         <Border Grid.Column="0" Grid.RowSpan="3" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
                                             <Grid>
-                                                <TextBlock Text="Your Tests List" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Top"/>
+                                                <TextBlock Text="רשימת המבחנים שלך" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Top"/>
                                                 <ListView x:Name="ListView_TraineeTests" Grid.Row="1" Margin="20" SelectionChanged="ListView_TraineeTests_SelectionChanged" 
                                                           GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" MouseDoubleClick="ListView_TraineeTests_MouseDoubleClick">
                                                     <ListView.ItemContainerStyle>
@@ -653,16 +653,16 @@
                                                     </ListView.ItemContainerStyle>
                                                     <ListView.View>
                                                         <GridView>
-                                                            <GridViewColumn Header="Test Serial" DisplayMemberBinding="{Binding TestId}" Width="100"/>
-                                                            <GridViewColumn Header="Date Of Test" DisplayMemberBinding="{Binding DateOfTest, StringFormat=d}" Width="100"/>
-                                                            <GridViewColumn Header="Hour Of Test" Width="100">
+                                                            <GridViewColumn Header="מספר מבחן" DisplayMemberBinding="{Binding TestId}" Width="100"/>
+                                                            <GridViewColumn Header="תאריך המבחן" DisplayMemberBinding="{Binding DateOfTest, StringFormat=d}" Width="100"/>
+                                                            <GridViewColumn Header="שעת המבחן" Width="100">
                                                                 <GridViewColumn.DisplayMemberBinding>
                                                                     <MultiBinding StringFormat="{}{0}:00">
                                                                         <Binding Path="HourOfTest"/>
                                                                     </MultiBinding>
                                                                 </GridViewColumn.DisplayMemberBinding>
                                                             </GridViewColumn>
-                                                            <GridViewColumn Header="Test Location" DisplayMemberBinding="{Binding City}" Width="100"/>
+                                                            <GridViewColumn Header="מיקום המבחן" DisplayMemberBinding="{Binding City}" Width="100"/>
                                                         </GridView>
                                                     </ListView.View>
                                                     <ListView.ContextMenu >
@@ -678,9 +678,9 @@
                                         <Border Grid.Column="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
                                             <Grid>
                                                 <StackPanel>
-                                                    <Button Content="View your Details" Click="Button_Click_ViewTraineeDetails"/>
-                                                    <Button Content="Add Test" Click="Button_Click_TraineeAddTest"/>
-                                                    <Button Content="LogOut" Click="Button_Click_LogOut"/>
+                                                    <Button Content="צפה בפרטיך" Click="Button_Click_ViewTraineeDetails"/>
+                                                    <Button Content="הוסף מבחן" Click="Button_Click_TraineeAddTest"/>
+                                                    <Button Content="התנתק" Click="Button_Click_LogOut"/>
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -691,7 +691,7 @@
                                                         <RowDefinition Height="30"/>
                                                         <RowDefinition Height="*"/>
                                                     </Grid.RowDefinitions>
-                                                    <TextBlock Text="Your Existing Licenses:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="הרשיונות שאתה מחזיק בהם עכשיו:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                     <ListView x:Name="ListView_TraineeExistingLicenses" Grid.Row="1" Margin="5" SelectionChanged="ListView_TraineeExistingLicenses_SelectionChanged">
                                                     </ListView>
                                                 </Grid>
@@ -714,11 +714,11 @@
                                                         <ColumnDefinition Width="5*"/>
                                                         <ColumnDefinition Width="*"/>
                                                     </Grid.ColumnDefinitions>
-                                                    <TextBlock Text="Your Statistics:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
-                                                    <TextBlock Grid.Row="1" Text="Num Of Test:"/>
-                                                    <TextBlock Grid.Row="2" Text="Success Tests Num:"/>
-                                                    <TextBlock Grid.Row="3" Text="Failed Tests Num:"/>
-                                                    <TextBlock Grid.Row="4" Text="Success Proportion:"/>
+                                                    <TextBlock Text="הסטטיסטיקה שלך:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+                                                    <TextBlock Grid.Row="1" Text="מספר המבחנים:"/>
+                                                    <TextBlock Grid.Row="2" Text="מספר מבחנים מוצלחים:"/>
+                                                    <TextBlock Grid.Row="3" Text="מספר מבחנים כושלים:"/>
+                                                    <TextBlock Grid.Row="4" Text="אחוזי הצלחה:"/>
                                                     <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NumOfTests}"/>
                                                     <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SuccessTests}"/>
                                                     <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding FailedTests}"/>

@@ -143,11 +143,11 @@ namespace UI_Ver2
             }
             catch (DirectoryNotFoundException D)
             {
-                MessageBox.Show(D.Message, "MainWindow", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(D.Message, "מערכת לניהול מבחני נהיגה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (KeyNotFoundException a)
             {
-                MessageBox.Show(a.Message, "MainWindow", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(a.Message,"מערכת לניהול מבחני נהיגה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -169,7 +169,7 @@ namespace UI_Ver2
                 OfficeStatistics.Visibility = Visibility.Visible;
                 return;
             }
-            MessageBox.Show("Password is not correct. Try again.", "Security Alert", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("קוד שגוי, אנא נסה שוב.", "אזעקת אבטחה", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         private void Button_Click_AddTester(object sender, RoutedEventArgs e)
         {
@@ -189,7 +189,7 @@ namespace UI_Ver2
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    MessageBox.Show(ex.Message, "ID not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(ex.Message, "תעודת זהות לא קיימת.", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 TesterDetailsWindow testerDetailsWindow = new TesterDetailsWindow(tester, "Update");
@@ -204,7 +204,7 @@ namespace UI_Ver2
             List<TesterTest> abortedTests;
             if (getIDWindow.IsClosedByButton)
             {
-                if (bl.GetTestersList().Exists(x => x.Id == getIDWindow.TxtBx_ID.Text) && MessageBox.Show("Are You sure you want to delete this tester?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (bl.GetTestersList().Exists(x => x.Id == getIDWindow.TxtBx_ID.Text) && MessageBox.Show("אתה בטוח שברצונך למחוק את הבוחן?", "אזהרה", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     try
                     {
@@ -212,7 +212,7 @@ namespace UI_Ver2
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        MessageBox.Show(ex.Message, "ID not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "ID n", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                     string aborted = "";
