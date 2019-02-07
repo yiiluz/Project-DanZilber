@@ -26,14 +26,14 @@ namespace BL
             }
             catch(Exception)
             {
-                throw new FileLoadException("Error. Can't Load The Configuration File");
+                throw new FileLoadException(" .שגיאה! בעיה בטעינת תקיית קונפיגורציה");
             }
         }
 
         public Object GetConfiguretion(string s)
         {
             if (ConfiguretionsDictionary[s] == null)
-                throw new KeyNotFoundException("ERROR! There is no configuration feature with this name. from AllConfig");
+                throw new KeyNotFoundException(".שגיאה לא קיים מאפיין קונפיגורציה בשם זה במערכת");
             else return ConfiguretionsDictionary[s];
         }
 

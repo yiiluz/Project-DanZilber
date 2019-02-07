@@ -76,11 +76,11 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Error. Can't update this configuration. " + ex.Message);
+                throw new KeyNotFoundException(ex.Message + " .שגיאה! לא ניתן לעדכן מאפיין קונפיגורציה זה");
             }
             catch (AccessViolationException ex)
             {
-                throw new AccessViolationException("Error. Can't update this configuration. " + ex.Message);
+                throw new AccessViolationException(ex.Message+ " .שגיאה!לא ניתן לעדכן מאפיין קונפיגורציה זה");
             }
         }
 
@@ -103,7 +103,7 @@ namespace BL
             int testerAge = (DateTime.Now.Year - t.DateOfBirth.Year);
             if (testerAge < minAge || testerAge > maxAge)
             {
-                throw new ArgumentOutOfRangeException("Tester age is not on range of " + minAge + "-" + maxAge);
+                throw new ArgumentOutOfRangeException(  minAge + "-" + maxAge+ " :שגיאה! גיל הבוחן לא בטווח המתאים");
             }
             else
             {
@@ -142,7 +142,7 @@ namespace BL
             }
             if (!exist)
             {
-                throw new KeyNotFoundException("Can't remove this tester becauze he is not on the system.");
+                throw new KeyNotFoundException(".שגיאה! לא ניתן למחוק בוחן שלא קיים במערכת");
             }
             else
             {
@@ -185,14 +185,14 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("Internal Error. Can't Update tester Deteails with id " + t.Id + ex.Message);
+                throw new KeyNotFoundException(ex.Message + t.Id + ":שגיאה פנימית! לא ניתן לעדכן בוחן עם תעודת זהות");
             }
             catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
             if (!exist)
-                throw new KeyNotFoundException("Can't update this tester becauze he is not on the system.");
+                throw new KeyNotFoundException(".שגיאה! לא ניתן לעדכן בוחן זה משום שהוא לא קיים במערכת ");
             else
             {
                 int minAge, maxAge;
@@ -208,7 +208,7 @@ namespace BL
                 int testerAge = (DateTime.Now.Year - t.DateOfBirth.Year);
                 if (testerAge < minAge || testerAge > maxAge)
                 {
-                    throw new ArgumentOutOfRangeException("Tester age is not on range of " + minAge + "-" + maxAge);
+                    throw new ArgumentOutOfRangeException(  minAge + "-" + maxAge+ ".שגיאה! גיל הבוחן לא בטווח המתאים");
                 }
                 try
                 {
@@ -245,7 +245,7 @@ namespace BL
             int traineeAge = (DateTime.Now.Year - t.DateOfBirth.Year);
             if (traineeAge < minAge)
             {
-                throw new ArgumentOutOfRangeException("Trainee age is not on above " + minAge + ".");
+                throw new ArgumentOutOfRangeException( minAge + ":שגיאה! גיל התלמיד מתחת לגיל המינימום");
             }
             else try
                 {
@@ -275,7 +275,7 @@ namespace BL
             }
             catch (KeyNotFoundException e)
             {
-                throw new KeyNotFoundException("Can't remove this trainee because he is not on the system.");
+                throw new KeyNotFoundException(".שגיאה! לא ניתן למחוק תלמיד שאינו קיים במערכת");
             }
             catch (DirectoryNotFoundException e)
             {
@@ -306,7 +306,7 @@ namespace BL
         {
             bool exist = GetTraineeList().Exists(x => x.Id == t.Id);
             if (!exist)
-                throw new KeyNotFoundException("Can't update this trainee because he is not on the system.");
+                throw new KeyNotFoundException(".שגיאה! לא ניתן למחוק תלמיד שאינו קיים במערכת");
             else
             {
                 int minAge;
@@ -321,7 +321,7 @@ namespace BL
                 int traineeAge = (DateTime.Now.Year - t.DateOfBirth.Year);
                 if (traineeAge < minAge)
                 {
-                    throw new ArgumentOutOfRangeException("Trainee age is not on above " + minAge + ".");
+                    throw new ArgumentOutOfRangeException(minAge + ":שגיאה! גיל התלמיד מתחת לגיל המינימום");
                 }
                 try
                 {
@@ -346,7 +346,7 @@ namespace BL
         {
             t.IsTesterUpdateStatus = false;
             string testId = "";
-            string errors = "ERROR!\n";
+            string errors = "!שגיאות\n";
             //check if trainee & tester already on system.
             bool traineeExist = GetTraineeList().Exists(x => x.Id == t.ExTrainee.Id);///////////////////////////////////////
             bool testerExist = false;
@@ -365,9 +365,9 @@ namespace BL
             if (!testerExist || !traineeExist)
             {
                 if (!traineeExist)
-                    errors += "The trainee linked to test is not exist on the system.\n";
+                    errors += ".שגיאה! התלמיד רשום למבחן שלא קיים במערכת \n";
                 if (!testerExist)
-                    errors += "The tester linked to test is not exist on the system.\n";
+                    errors += ".שגיאה! הבוחן רשום למבחן שלא קיים במערכת \n";
                 throw new KeyNotFoundException(errors);
             }
             //if trainee and tester on the system
@@ -383,8 +383,10 @@ namespace BL
                     lastTest = GetTestsList().Find(x => x.IsTestAborted == false && x.DateOfTest == trainee.LastTest
                                     && x.ExTrainee.Id == trainee.Id && x.CarType == tester.TypeCarToTest);
                     if (lastTest != null && !lastTest.IsTesterUpdateStatus)
-                        errors += "Can't add to this trainee new test until the results of the test on " + trainee.LastTest.ToShortDateString()
-                            + " will be availiable.\n";
+                    {
+                        errors += " .תיהיה זמינה" + trainee.LastTest.ToShortDateString() + "-שגיאה! לא ניתן להוסיף לתלמיד מבחן עד אשר התוצאה במבחן ב ";
+                        errors += "/n";
+                    }
                 }
                 else
                 {
