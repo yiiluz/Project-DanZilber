@@ -5,7 +5,7 @@
     <Value>
       <Readable>True</Readable>
       <Writable>True</Writable>
-      <value>40</value>
+      <value>41</value>
     </Value>
   </Configuration>
   <Configuration>
@@ -29,7 +29,7 @@
     <Value>
       <Readable>True</Readable>
       <Writable>True</Writable>
-      <value>20</value>
+      <value>25</value>
     </Value>
   </Configuration>
   <Configuration>

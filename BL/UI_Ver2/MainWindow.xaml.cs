@@ -18,7 +18,7 @@ using System.IO;
 using System.Threading;
 using BO;
 using System.Xml.Linq;
-
+using System.Globalization;
 
 namespace UI_Ver2
 {
@@ -51,6 +51,7 @@ namespace UI_Ver2
 
         public MainWindow()
         {
+            this.FlowDirection = FlowDirection.RightToLeft;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             bl.AddEventIfConfigChanged(IsNeedToUpdateConfigThreadFunc);
@@ -304,7 +305,7 @@ namespace UI_Ver2
         {
             (new OfficeTestSearchWindow()).ShowDialog();
         }
-        
+
         //------------------------------------------------------------------------------------------------------------
 
         //Existing Tester Implement
@@ -384,7 +385,7 @@ namespace UI_Ver2
                 tester = MainWindow.bl.GetTesterByID(tester.Id);
                 this.ListView_TesterTests.ItemsSource = tester.TestList;
                 TesterStatisticsBorder.DataContext = tester.Statistics;
-                
+
             }
             catch (KeyNotFoundException ex)
             {
@@ -519,13 +520,16 @@ namespace UI_Ver2
         }
         private void MenuItem_Click_SetConfig(object sender, RoutedEventArgs e)
         {
-            KeyValuePair<string, Object> x = (KeyValuePair<string, Object>)(ListView_Configurations.SelectedValue);
-            if (x.Key == "Serial Number Test")
+            if (ListView_Configurations.SelectedValue != null)
             {
-                MessageBox.Show("This Configuration is not to be changed manualy!", "Access Violation", MessageBoxButton.OK, MessageBoxImage.Stop);
-                return;
+                KeyValuePair<string, Object> x = (KeyValuePair<string, Object>)(ListView_Configurations.SelectedValue);
+                if (x.Key == "Serial Number Test")
+                {
+                    MessageBox.Show("לא ניתן לעדכן הגדרה זו באופן ידני.", "שגיאת הרשאה", MessageBoxButton.OK, MessageBoxImage.Stop, MessageBoxResult.None , MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    return;
+                }
+                (new SetConfigWindow(x)).ShowDialog();
             }
-            (new SetConfigWindow(x)).ShowDialog();
         }
 
 
@@ -667,7 +671,7 @@ namespace UI_Ver2
             TabControl_SelectionChanged(TabControl_Login, null);
         }
 
-        
+
 
         //------------------------------------------------------------------------------------------------------------
 

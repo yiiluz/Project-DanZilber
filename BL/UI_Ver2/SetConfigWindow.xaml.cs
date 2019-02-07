@@ -25,13 +25,13 @@ namespace UI_Ver2
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             configurationName = conf.Key;
             InitializeComponent();
-            TextBlock_ConfigName.Text = "Cange " + configurationName + ":";
+            TextBlock_ConfigName.Text = "שנה את " + configurationName + ":";
             TextBox_OldValue.Text = conf.Value.ToString();
         }
 
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
-            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to cancel?\nThe configuration hasn't changed.", "Operation Status", MessageBoxButton.YesNo, MessageBoxImage.Question))
+            if (MessageBoxResult.Yes == MessageBox.Show("האם את/ה בטוח/ה שברצונך לבטל?\nשום שינוי לא התרחש.", "סטטוס הפעולה", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign))
                 Close();
         }
 
@@ -40,23 +40,23 @@ namespace UI_Ver2
             int temp;
             if (!int.TryParse(TextBox_NewValue.Text, out temp))
             {
-                MessageBox.Show("The new value must be Integer number only!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("הערך החדש יהיה מספר שלם בלבד!", "שגיאה בקלט", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 return;
             }
             try
             {
                 MainWindow.bl.SetConfig(configurationName, TextBox_NewValue.Text);
                 Close();
-                MessageBox.Show(configurationName + " Successfuly Updated!", "Update Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(configurationName + " עודכן בצהלחה!", "סטטוס פעולה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 return;
             }
             catch (AccessViolationException)
             {
-                MessageBox.Show("This Configuration is NOT Writeable!");
+                MessageBox.Show("ההגדרה הזו אינה ניתנת לשינוי!", "סטטוס פעולה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
             catch (KeyNotFoundException ex)
             {
-                MessageBox.Show("Internal Error. Something went wrong.\n" + ex.Message);
+                MessageBox.Show("התרחשה שגיאה פנימית.\nפרטים נוספים: " + ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
             Close();
         }
