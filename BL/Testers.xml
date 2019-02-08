@@ -21,4 +21,67 @@
     <MaxTestsPerWeek>10</MaxTestsPerWeek>
     <TypeCarToTest>MotorCycle</TypeCarToTest>
   </Tester>
+  <Tester>
+    <Person>
+      <ID>150000000</ID>
+      <Name>
+        <FirstName>דונלד </FirstName>
+        <LastName>טראמפ</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>ירושלים</City>
+        <Street>בר אילן</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1969-08-07T00:00:00</DateOfBirth>
+      <PhoneNumber>0000000001</PhoneNumber>
+    </Person>
+    <Seniority>100</Seniority>
+    <MaxDistance>100000</MaxDistance>
+    <MaxTestsPerWeek>1000</MaxTestsPerWeek>
+    <TypeCarToTest>MotorCycle</TypeCarToTest>
+  </Tester>
+  <Tester>
+    <Person>
+      <ID>111111115</ID>
+      <Name>
+        <FirstName>אלבוס</FirstName>
+        <LastName>דמבלדור</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>תקוע</City>
+        <Street>תקוע</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1960-02-08T00:00:00</DateOfBirth>
+      <PhoneNumber>0999999999</PhoneNumber>
+    </Person>
+    <Seniority>150</Seniority>
+    <MaxDistance>1000</MaxDistance>
+    <MaxTestsPerWeek>24</MaxTestsPerWeek>
+    <TypeCarToTest>TruckUnlimited</TypeCarToTest>
+  </Tester>
+  <Tester>
+    <Person>
+      <ID>333333332</ID>
+      <Name>
+        <FirstName>טום וולאונרדו</FirstName>
+        <LastName>רידל</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>ג'דיידה-מכר</City>
+        <Street>ג'דיידה</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1977-02-08T00:00:00</DateOfBirth>
+      <PhoneNumber>2222222233</PhoneNumber>
+    </Person>
+    <Seniority>0</Seniority>
+    <MaxDistance>11</MaxDistance>
+    <MaxTestsPerWeek>4</MaxTestsPerWeek>
+    <TypeCarToTest>TruckUnlimited</TypeCarToTest>
+  </Tester>
 </Testers>

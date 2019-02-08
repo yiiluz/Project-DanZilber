@@ -348,7 +348,7 @@ namespace BL
         {
             t.IsTesterUpdateStatus = false;
             string testId = "";
-            string errors = "!שגיאות\n";
+            string errors = "";
             //check if trainee & tester already on system.
             bool traineeExist = GetTraineeList().Exists(x => x.Id == t.ExTrainee.Id);///////////////////////////////////////
             bool testerExist = false;
@@ -432,7 +432,7 @@ namespace BL
                 }                 
                 if (trainee.ExistingLicenses.Exists(x => (x == t.CarType) || (x == CarTypeEnum.רכב_פרטי && t.CarType == CarTypeEnum.רכב_פרטי_אוטומט))) //if trainee already have license on the test type car
                     errors += "שגיאה! לא ניתן להוסיף מבחן. התלמיד  כבר בעל רישיון מדרגה זו.\n";
-                if (errors == "!שגיאות\n") //if there was no errors
+                if (errors == "") //if there was no errors
                 {
                     //
                     int serial = -1;
