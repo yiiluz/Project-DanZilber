@@ -145,11 +145,13 @@ namespace UI_Ver2
             }
             catch (DirectoryNotFoundException D)
             {
-                MessageBox.Show(D.Message, "מערכת לניהול מבחני נהיגה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(D.Message, "בעיה בטעינת נתונים", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None,
+                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
             catch (KeyNotFoundException a)
             {
-                MessageBox.Show(a.Message, "מערכת לניהול מבחני נהיגה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(a.Message, "שגיאה פנימית", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, 
+                    MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
 
@@ -171,7 +173,8 @@ namespace UI_Ver2
                 OfficeStatistics.Visibility = Visibility.Visible;
                 return;
             }
-            MessageBox.Show("קוד שגוי, אנא נסה שוב.", "אזעקת אבטחה", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("קוד שגוי, אנא נסה שוב.", "אבטחה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None,
+                MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
         }
         private void Button_Click_AddTester(object sender, RoutedEventArgs e)
         {
@@ -191,7 +194,8 @@ namespace UI_Ver2
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    MessageBox.Show(ex.Message, "תעודת זהות לא קיימת.", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(ex.Message, "נתון לא קיים", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, 
+                        MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     return;
                 }
                 TesterDetailsWindow testerDetailsWindow = new TesterDetailsWindow(tester, "Update");
@@ -206,7 +210,10 @@ namespace UI_Ver2
             List<TesterTest> abortedTests;
             if (getIDWindow.IsClosedByButton)
             {
-                if (bl.GetTestersList().Exists(x => x.Id == getIDWindow.TxtBx_ID.Text) && MessageBox.Show("אתה בטוח שברצונך למחוק את הבוחן?", "אזהרה", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (bl.GetTestersList().Exists(x => x.Id == getIDWindow.TxtBx_ID.Text) &&
+                    MessageBox.Show("האם אתה בטוח כי ברצונך למחוק את הבוחן? פעולה זו אינה הפיכה.", "אזהרה",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.None
+                    , MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == MessageBoxResult.Yes)
                 {
                     try
                     {
@@ -214,17 +221,20 @@ namespace UI_Ver2
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        MessageBox.Show(ex.Message, "תעודת זהות לא קיימת", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "נתון חסר", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, 
+                            MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         return;
                     }
                     string aborted = "";
                     foreach (var item in abortedTests)
                         aborted += "מספר מבחן: " + item.TestId + ". תאריך: " + item.DateOfTest.ToShortDateString() + ". שעה: " + item.HourOfTest + ":00.\n";
                     MessageBox.Show("בוחן עם תעודת זהות" + getIDWindow.TxtBx_ID.Text + "נמחק בהצלחה.\n"
-                        + (aborted != "" ? "Aborted Tests:\n" + aborted : "No Test Aborted.\n"), "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                        + (aborted != "" ? "מבחנים שהתבטלו בעקבות המחיקה:\n" + aborted : "לא התבטל אף מבחן בעקבות מחיקה זו.\n"), "סטטוס מחיקה", MessageBoxButton.OK,
+                        MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 }
                 else
-                    MessageBox.Show("Tester not on system", "ID not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("בוחן עם תעודת זהות כזו לא קיים במערכת.", "נתון חסר", MessageBoxButton.OK, MessageBoxImage.Error,
+                        MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
         private void Button_Click_SearchTesterByName(object sender, RoutedEventArgs e)
@@ -254,7 +264,8 @@ namespace UI_Ver2
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    MessageBox.Show(ex.Message, "ID not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(ex.Message, "נתון חסר", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None,
+                        MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     return;
                 }
                 TraineeDetailsWindow traineeDetailsWindow = new TraineeDetailsWindow(traine, "Update");
@@ -273,10 +284,12 @@ namespace UI_Ver2
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    MessageBox.Show(ex.Message, "ID not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(ex.Message, "נתון חסר", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None,
+                        MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     return;
                 }
-                MessageBox.Show("Trainee with ID " + getIDWindow.TxtBx_ID.Text + " successfuly deleted.", "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("נבחן בעל מספר ת.ז. " + getIDWindow.TxtBx_ID.Text + " נמחק בהצלחה מהמערכת.", "סטטוס מחיקה",
+                    MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
         private void Button_Click_SearchTrainee(object sender, RoutedEventArgs e)
@@ -338,7 +351,8 @@ namespace UI_Ver2
             if (TextBox_TesterID.Text.Length != TextBox_TesterID.MaxLength || !TextBox_TesterID.Text.All(char.IsDigit))
             {
                 TextBox_TesterID.Background = Brushes.Red;
-                MessageBox.Show("ID must be exactly 9 Digitis, and Digits only.", "Wrong input", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("מספר תעודת זהות נדרש להיות בעל 9 ספרות בדיוק.", "קלט שגוי", MessageBoxButton.OK, MessageBoxImage.Information,
+                    MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
             else
             {
@@ -348,7 +362,8 @@ namespace UI_Ver2
                 }
                 catch (KeyNotFoundException)
                 {
-                    MessageBox.Show("The ID that enterd wasn't found as a Tester ID.", "Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("תעודת הזהות שהוקלדה לא מייצגת בוחן במערכת.", "לא נמצא", MessageBoxButton.OK, MessageBoxImage.Error,
+                        MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     return;
                 }
                 ExistingTesterIDBorder.Visibility = Visibility.Collapsed;
@@ -367,17 +382,20 @@ namespace UI_Ver2
             TesterTest temp = (TesterTest)ListView_TesterTests.SelectedItem;
             if (temp.IsTesterUpdateStatus)
             {
-                MessageBox.Show("You already updated status for this Test!", "Duplicate Block", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("כבר עידכנת תוצאות עבור מבחן זה!", "חסימת כפילויות", MessageBoxButton.OK, MessageBoxImage.Information,
+                    MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 return;
             }
             if (temp.IsTestAborted)
             {
-                MessageBox.Show("That test can NOT Updated, because he was Canceld.", "Test Aborted Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("אי אפשר לעדכן תוצאות עבור מבחן זה, היות והוא בוטל.", "מבחן בוטל", MessageBoxButton.OK, MessageBoxImage.Information, 
+                    MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 return;
             }
             if (temp.DateOfTest > DateTime.Now)
             {
-                MessageBox.Show("Wait after the test for updating results.", "Oops", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("אי אפשר לעדכן תוצאה של מבחן שעדיין לא קרה.", "חריגת זמנים", MessageBoxButton.OK, MessageBoxImage.Information,
+                    MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 return;
             }
             TesterResultUpdateWindow testerResultUpdateWindow = new TesterResultUpdateWindow(temp);
@@ -391,7 +409,8 @@ namespace UI_Ver2
             }
             catch (KeyNotFoundException ex)
             {
-                MessageBox.Show("Internal error on Existing Tester Tub at UpdateMenu.\n" + ex.Message);
+                MessageBox.Show("שגיאה פנימית בחלון בוחן קיים בקליק ימני על עידכון מבחן.\n" + ex.Message, "שגיאה פנימית", MessageBoxButton.OK,
+                    MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
         private void Button_Click_UpdateTestResultByID(object sender, RoutedEventArgs e)
@@ -419,7 +438,8 @@ namespace UI_Ver2
         private void ListView_TesterTests_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (((ListView)sender).SelectedItem != null)
-                MessageBox.Show((((ListView)sender).SelectedItem as TesterTest).ToString(), "Test Details", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show((((ListView)sender).SelectedItem as TesterTest).ToString(), "פרטי מבחן", MessageBoxButton.OK, 
+                    MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
         }
         //------------------------------------------------------------------------------------------------------------
 
@@ -451,7 +471,8 @@ namespace UI_Ver2
             if (TextBox_TraineeID.Text.Length != TextBox_TraineeID.MaxLength || !TextBox_TraineeID.Text.All(char.IsDigit))
             {
                 TextBox_TraineeID.Background = Brushes.Red;
-                MessageBox.Show("ID must be exactly 9 Digitis, and Digits only.", "Wrong input", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("מספר תעודת זהות נדרש להיות בעל 9 ספרות בדיוק.", "קלט שגוי", MessageBoxButton.OK, MessageBoxImage.Information,
+                    MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
             else
             {
@@ -461,7 +482,8 @@ namespace UI_Ver2
                 }
                 catch (KeyNotFoundException)
                 {
-                    MessageBox.Show("The ID that enterd wasn't found as a Trainee ID.", "Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("תעודת הזהות שהוקלדה לא נמצאה כתעודת זהות של נבחן קיים.", "נתון חסר", MessageBoxButton.OK, MessageBoxImage.Error,
+                        MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     return;
                 }
                 ExistingTraineeIDBorder.Visibility = Visibility.Collapsed;
@@ -481,7 +503,8 @@ namespace UI_Ver2
         private void ListView_TraineeTests_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (((ListView)sender).SelectedItem != null)
-                MessageBox.Show((((ListView)sender).SelectedItem as TraineeTest).ToString(), "Test Details", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show((((ListView)sender).SelectedItem as TraineeTest).ToString(), "פרטי מבחן", MessageBoxButton.OK, MessageBoxImage.Information,
+                    MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
         }
         private void ListView_TraineeExistingLicenses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -516,7 +539,8 @@ namespace UI_Ver2
                 TextBlock_LastUpdate.DataContext = lastUpdate;
                 return;
             }
-            MessageBox.Show("Password is not correct. Try again.", "Security Alert", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("סיסמה לא נכונה. נסה שוב", "שגיאת אבטחה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None,
+                MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
         }
         private void ListView_Configurations_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -529,7 +553,8 @@ namespace UI_Ver2
                 KeyValuePair<string, Object> x = (KeyValuePair<string, Object>)(ListView_Configurations.SelectedValue);
                 if (x.Key == "Serial Number Test")
                 {
-                    MessageBox.Show("לא ניתן לעדכן הגדרה זו באופן ידני.", "שגיאת הרשאה", MessageBoxButton.OK, MessageBoxImage.Stop, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    MessageBox.Show("לא ניתן לעדכן הגדרה זו באופן ידני.", "שגיאת הרשאה", MessageBoxButton.OK, MessageBoxImage.Stop, 
+                        MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     return;
                 }
                 (new SetConfigWindow(x)).ShowDialog();

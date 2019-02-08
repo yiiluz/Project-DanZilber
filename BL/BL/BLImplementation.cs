@@ -378,6 +378,8 @@ namespace BL
                 //get the trainee and tester objects
                 Trainee trainee = GetTraineeByID(t.ExTrainee.Id);
                 Tester tester = GetTesterByID(t.ExTester.Id);
+                if (trainee.Id == tester.Id)
+                    errors += "שגיאה! בוחן לא יכול לבחון את עצמו, מחשד לניגוד אינטרסים\n";
                 //find last test object
                 Test lastTest;
                 if (trainee.LastTest != DateTime.MinValue)
@@ -386,7 +388,7 @@ namespace BL
                                     && x.ExTrainee.Id == trainee.Id && x.CarType == tester.TypeCarToTest);
                     if (lastTest != null && !lastTest.IsTesterUpdateStatus)
                     {
-                        errors +="-שגיאה! לא ניתן להוסיף לתלמיד מבחן עד אשר התוצאה במבחן ב " + trainee.LastTest.ToShortDateString() + "תיהיה זמינה.";
+                        errors +="-שגיאה! לא ניתן להוסיף לתלמיד מבחן עד אשר התוצאה במבחן ב " + trainee.LastTest.ToShortDateString() + "תהיה זמינה.";
                         errors += "/n";
                     }
                 }
@@ -430,7 +432,7 @@ namespace BL
                 {
                     errors += "שגיאה! לא ניתן להוסיף מבחן. התלמיד לא השלים מספר שיעורים כנדרש.\n";
                 }                 
-                if (trainee.ExistingLicenses.Exists(x => (x == t.CarType) || (x == CarTypeEnum.PrivateCar && t.CarType == CarTypeEnum.PrivateCarAuto))) //if trainee already have license on the test type car
+                if (trainee.ExistingLicenses.Exists(x => (x == t.CarType) || (x == CarTypeEnum.רכב_פרטי && t.CarType == CarTypeEnum.רכב_פרטי_אוטומט))) //if trainee already have license on the test type car
                     errors += "שגיאה! לא ניתן להוסיף מבחן. התלמיד  כבר בעל רישיון מדרגה זו.\n";
                 if (errors == "!שגיאות\n") //if there was no errors
                 {
@@ -911,7 +913,7 @@ namespace BL
                                             IsTesterAvailiableOnDateAndHour(x, dataSourse.DateOfTest) &&
                                             GetAvailiableHoursOfTesterForSpesificDate(x, dataSourse.DateOfTest).Count != 0);
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException(".שגיאה!  אין בוחן העובד בתאריך המבוקש, אנא בחר מועד אחר");
+                throw new KeyNotFoundException("שגיאה!  אין בוחן העובד בתאריך המבוקש, אנא בחר מועד אחר.");
             try
             {
                 optionalTesters = (from tester in optionalTesters
@@ -924,7 +926,7 @@ namespace BL
                 throw new InternalBufferOverflowException();
             }
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException(".שגיאה!  אין בוחנים עבור כתובת זו");
+                throw new KeyNotFoundException("שגיאה!  אין בוחנים עבור כתובת זו.");
             bool[] tmp = new bool[6]; //tmp array for delete dublicates.
             for (int i = 0; i < 6; ++i)
                 tmp[i] = false;

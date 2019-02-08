@@ -25,6 +25,7 @@ namespace UI_Ver2
 
         public GetSerialWindow(string oper = "")
         {
+            this.FlowDirection = FlowDirection.RightToLeft;
             this.oper = oper;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
@@ -41,7 +42,7 @@ namespace UI_Ver2
             if (TxtBx_Serial.Text.Length != TxtBx_Serial.MaxLength || !TxtBx_Serial.Text.All(char.IsDigit))
             {
                 TxtBx_Serial.Background = Brushes.Red;
-                MessageBox.Show("ID must be exactly 9 Digitis, and Digits only.", "Wrong input", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("מספר מבחן צריך להיות בעל 8 ספרות בדיוק.", "קלט שגוי", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
             else
             {
@@ -55,14 +56,14 @@ namespace UI_Ver2
                         }
                         catch (Exception ex)
                         {
-                            var result = MessageBox.Show(ex.Message + "\nDo you want to try again?", "Error", 
-                                MessageBoxButton.YesNo, MessageBoxImage.Error);
+                            var result = MessageBox.Show(ex.Message + "\nהאם ברצונך לנסות שוב?", "שגיאה", 
+                                MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                             if (result == MessageBoxResult.No)
                                 Close();
                             return;
                         }
                         Close();
-                        MessageBox.Show(test.ToString(), "Test Details", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(test.ToString(), "פרטי המבחן", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         break;
                     case "Abort":
                         try
@@ -71,8 +72,8 @@ namespace UI_Ver2
                         }
                         catch (Exception ex)
                         {
-                            var result = MessageBox.Show(ex.Message + "\nDo you want to try again?", "Error",
-                                MessageBoxButton.YesNo, MessageBoxImage.Error);
+                            var result = MessageBox.Show(ex.Message + "\nהאם ברצונך לנסות שוב?", "שגיאה",
+                                MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                             if (result == MessageBoxResult.No)
                                 Close();
                             return;
@@ -80,13 +81,12 @@ namespace UI_Ver2
                         Close();
                         if (test.IsTestAborted)
                         {
-                            MessageBox.Show("The test allready Aborted!", "Error",
-                                MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("מבחן זה כבר בוטל!", "התראת כפילות",
+                                MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                             return;
                         }
-                        var isWantToAbort = MessageBox.Show("Test details are:\n" + test.ToString() + "Are you sure you want to abort this test?" +
-                            " This action is not reversible."
-                            , "Abort Test", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        var isWantToAbort = MessageBox.Show("פרטי המבחן הם:\n" + test.ToString() + "האם אתה בטוח שברצונך לבטל מבחן זה?\n" +
+                            "פעולה זו אינה הפיכה.", "ביטול מבחן", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         if (isWantToAbort == MessageBoxResult.Yes)
                         {
                             try
@@ -95,14 +95,14 @@ namespace UI_Ver2
                             }
                             catch (KeyNotFoundException ex)
                             {
-                                var result = MessageBox.Show("internal error\n" + ex.Message + "\nDo you want to try again?",
-                                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                                var result = MessageBox.Show("שגיאה פנימית\n" + ex.Message + "\nהאם אתה רוצה לנסות שוב?",
+                                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                                 if (result == MessageBoxResult.No)
                                     Close();
                                 return;
                             }
-                            MessageBox.Show("The test with id " + test.TestId + " successfuly Aborted", "Operation Status",
-                                MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("מבחן מספר " + test.TestId + " בוטל בהצלחה.", "סטטוס פעולה",
+                                MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         }
                         break;
                     case "Update":
@@ -112,8 +112,8 @@ namespace UI_Ver2
                         }
                         catch (KeyNotFoundException ex)////////////////////////////////////////////
                         {
-                            var result = MessageBox.Show(ex.Message + "\nDo you want to try again?", "Error",
-                                MessageBoxButton.YesNo, MessageBoxImage.Error);
+                            var result = MessageBox.Show(ex.Message + "\nהאם ברצונך לנסות שוב?", "שגיאה",
+                                MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                             if (result == MessageBoxResult.No)
                                 Close();
                             return;
@@ -124,7 +124,8 @@ namespace UI_Ver2
                         isClosedByButton = true;
                         break;
                     default:
-                        MessageBox.Show("Internal error. file GetIDWindow, case not exist on switch", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("שגיאה פנימית בחלונית GetSerialWindow בגלל case שאינו קיים.", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error
+                            , MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         isClosedByButton = false;
                         break;
                 }

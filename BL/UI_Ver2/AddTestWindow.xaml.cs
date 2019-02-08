@@ -28,6 +28,7 @@ namespace UI_Ver2
         BackgroundWorker worker = new BackgroundWorker();
         public AddTestWindow(Trainee trainee = null)
         {
+            this.FlowDirection = FlowDirection.RightToLeft;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             //add test only from tomorrow
@@ -57,7 +58,7 @@ namespace UI_Ver2
 
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to cancel? The Test has'nt Added.", "Cancel Request", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            var result = MessageBox.Show("האם אתה בטוח שברצונף לבטל? לא יתווסף אף מבחן אם תבחר לבטל.", "בקשת ביטול", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             if (result == MessageBoxResult.OK)
                 Close();
         }
@@ -105,15 +106,15 @@ namespace UI_Ver2
                 try
                 {
                     string serialOfTest = MainWindow.bl.AddTest(CombBx_TestsListByDate.SelectedItem as Test);
-                    MessageBox.Show("Test added successfuly. Test ID: " + serialOfTest, "Add Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("המבחן נקבע בהצלחה. מספר המבחן: " + serialOfTest, "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     Close();
                 }
                 catch (Exception ex)
                 {
-                    var result = MessageBox.Show("Internal ERROR: " + ex.Message + ". Do you want to try agein?", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    var result = MessageBox.Show("שגיאה פנימית. " + ex.Message + "\nהאם ברצונך לנסות שוב?", "שגיאה", MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     if (result == MessageBoxResult.No)
                     {
-                        MessageBox.Show("The test has'nt Added.", "Operation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("המבחן לא נקבע", "פעולה בוטלה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         Close();
                     }
                     else
@@ -138,7 +139,7 @@ namespace UI_Ver2
             {
                 if (!MainWindow.cities.Exists(x => x == (string)CmbBx_City.SelectedItem) || !MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem).ToList().Exists(x => x == (string)CmbBx_Street.SelectedItem))
                 {
-                    MessageBox.Show("Address input was wrong.", "Wrong Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("קלט הכתובת שגוי.", "קלט לא תקין", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     return;
                 }
 
@@ -148,10 +149,10 @@ namespace UI_Ver2
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    var result = MessageBox.Show("Trainee ID does Not Exist. Do you want to try agein?", "ID Not exist", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    var result = MessageBox.Show("תעודת הזהות של הנבחן אינה קיימת במערכת. רוצה לנסות שוב?", "נתון חסר", MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     if (result == MessageBoxResult.No)
                     {
-                        MessageBox.Show("The test has'nt Added." + ex.Message, "Operation Canceld", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("הטסט לא נקבע. " + ex.Message, "פעולה בוטלה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         Close();
                     }
                     else
@@ -169,7 +170,7 @@ namespace UI_Ver2
             }
             else
             {
-                MessageBox.Show("The input is not correct. The bad inputs marked at Red Unless you hav'nt update nothing.", "Wrong Input", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("הקלט לא תקין. אם לא הזנת, הזן. אם הזנת, השדות עם הקלט שלא תקין מסומנים באדום.", "קלט שגוי", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
 
@@ -188,7 +189,7 @@ namespace UI_Ver2
             {
                 if (!MainWindow.cities.Exists(x => x == (string)CmbBx_City.SelectedItem) || !MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem).ToList().Exists(x => x == (string)CmbBx_Street.SelectedItem))
                 {
-                    MessageBox.Show("Address input was wrong.", "Wrong Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("קלט הכתובת שגוי", "קלט לא תקין", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     return;
                 }
                 Trainee trainee = null;
@@ -198,10 +199,10 @@ namespace UI_Ver2
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    var result = MessageBox.Show("Trainee ID does Not Exist. Do you want to try agein?", "ID Not exist", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    var result = MessageBox.Show("תעודת הזהות של התלמיד שהוזנה אינה קיימת במערכת. האם ברצונך לנסות שוב?", "נתון חסר", MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     if (result == MessageBoxResult.No)
                     {
-                        MessageBox.Show("The test has'nt Added." + ex.Message, "Operation Canceld", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("הטסט לא נקבע.\n" + ex.Message, "פעולה בוטלה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         Close();
                     }
                     else
@@ -218,7 +219,7 @@ namespace UI_Ver2
             }
             else
             {
-                MessageBox.Show("The input is not correct. The bad inputs marked at Red Unless you hav'nt update nothing.", "Wrong Input", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("הקלט לא תקין. אם לא הזנת, הזן. אם הזנת, השדות עם הקלט שלא תקין מסומנים באדום.", "קלט שגוי", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
 
@@ -279,13 +280,13 @@ namespace UI_Ver2
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        MessageBox.Show("Can't find Test time. " + ex.Message + "\nYou can try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Hand);
+                        MessageBox.Show("אין מבחן בזמן שהתבקש.\n" + ex.Message + "\nאתה יכול לנסות שוב.", "נכשל", MessageBoxButton.OK, MessageBoxImage.Hand, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         worker.CancelAsync();
                         break;
                     }
                     if (lst.Count == 0)
                     {
-                        MessageBox.Show("There is no Availiable test on this Date. Try another", "OOPS", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("אין מבחן זמין לתאריך שהתבקש. שים לב כי מבחנים מתקיימים רק בימים א-ה. אתה יכול לנסות תאריך אחר.", "OOPS", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         worker.CancelAsync();
                     }
                     else
@@ -301,13 +302,13 @@ namespace UI_Ver2
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        MessageBox.Show("Can't find Test time. " + ex.Message + "\nYou can try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Hand);
+                        MessageBox.Show("אין מבחן לזמן שהתבקש.\n" + ex.Message + "\nאתה יכול לנסות שוב.", "נכשל", MessageBoxButton.OK, MessageBoxImage.Hand, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         worker.CancelAsync();
                         break;
                     }
                     if (lst.Count == 0)
                     {
-                        MessageBox.Show("There is no Availiable test on this Hour. Try another", "OOPS", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("אין בוחנים שעובדים בשעה הזו. אתה יכול לנסות שעה אחרת.", "נכשל", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         worker.CancelAsync();
                     }
                     else
@@ -330,7 +331,7 @@ namespace UI_Ver2
             {
                 AddTestProgressBarByDate.Visibility = Visibility.Hidden;
                 AddTestProgressBarByHour.Visibility = Visibility.Hidden;
-                MessageBox.Show("Can't find test. Check your internet Conection.", "Error", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                MessageBox.Show("המערכת לא מצליחה לאתר מועדי מבחנים אפשריים. בדוק את חיבור האינטרנט שלך.", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
             }
             else
@@ -359,11 +360,6 @@ namespace UI_Ver2
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
-        }
-
-        private void CmbBx_City_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            CmbBx_City.IsDropDownOpen = true;
         }
     }
 }
