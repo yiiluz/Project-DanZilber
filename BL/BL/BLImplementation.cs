@@ -76,11 +76,11 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException(ex.Message + " .שגיאה! לא ניתן לעדכן מאפיין קונפיגורציה זה");
+                throw new KeyNotFoundException( "שגיאה! לא ניתן לעדכן מאפיין קונפגורציה זה.\n"+ ex.Message);
             }
             catch (AccessViolationException ex)
             {
-                throw new AccessViolationException(ex.Message+ " .שגיאה!לא ניתן לעדכן מאפיין קונפיגורציה זה");
+                throw new AccessViolationException( "שגיאה! לא ניתן לעדכן מאפיין קונפגורציה זה.\n"+ ex.Message );
             }
         }
 
@@ -103,7 +103,7 @@ namespace BL
             int testerAge = (DateTime.Now.Year - t.DateOfBirth.Year);
             if (testerAge < minAge || testerAge > maxAge)
             {
-                throw new ArgumentOutOfRangeException(  minAge + "-" + maxAge+ " :שגיאה! גיל הבוחן לא בטווח המתאים");
+                throw new ArgumentOutOfRangeException(" שגיאה! גיל הבוחן לא בטווח המתאים:" + minAge + "-" + maxAge);
             }
             else
             {
@@ -142,7 +142,7 @@ namespace BL
             }
             if (!exist)
             {
-                throw new KeyNotFoundException(".שגיאה! לא ניתן למחוק בוחן שלא קיים במערכת");
+                throw new KeyNotFoundException("שגיאה! לא ניתן למחוק בוחן שלא קיים במערכת.");
             }
             else
             {
@@ -185,14 +185,14 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException(ex.Message + t.Id + ":שגיאה פנימית! לא ניתן לעדכן בוחן עם תעודת זהות");
+                throw new KeyNotFoundException("שגיאה פנימית! לא ניתן לעדכן בוחן עם תעודת זהות:" + t.Id +ex.Message);
             }
             catch (DirectoryNotFoundException e)
             {
                 throw e;
             }
             if (!exist)
-                throw new KeyNotFoundException(".שגיאה! לא ניתן לעדכן בוחן זה משום שהוא לא קיים במערכת ");
+                throw new KeyNotFoundException("שגיאה! לא ניתן לעדכן בוחן זה משום שהוא לא קיים במערכת. ");
             else
             {
                 int minAge, maxAge;
@@ -208,7 +208,7 @@ namespace BL
                 int testerAge = (DateTime.Now.Year - t.DateOfBirth.Year);
                 if (testerAge < minAge || testerAge > maxAge)
                 {
-                    throw new ArgumentOutOfRangeException(  minAge + "-" + maxAge+ ".שגיאה! גיל הבוחן לא בטווח המתאים");
+                    throw new ArgumentOutOfRangeException("שגיאה! גיל הבוחן לא בטווח המתאים:" +minAge + "-" + maxAge);
                 }
                 try
                 {
@@ -234,20 +234,19 @@ namespace BL
         /// <param name="trainee"></param>
         public void AddTrainee(Trainee t)
         {
-            int minAge, maxAge;
+            int minAge;
             try
             {
                 minAge = (int)Configuretion.ConfiguretionsDictionary["Trainee minimum age"];
-                maxAge = (int)Configuretion.ConfiguretionsDictionary["Trainee maximum age"];
             }
             catch (KeyNotFoundException e)
             {
                 throw e;
             }
-            int traineeTest = (DateTime.Now.Year - t.DateOfBirth.Year);
-            if (traineeTest < minAge || traineeTest > maxAge)
+            int traineeAge = (DateTime.Now.Year - t.DateOfBirth.Year);
+            if (traineeAge < minAge)
             {
-                throw new ArgumentOutOfRangeException(minAge + "-" + maxAge + "שגיאה! גיל הנבחן אינו בטווח הנדרש.");
+                throw new ArgumentOutOfRangeException( "שגיאה! גיל התלמיד מתחת לגיל המינימום:"+ minAge );
             }
             else try
                 {
@@ -277,7 +276,7 @@ namespace BL
             }
             catch (KeyNotFoundException e)
             {
-                throw new KeyNotFoundException(".שגיאה! לא ניתן למחוק תלמיד שאינו קיים במערכת");
+                throw new KeyNotFoundException("שגיאה! לא ניתן למחוק תלמיד שאינו קיים במערכת:");
             }
             catch (DirectoryNotFoundException e)
             {
@@ -308,7 +307,7 @@ namespace BL
         {
             bool exist = GetTraineeList().Exists(x => x.Id == t.Id);
             if (!exist)
-                throw new KeyNotFoundException(".שגיאה! לא ניתן למחוק תלמיד שאינו קיים במערכת");
+                throw new KeyNotFoundException("שגיאה! לא ניתן למחוק תלמיד שאינו קיים במערכת:");
             else
             {
                 int minAge;
@@ -323,7 +322,7 @@ namespace BL
                 int traineeAge = (DateTime.Now.Year - t.DateOfBirth.Year);
                 if (traineeAge < minAge)
                 {
-                    throw new ArgumentOutOfRangeException(minAge + ":שגיאה! גיל התלמיד מתחת לגיל המינימום");
+                    throw new ArgumentOutOfRangeException("שגיאה! גיל התלמיד מתחת לגיל המינימום:"+ minAge);
                 }
                 try
                 {
@@ -368,9 +367,9 @@ namespace BL
             if (!testerExist || !traineeExist)
             {
                 if (!traineeExist)
-                    errors += ".שגיאה! התלמיד רשום למבחן שלא קיים במערכת \n";
+                    errors += "שגיאה! התלמיד רשום למבחן שלא קיים במערכת. \n";
                 if (!testerExist)
-                    errors += ".שגיאה! הבוחן רשום למבחן שלא קיים במערכת \n";
+                    errors += " שגיאה! הבוחן רשום למבחן שלא קיים במערכת. \n";
                 throw new KeyNotFoundException(errors);
             }
             //if trainee and tester on the system
@@ -387,7 +386,7 @@ namespace BL
                                     && x.ExTrainee.Id == trainee.Id && x.CarType == tester.TypeCarToTest);
                     if (lastTest != null && !lastTest.IsTesterUpdateStatus)
                     {
-                        errors += " .תיהיה זמינה" + trainee.LastTest.ToShortDateString() + "-שגיאה! לא ניתן להוסיף לתלמיד מבחן עד אשר התוצאה במבחן ב ";
+                        errors +="-שגיאה! לא ניתן להוסיף לתלמיד מבחן עד אשר התוצאה במבחן ב " + trainee.LastTest.ToShortDateString() + "תיהיה זמינה.";
                         errors += "/n";
                     }
                 }
@@ -415,7 +414,7 @@ namespace BL
                             }
                         }
                         if (flag)
-                            errors += ".שגיאה! לא ניתן להוסיף מבחן. התלמיד ניגש לבחינה ממש לאחרונה\n";
+                            errors += "שגיאה! לא ניתן להוסיף מבחן. התלמיד ניגש לבחינה ממש לאחרונה.\n";
                     }
                 }
                 int minLesson = -1;
@@ -429,10 +428,10 @@ namespace BL
                 }
                 if (minLesson != -1 && trainee.NumOfFinishedLessons < minLesson) //if trainee didnt did enough lessons
                 {
-                    errors += ".שגיאה! לא ניתן להוסיף מבחן. התלמיד לא השלים מספר שיעורים כנדרש\n";
-                }
-                if (trainee.ExistingLicenses.Exists(x => (x == t.CarType) || (x == CarTypeEnum.רכב_פרטי && t.CarType == CarTypeEnum.רכב_פרטי_אוטומט))) //if trainee already have license on the test type car
-                    errors += ".שגיאה! לא ניתן להוסיף מבחן. התלמיד  כבר בעל רישיון מדרגה זו\n";
+                    errors += "שגיאה! לא ניתן להוסיף מבחן. התלמיד לא השלים מספר שיעורים כנדרש.\n";
+                }                 
+                if (trainee.ExistingLicenses.Exists(x => (x == t.CarType) || (x == CarTypeEnum.PrivateCar && t.CarType == CarTypeEnum.PrivateCarAuto))) //if trainee already have license on the test type car
+                    errors += "שגיאה! לא ניתן להוסיף מבחן. התלמיד  כבר בעל רישיון מדרגה זו.\n";
                 if (errors == "!שגיאות\n") //if there was no errors
                 {
                     //
@@ -500,7 +499,7 @@ namespace BL
                                     }
                                     catch (KeyNotFoundException e)
                                     {
-                                        throw new MemberAccessException(e.Message + "\nשגיאה! לא ניתן לעדכן פרטי תלמיד");
+                                        throw new MemberAccessException( "\nשגיאה! לא ניתן לעדכן פרטי תלמיד."+e.Message);
                                     }
                                 }
                             }
@@ -582,11 +581,11 @@ namespace BL
             }
             string errorList = "!שגיאות\n";
             if (DateTime.Now == test.DateOfTest && DateTime.Now.Hour < test.HourOfTest || DateTime.Now < test.DateOfTest)
-                errorList += ".שגיאה! לא ניתן לעדכן פרטי מבחן לפני המועד המיועד \n";
+                errorList += "שגיאה! לא ניתן לעדכן פרטי מבחן לפני המועד המיועד. \n";
             if (test.IsTesterUpdateStatus)
-                errorList += ".שגיאה! תוצאת המבחן כבר הוזנה למערכת. לא ניתן לשנות פרטי מבחן \n";
+                errorList += "שגיאה! תוצאת המבחן כבר הוזנה למערכת. לא ניתן לשנות פרטי מבחן. \n";
             if (test.IsTestAborted)
-                errorList += ".שגיאה! המבחן בוטל. לא ניתן לעדכן פרטים עבור מבחן זה\n";
+                errorList += "שגיאה! המבחן בוטל. לא ניתן לעדכן פרטים עבור מבחן זה.\n";
             if (errorList == "!שגיאות\n")
             {
 
@@ -629,7 +628,7 @@ namespace BL
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    throw new KeyNotFoundException("Internal Error. Can't import Testers list. " + ex.Message);
+                    throw new KeyNotFoundException(" שגיאה!" + ex.Message);
                 }
                 lst.Add(temp);
             }
@@ -1423,22 +1422,22 @@ namespace BL
                 SystemStatistics.SumNumOfTestsPerWeek += tester.MaxTestsPerWeek;
                 switch (tester.TypeCarToTest)
                 {
-                    case CarTypeEnum.אוטובוס:
+                    case CarTypeEnum.Bus:
                         SystemStatistics.NumOfTestersBus++;
                         break;
-                    case CarTypeEnum.אופנוע:
+                    case CarTypeEnum.MotorCycle:
                         SystemStatistics.NumOfTestersMotorCycle++;
                         break;
-                    case CarTypeEnum.רכב_פרטי:
+                    case CarTypeEnum.PrivateCar:
                         SystemStatistics.NumOfTestersPrivateCar++;
                         break;
-                    case CarTypeEnum.רכב_פרטי_אוטומט:
+                    case CarTypeEnum.PrivateCarAuto:
                         SystemStatistics.NumOfTestersAutoPrivateCar++;
                         break;
-                    case CarTypeEnum.משאית_12_טון:
+                    case CarTypeEnum.Truck12Tons:
                         SystemStatistics.NumOfTestersTruck12Ton++;
                         break;
-                    case CarTypeEnum.משאית_ללא_הגבלה:
+                    case CarTypeEnum.TruckUnlimited:
                         SystemStatistics.NumOfTestersTruckUnlimited++;
                         break;
                 }
@@ -1447,22 +1446,22 @@ namespace BL
             {
                 switch (trainee.CurrCarType)
                 {
-                    case CarTypeEnum.אוטובוס:
+                    case CarTypeEnum.Bus:
                         SystemStatistics.NumOfTraineesBus++;
                         break;
-                    case CarTypeEnum.אופנוע:
+                    case CarTypeEnum.MotorCycle:
                         SystemStatistics.NumOfTraineesMotorCycle++;
                         break;
-                    case CarTypeEnum.רכב_פרטי:
+                    case CarTypeEnum.PrivateCar:
                         SystemStatistics.NumOfTraineesPrivateCar++;
                         break;
-                    case CarTypeEnum.רכב_פרטי_אוטומט:
+                    case CarTypeEnum.PrivateCarAuto:
                         SystemStatistics.NumOfTraineesAutoPrivateCar++;
                         break;
-                    case CarTypeEnum.משאית_12_טון:
+                    case CarTypeEnum.Truck12Tons:
                         SystemStatistics.NumOfTraineesTruck12Ton++;
                         break;
-                    case CarTypeEnum.משאית_ללא_הגבלה:
+                    case CarTypeEnum.TruckUnlimited:
                         SystemStatistics.NumOfTraineesTruckUnlimited++;
                         break;
                 }
@@ -1479,22 +1478,22 @@ namespace BL
                     SystemStatistics.NumOfFailedTest++;
                 switch (test.CarType)
                 {
-                    case CarTypeEnum.אוטובוס:
+                    case CarTypeEnum.Bus:
                         SystemStatistics.NumOfTestsBus++;
                         break;
-                    case CarTypeEnum.אופנוע:
+                    case CarTypeEnum.MotorCycle:
                         SystemStatistics.NumOfTestsMotorCycle++;
                         break;
-                    case CarTypeEnum.רכב_פרטי:
+                    case CarTypeEnum.PrivateCar:
                         SystemStatistics.NumOfTestsPrivateCar++;
                         break;
-                    case CarTypeEnum.רכב_פרטי_אוטומט:
+                    case CarTypeEnum.PrivateCarAuto:
                         SystemStatistics.NumOfTestsAutoPrivateCar++;
                         break;
-                    case CarTypeEnum.משאית_12_טון:
+                    case CarTypeEnum.Truck12Tons:
                         SystemStatistics.NumOfTestsTruck12Ton++;
                         break;
-                    case CarTypeEnum.משאית_ללא_הגבלה:
+                    case CarTypeEnum.TruckUnlimited:
                         SystemStatistics.NumOfTestsTruckUnlimited++;
                         break;
                 }
