@@ -913,7 +913,7 @@ namespace BL
                                             IsTesterAvailiableOnDateAndHour(x, dataSourse.DateOfTest) &&
                                             GetAvailiableHoursOfTesterForSpesificDate(x, dataSourse.DateOfTest).Count != 0);
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException("שגיאה!  אין בוחן העובד בתאריך המבוקש, אנא בחר מועד אחר.");
+                throw new KeyNotFoundException("שגיאה! אין בוחן העובד בתאריך המבוקש, אנא בחר מועד אחר.");
             try
             {
                 optionalTesters = (from tester in optionalTesters
