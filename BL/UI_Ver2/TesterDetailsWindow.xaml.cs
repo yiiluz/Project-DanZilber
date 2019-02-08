@@ -107,6 +107,8 @@ namespace UI_Ver2
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
+            if (CmbBx_City.SelectedItem == null || CmbBx_Street.SelectedItem == null)
+                return;
             double maxD;
             if (
                 (!TxtBx_ID.Text.All(char.IsDigit) || (TxtBx_ID.Text.Length != 9)) ||
@@ -312,8 +314,11 @@ namespace UI_Ver2
         }
         private void CmbBx_City_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CmbBx_Street.IsEnabled = true;
-            CmbBx_Street.ItemsSource = MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem);
+            if (CmbBx_City.SelectedItem != null)
+            {
+                CmbBx_Street.IsEnabled = true;
+                CmbBx_Street.ItemsSource = MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem);
+            }
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

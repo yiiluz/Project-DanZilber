@@ -80,7 +80,7 @@
                                     <TextBlock Text="עודכן לאחרונה בתאריך:" Margin="20 10" HorizontalAlignment="left"/>
                                     <TextBlock x:Name="TextBlock_LastUpdate" Text="{Binding}" Margin="200 10"/>
                                     <ListView x:Name="ListView_Configurations" Margin="20 40 20 20" SelectionChanged="ListView_Configurations_SelectionChanged"
-                                                          GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" MouseDoubleClick="ListView_TesterTests_MouseDoubleClick">
+                                                          GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
 
                                         <ListView.ItemContainerStyle>
                                             <Style TargetType="{x:Type ListViewItem}">

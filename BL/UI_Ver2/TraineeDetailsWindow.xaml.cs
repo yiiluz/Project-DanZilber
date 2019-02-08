@@ -283,8 +283,11 @@ namespace UI_Ver2
         }
         private void CmbBx_City_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CmbBx_Street.IsEnabled = true;
-            CmbBx_Street.ItemsSource = MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem);
+            if (CmbBx_City.SelectedItem != null)
+            {
+                CmbBx_Street.IsEnabled = true;
+                CmbBx_Street.ItemsSource = MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem);
+            }
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {

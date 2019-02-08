@@ -72,6 +72,8 @@ namespace UI_Ver2
 
         private void MenuItem_Click_UpdateTesterDetails(object sender, RoutedEventArgs e)
         {
+            if (TestersList.SelectedItem == null)
+                return;
             Tester tester;
             tester = MainWindow.bl.GetTesterByID((TestersList.SelectedItem as Tester).Id);
             TesterDetailsWindow testerDetailsWindow = new TesterDetailsWindow(tester, "Update");
@@ -82,6 +84,8 @@ namespace UI_Ver2
         }
         private void MenuItem_ClickRemoveTester(object sender, RoutedEventArgs e)
         {
+            if ((Tester)TestersList.SelectedItem == null)
+                return;
             if (MessageBox.Show("Are yoe sure you want to delete this Tester?", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 List<TesterTest> abortedTests;
@@ -106,7 +110,8 @@ namespace UI_Ver2
         }
         private void MenuItem_Click_Information(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(TestersList.SelectedItem.ToString(), "SearchItem", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (TestersList.SelectedItem != null)
+                MessageBox.Show(TestersList.SelectedItem.ToString(), "SearchItem", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ButtonClick_Close(object sender, RoutedEventArgs e)
