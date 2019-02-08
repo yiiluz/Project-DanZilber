@@ -23,6 +23,7 @@ namespace UI_Ver2
         private TesterTest testResult;
         public TesterResultUpdateWindow(TesterTest test)
         {
+            this.FlowDirection = FlowDirection.RightToLeft;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             this.testResult = test;
@@ -43,7 +44,7 @@ namespace UI_Ver2
         {
             if (IsMissingDetails() == false)
             {
-                MessageBox.Show("All details must be entered! Payattention, Notes must be unlist 30 characters", "Test Update", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("יש למלא את כל השדות!\nשדה הערות הבוחן חייב להכיל לפחות 30 תווים.", "עידכון מבחן", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 return;
             }
             Close();
@@ -53,16 +54,16 @@ namespace UI_Ver2
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "שגיאה פנימית", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 return;
             }
-            MessageBox.Show("Test successfully updated!", "Test Update", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("מבחן עודכן בהצלחה!", "עידכון מבחן", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to Cancel?", "Cancel Option", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show("האם אתה בטוח שברצונך לבטל?", "ביטול", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == MessageBoxResult.Yes)
             {
                 Close();
             }

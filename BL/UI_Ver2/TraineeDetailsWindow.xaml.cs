@@ -24,24 +24,28 @@ namespace UI_Ver2
         public string operation = "Add";
         public TraineeDetailsWindow()
         {
+            this.FlowDirection = FlowDirection.RightToLeft;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             trainee = new Trainee("");
             this.DataContext = trainee;
             InitializeComponent();
+            DatePicker_BirthDay.DisplayDate = DateTime.Now.AddYears(-20);
             CombBx_CurrCar.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
-            CombBx_CurrCar.SelectedItem = BO.CarTypeEnum.MotorCycle;
+            CombBx_CurrCar.SelectedItem = BO.CarTypeEnum.אופנוע;
             CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
-            CombBx_Gender.SelectedItem = BO.GenderEnum.Male;
+            CombBx_Gender.SelectedItem = BO.GenderEnum.זכר;
             CmbBx_City.ItemsSource = MainWindow.cities;
             CmbBx_Street.IsEnabled = false;
         }
         public TraineeDetailsWindow(Trainee t, string oper)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            this.FlowDirection = FlowDirection.RightToLeft;
             operation = oper;
             trainee = t;
             this.DataContext = trainee;
             InitializeComponent();
+            DatePicker_BirthDay.DisplayDate = DateTime.Now.AddYears(-20);
             CombBx_CurrCar.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
             CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
             CmbBx_City.ItemsSource = MainWindow.cities;
@@ -51,8 +55,8 @@ namespace UI_Ver2
             {
                 case "Update":
                     TxtBx_ID.IsEnabled = false;
-                    Button_Add.Content = oper;
-                    Label_Header.Content = "Change Details, and then click 'Update'.";
+                    Button_Add.Content = "שמור שינויים";
+                    Label_Header.Content = "שנה את הפרטים הדורשים שינוי";
                     
                     break;
                 case "View":
@@ -72,18 +76,6 @@ namespace UI_Ver2
                     CombBx_CurrCar.IsEnabled = false;
                     CombBx_Gender.IsEnabled = false;
 
-                    Label_Header.Content = "Trainee's Details:";
-                    Label_ID.Content = "Trainee ID:";
-                    Label_FirstName.Content = "Trainee First Name:";
-                    Label_LastName.Content = "Trainee Last Name:";
-                    Label_Teacher.Content = "Trainee Teacher Name:";
-                    Label_School.Content = "Trainee School Name:";
-                    Label_Phone.Content = "Trainee Phone Number:";
-                    Label_NumLessons.Content = "Num Of Finished Lessons:";
-                    Label_Address.Content = "Trainee Address:";
-                    Label_BirthDay.Content = "Trainee Birth Date:";
-                    Label_CurrCar.Content = "Trainee Current Car:";
-                    Label_Gender.Content = "Trainee Gender:";
                     Button_Add.Visibility = Visibility.Collapsed;
                     Button_Cancel.Visibility = Visibility.Collapsed;
                     Button_OK.Visibility = Visibility.Visible;
@@ -104,12 +96,12 @@ namespace UI_Ver2
                 (!TxtBx_BuildNum.Text.All(char.IsDigit) || (TxtBx_BuildNum.Text.Length == 0))
                 )
             {
-                MessageBox.Show("You must fill all fields as needed.", "Can't " + operation, MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("עליך למלאות את כל הפרטים כנדרש.", "פעולה נכשלה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 return;
             }
             if (!MainWindow.cities.Exists(x => x == (string)CmbBx_City.SelectedItem) || !MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem).ToList().Exists(x => x == (string)CmbBx_Street.SelectedItem))
             {
-                MessageBox.Show("Address input was wrong.", "Can't " + operation, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("קלט הכתובת שגוי.", "פעולה נכשלה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 return;
             }
             trainee.IsAlreadyDidTest = trainee.LastTest.ToShortDateString() != "01/01/0001" && trainee.LastTest < DateTime.Now;
@@ -123,13 +115,13 @@ namespace UI_Ver2
                     }
                     catch (DuplicateWaitObjectException ex)
                     {
-                        MessageBox.Show(ex.Message, "Already exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("תלמיד עם תעודת זהות זו כבר נמצא במערכת.", "בעיית כפילויות", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         this.Close();
                         return;
                     }
                     catch (ArgumentOutOfRangeException ex)
                     {
-                        var result = MessageBox.Show(ex.Message + "\nDo you want to try agein?", "Age is Wrong", MessageBoxButton.YesNo);
+                        var result = MessageBox.Show(ex.Message + "\nהאם תרצה לנסות שוב?", "גיל מחוץ לטווח", MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         if (MessageBoxResult.No == result)
                         {
                             Close();
@@ -141,11 +133,11 @@ namespace UI_Ver2
                     catch (Exception ex)
                     {
 
-                        MessageBox.Show(ex.Message, "Internal Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "שגיאה פנימית", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         Close();
                         return;
                     }
-                    MessageBox.Show("Successfuly added trainee!", "Add Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("תלמיד התווסף בהצלחה!", "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     Close();
                     break;
                 case "Update":
@@ -155,11 +147,11 @@ namespace UI_Ver2
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Internal Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "שגיאה פנימית", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         Close();
                         return;
                     }
-                    MessageBox.Show("Successfuly Updated trainee!", "Update Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("פרטי תלמיד עודכנו בהצלחה!", "סטטוס עידכון", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     Close();
                     break;
             }
@@ -265,7 +257,7 @@ namespace UI_Ver2
 
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to cancel? Trainee deteils that changed will be Lost.", "Cancel Request", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            var result = MessageBox.Show("האם אתה בטוח שברצונך לבטל את הפעולה?\nלא יתרחש שום שינוי.", "בקשת ביטול", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             if (result == MessageBoxResult.OK)
                 Close();
 

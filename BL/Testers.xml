@@ -1,2 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Testers />
+<Testers>
+  <Tester>
+    <Person>
+      <ID>209492065</ID>
+      <Name>
+        <FirstName>איציק</FirstName>
+        <LastName>אילוז</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>אלעד</City>
+        <Street>אלעד</Street>
+        <BuildingNumber>10</BuildingNumber>
+      </Address>
+      <DateOfBirth>1975-01-01T00:00:00</DateOfBirth>
+      <PhoneNumber>0532232980</PhoneNumber>
+    </Person>
+    <Seniority>10</Seniority>
+    <MaxDistance>100</MaxDistance>
+    <MaxTestsPerWeek>10</MaxTestsPerWeek>
+    <TypeCarToTest>MotorCycle</TypeCarToTest>
+  </Tester>
+</Testers>

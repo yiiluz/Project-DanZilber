@@ -33,6 +33,7 @@ namespace UI_Ver2
 
         //for resizing option
         static int resizeMode = 0;
+        static int numOfActivatedMainWindow = 0;
         //passwords
         string adminPass = "1111", officePass = "1111";
 
@@ -51,6 +52,7 @@ namespace UI_Ver2
 
         public MainWindow()
         {
+            numOfActivatedMainWindow++;
             this.FlowDirection = FlowDirection.RightToLeft;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
@@ -69,12 +71,12 @@ namespace UI_Ver2
 
         private void Button_Click_CloseWindow(object sender, EventArgs e)
         {
-            Environment.Exit(Environment.ExitCode);
+            if (--numOfActivatedMainWindow == 0)
+                Environment.Exit(Environment.ExitCode);
         }
         private void Button_Click_CloseWindow(object sender, RoutedEventArgs e)
         {
             this.Close();
-            Environment.Exit(Environment.ExitCode);
         }
         private void Button_Click_MinimizeWindow(object sender, RoutedEventArgs e)
         {
@@ -147,7 +149,7 @@ namespace UI_Ver2
             }
             catch (KeyNotFoundException a)
             {
-                MessageBox.Show(a.Message,"מערכת לניהול מבחני נהיגה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(a.Message, "מערכת לניהול מבחני נהיגה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

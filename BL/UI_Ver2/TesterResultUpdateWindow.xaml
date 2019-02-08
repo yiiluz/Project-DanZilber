@@ -24,7 +24,7 @@
         <Grid x:Name="buttons">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*"/>
@@ -34,65 +34,66 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-            <Border Grid.ColumnSpan="2" Padding="5" BorderBrush="LightBlue" BorderThickness="3" CornerRadius="10">
+            <Border Grid.ColumnSpan="2" Padding="5" BorderBrush="LightBlue" BorderThickness="3" CornerRadius="1" Margin="20 5">
                 <StackPanel HorizontalAlignment="Stretch">
-                    <Label Content="Test Details:" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Label Content="פרטי המבחן:" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Test ID:"/>
+                        <TextBlock Text="מספר מבחן:"/>
                         <TextBlock Text="{Binding Path=TestId, Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Date of test:"/>
+                        <TextBlock Text="תאריך מבחן:"/>
                         <TextBlock Text="{Binding Path=DateOfTest,StringFormat=dd/MM/yyyy, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="The hour of the test:"/>
+                        <TextBlock Text="שעת המבחן:"/>
                         <TextBlock Text="{Binding Path=HourOfTest,Mode=OneWay,StringFormat={}{0}:00}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Exit address:"/>
+                        <TextBlock Text="כתובת התחלת המבחן:"/>
                         <TextBlock Text="{Binding Path=StartTestAddress,Mode=OneWay}"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
-            <Label Grid.Row="1" x:Name="l" Content="Distance Keeping:"/>
-            <Label Grid.Row="2" x:Name="l1" Content="Reverse Parking:"/>
-            <Label Grid.Row="3" x:Name="l2" Content="Mirrors Check:"/>
-            <Label Grid.Row="4" x:Name="l3" Content="Correct Speed:"/>
-            <Label Grid.Row="5" x:Name="l4" Content="Signals:"/>
-            <Label Grid.Row="6" x:Name="l5" Content="Is Passed:"/>
-            <Label Grid.Row="7" x:Name="l6" VerticalAlignment="Top" Content="Tester Notes:"/>
-            <StackPanel x:Name="DistanceKeeping" Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1"  VerticalAlignment="Center">
-                <RadioButton x:Name="DistanceKeeping1" Content="Yes " IsChecked="{Binding Path=DistanceKeeping ,Mode=OneWayToSource}" Margin="15 0"/>
-                <RadioButton x:Name="DistanceKeeping2" Content="No "/>
+            <Label Margin="20 0" Grid.Row="1" x:Name="l" Content="שמירת מרחק:"/>
+            <Label Margin="20 0" Grid.Row="2" x:Name="l1" Content="חניה ברוורס:"/>
+            <Label Margin="20 0" Grid.Row="3" x:Name="l2" Content="מבטים למראות:"/>
+            <Label Margin="20 0" Grid.Row="4" x:Name="l3" Content="מהירות מתאימה:"/>
+            <Label Margin="20 0" Grid.Row="5" x:Name="l4" Content="איתותים:"/>
+            <Label Margin="20 0" Grid.Row="6" x:Name="l5" Content="תוצאה סופית:" FontWeight="Bold"/>
+            <Label Margin="20 0" Grid.Row="7" x:Name="l6" VerticalAlignment="Top" Content="הערות הבוחן:"/>
+            <StackPanel Width="200" x:Name="DistanceKeeping" Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1"  VerticalAlignment="Center">
+                <RadioButton Margin="0 0 28 0" x:Name="DistanceKeeping1" Content="שמר" IsChecked="{Binding Path=DistanceKeeping ,Mode=OneWayToSource}"/>
+                <RadioButton x:Name="DistanceKeeping2" Content="לא שמר"/>
             </StackPanel>
-            <StackPanel Grid.Column="1" x:Name="ReverseParking" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2">
-                <RadioButton x:Name="ReverseParking1" Content="Yes " IsChecked="{Binding Path=ReverseParking,Mode=OneWayToSource}" Margin="15 0"/>
-                <RadioButton  x:Name="ReverseParking2" Content="No "/>
+            <StackPanel Width="200" Grid.Column="1" x:Name="ReverseParking" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2">
+                <RadioButton Margin="0 0 30 0" x:Name="ReverseParking1" Content="עבר" IsChecked="{Binding Path=ReverseParking,Mode=OneWayToSource}"/>
+                <RadioButton  x:Name="ReverseParking2" Content="נכשל"/>
             </StackPanel>
-            <StackPanel Grid.Column="1"  VerticalAlignment="Center"  x:Name="MirrorsCheck" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3">
-                <RadioButton x:Name="MirrorsCheck1"  VerticalAlignment="Center" Content="Yes " IsChecked="{Binding Path=MirrorsCheck,Mode=OneWayToSource}" Margin="15 0"/>
-                <RadioButton x:Name="MirrorsChec2" VerticalAlignment="Center" Content="No "/>
+            <StackPanel Width="200" Grid.Column="1"  VerticalAlignment="Center"  x:Name="MirrorsCheck" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3">
+                <RadioButton x:Name="MirrorsCheck1"  VerticalAlignment="Center" Content="עבר" IsChecked="{Binding Path=MirrorsCheck,Mode=OneWayToSource}" Margin="0 0 30 0"/>
+                <RadioButton x:Name="MirrorsChec2" VerticalAlignment="Center" Content="נכשל"/>
             </StackPanel>
-            <StackPanel Grid.Column="1" x:Name="CorrectSpeed"  VerticalAlignment="Center"   Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="4">
-                <RadioButton  x:Name="CorrectSpeed1" VerticalAlignment="Center" Content="Yes " IsChecked="{Binding Path=CorrectSpeed,Mode=OneWayToSource}" Margin="15 0"/>
-                <RadioButton x:Name="CorrectSpeed2" VerticalAlignment="Center" Content="No "/>
+            <StackPanel Width="200" Grid.Column="1" x:Name="CorrectSpeed"  VerticalAlignment="Center"   Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="4" >
+                <RadioButton  x:Name="CorrectSpeed1" VerticalAlignment="Center" Content="שמר" IsChecked="{Binding Path=CorrectSpeed,Mode=OneWayToSource}" Margin="0 0 27 0"/>
+                <RadioButton x:Name="CorrectSpeed2" VerticalAlignment="Center" Content="לא שמר"/>
             </StackPanel>
-            <StackPanel Grid.Column="1" x:Name="Signals"  VerticalAlignment="Center"  Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="5">
-                <RadioButton x:Name="Signals1" VerticalAlignment="Center" Content="Yes " IsChecked="{Binding Path=Signals, Mode=OneWayToSource}" Margin="15 0"/>
-                <RadioButton x:Name="Signals2" VerticalAlignment="Center" Content="No "/>
+            <StackPanel Width="200" Grid.Column="1" x:Name="Signals"  VerticalAlignment="Center"  Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="5">
+                <RadioButton x:Name="Signals1" VerticalAlignment="Center" Content="אותת" IsChecked="{Binding Path=Signals, Mode=OneWayToSource}" Margin="0 0 23 0"/>
+                <RadioButton x:Name="Signals2" VerticalAlignment="Center" Content="לא אותת"/>
+            </StackPanel >
+            <StackPanel Width="200" Grid.Column="1" x:Name="IsPassed"  VerticalAlignment="Center"  Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Row="6">
+                <RadioButton x:Name="IsPassed1" FontWeight="Bold" VerticalAlignment="Center" Content="עבר" IsChecked="{Binding Path=IsPassed,Mode=OneWayToSource}" Margin="0 0 30 0"/>
+                <RadioButton x:Name="IsPassed2" FontWeight="Bold" VerticalAlignment="Center" Content="נכשל"/>
             </StackPanel>
-            <StackPanel Grid.Column="1" x:Name="IsPassed"  VerticalAlignment="Center"  Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Row="6">
-                <RadioButton x:Name="IsPassed1" VerticalAlignment="Center" Content="Yes " IsChecked="{Binding Path=IsPassed,Mode=OneWayToSource}" Margin="15 0"/>
-                <RadioButton x:Name="IsPassed2" VerticalAlignment="Center" Content="No "/>
-            </StackPanel>
-            <TextBox Margin="150 5 0 5" AcceptsReturn="True" TextWrapping="Wrap" VerticalAlignment="Stretch" x:Name="TesterNotes" Grid.ColumnSpan="2" Grid.Row="7" Text="{Binding Path=TesterNotes,Mode=OneWayToSource}"/>
-            <StackPanel Grid.Row="8" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
-                <Button x:Name="UpdateButton" Grid.ColumnSpan="2" Content="Update"  Grid.Row="8" Click="ClickUpdate"/>
-                <Button x:Name="CancelButton" Grid.ColumnSpan="2" Content="Cancel"  Grid.Row="8" Click="CancelButton_Click"/>
+            <TextBox Margin="0 5 0 5" AcceptsReturn="True" TextWrapping="Wrap" VerticalAlignment="Stretch" x:Name="TesterNotes" Grid.ColumnSpan="2" Grid.Row="8" Text="{Binding Path=TesterNotes,Mode=OneWayToSource}"/>
+            <StackPanel Grid.Row="9" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                <Button x:Name="UpdateButton" Grid.ColumnSpan="2" Content="עדכן תוצאות"  Grid.Row="8" Click="ClickUpdate"/>
+                <Button x:Name="CancelButton" Grid.ColumnSpan="2" Content="ביטול"  Grid.Row="8" Click="CancelButton_Click"/>
             </StackPanel>
         </Grid>
     </Border>
