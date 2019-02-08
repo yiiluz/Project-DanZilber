@@ -856,10 +856,11 @@ namespace BL
                                                 IsTestersWorkAtSpesificHour(x, dataSourse.HourOfTest));
             if (optionalTesters.Count == 0)
                 throw new KeyNotFoundException("שגיאה! לא קיים בוחן העובד בשעה הרצויה, אנא נסה בשעה אחרת.");
+            bool IsAddressErrorOccur = false;
             try
             {
                 optionalTesters = (from tester in optionalTesters
-                                   let x = GetDistanceBetweenTwoAddresses(dataSourse.StartTestAddress, tester.Address)
+                                   let x = GetDistanceBetweenTwoAddresses(dataSourse.StartTestAddress, tester.Address, ref IsAddressErrorOccur)
                                    where x <= tester.MaxDistance && x >= 0
                                    select tester).ToList();
             }
@@ -868,7 +869,11 @@ namespace BL
                 throw new InternalBufferOverflowException();
             }
             if (optionalTesters.Count == 0)
+            {
+                if (IsAddressErrorOccur)
+                    throw new KeyNotFoundException("שגיאה! אחת מהכתובות במשך תהליך החיפוש אחר טסטר לא הייתה תקינה.");
                 throw new KeyNotFoundException("שגיאה!  אין בוחנים עבור כתובת זו.");
+            }
             //if there is no tester availiable for this hour
             if (optionalTesters.Count == 0)
                 return optionalTests;
@@ -911,11 +916,12 @@ namespace BL
                                             IsTesterAvailiableOnDateAndHour(x, dataSourse.DateOfTest) &&
                                             GetAvailiableHoursOfTesterForSpesificDate(x, dataSourse.DateOfTest).Count != 0);
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException("שגיאה!  אין בוחן העובד בתאריך המבוקש, אנא בחר מועד אחר.");
+                throw new KeyNotFoundException("אין בוחן העובד בתאריך שהתבקש.");
+            bool IsAddressErrorOccur = false;
             try
             {
                 optionalTesters = (from tester in optionalTesters
-                                   let x = GetDistanceBetweenTwoAddresses(dataSourse.StartTestAddress, tester.Address)
+                                   let x = GetDistanceBetweenTwoAddresses(dataSourse.StartTestAddress, tester.Address, ref IsAddressErrorOccur)
                                    where x <= tester.MaxDistance && x >= 0
                                    select tester).ToList();
             }
@@ -924,7 +930,12 @@ namespace BL
                 throw new InternalBufferOverflowException();
             }
             if (optionalTesters.Count == 0)
+            {
+                if (IsAddressErrorOccur)
+                    throw new KeyNotFoundException("שגיאה! אחת מהכתובות במשך תהליך החיפוש אחר טסטר לא הייתה תקינה.");
                 throw new KeyNotFoundException("שגיאה!  אין בוחנים עבור כתובת זו.");
+            }
+                
             bool[] tmp = new bool[6]; //tmp array for delete dublicates.
             for (int i = 0; i < 6; ++i)
                 tmp[i] = false;
@@ -1355,7 +1366,7 @@ namespace BL
         //}
 
 
-        double GetDistanceBetweenTwoAddresses(Address a, Address b)
+        double GetDistanceBetweenTwoAddresses(Address a, Address b, ref bool addressError)
         {
             double CalculatedDistance = 0;
             bool isNetBuisy = false;
@@ -1400,6 +1411,8 @@ namespace BL
                 "402")
                 //we have an answer that an error occurred, one of the addresses is not found
                 {
+                    if (!addressError)
+                        addressError = true;
                     return -1;
                 }
                 else //busy network or other error...

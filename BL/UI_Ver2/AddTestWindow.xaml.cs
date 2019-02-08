@@ -280,7 +280,7 @@ namespace UI_Ver2
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        MessageBox.Show("אין מבחן בזמן שהתבקש.\n" + ex.Message + "\nאתה יכול לנסות שוב.", "נכשל", MessageBoxButton.OK, MessageBoxImage.Hand, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        MessageBox.Show("לא ניתן לקבוע מבחן בתאריך זה.\n" + ex.Message + "\nאתה יכול לנסות שוב.", "נכשל", MessageBoxButton.OK, MessageBoxImage.Hand, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         worker.CancelAsync();
                         break;
                     }
