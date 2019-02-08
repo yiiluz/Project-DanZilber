@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Configurations>
   <Configuration>
-    <Key>Tester minimum age</Key>
+    <Key>גיל בוחן מינימלי</Key>
     <Value>
       <Readable>True</Readable>
       <Writable>True</Writable>
@@ -9,7 +9,7 @@
     </Value>
   </Configuration>
   <Configuration>
-    <Key>Minimum days between tests</Key>
+    <Key>מינימום ימים בין טסטים</Key>
     <Value>
       <Readable>True</Readable>
       <Writable>True</Writable>
@@ -17,7 +17,7 @@
     </Value>
   </Configuration>
   <Configuration>
-    <Key>Trainee minimum age</Key>
+    <Key>גיל נבחן מינימלי</Key>
     <Value>
       <Readable>True</Readable>
       <Writable>True</Writable>
@@ -25,7 +25,15 @@
     </Value>
   </Configuration>
   <Configuration>
-    <Key>Minimum lessons</Key>
+    <Key>גיל נבחן מקסימלי</Key>
+    <Value>
+      <Readable>True</Readable>
+      <Writable>True</Writable>
+      <value>80</value>
+    </Value>
+  </Configuration>
+  <Configuration>
+    <Key>מספר שיעורים מינימלי</Key>
     <Value>
       <Readable>True</Readable>
       <Writable>True</Writable>
@@ -33,7 +41,7 @@
     </Value>
   </Configuration>
   <Configuration>
-    <Key>Tester maximum age</Key>
+    <Key>גיל בוחן מקסימלי</Key>
     <Value>
       <Readable>True</Readable>
       <Writable>True</Writable>
@@ -41,7 +49,7 @@
     </Value>
   </Configuration>
   <Configuration>
-    <Key>Serial Number Test</Key>
+    <Key>מספר מבחן</Key>
     <Value>
       <Readable>True</Readable>
       <Writable>True</Writable>

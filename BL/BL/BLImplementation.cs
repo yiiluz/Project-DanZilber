@@ -234,19 +234,20 @@ namespace BL
         /// <param name="trainee"></param>
         public void AddTrainee(Trainee t)
         {
-            int minAge;
+            int minAge, maxAge;
             try
             {
                 minAge = (int)Configuretion.ConfiguretionsDictionary["Trainee minimum age"];
+                maxAge = (int)Configuretion.ConfiguretionsDictionary["Trainee maximum age"];
             }
             catch (KeyNotFoundException e)
             {
                 throw e;
             }
-            int traineeAge = (DateTime.Now.Year - t.DateOfBirth.Year);
-            if (traineeAge < minAge)
+            int traineeTest = (DateTime.Now.Year - t.DateOfBirth.Year);
+            if (traineeTest < minAge || traineeTest > maxAge)
             {
-                throw new ArgumentOutOfRangeException( minAge + ":שגיאה! גיל התלמיד מתחת לגיל המינימום");
+                throw new ArgumentOutOfRangeException(minAge + "-" + maxAge + "שגיאה! גיל הנבחן אינו בטווח הנדרש.");
             }
             else try
                 {

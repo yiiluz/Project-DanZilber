@@ -24,9 +24,11 @@ namespace UI_Ver2
         public TesterDetailsWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            this.FlowDirection = FlowDirection.RightToLeft;
             tester = new BO.Tester();
             this.DataContext = tester;
             InitializeComponent();
+            DatePicker_BirthDay.DisplayDate = DateTime.Now.AddYears(-30);
             CombBx_TypeCarToTest.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
             CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
             CombBx_TypeCarToTest.SelectedItem = BO.CarTypeEnum.אופנוע;
@@ -42,11 +44,13 @@ namespace UI_Ver2
         }
         public TesterDetailsWindow(Tester t, string oper)
         {
+            this.FlowDirection = FlowDirection.RightToLeft;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             operation = oper;
             tester = t;
             this.DataContext = tester;
             InitializeComponent();
+            DatePicker_BirthDay.DisplayDate = DateTime.Now.AddYears(-30);
             TxtBx_ID.IsEnabled = false;
             foreach (var item in HoursWork.Children.OfType<CheckBox>())//initial checkBoxs
             {
@@ -60,8 +64,8 @@ namespace UI_Ver2
             switch (oper)
             {
                 case "Update":
-                    Button_Add.Content = "Update";
-                    Label_Header.Content = "Tester's Details. Change the needed values.";
+                    Button_Add.Content = "שמור שינויים";
+                    Label_Header.Content = "שנה את הפרטים שברצונך לשנות";
                     CombBx_TypeCarToTest.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
                     CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
                     break;
@@ -84,19 +88,6 @@ namespace UI_Ver2
                     {
                         item.IsEnabled = false;
                     }
-
-                    Label_Header.Content = "Tester's Details:";
-                    Label_ID.Content = "Tester ID:";
-                    Label_FirstName.Content = "Tester First Name:";
-                    Label_LastName.Content = "Tester Last Name:";
-                    Label_Seniority.Content = "Tester Seniority:";
-                    Label_MaxTestPerWeek.Content = "Tester Max Tests Per Week:";
-                    Label_MaxDistance.Content = "Tester Max Distance To Test:";
-                    Label_Phone.Content = "Tester Phone Number:";
-                    Label_Address.Content = "Tester Address:";
-                    Label_BirthDay.Content = "Tester Birth Date:";
-                    Label_TypeCarToTest.Content = "Tester Type Car To Test:";
-                    Label_Gender.Content = "Tester Gender:";
                     //label_WorkTimes.Content = "Tester Weekly Working Hours And Days:";
                     Button_Add.Visibility = Visibility.Collapsed;
                     Button_Cancel.Visibility = Visibility.Collapsed;
@@ -121,13 +112,12 @@ namespace UI_Ver2
                 (!TxtBx_Seniority.Text.All(char.IsDigit) || (TxtBx_Seniority.Text.Length == 0))
                 )
             {
-                MessageBox.Show("You must fill all fields as needed.", "Can't " + operation, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("עליך למלא את כל השדות כנדרש.", "פעולה נכשלה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 return;
             }
             if (!MainWindow.cities.Exists(x => x == (string)CmbBx_City.SelectedItem) || !MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem).ToList().Exists(x => x == (string)CmbBx_Street.SelectedItem))
             {
-                MessageBox.Show("Address input was wrong.", "Can't " + operation, MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                MessageBox.Show("קלט הכתובת שגוי.", "פעולה נכשלה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
             foreach (var item in HoursWork.Children.OfType<CheckBox>())
             {
@@ -145,13 +135,13 @@ namespace UI_Ver2
                     }
                     catch (DuplicateWaitObjectException ex)
                     {
-                        MessageBox.Show(ex.Message, "Already exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "שגיאת כפילויות", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         Close();
                         return;
                     }
                     catch (ArgumentOutOfRangeException ex)
                     {
-                        var result = MessageBox.Show(ex.Message + "\nDo you want to try agein?", "Age is Wrong", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                        var result = MessageBox.Show(ex.Message + "\nהאם ברצונך לנסות שוב?", "גיל מחוץ לטווח", MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         if (MessageBoxResult.No == result)
                         {
                             Close();
@@ -163,11 +153,11 @@ namespace UI_Ver2
                     catch (Exception ex)
                     {
 
-                        MessageBox.Show(ex.Message, "Internal Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "שגיאה פנימית", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         Close();
                         return;
                     }
-                    MessageBox.Show("Successfuly added tester!", "Add Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("הבוחן התווסף בהצלחה למערכת!", "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     Close();
                     break;
                 case "Update":
@@ -177,11 +167,11 @@ namespace UI_Ver2
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Internal Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "שגיאה פנימית", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         Close();
                         return;
                     }
-                    MessageBox.Show("Successfuly Updated tester!", "Update Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("פרטי בוחן עודכנו בהצלחה!", "סטטוס עידכון", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     Close();
                     break;
             }
@@ -303,7 +293,7 @@ namespace UI_Ver2
         }
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to cancel? Tester details that changed will be Lost.", "Cancel Request", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            var result = MessageBox.Show("האם את בטוח שברצונך לבטל?\nהשינויים לא יישמרו.", "בקשת ביטול", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             if (result == MessageBoxResult.OK)
                 Close();
 

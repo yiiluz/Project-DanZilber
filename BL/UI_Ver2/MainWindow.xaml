@@ -531,7 +531,7 @@
                                                     </ListView.View>
                                                     <ListView.ContextMenu >
                                                         <ContextMenu>
-                                                            <MenuItem Header="Update Test Result" Click="MenuItem_Click_UpdateTestResult"/>
+                                                            <MenuItem Header="עדכן תוצאות מבחן" Click="MenuItem_Click_UpdateTestResult"/>
                                                         </ContextMenu>
                                                     </ListView.ContextMenu>
                                                 </ListView>
@@ -665,10 +665,6 @@
                                                             <GridViewColumn Header="עיר המבחן" DisplayMemberBinding="{Binding City}" Width="110"/>
                                                         </GridView>
                                                     </ListView.View>
-                                                    <ListView.ContextMenu >
-                                                        <ContextMenu>
-                                                        </ContextMenu>
-                                                    </ListView.ContextMenu>
                                                 </ListView>
                                             </Grid>
                                         </Border>

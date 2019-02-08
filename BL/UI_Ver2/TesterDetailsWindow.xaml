@@ -41,38 +41,38 @@
 
             </Grid.RowDefinitions>
 
-            <Label x:Name="Label_Header" Content="Add Tester details:"/>
-            <Label x:Name="Label_ID" Content="Enter ID" Grid.Row="1" Grid.Column="0"/>
+            <Label x:Name="Label_Header" Content="הזן פרטי בוחן:"/>
+            <Label x:Name="Label_ID" Content="מספר ת.ז.:" Grid.Row="1" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_ID" Grid.Column="1" Grid.Row="1" MaxLength="9" LostFocus="TxtBx_ID_LostFocus" GotFocus="TxtBx_ID_GotFocus" Text="{Binding Path=Id, Mode=OneWay}" Grid.ColumnSpan="3"/>
-            <Label x:Name="Label_FirstName" Content="Enter Tester's First Name" Grid.Row="2" Grid.Column="0"/>
+            <Label x:Name="Label_FirstName" Content="שם פרטי:" Grid.Row="2" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_FirstName" Grid.Column="1" Grid.Row="2" LostFocus="TxtBx_FirstName_LostFocus" GotFocus="TxtBx_FirstName_GotFocus" Text="{Binding Path=FirstName, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-            <Label x:Name="Label_LastName" Content="Enter Tester's Last Name" Grid.Row="3" Grid.Column="0"/>
+            <Label x:Name="Label_LastName" Content="שם משפחה:" Grid.Row="3" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_LastName" Grid.Column="1" Grid.Row="3" LostFocus="TxtBx_LastName_LostFocus" GotFocus="TxtBx_LastName_GotFocus" Text="{Binding Path=LastName, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-            <Label x:Name="Label_Seniority" Content="Enter Tester's Seniority" Grid.Row="4" Grid.Column="0"/>
+            <Label x:Name="Label_Seniority" Content="שנות ניסיון:" Grid.Row="4" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_Seniority" Grid.Column="1" Grid.Row="4" LostFocus="TxtBx_Seniority_LostFocus" GotFocus="TxtBx_Seniority_GotFocus" Text="{Binding Path=Seniority, Mode=TwoWay}" Grid.ColumnSpan="3" />
-            <Label x:Name="Label_MaxTestPerWeek" Content="Enter Tester's Max Tests Per Week" Grid.Row="5" Grid.Column="0"/>
+            <Label x:Name="Label_MaxTestPerWeek" Content="מס' מבחנים מקסימלי בשבוע:" Grid.Row="5" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_MaxTestPerWeek" Grid.Column="1" Grid.Row="5" LostFocus="TxtBx_MaxTestPerWeek_LostFocus" GotFocus="TxtBx_MaxTestPerWeek_GotFocus" Text="{Binding Path=MaxTestsPerWeek, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-            <Label x:Name="Label_Phone" Content="Enter Testers's Phone Number" Grid.Row="6" Grid.Column="0"/>
+            <Label x:Name="Label_Phone" Content="מס' פלאפון:" Grid.Row="6" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_Phone" Grid.Column="1" Grid.Row="6" LostFocus="TxtBx_Phone_LostFocus" GotFocus="TxtBx_Phone_GotFocus" Text="{Binding Path=PhoneNumber, Mode=TwoWay}" MaxLength="10" Grid.ColumnSpan="3"/>
-            <Label x:Name="Label_MaxDistance" Content="Enter Max Distance from Test" Grid.Row="7" Grid.Column="0"/>
+            <Label x:Name="Label_MaxDistance" Content="מרחק (בק&quot;מ) מקסימלי לבחינה:" Grid.Row="7" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_MaxDistance"  Grid.Column="1" Grid.Row="7" LostFocus="TxtBx_MaxDistance_LostFocus" GotFocus="TxtBx_MaxDistance_GotFocus" Text="{Binding Path=MaxDistance, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-            <Label x:Name="Label_Address" Content="Enter Tester's Address" Grid.Row="8" Grid.Column="0"/>
-            <ComboBox x:Name="CmbBx_City" Margin="2" Grid.Column="1" Grid.Row="8" SelectedItem="{Binding Path=City, Mode=TwoWay}" Text="Choose City" IsEditable="True" VerticalContentAlignment="Center" SelectionChanged="CmbBx_City_SelectionChanged"/>
-            <ComboBox x:Name="CmbBx_Street" Margin="2" Grid.Column="2" Grid.Row="8" SelectedItem="{Binding Path=Street, Mode=TwoWay}" Text="Choose Street" IsEditable="True" VerticalContentAlignment="Center"/>
+            <Label x:Name="Label_Address" Content="כתובות:" Grid.Row="8" Grid.Column="0"/>
+            <ComboBox x:Name="CmbBx_City" Margin="2" Grid.Column="1" Grid.Row="8" SelectedItem="{Binding Path=City, Mode=TwoWay}" Text="בחר עיר" IsEditable="True" VerticalContentAlignment="Center" SelectionChanged="CmbBx_City_SelectionChanged"/>
+            <ComboBox x:Name="CmbBx_Street" Margin="2" Grid.Column="2" Grid.Row="8" SelectedItem="{Binding Path=Street, Mode=TwoWay}" Text="בחר רחוב" IsEditable="True" VerticalContentAlignment="Center"/>
             <TextBox x:Name="TxtBx_BuildNum" Grid.Column="3" Grid.Row="8" Text="{Binding Path=BuildingNumber, Mode=TwoWay}" LostFocus="TxtBx_BuildNum_LostFocus" GotFocus="TxtBx_BuildNum_GotFocus"/>
-            <Label x:Name="Label_BirthDay" Content="Choose Tester's Birth Day" Grid.Row="9" Grid.Column="0"/>
+            <Label x:Name="Label_BirthDay" Content="תאריך לידה:" Grid.Row="9" Grid.Column="0"/>
             <DatePicker x:Name="DatePicker_BirthDay" Margin="2" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3"  VerticalContentAlignment="Center" SelectedDate="{Binding Path=DateOfBirth, Mode=TwoWay}" DisplayDate="{Binding Path=DateOfBirth}"/>
-            <Label x:Name="Label_TypeCarToTest" Content="Choose Type Car To Test" Grid.Row="10" Grid.Column="0"/>
+            <Label x:Name="Label_TypeCarToTest" Content="התמחות  הבוחן:" Grid.Row="10" Grid.Column="0"/>
             <ComboBox x:Name="CombBx_TypeCarToTest" Margin="2" Grid.Row="10" Grid.ColumnSpan="3" Grid.Column="1" SelectedValue="{Binding Path=TypeCarToTest}"/>
-            <Label x:Name="Label_Gender" Content="Choose Tester's Gender" Grid.Row="11" Grid.Column="0"/>
+            <Label x:Name="Label_Gender" Content="מין הבוחן:" Grid.Row="11" Grid.Column="0"/>
             <ComboBox x:Name="CombBx_Gender" Margin="2" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" SelectedValue="{Binding Path=Gender}"/>
 
-            <Label Content="Tester's Weekly working times" Grid.Column="5" HorizontalAlignment="Center" VerticalContentAlignment="Bottom"/>
-            <Label  Margin="5 0 0 0" Grid.Column="4"  Grid.Row="2" Content="Sunday" VerticalAlignment="Center"/>
-            <Label  Margin="5 0 0 0" Grid.Column="4"  Grid.Row="3" Content="Monday" VerticalAlignment="Center"/>
-            <Label  Margin="5 0 0 0" Grid.Column="4"  Grid.Row="4" Content="Tuesday" VerticalAlignment="Center"/>
-            <Label  Margin="5 0 0 0" Grid.Column="4"  Grid.Row="5" Content="Wednesday" VerticalAlignment="Center"/>
-            <Label  Margin="5 0 0 0" Grid.Column="4"  Grid.Row="6" Content="Thursday" VerticalAlignment="Center"/>
+            <Label Content="שעות עבודה שבועיות של הבוחן:" Grid.Column="5" HorizontalAlignment="Center" VerticalContentAlignment="Bottom"/>
+            <Label  Margin="30 0 0 0" Grid.Column="4"  Grid.Row="2" Content="ראשון" VerticalAlignment="Center"/>
+            <Label  Margin="30 0 0 0" Grid.Column="4"  Grid.Row="3" Content="שני" VerticalAlignment="Center"/>
+            <Label  Margin="30 0 0 0" Grid.Column="4"  Grid.Row="4" Content="שלישי" VerticalAlignment="Center"/>
+            <Label  Margin="30 0 0 0" Grid.Column="4"  Grid.Row="5" Content="רביעי" VerticalAlignment="Center"/>
+            <Label  Margin="30 0 0 0" Grid.Column="4"  Grid.Row="6" Content="חמישי" VerticalAlignment="Center"/>
             <StackPanel Grid.Row="1" Grid.Column="5" Orientation="Horizontal" VerticalAlignment="Bottom">
                 <Label Content="9:00"  Width="52" HorizontalContentAlignment="Center"/>
                 <Label Content="10:00" Width="52" HorizontalContentAlignment="Center"/>
@@ -129,9 +129,9 @@
                 <CheckBox Grid.Column="5" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
             <StackPanel Grid.Row="10" Grid.Column="5" Grid.RowSpan="2" VerticalAlignment="Bottom">
-                <Button x:Name="Button_Add" Content="Add"  Click="Button_Click_Add" Margin="50 0 50 10"/>
-                <Button x:Name="Button_Cancel" Content="Cancel" Click="Button_Click_Cancel" Margin="50 0 50 0"/>
-                <Button x:Name="Button_OK" Content="OK" Click="Button_OK_Click" Visibility="Collapsed" Margin="100 0 0 0"/>
+                <Button x:Name="Button_Add" Content="הוסף"  Click="Button_Click_Add" Margin="50 0 50 10"/>
+                <Button x:Name="Button_Cancel" Content="ביטול" Click="Button_Click_Cancel" Margin="50 0 50 0"/>
+                <Button x:Name="Button_OK" Content="סגור" Click="Button_OK_Click" Visibility="Collapsed" Margin="100 0 0 0"/>
             </StackPanel>
         </Grid>
     </Border>
