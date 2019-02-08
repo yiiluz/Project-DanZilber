@@ -38,15 +38,15 @@ namespace DL
         {
             if (DataSource.tests.Find(x => x.TestId == t.TestId) != null)
             {
-                throw new DuplicateWaitObjectException("ERROR! The test or the test serial already exists in the system ");
+                throw new DuplicateWaitObjectException("שגיאה! המבחן אן מספר המבחן כבר קיים קיים במערכת.  ");
             }
             else if (DataSource.testers.Find(x => x.Id == t.TesterId) == null)
             {
-                throw new KeyNotFoundException("ERROR! The tester does not exist in the system ");
+                throw new KeyNotFoundException("שגיאה! הבוחן אינו קיים במערכת. ");
             }
             else if (DataSource.trainees.Find(x => x.Id == t.TraineeId) == null)
             {
-                throw new KeyNotFoundException("ERROR! The trainee does not exist in the system ");
+                throw new KeyNotFoundException("שגיאה! הנבחן אינו קיים במערכת.");
             }
             else
             {
@@ -57,7 +57,7 @@ namespace DL
         {
             if (DataSource.testers.Find(x => x.Id == t.Id) != null)
             {
-                throw new DuplicateWaitObjectException("This tester is already registered in the system");
+                throw new DuplicateWaitObjectException("שגיאה! הבוחן כבר קיים במערכת.");
             }
             else
             {
@@ -68,7 +68,7 @@ namespace DL
         {
             if (DataSource.trainees.Find(x => x.Id == t.Id) != null)
             {
-                throw new DuplicateWaitObjectException("This trainee is already registered in the system");
+                throw new DuplicateWaitObjectException("שגיאה! הנבחן כבר קיים במערכת.");
             }
             else
             {
@@ -83,7 +83,7 @@ namespace DL
             }
             catch (Exception)
             {
-                throw new KeyNotFoundException("Internal error. Can't add Schedule for id " + id + ".");
+                throw new KeyNotFoundException("שגיאה פנימית! לא ניתן להוסיף תעודת זהות  " + id + ".");
             }
         }
 
@@ -109,7 +109,7 @@ namespace DL
             }
             else
             {
-                throw new KeyNotFoundException("This tester does not exist in the system");
+                throw new KeyNotFoundException("הבוחן אינו קיים במערכת");
             }
         }
         public override void RemoveTrainee(string id)
@@ -120,7 +120,7 @@ namespace DL
             }
             else
             {
-                throw new KeyNotFoundException("This trainee does not exist in the system");
+                throw new KeyNotFoundException("הנבחן אינו קיים במערכת");
             }
         }
         public override void RemoveTest(string id)
@@ -131,7 +131,7 @@ namespace DL
             }
             else
             {
-                throw new KeyNotFoundException("This test does not exist in the system");
+                throw new KeyNotFoundException("המבחן אינו קיים במערכת");
             }
         }
         public override void RemoveTesterSchedule(string id)
@@ -142,7 +142,7 @@ namespace DL
             }
             catch (Exception)
             {
-                throw new KeyNotFoundException("Internal Error. Can't delete Schedule for id " + id + ".");
+                throw new KeyNotFoundException("שגיאה פנימית לא א יכול למחוק מערכת שעות עבור תעודת זהות: " + id + ".");
             }
         }
 
@@ -155,7 +155,7 @@ namespace DL
             }
             else
             {
-                throw new KeyNotFoundException("This test does not exist in the system");
+                throw new KeyNotFoundException("המבחן לא קיים במערכת");
             }
         }
         public override void UpdateTesterDetails(Tester T)
@@ -167,7 +167,7 @@ namespace DL
             }
             else
             {
-                throw new KeyNotFoundException("This tester does not exist in the system");
+                throw new KeyNotFoundException("הבוחן לא קיים במערכת.");
             }
         }
         public override void UpdateTraineeDetails(Trainee T)
@@ -179,7 +179,7 @@ namespace DL
             }
             else
             {
-                throw new KeyNotFoundException("this trainee does not exist in the system");
+                throw new KeyNotFoundException("הנבחן הזה לא קיים במערכת.");
             }
         }
         public override void UpdateTesterSchedule(string id, bool[,] sched)
@@ -190,7 +190,7 @@ namespace DL
             }
             catch (KeyNotFoundException)
             {
-                throw new KeyNotFoundException("Can't Update Schedule. Schedule not exist for id " + id + ".");
+                throw new KeyNotFoundException(" לא ניתן לעדכן מערכת שעות. לא קיים מערכת שעות עבור תעודת זהות זו:" + id + ".");
             }
         }
 
@@ -218,7 +218,7 @@ namespace DL
                         isConfigUpdated = true;
                         return;
                     }
-                    throw new AccessViolationException("ERROR! There is no permission to change this configuration property");
+                    throw new AccessViolationException("שגיאה! אין הרשאה לשנות מאפיין קונפיגורציה זה");
                 }
             }
         }
@@ -228,7 +228,7 @@ namespace DL
             if (DataSource.Configuration[s] != null)
                 return DataSource.Configuration[s];
             else
-            throw new KeyNotFoundException("ERROR! There is no configuration feature with this name");
+            throw new KeyNotFoundException("שגיאה! אין מאפיין קונפיגורציה עם שם זה.");
         }
         public override bool[,] GetTesterSchedule(string id)
         {
@@ -239,7 +239,7 @@ namespace DL
             }
             catch (KeyNotFoundException)
             {
-                throw new KeyNotFoundException("Schedule not exist for id " + id + ".");
+                throw new KeyNotFoundException(" לא קיימת מערכת שעות עבור תעודת זהות:" + id + ".");
             }
             return tmp;
         }

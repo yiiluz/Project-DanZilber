@@ -44,7 +44,7 @@ namespace BL
         }
         public static void UpdateSerialNumber()
         {
-            ConfiguretionsDictionary["Serial Number Test"] = instance.GetConfig("Serial Number Test");
+            ConfiguretionsDictionary["מספר מבחן"] = instance.GetConfig("מספר מבחן");
         }
     }
 }

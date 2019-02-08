@@ -93,8 +93,8 @@ namespace BL
             int minAge, maxAge;
             try
             {
-                minAge = (int)Configuretion.ConfiguretionsDictionary["Tester minimum age"];
-                maxAge = (int)Configuretion.ConfiguretionsDictionary["Tester maximum age"];
+                minAge = (int)Configuretion.ConfiguretionsDictionary["גיל בוחן מינימלי"];
+                maxAge = (int)Configuretion.ConfiguretionsDictionary["גיל בוחן מקסימלי"];
             }
             catch (KeyNotFoundException e)
             {
@@ -198,8 +198,8 @@ namespace BL
                 int minAge, maxAge;
                 try
                 {
-                    minAge = (int)Configuretion.ConfiguretionsDictionary["Tester minimum age"];
-                    maxAge = (int)Configuretion.ConfiguretionsDictionary["Tester maximum age"];
+                    minAge = (int)Configuretion.ConfiguretionsDictionary["גיל בוחן מינימלי"];
+                    maxAge = (int)Configuretion.ConfiguretionsDictionary["גיל בוחן מקסימלי"];
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -237,7 +237,7 @@ namespace BL
             int minAge;
             try
             {
-                minAge = (int)Configuretion.ConfiguretionsDictionary["Trainee minimum age"];
+                minAge = (int)Configuretion.ConfiguretionsDictionary["גיל נבחן מינימלי"];
             }
             catch (KeyNotFoundException e)
             {
@@ -313,7 +313,7 @@ namespace BL
                 int minAge;
                 try
                 {
-                    minAge = (int)Configuretion.ConfiguretionsDictionary["Trainee minimum age"];
+                    minAge = (int)Configuretion.ConfiguretionsDictionary["גיל נבחן מינימלי"];
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -378,8 +378,6 @@ namespace BL
                 //get the trainee and tester objects
                 Trainee trainee = GetTraineeByID(t.ExTrainee.Id);
                 Tester tester = GetTesterByID(t.ExTester.Id);
-                if (trainee.Id == tester.Id)
-                    errors += "שגיאה! בוחן לא יכול לבחון את עצמו, מחשד לניגוד אינטרסים\n";
                 //find last test object
                 Test lastTest;
                 if (trainee.LastTest != DateTime.MinValue)
@@ -388,7 +386,7 @@ namespace BL
                                     && x.ExTrainee.Id == trainee.Id && x.CarType == tester.TypeCarToTest);
                     if (lastTest != null && !lastTest.IsTesterUpdateStatus)
                     {
-                        errors +="-שגיאה! לא ניתן להוסיף לתלמיד מבחן עד אשר התוצאה במבחן ב " + trainee.LastTest.ToShortDateString() + "תהיה זמינה.";
+                        errors +="-שגיאה! לא ניתן להוסיף לתלמיד מבחן עד אשר התוצאה במבחן ב " + trainee.LastTest.ToShortDateString() + "תיהיה זמינה.";
                         errors += "/n";
                     }
                 }
@@ -397,7 +395,7 @@ namespace BL
                     int minDaysBetweenTests = -1;
                     try
                     {
-                        minDaysBetweenTests = (int)Configuretion.ConfiguretionsDictionary["Minimum days between tests"];
+                        minDaysBetweenTests = (int)Configuretion.ConfiguretionsDictionary["מינימום ימים בין מבחנים"];
                     }
                     catch (KeyNotFoundException e)
                     {
@@ -422,7 +420,7 @@ namespace BL
                 int minLesson = -1;
                 try
                 {
-                    minLesson = (int)Configuretion.ConfiguretionsDictionary["Minimum lessons"];
+                    minLesson = (int)Configuretion.ConfiguretionsDictionary["מספר שיעורים מינימלי"];
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -440,7 +438,7 @@ namespace BL
                     int serial = -1;
                     try
                     {
-                        serial = (int)Configuretion.ConfiguretionsDictionary["Serial Number Test"]; //get the serial number of the test
+                        serial = (int)Configuretion.ConfiguretionsDictionary["מספר מבחן"]; //get the serial number of the test
                     }
                     catch (KeyNotFoundException e)
                     {
@@ -451,7 +449,7 @@ namespace BL
                         bool flag = true;
                         try
                         {
-                            instance.SetConfig("Serial Number Test", ++serial); //update the test serial number
+                            instance.SetConfig("מספר מבחן", ++serial); //update the test serial number
                             Configuretion.UpdateSerialNumber();
                         }
                         catch (AccessViolationException e)
@@ -737,7 +735,7 @@ namespace BL
             try
             {
                 if (!(instance.GetTraineeList().Exists(x => x.Id == id)))
-                    throw new KeyNotFoundException(".שגיאה!  לא קיים במערכת תלמיד עם תעודת זהות זו");
+                    throw new KeyNotFoundException("שגיאה!  לא קיים במערכת תלמיד עם תעודת זהות זו.");
                 else
                 {
                     Trainee trainee = Converters.CreateBOTrainee(instance.GetTraineeList().Find(x => x.Id == id));
@@ -786,7 +784,7 @@ namespace BL
                 throw e;
             }
             if (!exists)
-                throw new KeyNotFoundException("שגיאה!  לא קיים במערכת בוחן עם תעודת זהות זו\n");
+                throw new KeyNotFoundException("שגיאה!  לא קיים במערכת בוחן עם תעודת זהות זו.\n");
             else
             {
                 Tester tester = Converters.CreateBOTester(instance.GetTestersList().Find(x => x.Id == id));
@@ -818,7 +816,7 @@ namespace BL
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    throw new KeyNotFoundException( ex.Message + " שגיאה פנימית לא ניתן להטעין מערכת שעות של הבוחן\n");
+                    throw new KeyNotFoundException( ex.Message + " שגיאה פנימית לא ניתן להטעין מערכת שעות של הבוחן.\n");
                 }
                 return tester;
             }
@@ -834,7 +832,7 @@ namespace BL
             try
             {
                 if (!(instance.GetTestsList().Exists(x => x.TestId == id)))
-                    throw new KeyNotFoundException(".שגיאה! מספר מבחן לא קיים במערכת\n");
+                    throw new KeyNotFoundException("שגיאה! מספר מבחן לא קיים במערכת.\n");
                 else
                 {
                     test = Converters.CreateBOTest(instance.GetTestsList().Find(x => x.TestId == id));
@@ -857,7 +855,7 @@ namespace BL
             List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType &&
                                                 IsTestersWorkAtSpesificHour(x, dataSourse.HourOfTest));
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException(".שגיאה! לא קיים בוחן העובד בשעה הרצויה, אנא נסה בשעה אחרת");
+                throw new KeyNotFoundException("שגיאה! לא קיים בוחן העובד בשעה הרצויה, אנא נסה בשעה אחרת.");
             try
             {
                 optionalTesters = (from tester in optionalTesters
@@ -870,7 +868,7 @@ namespace BL
                 throw new InternalBufferOverflowException();
             }
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException(".שגיאה!  אין בוחנים עבור כתובת זו");
+                throw new KeyNotFoundException("שגיאה!  אין בוחנים עבור כתובת זו.");
             //if there is no tester availiable for this hour
             if (optionalTesters.Count == 0)
                 return optionalTests;
@@ -913,7 +911,7 @@ namespace BL
                                             IsTesterAvailiableOnDateAndHour(x, dataSourse.DateOfTest) &&
                                             GetAvailiableHoursOfTesterForSpesificDate(x, dataSourse.DateOfTest).Count != 0);
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException("שגיאה! אין בוחן העובד בתאריך המבוקש, אנא בחר מועד אחר.");
+                throw new KeyNotFoundException("שגיאה!  אין בוחן העובד בתאריך המבוקש, אנא בחר מועד אחר.");
             try
             {
                 optionalTesters = (from tester in optionalTesters

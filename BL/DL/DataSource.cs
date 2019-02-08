@@ -34,17 +34,18 @@ namespace DL
             tests = new List<Test>();
             testers = new List<Tester>();
             trainees = new List<Trainee>();
-            Configuration.Add("Tester minimum age", new ConfigurationParameter() { Readable = true, Writable = true, Value = 40 });
-            Configuration.Add("Minimum days between tests", new ConfigurationParameter() { Readable = true, Writable = false, Value = 14 });
-            Configuration.Add("Trainee minimum age", new ConfigurationParameter() { Readable = true, Writable = false, Value = 18 });
-            Configuration.Add("Minimum lessons", new ConfigurationParameter() { Readable = true, Writable = false, Value = 20 });
-            Configuration.Add("Tester maximum age", new ConfigurationParameter() { Readable = true, Writable = false, Value = 67 });
-            Configuration.Add("Serial Number Test", new ConfigurationParameter() { Readable = true, Writable = true, Value = 10000000 });
+            Configuration.Add("גיל בוחן מינימלי", new ConfigurationParameter() { Readable = true, Writable = true, Value = 40 });
+            Configuration.Add("מינימום ימים בין מבחנים", new ConfigurationParameter() { Readable = true, Writable = false, Value = 14 });
+            Configuration.Add("גיל נבחן מינימלי", new ConfigurationParameter() { Readable = true, Writable = false, Value = 18 });
+            Configuration.Add("מספר שיעורים מינימלי", new ConfigurationParameter() { Readable = true, Writable = false, Value = 20 });
+            Configuration.Add("גיל בוחן מקסימל", new ConfigurationParameter() { Readable = true, Writable = false, Value = 67 });
+            Configuration.Add("מספר מבחן", new ConfigurationParameter() { Readable = true, Writable = true, Value = 10000000 });
+            Configuration.Add("גיל נבחן מקסימלי", new ConfigurationParameter() { Readable = true, Writable = true, Value = 80 });
             //*********************************************************************
             Tester tester = new Tester("111111111");
-            tester.FirstName = "Avraham";
-            tester.LastName = "OurFather";
-            tester.Address = new Address("Elad", "meir", 16);
+            tester.FirstName = "אברהם";
+            tester.LastName = "אבינו";
+            tester.Address = new Address("חברון", "קריית ארבע", 16);
             tester.DateOfBirth = new DateTime(1970, 01, 04);
             tester.MaxTestsPerWeek = 2;
             tester.TypeCarToTest = CarTypeEnum.MotorCycle;
@@ -55,10 +56,10 @@ namespace DL
                     tmp[i, j] = true;
 
             Tester tester1 = new Tester("222222222");
-            tester1.FirstName = "Yitzhak";
-            tester1.LastName = "Iluz";
+            tester1.FirstName = "יצחק";
+            tester1.LastName = "אילוז";
             tester1.DateOfBirth = new DateTime(1975, 12, 05);
-            tester1.Address = new Address("Elad", "meir", 16);
+            tester1.Address = new Address("אלעד", "מאיר", 16);
             tester1.MaxTestsPerWeek = 2;
             tester1.TypeCarToTest = CarTypeEnum.MotorCycle;
             tester1.MaxDistance = 50;
@@ -70,7 +71,7 @@ namespace DL
             Tester tester2 = new Tester("333333333");
             tester2.FirstName = "Yaakov";
             tester2.LastName = "Bardugo";
-            tester2.Address = new Address("Petach Tikva", "Yehuda halevi", 6);
+            tester2.Address = new Address("פתח תקווה", "יהודה הלוי", 6);
             tester2.DateOfBirth = new DateTime(1967, 02, 04);
             tester2.MaxTestsPerWeek = 2;
             tester2.TypeCarToTest = CarTypeEnum.MotorCycle;
@@ -88,8 +89,8 @@ namespace DL
             Schedules.Add(tester2.Id, tmp2);
 
             Trainee trainee = new Trainee("444444444");
-            trainee.FirstName = "moshe";
-            trainee.LastName = "Cohen";
+            trainee.FirstName = "משה";
+            trainee.LastName = "כהן";
             trainee.DateOfBirth = new DateTime(1990, 11, 01);
             trainee.CurrCarType = CarTypeEnum.MotorCycle;
             trainee.NumOfFinishedLessons = 100;
