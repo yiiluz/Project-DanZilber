@@ -217,7 +217,7 @@ namespace UI_Ver2
                     }
                     string aborted = "";
                     foreach (var item in abortedTests)
-                        aborted += "Test Serial: " + item.TestId + ". Date: " + item.DateOfTest.ToShortDateString() + ". Hour: " + item.HourOfTest + ":00.\n";
+                        aborted += "מספר מבחן: " + item.TestId + ". תאריך: " + item.DateOfTest.ToShortDateString() + ". שעה: " + item.HourOfTest + ":00.\n";
                     MessageBox.Show("בוחן עם תעודת זהות" + getIDWindow.TxtBx_ID.Text + "נמחק בהצלחה.\n"
                         + (aborted != "" ? "Aborted Tests:\n" + aborted : "No Test Aborted.\n"), "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
                 }

@@ -75,7 +75,7 @@ namespace DL
             }
             catch
             {
-                throw new DirectoryNotFoundException(a + "  :שגיאה! בעיית טעינת קובץ");
+                throw new DirectoryNotFoundException( " שגיאה! בעיית טעינת קובץ:"+a);
             }
 
         }
@@ -115,7 +115,7 @@ namespace DL
                       select item).FirstOrDefault();
             if (it != null)
             {
-                throw new DuplicateWaitObjectException("  :"+"שגיאה! בוחן עם תעודת זהות זו כבר קיים במערכת " );
+                throw new DuplicateWaitObjectException("שגיאה! בוחן עם תעודת זהות זו כבר קיים במערכת: " +it.Element("Person").Element("ID").Value);
             }
             TestersRoot.Add(new XElement("Tester", PersonCreatorToXML(T), new XElement("Seniority", T.Seniority),
             new XElement("MaxDistance", T.MaxDistance), new XElement("MaxTestsPerWeek", T.MaxTestsPerWeek),
@@ -142,7 +142,7 @@ namespace DL
             }
             catch
             {
-                throw new KeyNotFoundException( " :"+"שגיאה! לא קיים בוחן במערכת עם תעודת זהות זו " );
+                throw new KeyNotFoundException("שגיאה! לא קיים בוחן במערכת עם תעודת זהות זו: " );
             }
         }
         public override void UpdateTesterDetails(Tester T)
@@ -166,7 +166,7 @@ namespace DL
                       select item).FirstOrDefault();
             if (it != null)
             {
-                throw new DuplicateWaitObjectException(" :"+"שגיאה! תלמיד עם תעודת זהות זו כבר קיים במערכת" );
+                throw new DuplicateWaitObjectException("שגיאה! תלמיד עם תעודת זהות זו כבר קיים במערכת:" );
             }
             TraineesRoot.Add(new XElement("Trainee", PersonCreatorToXML(T), new XElement("CurrCarType", T.CurrCarType),
                 new XElement("NumOfFinishedLessons", T.NumOfFinishedLessons), new XElement("NumOfTests", T.NumOfTests),
@@ -194,7 +194,7 @@ namespace DL
             }
             catch
             {
-                throw new KeyNotFoundException(".שגיאה! לא קיים תלמיד עם תעודת זהות זו במערכת");
+                throw new KeyNotFoundException("שגיאה! לא קיים תלמיד עם תעודת זהות זו במערכת.");
             }
         }
         public override void UpdateTraineeDetails(Trainee T)
@@ -225,14 +225,14 @@ namespace DL
                       select item).FirstOrDefault();
             if (it != null)
             {
-                throw new DuplicateWaitObjectException(".שגיאה! מבחן עם מספר מבחן זה כבר קיים במערכת");
+                throw new DuplicateWaitObjectException("שגיאה! מבחן עם מספר מבחן זה כבר קיים במערכת.");
             }
             it = (from item in TraineesRoot.Elements()
                   where item.Element("Person").Element("ID").Value == t.TraineeId
                   select item).FirstOrDefault();
             if (it == null)
             {
-                throw new KeyNotFoundException(".שגיאה! תלמיד עם תעודת זהות זו לא קיים במערכת");
+                throw new KeyNotFoundException("שגיאה! תלמיד עם תעודת זהות זו לא קיים במערכת.");
                            
             }
             it = (from item in TestersRoot.Elements()
@@ -240,7 +240,7 @@ namespace DL
                   select item).FirstOrDefault();
             if (it == null)
             {
-                throw new KeyNotFoundException(".שגיאה! בוחן עם תעודת זהות זו לא קיים במערכת");
+                throw new KeyNotFoundException("שגיאה! בוחן עם תעודת זהות זו לא קיים במערכת.");
                             
             }
             TestsRoot.Add(new XElement("Test", new XElement("TestId", t.TestId), new XElement("TesterId", t.TesterId),
@@ -275,7 +275,7 @@ namespace DL
             }
             catch
             {
-                throw new KeyNotFoundException("שגיאה! מבחן עם מספר מבחן זה לא קיים במערכת ");
+                throw new KeyNotFoundException("שגיאה! מבחן עם מספר מבחן זה לא קיים במערכת. ");
             }
         }
         public override void UpdateTestDetails(Test t)
@@ -415,10 +415,10 @@ namespace DL
                 {
                     if (Convert.ToBoolean(X.Element("Value").Element("Readable").Value))
                         return int.Parse(X.Element("Value").Element("value").Value);
-                    throw new AccessViolationException(".שגיאה! אין הרשאה לראות מאפיין קונפיגורציה זה");
+                    throw new AccessViolationException("שגיאה! אין הרשאה לראות מאפיין קונפיגורציה זה.");
                 }
             }
-            throw new KeyNotFoundException(".שגיאה! לא קיים קונפיגורציה במערכת בשם זה");
+            throw new KeyNotFoundException("שגיאה! לא קיים קונפיגורציה במערכת בשם זה.");
         }
         public override void SetConfig(string parm, Object value)
         {
@@ -441,10 +441,10 @@ namespace DL
                         isConfigUpdated = true;
                         return;
                     }
-                    throw new AccessViolationException( ".שגיאה! אין הרשאה לשנות מאפיין קונפיגורציה זה");
+                    throw new AccessViolationException( "שגיאה! אין הרשאה לשנות מאפיין קונפיגורציה זה.");
                 }
             }
-            throw new KeyNotFoundException(".שגיאה! לא קיים מאפיין קונפיגורציה בשם זה במערכת");
+            throw new KeyNotFoundException("שגיאה! לא קיים מאפיין קונפיגורציה בשם זה במערכת.");
         }
         public override void AddTesterSchedule(string id, bool[,] sched)
         {
@@ -459,7 +459,7 @@ namespace DL
             var it = (from item in SchedulesRoot.Elements()
                       where item.Element("ID").Value == id
                       select item).FirstOrDefault();
-            if (it != null) { throw new DuplicateWaitObjectException(" .שגיאה! מערכת שעות של בוחן זה כבר קיימת במערכת"); }
+            if (it != null) { throw new DuplicateWaitObjectException(" שגיאה! מערכת שעות של בוחן זה כבר קיימת במערכת."); }
             SchedulesRoot.Add(new XElement("Schedule", new XElement("ID", id), new XElement("WorkDays",
                 new XElement("Day", new XElement("Hour", sched[0, 0]), new XElement("Hour", sched[0, 1]), new XElement("Hour", sched[0, 2]),
                 new XElement("Hour", sched[0, 3]), new XElement("Hour", sched[0, 4]), new XElement("Hour", sched[0, 5])),
@@ -493,7 +493,7 @@ namespace DL
             var it = (from item in SchedulesRoot.Elements()
                       where item.Element("ID").Value == id
                       select item).FirstOrDefault();
-            if (it == null) { throw new KeyNotFoundException(".שגיאה! לא קיים במערכת מערכת שעות עבור בוחן זה"); }
+            if (it == null) { throw new KeyNotFoundException("שגיאה! לא קיים במערכת מערכת שעות עבור בוחן זה."); }
             foreach (var x in it.Element("WorkDays").Elements())
             {
                 foreach (var v in x.Elements())
@@ -526,7 +526,7 @@ namespace DL
             }
             catch
             {
-                throw new KeyNotFoundException(".שגיאה! לא קיים במערכת מערכת שעות עבור בוחן זה");
+                throw new KeyNotFoundException(" שגיאה! לא קיים במערכת מערכת שעות עבור בוחן זה.");
             }
 
         }
