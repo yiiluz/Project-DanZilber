@@ -214,13 +214,13 @@ namespace UI_Ver2
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        MessageBox.Show(ex.Message, "ID n", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "תעודת זהות לא קיימת", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                     string aborted = "";
                     foreach (var item in abortedTests)
                         aborted += "Test Serial: " + item.TestId + ". Date: " + item.DateOfTest.ToShortDateString() + ". Hour: " + item.HourOfTest + ":00.\n";
-                    MessageBox.Show("Tester with ID " + getIDWindow.TxtBx_ID.Text + " successfuly deleted.\n"
+                    MessageBox.Show("בוחן עם תעודת זהות" + getIDWindow.TxtBx_ID.Text + "נמחק בהצלחה.\n"
                         + (aborted != "" ? "Aborted Tests:\n" + aborted : "No Test Aborted.\n"), "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
