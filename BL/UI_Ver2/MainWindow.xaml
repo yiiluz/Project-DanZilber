@@ -225,9 +225,8 @@
                                                 <Button Grid.Row="1" Margin="5" Click="Button_Click_UpdateTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
-                                                            <TextBlock FontWeight="Bold">Click To Update Exisiting Trainee Details</TextBlock>
-                                                            <TextBlock>Window will open to get the Trainee ID.</TextBlock>
-                                                            <TextBlock>If the ID Exist, Window will open where you can change the details.</TextBlock>
+                                                            <TextBlock FontWeight="Bold">הקש על מנת לעדכן רשיונות קיימים</TextBlock>
+                                                            <TextBlock>אם התעודת זהות קיימת יפתח חלון לעדכון פרטים</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
@@ -238,9 +237,9 @@
                                                 <Button  Grid.Row="2" Margin="5" Click="Button_Click_RemoveTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
-                                                            <TextBlock FontWeight="Bold">Click To Remove Exisiting Trainee Details</TextBlock>
-                                                            <TextBlock>Window will open to get the Trainee ID.</TextBlock>
-                                                            <TextBlock>If the ID Exist, the Trainee will deleted from the system.</TextBlock>
+                                                            <TextBlock FontWeight="Bold">הקש כדי למחוק פרטי תלמיד</TextBlock>
+                                                            <TextBlock>יפתח חלון כדי לקבל את תעודת הזהות של התלמיד</TextBlock>
+                                                            <TextBlock>אם התלמיד קיים הוא ימחק מהמערכת</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
@@ -251,9 +250,9 @@
                                                 <Button Grid.Row="3" Margin="5" Click="Button_Click_SearchTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
-                                                            <TextBlock FontWeight="Bold">Click To View Exisiting Trainees List</TextBlock>
-                                                            <TextBlock>Window will open, and will show all the existing Trainees.</TextBlock>
-                                                            <TextBlock>You can filter the Trainees by grouping, and by searching.</TextBlock>
+                                                            <TextBlock FontWeight="Bold">הקש כדי לצפות ברשימת התלמידים</TextBlock>
+                                                            <TextBlock>חלון יפתח, ויציג את כל התלמידים</TextBlock>
+                                                            <TextBlock>אתה יכול לסנן את התלמידים על ידי קיבוץ או חיפוש</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
@@ -276,10 +275,9 @@
                                                 <Button Margin="5 20 5 5" Click="Button_Click_AddTest" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
-                                                            <TextBlock FontWeight="Bold">Click To Create New Test</TextBlock>
-                                                            <TextBlock>Window will open. you need to enter Trainee ID, and start address.</TextBlock>
-                                                            <TextBlock>Choose how to search for test, enter date and time, then click Get Available.</TextBlock>
-                                                            <TextBlock>Choose one suitable time from list, then click 'Add Chosen Test'.</TextBlock>
+                                                            <TextBlock FontWeight="Bold">הקש כדי ליצור מבחן חדש</TextBlock>
+                                                            <TextBlock>יפתח חלון, אתה תתבקש להכניס תעודות זהות של הבוחן והתלמיד וכתובת התחלה</TextBlock>
+                                                            <TextBlock> תינתן אפשרות לבחור לפי יום או שעה</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
@@ -290,8 +288,9 @@
                                                 <Button  Grid.Row="1" Click="Button_Click_AbortTest" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
-                                                            <TextBlock FontWeight="Bold">Click To Abort Existing Test</TextBlock>
-                                                            <TextBlock>Window will open. you need to enter Test Serial Number to Abort.</TextBlock>
+                                                            <TextBlock FontWeight="Bold">הקש לבטל מבחן קיים</TextBlock>
+                                                            <TextBlock>יפתח חלון ובו תתבקש להכניס מספר מבחן</TextBlock>
+                                                            <TextBlock> אם המספר מבחן קיים המבחן יבוטל </TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
@@ -302,8 +301,8 @@
                                                 <Button  Grid.Row="2" Click="Button_Click_ViewTestDetails" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
-                                                            <TextBlock FontWeight="Bold">Click To View Existing Test Details</TextBlock>
-                                                            <TextBlock>Window will open. you need to enter Test Serial Number to View.</TextBlock>
+                                                            <TextBlock FontWeight="Bold">הקש כדי לצפות בפרטי המבחן</TextBlock>
+                                                            <TextBlock>חלון יפתח, ותתבקש להכניס את מספר המבחן</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
@@ -315,8 +314,9 @@
                                                     <Button.ToolTip>
                                                         <ToolTip>
                                                             <StackPanel>
-                                                                <TextBlock FontWeight="Bold">Click To View Existing Test Details</TextBlock>
-                                                                <TextBlock>Window will open. you will see all Tests there ara in system.</TextBlock>
+                                                                <TextBlock FontWeight="Bold">הקש על מנת לצפות ברשימת  המבחנים</TextBlock>
+                                                                <TextBlock>בחלון שיפתח תוכל לחפש מבחן ע"י מספר מאפיינים שונים.</TextBlock>
+                                                                <TextBlock>בחלון שיפתח תהיה אפשרות להציג תתי קבוצות של מבחנים ע"י בחירת קריטריון לקיבוץ.</TextBlock>
                                                             </StackPanel>
                                                         </ToolTip>
                                                     </Button.ToolTip>
