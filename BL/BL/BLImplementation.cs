@@ -420,7 +420,7 @@ namespace BL
                 int minLesson = -1;
                 try
                 {
-                    minLesson = (int)Configuretion.ConfiguretionsDictionary["Minimum lessons"];
+                    minLesson = (int)Configuretion.ConfiguretionsDictionary["מספר שיעורים מינימלי"];
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -430,7 +430,7 @@ namespace BL
                 {
                     errors += "שגיאה! לא ניתן להוסיף מבחן. התלמיד לא השלים מספר שיעורים כנדרש.\n";
                 }                 
-                if (trainee.ExistingLicenses.Exists(x => (x == t.CarType) || (x == CarTypeEnum.PrivateCar && t.CarType == CarTypeEnum.PrivateCarAuto))) //if trainee already have license on the test type car
+                if (trainee.ExistingLicenses.Exists(x => (x == t.CarType) || (x == CarTypeEnum.רכב_פרטי && t.CarType == CarTypeEnum.רכב_פרטי_אוטומט))) //if trainee already have license on the test type car
                     errors += "שגיאה! לא ניתן להוסיף מבחן. התלמיד  כבר בעל רישיון מדרגה זו.\n";
                 if (errors == "!שגיאות\n") //if there was no errors
                 {
@@ -438,7 +438,7 @@ namespace BL
                     int serial = -1;
                     try
                     {
-                        serial = (int)Configuretion.ConfiguretionsDictionary["Serial Number Test"]; //get the serial number of the test
+                        serial = (int)Configuretion.ConfiguretionsDictionary["מספר מבחן"]; //get the serial number of the test
                     }
                     catch (KeyNotFoundException e)
                     {
@@ -449,7 +449,7 @@ namespace BL
                         bool flag = true;
                         try
                         {
-                            instance.SetConfig("Serial Number Test", ++serial); //update the test serial number
+                            instance.SetConfig("מספר מבחן", ++serial); //update the test serial number
                             Configuretion.UpdateSerialNumber();
                         }
                         catch (AccessViolationException e)
@@ -735,7 +735,7 @@ namespace BL
             try
             {
                 if (!(instance.GetTraineeList().Exists(x => x.Id == id)))
-                    throw new KeyNotFoundException(".שגיאה!  לא קיים במערכת תלמיד עם תעודת זהות זו");
+                    throw new KeyNotFoundException("שגיאה!  לא קיים במערכת תלמיד עם תעודת זהות זו.");
                 else
                 {
                     Trainee trainee = Converters.CreateBOTrainee(instance.GetTraineeList().Find(x => x.Id == id));
@@ -784,7 +784,7 @@ namespace BL
                 throw e;
             }
             if (!exists)
-                throw new KeyNotFoundException("שגיאה!  לא קיים במערכת בוחן עם תעודת זהות זו\n");
+                throw new KeyNotFoundException("שגיאה!  לא קיים במערכת בוחן עם תעודת זהות זו.\n");
             else
             {
                 Tester tester = Converters.CreateBOTester(instance.GetTestersList().Find(x => x.Id == id));
@@ -816,7 +816,7 @@ namespace BL
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    throw new KeyNotFoundException( ex.Message + " שגיאה פנימית לא ניתן להטעין מערכת שעות של הבוחן\n");
+                    throw new KeyNotFoundException( ex.Message + " שגיאה פנימית לא ניתן להטעין מערכת שעות של הבוחן.\n");
                 }
                 return tester;
             }
@@ -832,7 +832,7 @@ namespace BL
             try
             {
                 if (!(instance.GetTestsList().Exists(x => x.TestId == id)))
-                    throw new KeyNotFoundException(".שגיאה! מספר מבחן לא קיים במערכת\n");
+                    throw new KeyNotFoundException("שגיאה! מספר מבחן לא קיים במערכת.\n");
                 else
                 {
                     test = Converters.CreateBOTest(instance.GetTestsList().Find(x => x.TestId == id));
@@ -855,7 +855,7 @@ namespace BL
             List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType &&
                                                 IsTestersWorkAtSpesificHour(x, dataSourse.HourOfTest));
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException(".שגיאה! לא קיים בוחן העובד בשעה הרצויה, אנא נסה בשעה אחרת");
+                throw new KeyNotFoundException("שגיאה! לא קיים בוחן העובד בשעה הרצויה, אנא נסה בשעה אחרת.");
             try
             {
                 optionalTesters = (from tester in optionalTesters
@@ -868,7 +868,7 @@ namespace BL
                 throw new InternalBufferOverflowException();
             }
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException(".שגיאה!  אין בוחנים עבור כתובת זו");
+                throw new KeyNotFoundException("שגיאה!  אין בוחנים עבור כתובת זו.");
             //if there is no tester availiable for this hour
             if (optionalTesters.Count == 0)
                 return optionalTests;
@@ -911,7 +911,7 @@ namespace BL
                                             IsTesterAvailiableOnDateAndHour(x, dataSourse.DateOfTest) &&
                                             GetAvailiableHoursOfTesterForSpesificDate(x, dataSourse.DateOfTest).Count != 0);
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException(".שגיאה!  אין בוחן העובד בתאריך המבוקש, אנא בחר מועד אחר");
+                throw new KeyNotFoundException("שגיאה!  אין בוחן העובד בתאריך המבוקש, אנא בחר מועד אחר.");
             try
             {
                 optionalTesters = (from tester in optionalTesters
@@ -924,7 +924,7 @@ namespace BL
                 throw new InternalBufferOverflowException();
             }
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException(".שגיאה!  אין בוחנים עבור כתובת זו");
+                throw new KeyNotFoundException("שגיאה!  אין בוחנים עבור כתובת זו.");
             bool[] tmp = new bool[6]; //tmp array for delete dublicates.
             for (int i = 0; i < 6; ++i)
                 tmp[i] = false;
