@@ -1422,22 +1422,22 @@ namespace BL
                 SystemStatistics.SumNumOfTestsPerWeek += tester.MaxTestsPerWeek;
                 switch (tester.TypeCarToTest)
                 {
-                    case CarTypeEnum.Bus:
+                    case CarTypeEnum.אוטובוס:
                         SystemStatistics.NumOfTestersBus++;
                         break;
-                    case CarTypeEnum.MotorCycle:
+                    case CarTypeEnum.אופנוע:
                         SystemStatistics.NumOfTestersMotorCycle++;
                         break;
-                    case CarTypeEnum.PrivateCar:
+                    case CarTypeEnum.רכב_פרטי:
                         SystemStatistics.NumOfTestersPrivateCar++;
                         break;
-                    case CarTypeEnum.PrivateCarAuto:
+                    case CarTypeEnum.רכב_פרטי_אוטומט:
                         SystemStatistics.NumOfTestersAutoPrivateCar++;
                         break;
-                    case CarTypeEnum.Truck12Tons:
+                    case CarTypeEnum.משאית_12_טון:
                         SystemStatistics.NumOfTestersTruck12Ton++;
                         break;
-                    case CarTypeEnum.TruckUnlimited:
+                    case CarTypeEnum.משאית_ללא_הגבלה:
                         SystemStatistics.NumOfTestersTruckUnlimited++;
                         break;
                 }
@@ -1446,22 +1446,22 @@ namespace BL
             {
                 switch (trainee.CurrCarType)
                 {
-                    case CarTypeEnum.Bus:
+                    case CarTypeEnum.אוטובוס:
                         SystemStatistics.NumOfTraineesBus++;
                         break;
-                    case CarTypeEnum.MotorCycle:
+                    case CarTypeEnum.אופנוע:
                         SystemStatistics.NumOfTraineesMotorCycle++;
                         break;
-                    case CarTypeEnum.PrivateCar:
+                    case CarTypeEnum.רכב_פרטי:
                         SystemStatistics.NumOfTraineesPrivateCar++;
                         break;
-                    case CarTypeEnum.PrivateCarAuto:
+                    case CarTypeEnum.רכב_פרטי_אוטומט:
                         SystemStatistics.NumOfTraineesAutoPrivateCar++;
                         break;
-                    case CarTypeEnum.Truck12Tons:
+                    case CarTypeEnum.משאית_12_טון:
                         SystemStatistics.NumOfTraineesTruck12Ton++;
                         break;
-                    case CarTypeEnum.TruckUnlimited:
+                    case CarTypeEnum.משאית_ללא_הגבלה:
                         SystemStatistics.NumOfTraineesTruckUnlimited++;
                         break;
                 }
@@ -1478,22 +1478,22 @@ namespace BL
                     SystemStatistics.NumOfFailedTest++;
                 switch (test.CarType)
                 {
-                    case CarTypeEnum.Bus:
+                    case CarTypeEnum.אוטובוס:
                         SystemStatistics.NumOfTestsBus++;
                         break;
-                    case CarTypeEnum.MotorCycle:
+                    case CarTypeEnum.אופנוע:
                         SystemStatistics.NumOfTestsMotorCycle++;
                         break;
-                    case CarTypeEnum.PrivateCar:
+                    case CarTypeEnum.רכב_פרטי:
                         SystemStatistics.NumOfTestsPrivateCar++;
                         break;
-                    case CarTypeEnum.PrivateCarAuto:
+                    case CarTypeEnum.רכב_פרטי_אוטומט:
                         SystemStatistics.NumOfTestsAutoPrivateCar++;
                         break;
-                    case CarTypeEnum.Truck12Tons:
+                    case CarTypeEnum.משאית_12_טון:
                         SystemStatistics.NumOfTestsTruck12Ton++;
                         break;
-                    case CarTypeEnum.TruckUnlimited:
+                    case CarTypeEnum.משאית_ללא_הגבלה:
                         SystemStatistics.NumOfTestsTruckUnlimited++;
                         break;
                 }
