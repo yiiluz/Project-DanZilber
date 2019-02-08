@@ -209,7 +209,7 @@
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
-                                                <TextBlock Text="Trainee" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="ניהול נבחנים" HorizontalAlignment="Center"/>
                                                 <Button Margin="5 20 5 5" Click="Button_Click_AddTrainee" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
@@ -272,7 +272,7 @@
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
-                                                <TextBlock Text="Test" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="ניהול מבחנים" HorizontalAlignment="Center"/>
                                                 <Button Margin="5 20 5 5" Click="Button_Click_AddTest" ToolTipService.ShowDuration="8000">
                                                     <Button.ToolTip>
                                                         <StackPanel>
@@ -463,9 +463,9 @@
 
                             <Border x:Name="ExistingTesterIDBorder" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
                                 <StackPanel Height="120" Width="300">
-                                    <TextBlock Text="Enter Your ID:"/>
+                                    <TextBlock Text="הכנס מס' תעודת זהות:"/>
                                     <TextBox x:Name="TextBox_TesterID" Height="30" Padding="2" VerticalContentAlignment="Center" Margin="0 10" MaxLength="9" KeyDown="TextBox_TesterID_KeyDown" GotFocus="TextBox_ExistingTesterID_GotFocus" TextChanged="TextBox_TesterID_TextChanged"/>
-                                    <Button Content="Enter" Click="Button_Click_EnterAsExistingTester"/>
+                                    <Button Content="היכנס" Click="Button_Click_EnterAsExistingTester"/>
                                 </StackPanel>
                             </Border>
                             <Grid Grid.RowSpan="2">
@@ -543,8 +543,8 @@
                                         <Border Grid.Column="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
                                             <Grid>
                                                 <StackPanel>
-                                                    <Button Content="עדכן פרטי מבחן לפי מסםר מבחן" Click="Button_Click_UpdateTestResultByID"/>
-                                                    <Button Content="צפה פרטיך" Click="Button_Click_ViewTesterDetails"/>
+                                                    <Button Content="עדכן תוצאות מבחן לפי מספר מבחן" Click="Button_Click_UpdateTestResultByID"/>
+                                                    <Button Content="הצג פרטים אישיים" Click="Button_Click_ViewTesterDetails"/>
                                                     <Button Content="התנתק" Click="Button_Click_LogOut"/>
                                                 </StackPanel>
                                             </Grid>
@@ -595,10 +595,10 @@
                             </Grid.RowDefinitions>
                             <Border x:Name="ExistingTraineeIDBorder" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
                                 <StackPanel Height="120" Width="300">
-                                    <TextBlock Text="Enter Your ID:"/>
+                                    <TextBlock Text="הכנס מס' תעודת זהות:"/>
                                     <TextBox x:Name="TextBox_TraineeID" Height="30" Padding="2" VerticalContentAlignment="Center" Margin="0 10" MaxLength="9" 
                                              KeyDown="TextBox_TraineeID_KeyDown" GotFocus="TextBox_ExistingTraineeID_GotFocus" TextChanged="TextBox_TraineeID_TextChanged"/>
-                                    <Button Content="Enter" Click="Button_Click_EnterAsExistingTrainee"/>
+                                    <Button Content="היכנס" Click="Button_Click_EnterAsExistingTrainee"/>
                                 </StackPanel>
                             </Border>
                             <Grid Grid.RowSpan="2">
@@ -653,16 +653,16 @@
                                                     </ListView.ItemContainerStyle>
                                                     <ListView.View>
                                                         <GridView>
-                                                            <GridViewColumn Header="מספר מבחן" DisplayMemberBinding="{Binding TestId}" Width="100"/>
-                                                            <GridViewColumn Header="תאריך המבחן" DisplayMemberBinding="{Binding DateOfTest, StringFormat=d}" Width="100"/>
-                                                            <GridViewColumn Header="שעת המבחן" Width="100">
+                                                            <GridViewColumn Header="מספר מבחן" DisplayMemberBinding="{Binding TestId}" Width="110"/>
+                                                            <GridViewColumn Header="תאריך המבחן" DisplayMemberBinding="{Binding DateOfTest, StringFormat=d}" Width="110"/>
+                                                            <GridViewColumn Header="שעת המבחן" Width="110">
                                                                 <GridViewColumn.DisplayMemberBinding>
                                                                     <MultiBinding StringFormat="{}{0}:00">
                                                                         <Binding Path="HourOfTest"/>
                                                                     </MultiBinding>
                                                                 </GridViewColumn.DisplayMemberBinding>
                                                             </GridViewColumn>
-                                                            <GridViewColumn Header="מיקום המבחן" DisplayMemberBinding="{Binding City}" Width="100"/>
+                                                            <GridViewColumn Header="עיר המבחן" DisplayMemberBinding="{Binding City}" Width="110"/>
                                                         </GridView>
                                                     </ListView.View>
                                                     <ListView.ContextMenu >
@@ -678,8 +678,8 @@
                                         <Border Grid.Column="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
                                             <Grid>
                                                 <StackPanel>
-                                                    <Button Content="צפה בפרטיך" Click="Button_Click_ViewTraineeDetails"/>
-                                                    <Button Content="הוסף מבחן" Click="Button_Click_TraineeAddTest"/>
+                                                    <Button Content="הצג פרטים אישיים" Click="Button_Click_ViewTraineeDetails"/>
+                                                    <Button Content="קבע מועד מבחן" Click="Button_Click_TraineeAddTest"/>
                                                     <Button Content="התנתק" Click="Button_Click_LogOut"/>
                                                 </StackPanel>
                                             </Grid>
@@ -691,7 +691,7 @@
                                                         <RowDefinition Height="30"/>
                                                         <RowDefinition Height="*"/>
                                                     </Grid.RowDefinitions>
-                                                    <TextBlock Text="הרשיונות שאתה מחזיק בהם עכשיו:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="רשיונות קיימים:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                     <ListView x:Name="ListView_TraineeExistingLicenses" Grid.Row="1" Margin="5" SelectionChanged="ListView_TraineeExistingLicenses_SelectionChanged">
                                                     </ListView>
                                                 </Grid>

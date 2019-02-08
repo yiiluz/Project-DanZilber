@@ -29,8 +29,8 @@ namespace UI_Ver2
             InitializeComponent();
             CombBx_TypeCarToTest.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
             CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
-            CombBx_TypeCarToTest.SelectedItem = BO.CarTypeEnum.MotorCycle;
-            CombBx_Gender.SelectedItem = BO.GenderEnum.Male;
+            CombBx_TypeCarToTest.SelectedItem = BO.CarTypeEnum.אופנוע;
+            CombBx_Gender.SelectedItem = BO.GenderEnum.זכר;
             foreach (var item in HoursWork.Children.OfType<CheckBox>())//intial checkboxs
             {
                 int row = Grid.GetRow(item);

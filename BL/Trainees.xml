@@ -46,4 +46,27 @@
     <SchoolName>וטעטוהעטYUG</SchoolName>
     <TeacherName>VUYV</TeacherName>
   </Trainee>
+  <Trainee>
+    <Person>
+      <ID>123456789</ID>
+      <Name>
+        <FirstName>משה</FirstName>
+        <LastName>כהן</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>פתח תקווה</City>
+        <Street>יהודה הלוי</Street>
+        <BuildingNumber>6</BuildingNumber>
+      </Address>
+      <DateOfBirth>1995-02-08T00:00:00</DateOfBirth>
+      <PhoneNumber>0522344433</PhoneNumber>
+    </Person>
+    <CurrCarType>Truck12Tons</CurrCarType>
+    <NumOfFinishedLessons>32</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>מכון לב</SchoolName>
+    <TeacherName>אופיר נווה</TeacherName>
+  </Trainee>
 </Trainees>

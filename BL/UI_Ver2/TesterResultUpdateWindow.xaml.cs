@@ -23,6 +23,7 @@ namespace UI_Ver2
         private TesterTest testResult;
         public TesterResultUpdateWindow(TesterTest test)
         {
+            this.FlowDirection = FlowDirection.RightToLeft;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             this.testResult = test;

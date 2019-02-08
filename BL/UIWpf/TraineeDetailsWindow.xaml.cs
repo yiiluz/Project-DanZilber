@@ -29,9 +29,9 @@ namespace UIWpf
             this.DataContext = trainee;
             InitializeComponent();
             CombBx_CurrCar.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
-            CombBx_CurrCar.SelectedItem = BO.CarTypeEnum.MotorCycle;
+            CombBx_CurrCar.SelectedItem = BO.CarTypeEnum.אופנוע;
             CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
-            CombBx_Gender.SelectedItem = BO.GenderEnum.Male;
+            CombBx_Gender.SelectedItem = BO.GenderEnum.זכר;
         }
         public TraineeDetailsWindow(Trainee t, string oper)
         {

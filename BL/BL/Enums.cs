@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public enum GenderEnum { Male = 1, Female = 2 }
-    public enum CarTypeEnum { MotorCycle = 1, PrivateCar, PrivateCarAuto, Truck12Tons, TruckUnlimited, Bus }
+    public enum GenderEnum { זכר = 1, נקבה = 2 }
+    public enum CarTypeEnum { אופנוע = 1, רכב_פרטי, רכב_פרטי_אוטומט, משאית_12_טון, משאית_ללא_הגבלה, אוטובוס }
 }

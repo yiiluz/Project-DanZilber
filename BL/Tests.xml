@@ -19,7 +19,7 @@
     <CorrectSpeed>true</CorrectSpeed>
     <IsPassed>true</IsPassed>
     <TesterNotes>כחויציעבציכביכגסרדרעדסעגדאיכגעכבסמעכעכמסעסעכ</TesterNotes>
-    <IsTesterUpdateStatus>true</IsTesterUpdateStatus>
+    <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
     <IsTestAborted>false</IsTestAborted>
   </Test>
 </Tests>
