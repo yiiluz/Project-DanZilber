@@ -9,7 +9,7 @@
     </Value>
   </Configuration>
   <Configuration>
-    <Key>מינימום ימים בין טסטים</Key>
+    <Key>מינימום ימים בין מבחנים</Key>
     <Value>
       <Readable>True</Readable>
       <Writable>True</Writable>

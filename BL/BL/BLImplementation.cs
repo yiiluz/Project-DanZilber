@@ -93,8 +93,8 @@ namespace BL
             int minAge, maxAge;
             try
             {
-                minAge = (int)Configuretion.ConfiguretionsDictionary["Tester minimum age"];
-                maxAge = (int)Configuretion.ConfiguretionsDictionary["Tester maximum age"];
+                minAge = (int)Configuretion.ConfiguretionsDictionary["גיל בוחן מינימלי"];
+                maxAge = (int)Configuretion.ConfiguretionsDictionary["גיל בוחן מקסימלי"];
             }
             catch (KeyNotFoundException e)
             {
@@ -198,8 +198,8 @@ namespace BL
                 int minAge, maxAge;
                 try
                 {
-                    minAge = (int)Configuretion.ConfiguretionsDictionary["Tester minimum age"];
-                    maxAge = (int)Configuretion.ConfiguretionsDictionary["Tester maximum age"];
+                    minAge = (int)Configuretion.ConfiguretionsDictionary["גיל בוחן מינימלי"];
+                    maxAge = (int)Configuretion.ConfiguretionsDictionary["גיל בוחן מקסימלי"];
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -237,7 +237,7 @@ namespace BL
             int minAge;
             try
             {
-                minAge = (int)Configuretion.ConfiguretionsDictionary["Trainee minimum age"];
+                minAge = (int)Configuretion.ConfiguretionsDictionary["גיל נבחן מינימלי"];
             }
             catch (KeyNotFoundException e)
             {
@@ -313,7 +313,7 @@ namespace BL
                 int minAge;
                 try
                 {
-                    minAge = (int)Configuretion.ConfiguretionsDictionary["Trainee minimum age"];
+                    minAge = (int)Configuretion.ConfiguretionsDictionary["גיל נבחן מינימלי"];
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -395,7 +395,7 @@ namespace BL
                     int minDaysBetweenTests = -1;
                     try
                     {
-                        minDaysBetweenTests = (int)Configuretion.ConfiguretionsDictionary["Minimum days between tests"];
+                        minDaysBetweenTests = (int)Configuretion.ConfiguretionsDictionary["מינימום ימים בין מבחנים"];
                     }
                     catch (KeyNotFoundException e)
                     {
