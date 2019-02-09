@@ -67,7 +67,7 @@
                                     <ImageBrush ImageSource="Icons/Mustung.png"  Opacity="0.2"/>
                                 </Grid.Background>
                             </Grid>
-                            <StackPanel>
+                            <StackPanel Margin="20">
                                 <TextBlock/>
                                 <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="30" FontWeight="ExtraBlack" Text="שלום! ברוכים הבאים למערכת ניהול מבחני נהיגה!"/>
                                 <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="מערכת זו נועדה לנהל מבחני נהיגה בצורה יעילה ונוחה."/>
