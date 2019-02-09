@@ -58,7 +58,7 @@ namespace UI_Ver2
 
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("האם אתה בטוח שברצונף לבטל? לא יתווסף אף מבחן אם תבחר לבטל.", "בקשת ביטול", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+            var result = MessageBox.Show("האם אתה בטוח שברצונך לבטל? לא יתווסף אף מבחן אם תבחר לבטל.", "בקשת ביטול", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             if (result == MessageBoxResult.OK)
                 Close();
         }

@@ -105,11 +105,11 @@
         <Street>יגור</Street>
         <BuildingNumber>0</BuildingNumber>
       </Address>
-      <DateOfBirth>1999-02-08T00:00:00</DateOfBirth>
+      <DateOfBirth>1999-02-08T06:14:55.7770358+02:00</DateOfBirth>
       <PhoneNumber>0455555555</PhoneNumber>
     </Person>
     <CurrCarType>TruckUnlimited</CurrCarType>
-    <NumOfFinishedLessons>12</NumOfFinishedLessons>
+    <NumOfFinishedLessons>30</NumOfFinishedLessons>
     <NumOfTests>0</NumOfTests>
     <IsAlreadyDidTest>false</IsAlreadyDidTest>
     <SchoolName>הוגוורטס</SchoolName>

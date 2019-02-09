@@ -29,13 +29,9 @@ namespace UI_Ver2
     /// </summary>
     public partial class MainWindow : Window
     {
-
-
-        //for resizing option
-        static int resizeMode = 0;
         static int numOfActivatedMainWindow = 0;
         //passwords
-        string adminPass = "1111", officePass = "1111";
+        
 
         //List To View
         public static IBL bl = BO.Factory.GetBLObj();
@@ -67,9 +63,10 @@ namespace UI_Ver2
             string streetPath = @"..\..\..\Cities and Streets xml\StreetsList.xml";
             XElement streetsRoot = XElement.Load(streetPath);
             streetsGroupedByCity = (from item in streetsRoot.Elements() group item.Element("Street").Value by item.Element("City").Value).ToList();
+            SystemCommands.MaximizeWindow(this);
         }
 
-        private void Button_Click_CloseWindow(object sender, EventArgs e)
+        private void When_Window_CLosed(object sender, EventArgs e)
         {
             if (--numOfActivatedMainWindow == 0)
                 Environment.Exit(Environment.ExitCode);
@@ -84,16 +81,10 @@ namespace UI_Ver2
         }
         private void Button_Click_MaximizeWindow(object sender, RoutedEventArgs e)
         {
-            if (resizeMode++ == 0)
-            {
-                SystemCommands.MaximizeWindow(this);
-            }
-            else
-            {
-                resizeMode -= 2;
+            if (this.WindowState == WindowState.Maximized)
                 SystemCommands.RestoreWindow(this);
-            }
-
+            else
+                SystemCommands.MaximizeWindow(this);
         }
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
@@ -116,12 +107,12 @@ namespace UI_Ver2
             try
             {
                 TabControl tabControl = sender as TabControl;
-                if (tabControl.SelectedIndex == 0)
+                if (tabControl.SelectedIndex == 1)
                 {
                     AdminMainWindowBorder.Visibility = Visibility.Collapsed;
                     AdminPasswordBorder.Visibility = Visibility.Visible;
                 }
-                if (tabControl.SelectedIndex == 1)
+                if (tabControl.SelectedIndex == 2)
                 {
                     OfficeMainWindowBorder.Visibility = Visibility.Collapsed;
                     OfficeStatistics.Visibility = Visibility.Collapsed;
@@ -132,12 +123,12 @@ namespace UI_Ver2
                     testCollection = new ObservableCollection<Test>(bl.GetTestsList());
                     //ListView_Testers.ItemsSource = testersCollection;
                 }
-                if (tabControl.SelectedIndex == 2)
+                if (tabControl.SelectedIndex == 3)
                 {
                     ExistingTesterMainWindowBorder.Visibility = Visibility.Collapsed;
                     ExistingTesterIDBorder.Visibility = Visibility.Visible;
                 }
-                if (tabControl.SelectedIndex == 3)
+                if (tabControl.SelectedIndex == 4)
                 {
                     ExistingTraineeMainWindowBorder.Visibility = Visibility.Collapsed;
                     ExistingTraineeIDBorder.Visibility = Visibility.Visible;
@@ -165,7 +156,7 @@ namespace UI_Ver2
         }
         private void Button_Click_EnterAsOffice(object sender, RoutedEventArgs e)
         {
-            if (PassBox_passOffice.Password == officePass)
+            if (PassBox_passOffice.Password == App.OfficePass)
             {
                 PassBox_passOffice.Password = "";
                 OfficePasswordBorder.Visibility = Visibility.Collapsed;
@@ -529,7 +520,7 @@ namespace UI_Ver2
         }
         private void Button_Click_EnterAsAdmin(object sender, RoutedEventArgs e)
         {
-            if (PassBox_passAdmin.Password == adminPass)
+            if (PassBox_passAdmin.Password == App.AdminPass)
             {
                 PassBox_passAdmin.Password = "";
                 AdminPasswordBorder.Visibility = Visibility.Collapsed;
@@ -551,7 +542,13 @@ namespace UI_Ver2
             if (ListView_Configurations.SelectedValue != null)
             {
                 KeyValuePair<string, Object> x = (KeyValuePair<string, Object>)(ListView_Configurations.SelectedValue);
-                if (x.Key == "Serial Number Test")
+                if (x.Key == "סיסמת ניהול משרדי" || x.Key == "סיסמת מנהל המערכת")
+                {
+                    MessageBox.Show("שינוי סיסמה יתבצע אך ורק בחלונית המיועדת לכך. הגישה באמצעות הכפתור למעלה בצד שמאל.", "שגיאת הרשאה", MessageBoxButton.OK, MessageBoxImage.Stop,
+                        MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    return;
+                }
+                if (x.Key == "מספר מבחן")
                 {
                     MessageBox.Show("לא ניתן לעדכן הגדרה זו באופן ידני.", "שגיאת הרשאה", MessageBoxButton.OK, MessageBoxImage.Stop, 
                         MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
@@ -562,7 +559,10 @@ namespace UI_Ver2
         }
 
 
-
+        private void Button_Click_ChangePassword(object sender, RoutedEventArgs e)
+        {
+            (new AdminChangePasswordWindow()).ShowDialog();
+        }
         void IsNeedToUpdateConfigThreadFunc()
         {
             Action action = IsNeedToUpdateConfig;
@@ -716,5 +716,7 @@ namespace UI_Ver2
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
+
+        
     }
 }

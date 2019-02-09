@@ -39,12 +39,13 @@ namespace BO
             IsAlreadyDidTest = other.IsAlreadyDidTest;
             ExistingLicenses = new List<CarTypeEnum>(other.ExistingLicenses);
             statistics = other.statistics;
+            testList = other.TestList;
         }
 
         public DateTime LastTest { get => lastTest; set => lastTest = value; }
         public CarTypeEnum CurrCarType { get => currCarType; set => currCarType = value; }
         public int NumOfFinishedLessons { get => numOfFinishedLessons; set => numOfFinishedLessons = value; }
-        public int NumOfTests { get => numOfTests; set => numOfTests = value; }
+        public int NumOfTests { get => testList != null? testList.Count:0; set => numOfTests = value; }
         public bool IsAlreadyDidTest { get => isAlreadyDidTest; set => isAlreadyDidTest = value; }
         public List<CarTypeEnum> ExistingLicenses { get => existingLicenses; set => existingLicenses = value; }
         public List<TraineeTest> TestList { get => testList; set => testList = value; }

@@ -40,6 +40,8 @@ namespace UI_Ver2
         }
         private bool CheckIfStringsAreEqual(string a, string b)
         {
+            if (a.Length > b.Length)
+                return false;
             int c = Math.Min(a.Length, b.Length);
             a = a.ToLower();
             b = b.ToLower();
@@ -267,5 +269,6 @@ namespace UI_Ver2
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
+
     }
 }

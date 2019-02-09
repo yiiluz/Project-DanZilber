@@ -507,7 +507,7 @@ namespace BL
                         }
                     }
                 }
-                if (errors != "!שגיאות\n")
+                if (errors != "")
                 {
                     throw new ArgumentOutOfRangeException(errors);
                 }

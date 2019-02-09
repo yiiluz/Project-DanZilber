@@ -22,4 +22,92 @@
     <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
     <IsTestAborted>false</IsTestAborted>
   </Test>
+  <Test>
+    <TestId>10000003</TestId>
+    <TesterId>111111115</TesterId>
+    <TraineeId>555555553</TraineeId>
+    <DateOfTest>2019-02-18T00:00:00</DateOfTest>
+    <HourOfTest>11</HourOfTest>
+    <StartTestAddress>
+      <City>אילת</City>
+      <Street>משעול אבובן</Street>
+      <BuildingNumber>0</BuildingNumber>
+    </StartTestAddress>
+    <CarType>TruckUnlimited</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes />
+    <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
+    <IsTestAborted>true</IsTestAborted>
+  </Test>
+  <Test>
+    <TestId>10000004</TestId>
+    <TesterId>111111115</TesterId>
+    <TraineeId>555555553</TraineeId>
+    <DateOfTest>2019-02-18T00:00:00</DateOfTest>
+    <HourOfTest>11</HourOfTest>
+    <StartTestAddress>
+      <City>אילת</City>
+      <Street>משעול אבובן</Street>
+      <BuildingNumber>0</BuildingNumber>
+    </StartTestAddress>
+    <CarType>TruckUnlimited</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes />
+    <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
+    <IsTestAborted>true</IsTestAborted>
+  </Test>
+  <Test>
+    <TestId>10000005</TestId>
+    <TesterId>111111115</TesterId>
+    <TraineeId>555555553</TraineeId>
+    <DateOfTest>2019-02-18T00:00:00</DateOfTest>
+    <HourOfTest>11</HourOfTest>
+    <StartTestAddress>
+      <City>אילת</City>
+      <Street>משעול אבובן</Street>
+      <BuildingNumber>0</BuildingNumber>
+    </StartTestAddress>
+    <CarType>TruckUnlimited</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes />
+    <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
+    <IsTestAborted>true</IsTestAborted>
+  </Test>
+  <Test>
+    <TestId>10000006</TestId>
+    <TesterId>111111115</TesterId>
+    <TraineeId>555555553</TraineeId>
+    <DateOfTest>2019-02-18T00:00:00</DateOfTest>
+    <HourOfTest>11</HourOfTest>
+    <StartTestAddress>
+      <City>אילת</City>
+      <Street>משעול אבובן</Street>
+      <BuildingNumber>0</BuildingNumber>
+    </StartTestAddress>
+    <CarType>TruckUnlimited</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes />
+    <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
+    <IsTestAborted>false</IsTestAborted>
+  </Test>
 </Tests>

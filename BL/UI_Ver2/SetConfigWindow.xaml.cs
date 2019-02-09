@@ -22,10 +22,11 @@ namespace UI_Ver2
         string configurationName;
         public SetConfigWindow(KeyValuePair<string, Object> conf)
         {
+            this.FlowDirection = FlowDirection.RightToLeft;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             configurationName = conf.Key;
             InitializeComponent();
-            TextBlock_ConfigName.Text = "שנה את " + configurationName + ":";
+            TextBlock_ConfigName.Text = "שנה את " + configurationName + " :";
             TextBox_OldValue.Text = conf.Value.ToString();
         }
 

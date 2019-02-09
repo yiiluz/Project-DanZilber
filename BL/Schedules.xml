@@ -46,51 +46,6 @@
     </WorkDays>
   </Schedule>
   <Schedule>
-    <ID>150000000</ID>
-    <WorkDays>
-      <Day>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-        <Hour>true</Hour>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-      </Day>
-      <Day>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-        <Hour>true</Hour>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-      </Day>
-      <Day>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-        <Hour>true</Hour>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-      </Day>
-      <Day>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-        <Hour>true</Hour>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-        <Hour>false</Hour>
-      </Day>
-      <Day>
-        <Hour>true</Hour>
-        <Hour>true</Hour>
-        <Hour>true</Hour>
-        <Hour>true</Hour>
-        <Hour>true</Hour>
-        <Hour>true</Hour>
-      </Day>
-    </WorkDays>
-  </Schedule>
-  <Schedule>
     <ID>111111115</ID>
     <WorkDays>
       <Day>
@@ -177,6 +132,51 @@
         <Hour>false</Hour>
         <Hour>false</Hour>
         <Hour>false</Hour>
+      </Day>
+    </WorkDays>
+  </Schedule>
+  <Schedule>
+    <ID>150000000</ID>
+    <WorkDays>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>true</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+      </Day>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>true</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+      </Day>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>true</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+      </Day>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>true</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+      </Day>
+      <Day>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
+        <Hour>true</Hour>
       </Day>
     </WorkDays>
   </Schedule>

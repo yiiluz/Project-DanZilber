@@ -57,6 +57,9 @@
     <Compile Include="AddTestWindow.xaml.cs">
       <DependentUpon>AddTestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdminChangePasswordWindow.xaml.cs">
+      <DependentUpon>AdminChangePasswordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GetSerialWindow.xaml.cs">
       <DependentUpon>GetSerialWindow.xaml</DependentUpon>
     </Compile>
@@ -88,6 +91,10 @@
     <Page Include="AddTestWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AdminChangePasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GetSerialWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -221,6 +228,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Mustung.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

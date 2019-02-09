@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_Ver2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="620" Width="1000" WindowStyle="None" Closed="Button_Click_CloseWindow"
-        AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown">
+        Title="MainWindow" MinHeight="700" MinWidth="1000" Height="700" Width="1000"  WindowStyle="None" Closed="When_Window_CLosed" FlowDirection="RightToLeft"
+        AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" WindowState="Maximized">
 
     <!-- Window Border -->
     <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20">
@@ -60,7 +60,38 @@
                             <GradientStop Color="#FFDAFFF3" Offset="1"/>
                         </RadialGradientBrush>
                     </TabControl.Background>
-                    <TabItem Header="מנהל מערכת" Width="200" Height="30" FontSize="16">
+                    <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16">
+                        <Grid>
+                            <Grid Margin="150 0">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="Icons/Mustung.png"  Opacity="0.2"/>
+                                </Grid.Background>
+                            </Grid>
+                            <StackPanel>
+                                <TextBlock/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="30" FontWeight="ExtraBlack" Text="שלום! ברוכים הבאים למערכת ניהול מבחני נהיגה!"/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="מערכת זו נועדה לנהל מבחני נהיגה בצורה יעילה ונוחה."/>
+                                <TextBlock/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="כרטיסיית 'מנהל מערכת':"/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="חלון זה נועד לשימוש מנהל המערכת בלבד. כאן אפשר לשנות את סיסמת חלון המשרד,"/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="לשנות את סיסמת חלון מנהל המערכת, ולשנות הגדרות ברירת מחדל, כמו למשל גיל בוחן מינימלי."/>
+                                <TextBlock/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="כרטיסיית 'ניהול משרדי':"/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="חלון זה נועד לשימוש משרד הרישוי. כאן תתאפשר הוספת/מחיקת/עידכון בוחנים, תלמידים, ומבחנים."/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="כאן גם יוצגו סטטיסטיקות כלליות של המערכת, כמו למשל כמויות מבחנים ע''פ סוג רכב."/>
+                                <TextBlock/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="כרטיסיית 'בוחן נהיגה קיים':"/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="חלון זה נועד עבור בוחן נהיגה פעיל. כאן יוכל הבוחן לנהל את המבחנים המשוייכים אליו בצורה נוחה."/>
+                                <TextBlock/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="כרטיסיית 'תלמיד קיים':"/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="חלון זה נועד עבור תלמיד נהיגה קיים. כאן יוכל התלמיד לקבוע מבחן נהיגה חדש,"/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="לצפות בתוצאות מבחנים שעברו, להציג פרטים אישיים וכו'."/>
+                                <TextBlock/>
+                                <TextBlock  HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Text="© כל הזכויות שמורות ליצחק אילוז ושלמה פרלוב, המרכז האקדמי לב, 2019." />
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="מנהל מערכת" Width="180" Height="30" FontSize="16">
                         <Grid>
 
                             <Grid.RowDefinitions>
@@ -76,7 +107,11 @@
                             </Border>
                             <Border x:Name="AdminMainWindowBorder" Margin="10" Visibility="Visible" Grid.RowSpan="2">
                                 <Grid>
-                                    <Button Content="התנתק" VerticalAlignment="Top" Width="100" HorizontalAlignment="Right" Margin="0 0 20 0" Click="Button_Click_LogOut"/>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 0 18 0">
+                                        <Button Content="שנה סיסמה"  Width="100" Click="Button_Click_ChangePassword"/>
+                                        <Button Content="התנתק"  Width="100" Click="Button_Click_LogOut"/>
+                                        
+                                    </StackPanel>
                                     <TextBlock Text="עודכן לאחרונה בתאריך:" Margin="20 10" HorizontalAlignment="left"/>
                                     <TextBlock x:Name="TextBlock_LastUpdate" Text="{Binding}" Margin="200 10"/>
                                     <ListView x:Name="ListView_Configurations" Margin="20 40 20 20" SelectionChanged="ListView_Configurations_SelectionChanged"
@@ -106,7 +141,7 @@
                     </TabItem>
 
                     <!-- Office Window -->
-                    <TabItem Header="ניהול משרדי" Width="200" Height="30" FontSize="16">
+                    <TabItem Header="ניהול משרדי" Width="180" Height="30" FontSize="16">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -290,7 +325,7 @@
                                                         <StackPanel>
                                                             <TextBlock FontWeight="Bold">הקש לבטל מבחן קיים</TextBlock>
                                                             <TextBlock>יפתח חלון ובו תתבקש להכניס מספר מבחן</TextBlock>
-                                                            <TextBlock> אם המספר מבחן קיים המבחן יבוטל </TextBlock>
+                                                            <TextBlock> אם המספר מבחן קיים המבחן יבוטל</TextBlock>
                                                         </StackPanel>
                                                     </Button.ToolTip>
                                                     <StackPanel Orientation="Horizontal">
@@ -359,11 +394,11 @@
                             <Border x:Name="OfficeStatistics" Grid.Row="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="13 0 13 13">
                                 <Grid x:Name="StatisticsGrid" Margin="10" ShowGridLines="True">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="4*"/>
+                                        <ColumnDefinition Width="3*"/>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="4*"/>
+                                        <ColumnDefinition Width="3*"/>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="4*"/>
+                                        <ColumnDefinition Width="3*"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="4*"/>
                                         <ColumnDefinition Width="*"/>
@@ -436,8 +471,8 @@
                                     <TextBlock Grid.Row="3" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="מבחנים לא מוצלחים:"/>
                                     <TextBlock Grid.Row="4" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="מבחנים ממתינים לתוצאות:"/>
                                     <TextBlock Grid.Row="5" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="סיכויים להצלחה במבחן:"/>
-                                    <TextBlock Grid.Row="6" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="ממוצע מרחק מקסימלי"/>
-                                    <TextBlock Grid.Row="7" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="ממוצע מקסימום מבחנים:"/>
+                                    <TextBlock Grid.Row="6" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="ממוצע מרחק מקסימלי:"/>
+                                    <TextBlock Grid.Row="7" Margin="10 0 0 0" Grid.Column="6" VerticalAlignment="Center" Text="ממוצע מקס' מבחנים שבועי:"/>
 
 
                                     <TextBlock Grid.Row="1" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfAbortedTests, Mode=OneWay}"/>
@@ -454,7 +489,7 @@
                     </TabItem>
 
                     <!-- Existing Tester Window -->
-                    <TabItem Header="בוחן נהיגה קיים"  Width="200" Height="30" FontSize="16">
+                    <TabItem Header="בוחן נהיגה קיים"  Width="180" Height="30" FontSize="16">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -587,7 +622,7 @@
                     </TabItem>
 
                     <!-- Existing Trainee Window -->
-                    <TabItem Header="תלמיד קיים"  Width="200" Height="30" FontSize="16">
+                    <TabItem Header="תלמיד קיים"  Width="180" Height="30" FontSize="16">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>

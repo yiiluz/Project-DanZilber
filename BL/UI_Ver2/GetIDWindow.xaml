@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_Ver2"
         mc:Ignorable="d"
-        Title="ID" Height="420" Width="300" WindowStyle="None"
+        Title="ID" Height="420" Width="300" WindowStyle="None" FlowDirection="RightToLeft"
         AllowsTransparency="True" Background="Transparent" Icon="Icons/UserIcon2.png">
     <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20" Padding="10">
         <Grid>
