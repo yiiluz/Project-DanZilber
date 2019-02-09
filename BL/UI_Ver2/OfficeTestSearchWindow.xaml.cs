@@ -214,7 +214,7 @@ namespace UI_Ver2
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (TestsList.SelectedItem != null)
-                MessageBox.Show(TestsList.SelectedItem.ToString(), "OfficeTestSearchWindow", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(TestsList.SelectedItem.ToString(), "OfficeTestSearchWindow", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
 
         GridViewColumnHeader _lastHeaderClicked = null;

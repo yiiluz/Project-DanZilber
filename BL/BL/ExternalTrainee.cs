@@ -51,12 +51,12 @@ namespace BO
         /// <returns></returns>
         public override string ToString()
         {
-            string tmp = "Trainee ID: " + Id + "\n" +
-                "Trainee name: " + FirstName + " " + LastName + "\n" +
-                "Trainee Phone number: " + PhoneNumber + "\n" +
-                 "Type of current Car: " + CurrCarType + "\n" +
-                 "Learning at " + SchoolName + " School, With the Teacher " + TeacherName + "\n";
-            return tmp;
+            return "תעודת זהות של התלמיד: " + Id + "\n" +
+                "שם: " + FirstName + " " + LastName + "\n" +
+                "מספר פלאפון: " + PhoneNumber + "\n" +
+                "לומד כרגע נהיגה על רכב מסוג:  " + CurrCarType + "\n" +
+                "שם בית ספר לנהיגה: " + SchoolName + "\n" +
+                "שם מורה נהיגה: " + TeacherName + "\n";
         }
     }
 }

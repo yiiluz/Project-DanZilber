@@ -39,11 +39,10 @@ namespace BO
         /// <returns></returns>
         public override string ToString()
         {
-            string tmp = "Tester ID: " + Id + "\n" +
-                "Tester name: " + FirstName + " " + LastName + "\n" +
-                "Tester Phone number: " + PhoneNumber + "\n" +
-                 "Tester Type Car To Test: " + TypeCarToTest + "\n";
-            return tmp;
+            return "תעודת זהות של הטסטר: " + Id + "\n" +
+                "שם: " + FirstName + " " + LastName + "\n" +
+                "מספר פלאפון: " + PhoneNumber + "\n" +
+                "התמחות על רכב מסוג: " + TypeCarToTest + "\n";
         }
     }
 }
