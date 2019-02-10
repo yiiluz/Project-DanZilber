@@ -448,7 +448,7 @@ namespace UI_Ver2
 
             meanings += "צבע רקע פנימי:\n";
             meanings += "צהוב:" + "\t" + "רקע צהוב משמעותו מבחן שעוד לא עודכנו תוצאותיו.\n";
-            meanings += "ירוק:" + "\t" + "רקע ירוק משמעותו שעידכנת תוצאות עבור מבחו זה, ומבחינתך הוא מטופל לחלוטין!.\n";
+            meanings += "ירוק:" + "\t" + "רקע ירוק משמעותו שעידכנת תוצאות עבור מבחו זה, ומבחינתך הוא מטופל לחלוטין!\n";
             MessageBox.Show(meanings, "משמעות הצבעים", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
         //------------------------------------------------------------------------------------------------------------
