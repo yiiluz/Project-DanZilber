@@ -2,23 +2,23 @@
 <Testers>
   <Tester>
     <Person>
-      <ID>111111111</ID>
+      <ID>206914301</ID>
       <Name>
-        <FirstName>מוטי</FirstName>
-        <LastName>אהרונוביץ</LastName>
+        <FirstName>שלמה חיים</FirstName>
+        <LastName>פרלוב</LastName>
       </Name>
       <Gender>Male</Gender>
       <Address>
         <City>בני ברק</City>
-        <Street>השומר</Street>
-        <BuildingNumber>28</BuildingNumber>
+        <Street>צירלסון</Street>
+        <BuildingNumber>13</BuildingNumber>
       </Address>
       <DateOfBirth>1974-02-10T00:00:00</DateOfBirth>
-      <PhoneNumber>0506742558</PhoneNumber>
+      <PhoneNumber>0938493849</PhoneNumber>
     </Person>
     <Seniority>10</Seniority>
-    <MaxDistance>80</MaxDistance>
-    <MaxTestsPerWeek>30</MaxTestsPerWeek>
-    <TypeCarToTest>PrivateCarAuto</TypeCarToTest>
+    <MaxDistance>100</MaxDistance>
+    <MaxTestsPerWeek>10</MaxTestsPerWeek>
+    <TypeCarToTest>MotorCycle</TypeCarToTest>
   </Tester>
 </Testers>

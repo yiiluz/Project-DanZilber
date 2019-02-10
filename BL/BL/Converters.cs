@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using BO;
 namespace BL
 {
+    /// <summary>
+    /// class used to convert BO to DO object and DO to BO.
+    /// </summary>
     public class Converters
     {
 

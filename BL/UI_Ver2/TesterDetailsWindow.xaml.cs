@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
+using Microsoft.Win32;
+
 namespace UI_Ver2
 {
     /// <summary>
@@ -20,7 +23,10 @@ namespace UI_Ver2
     public partial class TesterDetailsWindow : Window
     {
         public Tester tester;
+
         public string operation = "Add";
+        OpenFileDialog op;
+        bool isImageChanged = false;
         public TesterDetailsWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -62,6 +68,11 @@ namespace UI_Ver2
             CmbBx_City.SelectedItem = t.City;
             CmbBx_Street.Text = t.Street;
             CmbBx_Street.SelectedItem = t.Street;
+            try
+            {
+                TesterImage.Source = new BitmapImage(new Uri(System.IO.Path.GetFullPath(@"..\..\..\TestersImages\" + tester.Id + @".jpg"), UriKind.Absolute));
+            }
+            catch { }
             switch (oper)
             {
                 case "Update":
@@ -84,6 +95,7 @@ namespace UI_Ver2
                     DatePicker_BirthDay.IsEnabled = false;
                     CombBx_TypeCarToTest.IsEnabled = false;
                     CombBx_Gender.IsEnabled = false;
+                    Button_UploadImage.Visibility = Visibility.Collapsed;
 
                     foreach (var item in HoursWork.Children.OfType<CheckBox>())//initial checkBoxs
                     {
@@ -157,8 +169,14 @@ namespace UI_Ver2
                         MessageBox.Show(ex.Message, "שגיאה פנימית", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         return;
                     }
-                    MessageBox.Show("הבוחן התווסף בהצלחה למערכת!", "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     Close();
+                    try
+                    {
+                        System.IO.File.Copy(op.FileName, @"..\..\..\TestersImages\" + @testerToAdd.Id + @".jpg", true);
+                    }
+                    catch { }
+                    MessageBox.Show("הבוחן התווסף בהצלחה למערכת!", "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+
                     break;
                 case "Update":
                     try
@@ -170,8 +188,22 @@ namespace UI_Ver2
                         MessageBox.Show(ex.Message, "שגיאה פנימית", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         return;
                     }
+
                     MessageBox.Show("פרטי בוחן עודכנו בהצלחה!", "סטטוס עידכון", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     Close();
+                    if (isImageChanged)
+                    {
+                        string destination = @"..\..\..\TestersImages\" + tester.Id + @".jpg";
+                        for (int i = 0; i < 100; ++i) //try 100 times to overrite image.
+                        {
+                            try
+                            {
+                                System.IO.File.Copy(op.FileName, System.IO.Path.GetFullPath(destination), true);
+                                break;
+                            }
+                            catch { }
+                        }
+                    }
                     break;
             }
         }
@@ -314,6 +346,19 @@ namespace UI_Ver2
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
+        }
+        private void Button_Click_UploadImage(object sender, RoutedEventArgs e)
+        {
+            op = new OpenFileDialog();
+            op.Title = "Select a picture";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                TesterImage.Source = new BitmapImage(new Uri(op.FileName));
+                isImageChanged = true;
+            }
         }
     }
 }

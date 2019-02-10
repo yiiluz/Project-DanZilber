@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// class Tester used to implement driving tester
+    /// </summary>
     public class Tester : Person
     {
         private int seniority;

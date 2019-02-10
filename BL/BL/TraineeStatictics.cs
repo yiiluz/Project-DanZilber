@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// class TesterStatistics used to show statistics and counters for specific trainee.
+    /// </summary>
     public class TraineeStatistics
     {
         private int numOfTests;

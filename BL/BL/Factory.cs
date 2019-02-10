@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using BL;
 namespace BO
 {
+    /// <summary>
+    /// BL factory. just return bl instance.
+    /// </summary>
     public class Factory
     {
         private static BLImplementation bl = new BLImplementation();

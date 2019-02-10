@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// class that shows the system statistics and counters
+    /// </summary>
     public class SystemStatistics
     {
         static int numOfTestWaitForUpdate = 0;

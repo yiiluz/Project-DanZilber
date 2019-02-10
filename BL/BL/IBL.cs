@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// BL interface
+    /// </summary>
     public interface IBL
     {
         void UpdateStatistics();

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// class TraineeTest used to implement test object from the trainee view only.
+    /// </summary>
     public class TraineeTest : TestResult
     {
         private string testId;

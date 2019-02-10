@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// class TestResult used to implement test results.
+    /// </summary>
     public class TestResult
     {
         private bool distanceKeeping;

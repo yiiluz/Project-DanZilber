@@ -25,6 +25,7 @@ namespace UI_Ver2
         public Trainee trainee;
         OpenFileDialog op;
         public string operation = "Add";
+        bool isImageChanged = false;
         public TraineeDetailsWindow()
         {
             this.FlowDirection = FlowDirection.RightToLeft;
@@ -58,7 +59,11 @@ namespace UI_Ver2
             CmbBx_Street.SelectedItem = t.Street;
             try
             {
-                TraineeImage.Source = new BitmapImage(new Uri(System.IO.Path.GetFullPath(@"..\..\TraineesImages\" + @trainee.Id + @".jpg")));
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(System.IO.Path.GetFullPath(@"..\..\..\TraineesImages\" + trainee.Id + @".jpg"), UriKind.Absolute);
+                bitmap.EndInit();
+                TraineeImage.Source = bitmap;
             }
             catch { }
             switch (oper)
@@ -147,9 +152,17 @@ namespace UI_Ver2
                         Close();
                         return;
                     }
+
                     MessageBox.Show("תלמיד התווסף בהצלחה!", "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                    System.IO.File.Copy(op.FileName, @"..\..\TraineesImages\" + traineeToAdd.Id + @".jpg", true);
                     Close();
+                    string dest = @"..\..\..\TraineesImages\" + @traineeToAdd.Id + @".jpg";
+                    File.SetAttributes(dest, FileAttributes.NotContentIndexed);
+                    File.SetAttributes(op.FileName, FileAttributes.NotContentIndexed);
+                    try
+                    {
+                        System.IO.File.Copy(op.FileName, dest, true);
+                    }
+                    catch { }
                     break;
                 case "Update":
                     try
@@ -162,9 +175,22 @@ namespace UI_Ver2
                         Close();
                         return;
                     }
+
                     MessageBox.Show("פרטי תלמיד עודכנו בהצלחה!", "סטטוס עידכון", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                    System.IO.File.Copy(op.FileName, @"..\..\TraineesImages\" + @trainee.Id + @".jpg", true);
                     Close();
+                    TraineeImage.Source = null;
+                    if (isImageChanged)
+                    {
+                        string destination = @"..\..\..\TraineesImages\" + @trainee.Id + @".jpg";
+                        for (int i = 0; i < 100; ++i) //try 100 times to overrite image.
+                        {
+                            try
+                            {
+                                System.IO.File.Copy(op.FileName, System.IO.Path.GetFullPath(destination), true);
+                            }
+                            catch { }
+                        }
+                    }
                     break;
             }
         }
@@ -307,6 +333,7 @@ namespace UI_Ver2
               "Portable Network Graphic (*.png)|*.png";
             if (op.ShowDialog() == true)
             {
+                isImageChanged = true;
                 TraineeImage.Source = new BitmapImage(new Uri(op.FileName));
             }
         }

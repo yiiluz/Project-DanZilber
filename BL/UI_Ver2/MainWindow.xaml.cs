@@ -30,7 +30,6 @@ namespace UI_Ver2
     /// </summary>
     public partial class MainWindow : Window
     {
-        static int numOfActivatedMainWindow = 0;
 
         //List To View
         public static IBL bl = BO.Factory.GetBLObj();
@@ -65,7 +64,7 @@ namespace UI_Ver2
             }
             App.SetPasswords();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
-            numOfActivatedMainWindow++;
+            App.numOfActivatedMainWindow++;
             this.FlowDirection = FlowDirection.RightToLeft;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
@@ -86,7 +85,7 @@ namespace UI_Ver2
 
         private void When_Window_CLosed(object sender, EventArgs e)
         {
-            if (--numOfActivatedMainWindow == 0)
+            if (--App.numOfActivatedMainWindow == 0)
                 Environment.Exit(Environment.ExitCode);
         }
         private void Button_Click_CloseWindow(object sender, RoutedEventArgs e)

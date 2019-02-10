@@ -52,22 +52,37 @@ namespace BL
                 }
             }).Start();
         }
-
+        /// <summary>
+        /// Func for adding func to the Action event that fires when config changed.
+        /// </summary>
+        /// <param name="action"></param>
         public void AddEventIfConfigChanged(Action action)
         {
             DO.Factory.AddConfigUpdatedObserver(action);
         }
 
+        /// <summary>
+        /// when config changed, run this func for update configuration at bl level.
+        /// </summary>
         public static void ConfigChanged()
         {
             Configuretion.UpdateDictonary();
         }
 
+        /// <summary>
+        /// get dictonary of all configurations.
+        /// </summary>
+        /// <returns></returns>
         public Dictionary<String, Object> GetConfig()
         {
             return Configuretion.ConfiguretionsDictionary;
         }
 
+        /// <summary>
+        /// set parameter value to configuration with name parm
+        /// </summary>
+        /// <param name="parm"></param>
+        /// <param name="value"></param>
         public void SetConfig(String parm, Object value)
         {
             try
@@ -813,6 +828,13 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// get list of tests that match dataSource and trainee.
+        /// every test will be at the same desierd hour, but with another date.
+        /// </summary>
+        /// <param name="dataSource"></param>
+        /// <param name="trainee"></param>
+        /// <returns></returns>
         public List<Test> GetOptionalTestsByHour(Test dataSource, Trainee trainee)
         {
             List<Test> optionalTests = new List<Test>();
@@ -875,6 +897,13 @@ namespace BL
             optionalTests.Sort((x, y) => x.DateOfTest.CompareTo(y.DateOfTest));
             return optionalTests;
         }
+        /// <summary>
+        /// get list of tests that match dataSource and trainee.
+        /// every test will be at the same desierd date, but with another hour.
+        /// </summary>
+        /// <param name="dataSource"></param>
+        /// <param name="trainee"></param>
+        /// <returns></returns>
         public List<Test> GetOptionalTestsByDate(Test dataSource, Trainee trainee)
         {
             List<Test> optionalTests = new List<Test>();
@@ -930,6 +959,13 @@ namespace BL
             optionalTests.Sort((x, y) => x.HourOfTest.CompareTo(y.HourOfTest));
             return optionalTests;
         }
+
+        /// <summary>
+        /// return the closest availiable test that match dataSource and trainee
+        /// </summary>
+        /// <param name="dataSource"></param>
+        /// <param name="trainee"></param>
+        /// <returns></returns>
         public Test GetClosetTest(Test dataSource, Trainee trainee)
         {
             List<Test> optionalTests = new List<Test>();
@@ -971,6 +1007,7 @@ namespace BL
             }
         }
 
+        //funcs to get sub list by predicate
         public List<Test> GetTestsPartialListByPredicate(Func<BO.Test, bool> func)
         {
             try
@@ -1010,7 +1047,11 @@ namespace BL
         }
 
 
-
+        /// <summary>
+        /// return string with all trainee existing licenses.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string GetStringOfTraineeLicenses(string id)
         {
             string existing = "";
@@ -1034,6 +1075,11 @@ namespace BL
             }
             return existing;
         }
+        /// <summary>
+        /// return num of tested test for specific trainee
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
         public int GetTraineeNumTestedTest(Trainee t)
         {
             int num = 0;
@@ -1044,6 +1090,17 @@ namespace BL
             }
             return num;
         }
+        /// <summary>
+        /// return sum of trainee tests.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public int GetTraineeNumOfTotalTests(Trainee t)
+        {
+            return t.TestList.Count;
+        }
+
+        //group tests
         public IEnumerable<IGrouping<CarTypeEnum, Test>> GetTestsGroupedByCarType()
         {
             try
@@ -1086,6 +1143,7 @@ namespace BL
                    select g;
         }
 
+        //group testers
         public IEnumerable<IGrouping<string, Tester>> GetTestersGroupedByCity()
         {
             try
@@ -1167,6 +1225,7 @@ namespace BL
             }
         }
 
+        //group trainees
         public IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsBySchool()
         {
             try
@@ -1231,6 +1290,13 @@ namespace BL
                 throw e;
             }
         }
+
+        /// <summary>
+        /// return number of existing tests for the tester at the week that contain parameter a
+        /// </summary>
+        /// <param name="tester"></param>
+        /// <param name="a"></param>
+        /// <returns></returns>
         public int GetTesterNumOfTestForDateWeek(Tester tester, DateTime a)
         {
             int num = 0;
@@ -1247,6 +1313,12 @@ namespace BL
             }
             return num;
         }
+        /// <summary>
+        /// return list of available hours for the tester to test at specific date
+        /// </summary>
+        /// <param name="tester"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
         private List<int> GetAvailiableHoursOfTesterForSpesificDate(Tester tester, DateTime date)
         {
             List<int> AvailiableHours = new List<int>();
@@ -1269,6 +1341,14 @@ namespace BL
             AvailiableHours.Sort();
             return AvailiableHours;//if day is full
         }
+        /// <summary>
+        /// if sent only date, return true if tester have unlist 1 available hour to test on date, false otherwise.
+        /// if sent 2 parameters, return true if tester available at hour and date as given.
+        /// </summary>
+        /// <param name="tester"></param>
+        /// <param name="date"></param>
+        /// <param name="hour"></param>
+        /// <returns></returns>
         private bool IsTesterAvailiableOnDateAndHour(Tester tester, DateTime date, int hour = -1)
         {
             if (date.DayOfWeek == DayOfWeek.Friday || date.DayOfWeek == DayOfWeek.Saturday || GetTesterNumOfTestForDateWeek(tester, date) + 1 > tester.MaxTestsPerWeek)
@@ -1303,6 +1383,12 @@ namespace BL
             }
             return false;//if tester cant work at this day and hour
         }
+        /// <summary>
+        /// return true if tester work at hour, not matter what day.
+        /// </summary>
+        /// <param name="tester"></param>
+        /// <param name="hour"></param>
+        /// <returns></returns>
         private bool IsTestersWorkAtSpesificHour(Tester tester, int hour)
         {
             for (int i = 0; i < 5; ++i)
@@ -1314,6 +1400,11 @@ namespace BL
             }
             return false;
         }
+        /// <summary>
+        /// update test results.
+        /// </summary>
+        /// <param name="test"></param>
+        /// <param name="other"></param>
         private void UpdateTestDeteils(Test test, TestResult other)
         {
             test.DistanceKeeping = other.DistanceKeeping;
@@ -1326,21 +1417,14 @@ namespace BL
             test.IsTesterUpdateStatus = true;
         }
 
-        //public IEnumerable<IGrouping<Object, Test>> GetTestsGroupedByredicate(Func<BO.Test, bool> func)
-        //{
-        //    try
-        //    {
-        //        var it = from item in GetTestsList() orderby item.TestId group item by func(item);
-        //        return it;
-
-        //    }
-        //    catch (DirectoryNotFoundException e)
-        //    {
-        //        throw e;
-        //    }
-        //}
-
-
+        /// <summary>
+        /// return distance between the 2 addresses. if the return value small then 0, there was an error.
+        /// addressError will be true if unlist one of the addresses was incorrect.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="addressError"></param>
+        /// <returns></returns>
         double GetDistanceBetweenTwoAddresses(Address a, Address b, ref bool addressError)
         {
             double CalculatedDistance = 0;
@@ -1401,6 +1485,9 @@ namespace BL
             return CalculatedDistance;
         }
 
+        /// <summary>
+        /// func for updating the system statistics.
+        /// </summary>
         public void UpdateStatistics()
         {
             SystemStatistics.Format();
@@ -1487,6 +1574,11 @@ namespace BL
                 }
             }
         }
+
+        /// <summary>
+        /// fun for incremating test serial number by 1.
+        /// </summary>
+        /// <returns></returns>
         private bool IncrementTestSerialNumber()
         {
             try
@@ -1499,17 +1591,23 @@ namespace BL
                 return false;
             }
         }
+        /// <summary>
+        /// func to add func to run when the system statistics has changed.
+        /// </summary>
+        /// <param name="action"></param>
         public void AddStatisticsChangedObserve(Action action)
         {
             StatisticsChanged += action;
         }
-        public int GetTraineeNumOfTotalTests(Trainee t)
-        {
-            return t.TestList.Count;
-        }
+
+        /// <summary>
+        /// func to check if the system has enough information to run the system.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
         public bool IsProgramCanRun(ref string a)
         {
-            string filesWithErrors = "", configurationsWithErrors = "";
+            string filesWithErrors = "", configurationsWithErrors = "המערכת לא הצליחה לטעון כמה הגדרות ולכן המערכת לא תיפתח. ההגדרות הם:\n";
             if (!instance.CheckTheIntegrityOfSystemDataInXml(ref filesWithErrors))
             {
                 if (filesWithErrors == "שגיאה! לא מצליח לקרוא את קובץ הקונפיגורציות.")
@@ -1520,10 +1618,11 @@ namespace BL
             }
             else
             {
+                var x = Configuretion.ConfiguretionsDictionary;
                 Object obj;
                 try
                 {
-                    obj = GetConfig()["סיסמת מנהל המערכת"];
+                    obj = x["סיסמת מנהל המערכת"];
                 }
                 catch
                 {
@@ -1531,7 +1630,7 @@ namespace BL
                 }
                 try
                 {
-                    obj = GetConfig()["סיסמת ניהול משרדי"];
+                    obj = x["סיסמת ניהול משרדי"];
                 }
                 catch
                 {
@@ -1539,7 +1638,7 @@ namespace BL
                 }
                 try
                 {
-                    obj = GetConfig()["גיל בוחן מינימלי"];
+                    obj = x["גיל בוחן מינימלי"];
                 }
                 catch
                 {
@@ -1547,7 +1646,7 @@ namespace BL
                 }
                 try
                 {
-                    obj = GetConfig()["גיל בוחן מקסימלי"];
+                    obj = x["גיל בוחן מקסימלי"];
                 }
                 catch
                 {
@@ -1555,7 +1654,7 @@ namespace BL
                 }
                 try
                 {
-                    obj = GetConfig()["גיל נבחן מינימלי"];
+                    obj = x["גיל נבחן מינימלי"];
                 }
                 catch
                 {
@@ -1563,7 +1662,7 @@ namespace BL
                 }
                 try
                 {
-                    obj = GetConfig()["גיל נבחן מקסימלי"];
+                    obj = x["גיל נבחן מקסימלי"];
                 }
                 catch
                 {
@@ -1571,7 +1670,7 @@ namespace BL
                 }
                 try
                 {
-                    obj = GetConfig()["מינימום ימים בין מבחנים"];
+                    obj = x["מינימום ימים בין מבחנים"];
                 }
                 catch
                 {
@@ -1579,7 +1678,7 @@ namespace BL
                 }
                 try
                 {
-                    obj = GetConfig()["מספר שיעורים מינימלי"];
+                    obj = x["מספר שיעורים מינימלי"];
                 }
                 catch
                 {
@@ -1587,13 +1686,13 @@ namespace BL
                 }
                 try
                 {
-                    obj = GetConfig()["מספר מבחן"];
+                    obj = x["מספר מבחן"];
                 }
                 catch
                 {
                     configurationsWithErrors += "מספר מבחן\n";
                 }
-                if (configurationsWithErrors != "")
+                if (configurationsWithErrors != "המערכת לא הצליחה לטעון כמה הגדרות ולכן המערכת לא תיפתח. ההגדרות הם:\n")
                 {
                     a = configurationsWithErrors;
                     return false;

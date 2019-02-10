@@ -1,47 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schedules>
   <Schedule>
-    <ID>111111111</ID>
+    <ID>206914301</ID>
     <WorkDays>
       <Sunday>
-        <nine>true</nine>
-        <ten>true</ten>
-        <eleven>true</eleven>
-        <twelve>true</twelve>
-        <thirteen>true</thirteen>
+        <nine>false</nine>
+        <ten>false</ten>
+        <eleven>false</eleven>
+        <twelve>false</twelve>
+        <thirteen>false</thirteen>
         <fourteen>true</fourteen>
       </Sunday>
       <Monday>
         <nine>false</nine>
-        <ten>true</ten>
-        <eleven>true</eleven>
-        <twelve>true</twelve>
+        <ten>false</ten>
+        <eleven>false</eleven>
+        <twelve>false</twelve>
         <thirteen>true</thirteen>
-        <fourteen>true</fourteen>
+        <fourteen>false</fourteen>
       </Monday>
       <Tuesday>
-        <nine>true</nine>
-        <ten>true</ten>
-        <eleven>true</eleven>
+        <nine>false</nine>
+        <ten>false</ten>
+        <eleven>false</eleven>
         <twelve>true</twelve>
-        <thirteen>true</thirteen>
-        <fourteen>true</fourteen>
+        <thirteen>false</thirteen>
+        <fourteen>false</fourteen>
       </Tuesday>
       <Wednesday>
-        <nine>true</nine>
-        <ten>true</ten>
+        <nine>false</nine>
+        <ten>false</ten>
         <eleven>true</eleven>
-        <twelve>true</twelve>
-        <thirteen>true</thirteen>
-        <fourteen>true</fourteen>
+        <twelve>false</twelve>
+        <thirteen>false</thirteen>
+        <fourteen>false</fourteen>
       </Wednesday>
       <Thursday>
-        <nine>true</nine>
+        <nine>false</nine>
         <ten>true</ten>
-        <eleven>true</eleven>
-        <twelve>true</twelve>
-        <thirteen>true</thirteen>
-        <fourteen>true</fourteen>
+        <eleven>false</eleven>
+        <twelve>false</twelve>
+        <thirteen>false</thirteen>
+        <fourteen>false</fourteen>
       </Thursday>
     </WorkDays>
   </Schedule>

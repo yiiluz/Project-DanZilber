@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// class test used to implement driving test
+    /// </summary>
     public class Test : TestResult
     {
         private readonly string testId = "";

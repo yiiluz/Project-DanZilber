@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_Ver2"
         mc:Ignorable="d" Icon="Icons/Wheel.png"
-        Title="Tester Details Window" Height="500" Width="900" ResizeMode="NoResize" WindowStyle="None"
+        Title="Tester Details Window" Height="540" Width="900" ResizeMode="NoResize" WindowStyle="None"
         AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" FlowDirection="RightToLeft">
 
     <Window.Resources>
@@ -38,7 +38,8 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
-
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
             <Label x:Name="Label_Header" Content="הזן פרטי בוחן:"/>
@@ -57,7 +58,7 @@
             <TextBox x:Name="TxtBx_Seniority" Grid.Column="1" Grid.Row="6" LostFocus="TxtBx_Seniority_LostFocus" GotFocus="TxtBx_Seniority_GotFocus" Text="{Binding Path=Seniority, Mode=TwoWay}" Grid.ColumnSpan="3" />
 
             <Label x:Name="Label_MaxDistance" Content="מרחק (בק&quot;מ) מקסימלי לבחינה:" Grid.Row="7" Grid.Column="0"/>
-            
+
             <TextBox x:Name="TxtBx_MaxDistance"  Grid.Column="1" Grid.Row="7" LostFocus="TxtBx_MaxDistance_LostFocus" GotFocus="TxtBx_MaxDistance_GotFocus" Text="{Binding Path=MaxDistance, Mode=TwoWay}" Grid.ColumnSpan="3"/>
             <Label x:Name="Label_Address" Content="כתובות:" Grid.Row="8" Grid.Column="0"/>
             <ComboBox x:Name="CmbBx_City" Margin="2" Grid.Column="1" Grid.Row="8" SelectedItem="{Binding Path=City, Mode=TwoWay}" Text="בחר עיר" IsEditable="True" VerticalContentAlignment="Center" SelectionChanged="CmbBx_City_SelectionChanged"/>
@@ -83,7 +84,7 @@
                 <Label Content="12:00" Width="52" HorizontalContentAlignment="Center"/>
                 <Label Content="13:00" Width="52" HorizontalContentAlignment="Center"/>
                 <Label Content="14:00" Width="52" HorizontalContentAlignment="Center"/>
-            </StackPanel>   
+            </StackPanel>
             <Grid x:Name="HoursWork" ShowGridLines="True" Grid.Row="2" Grid.Column="5" Grid.RowSpan="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -91,6 +92,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions >
                     <ColumnDefinition Width="*"/>
@@ -131,11 +133,13 @@
                 <CheckBox Grid.Column="5" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <CheckBox Grid.Column="5" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
-            <StackPanel Grid.Row="10" Grid.Column="5" Grid.RowSpan="2" VerticalAlignment="Bottom">
-                <Button x:Name="Button_Add" Content="הוסף"  Click="Button_Click_Add" Margin="50 0 50 10"/>
-                <Button x:Name="Button_Cancel" Content="ביטול" Click="Button_Click_Cancel" Margin="50 0 50 0"/>
-                <Button x:Name="Button_OK" Content="סגור" Click="Button_OK_Click" Visibility="Collapsed" Margin="100 0 0 0"/>
-            </StackPanel>
+            <Button Grid.ColumnSpan="6" Grid.Row="12" x:Name="Button_Add" Content="הוסף"  Click="Button_Click_Add" Margin="1"/>
+            <Button Grid.ColumnSpan="6" Grid.Row="13" x:Name="Button_Cancel" Content="ביטול" Click="Button_Click_Cancel" Margin="1"/>
+            <Button Grid.ColumnSpan="6" Grid.Row="13" x:Name="Button_OK" Content="סגור" Click="Button_OK_Click" Visibility="Collapsed" Margin="1"/>
+            <Border x:Name="ImageBorder" Grid.Column="5" Grid.Row="7" Grid.RowSpan="4" BorderThickness="2" BorderBrush="Black" Margin="40 10">
+                <Image x:Name="TesterImage" Source="Icons/user_icon.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            </Border>
+            <Button x:Name="Button_UploadImage" Content="העלה תמונה" Grid.Column="5" Grid.Row="11" Click="Button_Click_UploadImage" Margin="1"/>
         </Grid>
     </Border>
 </Window>

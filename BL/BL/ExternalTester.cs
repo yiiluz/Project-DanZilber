@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// class for implement the tester part at test object
+    /// </summary>
     public class ExternalTester
     {
         private readonly string id;

@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// class Trainee used to implement driving trainee
+    /// </summary>
     public class Trainee : Person
     {
-
         private DateTime lastTest = DateTime.MinValue;//////////////////////
         private CarTypeEnum currCarType;
         private int numOfFinishedLessons;

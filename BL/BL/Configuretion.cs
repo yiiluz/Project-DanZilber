@@ -8,7 +8,9 @@ using System.IO;
 using DO;
 namespace BL
 {
-
+    /// <summary>
+    /// class to save the system configurations
+    /// </summary>
     public class Configuretion
     {
         public readonly static bool isConfigUpdated;

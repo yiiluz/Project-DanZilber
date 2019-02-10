@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// class for implement the trainee part at test object
+    /// </summary>
     public class ExternalTrainee
     {
         private readonly string id;

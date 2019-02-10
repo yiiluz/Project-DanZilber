@@ -17,7 +17,7 @@ namespace UI_Ver2
         private static string officePass;
         static IBL bl = BO.Factory.GetBLObj();
         private static string adminPass;
-
+        public static int numOfActivatedMainWindow = 0;
         static App()
         {
             
@@ -71,7 +71,8 @@ namespace UI_Ver2
         {
             MessageBox.Show("שגיאה פנימית. " + e.Exception.Message, "שגיאה שלא טופלה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             e.Handled = true;
-            (new MainWindow()).Show();
+            if (numOfActivatedMainWindow == 0)
+                (new MainWindow()).Show();
         }
     }
 }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// class TesterStatistics used to show statistics and counters for specific tester.
+    /// </summary>
     public class TesterStatistics
     {
         private int numOfTests = 0;

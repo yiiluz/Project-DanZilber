@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// class person to implement the person part of trainee and tester
+    /// </summary>
     public class Person
     {
         readonly string id;
