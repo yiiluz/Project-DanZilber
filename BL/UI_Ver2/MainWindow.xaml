@@ -585,10 +585,10 @@
                                                 <StackPanel>
                                                     <Button Content="עדכן תוצאות מבחן לפי מספר מבחן" Click="Button_Click_UpdateTestResultByID"/>
                                                     <Button Content="הצג פרטים אישיים" Click="Button_Click_ViewTesterDetails"/>
-                                                    <Button Content="התנתק" Click="Button_Click_LogOut"/>
                                                     <Button Content="מהי משמעות הצבעים?" Click="Button_Click_TesterColorsMeaning"/>
 
-                                                </StackPanel>
+                                                    <Button Content="התנתק" Click="Button_Click_LogOut"/>
+                                                                     </StackPanel>
                                             </Grid>
                                         </Border>
                                         <Border x:Name="TesterStatisticsBorder" Grid.Column="2" Grid.Row="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
