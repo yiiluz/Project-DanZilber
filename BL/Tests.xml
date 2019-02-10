@@ -8,15 +8,15 @@
     <HourOfTest>14</HourOfTest>
     <StartTestAddress>
       <City>אלעד</City>
-      <Street>רבי222 יהודה הנשיא</Street>
+      <Street>רבי יהודה הנשיא</Street>
       <BuildingNumber>90</BuildingNumber>
     </StartTestAddress>
     <CarType>MotorCycle</CarType>
     <DistanceKeeping>true</DistanceKeeping>
-    <ReverseParking>trwwwwwe</ReverseParking>
+    <ReverseParking>true</ReverseParking>
     <MirrorsCheck>true</MirrorsCheck>
     <Signals>true</Signals>
-    <CorrectSpeed>true</CorrectSpeed>
+    <CorrectSpeed>jbihb</CorrectSpeed>
     <IsPassed>true</IsPassed>
     <TesterNotes>'עיבניקנדיבנחניניהנחגנראניענחהנינחלרלנעאארנהגליראניטר5י6</TesterNotes>
     <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
