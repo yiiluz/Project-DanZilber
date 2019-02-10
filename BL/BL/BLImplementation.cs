@@ -446,25 +446,9 @@ namespace BL
                     }
                     if (serial > 0)
                     {
-                        bool flag = true;
-                        try
-                        {
-                            instance.SetConfig("מספר מבחן", ++serial); //update the test serial number
-                            Configuretion.UpdateSerialNumber();
-                        }
-                        catch (AccessViolationException e)
-                        {
-                            errors += (e.Message + "\n");
-                            flag = false;
-                        }
-                        catch (KeyNotFoundException e)
-                        {
-                            errors += (e.Message + "\n");
-                            flag = false;
-                        }
+                        bool flag = IncrementTestSerialNumber();
                         if (flag) //if everything was good
                         {
-
                             try
                             {
                                 instance.AddTest(Converters.CreateDOTest(t, Convert.ToString(serial))); //add the test
@@ -1510,6 +1494,18 @@ namespace BL
                         SystemStatistics.NumOfTestsTruckUnlimited++;
                         break;
                 }
+            }
+        }
+        private bool IncrementTestSerialNumber()
+        {
+            try
+            {
+                instance.SetConfig("מספר מבחן", (int)Configuretion.ConfiguretionsDictionary["מספר מבחן"]+1);
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
             }
         }
         public void AddStatisticsChangedObserve(Action action)
