@@ -29,7 +29,6 @@ namespace BL
                 throw new FileLoadException("שגיאה! לא מצליח לטעון את קובץ ההגדרות.");
             }
         }
-
         public Object GetConfiguretion(string s)
         {
             if (ConfiguretionsDictionary[s] == null)

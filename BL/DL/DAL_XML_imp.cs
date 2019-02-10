@@ -12,7 +12,7 @@ namespace DL
 {
     class DAL_XML_imp : BaseDL
     {
-        protected static readonly DAL_XML_imp instance = new DAL_XML_imp();
+        protected static DAL_XML_imp instance = new DAL_XML_imp();
         protected DAL_XML_imp()
         {
             try
@@ -304,19 +304,20 @@ namespace DL
             GenderEnum s;
             DateTime date;
             var it = (from item in TestersRoot.Elements()
-                      where item.Element("Person").Element("ID").Value.All(char.IsDigit)
-                      where item.Element("Person").Element("Name").Element("LastName").Value.All(x => x == ' ' || char.IsLetter(x))
-                      where item.Element("Person").Element("Name").Element("FirstName").Value.All(x => x == ' ' || char.IsLetter(x))
-                      where item.Element("Person").Element("PhoneNumber").Value.All(char.IsDigit)
-                      where Enum.TryParse(item.Element("Person").Element("Gender").Value, out s)
-                      where item.Element("Person").Element("Address").Element("City").Value.All(x => !char.IsDigit(x))
-                      where item.Element("Person").Element("Address").Element("Street").Value.All(x => !char.IsDigit(x))
-                      where item.Element("Person").Element("Address").Element("BuildingNumber").Value.All(char.IsDigit)
-                      where DateTime.TryParse(item.Element("Person").Element("DateOfBirth").Value, out date)
-                      where item.Element("Seniority").Value.All(char.IsDigit)
-                      where item.Element("MaxDistance").Value.All(char.IsDigit)
-                      where item.Element("MaxTestsPerWeek").Value.All(char.IsDigit)
-                      where Enum.TryParse(item.Element("TypeCarToTest").Value, out carType)
+                      where item.Element("Person") != null && item.Element("Person").Element("Address") != null && item.Element("Person").Element("Name") != null
+                            && item.Element("Person").Element("ID") != null && item.Element("Person").Element("ID").Value.All(char.IsDigit)
+                            && item.Element("Person").Element("Name").Element("LastName") != null && item.Element("Person").Element("Name").Element("LastName").Value.All(x => x == ' ' || char.IsLetter(x))
+                            && item.Element("Person").Element("Name").Element("FirstName") != null && item.Element("Person").Element("Name").Element("FirstName").Value.All(x => x == ' ' || char.IsLetter(x))
+                            && item.Element("Person").Element("PhoneNumber") != null && item.Element("Person").Element("PhoneNumber").Value.All(char.IsDigit)
+                            && item.Element("Person").Element("Gender") != null && Enum.TryParse(item.Element("Person").Element("Gender").Value, out s)
+                            && item.Element("Person").Element("Address").Element("City") != null && item.Element("Person").Element("Address").Element("City").Value.All(x => x == ' ' || char.IsLetter(x))
+                            && item.Element("Person").Element("Address").Element("Street") != null && item.Element("Person").Element("Address").Element("Street").Value.All(x => x == ' ' || char.IsLetter(x))
+                            && item.Element("Person").Element("Address").Element("BuildingNumber") != null && item.Element("Person").Element("Address").Element("BuildingNumber").Value.All(char.IsDigit)
+                            && item.Element("Person").Element("DateOfBirth") != null && DateTime.TryParse(item.Element("Person").Element("DateOfBirth").Value, out date)
+                            && item.Element("Seniority") != null && item.Element("Seniority").Value.All(char.IsDigit)
+                            && item.Element("MaxDistance") != null && item.Element("MaxDistance").Value.All(char.IsDigit)
+                            && item.Element("MaxTestsPerWeek") != null && item.Element("MaxTestsPerWeek").Value.All(char.IsDigit)
+                            && item.Element("TypeCarToTest") != null && Enum.TryParse(item.Element("TypeCarToTest").Value, out carType)
                       select new Tester(item.Element("Person").Element("ID").Value)
                       {
                           LastName = item.Element("Person").Element("Name").Element("LastName").Value,
@@ -347,23 +348,24 @@ namespace DL
             GenderEnum s;
             DateTime date;
             CarTypeEnum carType;
-            bool b;
+            bool v;
             var it = (from item in TraineesRoot.Elements()
-                      where item.Element("Person").Element("ID").Value.All(char.IsDigit)
-                      where item.Element("Person").Element("Name").Element("LastName").Value.All(x => x == ' ' || char.IsLetter(x))
-                      where item.Element("Person").Element("Name").Element("FirstName").Value.All(x => x == ' ' || char.IsLetter(x))
-                      where item.Element("Person").Element("PhoneNumber").Value.All(char.IsDigit)
-                      where Enum.TryParse(item.Element("Person").Element("Gender").Value, out s)
-                      where item.Element("Person").Element("Address").Element("City").Value.All(x => !char.IsDigit(x))
-                      where item.Element("Person").Element("Address").Element("Street").Value.All(x => !char.IsDigit(x))
-                      where item.Element("Person").Element("Address").Element("BuildingNumber").Value.All(char.IsDigit)
-                      where DateTime.TryParse(item.Element("Person").Element("DateOfBirth").Value, out date)
-                      where Enum.TryParse(item.Element("CurrCarType").Value, out carType)
-                      where item.Element("NumOfFinishedLessons").Value.All(char.IsDigit)
-                      where item.Element("NumOfTests").Value.All(char.IsDigit)
-                      where bool.TryParse(item.Element("IsAlreadyDidTest").Value, out b)
-                      where item.Element("SchoolName").Value.All(x => x == ' ' || char.IsLetter(x))
-                      where item.Element("TeacherName").Value.All(x => x == ' ' || char.IsLetter(x))
+                      where item.Element("Person") != null && item.Element("Person").Element("Address") != null && item.Element("Person").Element("Name") != null
+                  && item.Element("Person").Element("ID") != null && item.Element("Person").Element("ID").Value.All(char.IsDigit)
+                  && item.Element("Person").Element("Name").Element("LastName") != null && item.Element("Person").Element("Name").Element("LastName").Value.All(x => x == ' ' || char.IsLetter(x))
+                  && item.Element("Person").Element("Name").Element("FirstName") != null && item.Element("Person").Element("Name").Element("FirstName").Value.All(x => x == ' ' || char.IsLetter(x))
+                  && item.Element("Person").Element("PhoneNumber") != null && item.Element("Person").Element("PhoneNumber").Value.All(char.IsDigit)
+                  && item.Element("Person").Element("Gender") != null && Enum.TryParse(item.Element("Person").Element("Gender").Value, out s)
+                  && item.Element("Person").Element("Address").Element("City") != null && item.Element("Person").Element("Address").Element("City").Value.All(x => x == ' ' || char.IsLetter(x))
+                  && item.Element("Person").Element("Address").Element("Street") != null && item.Element("Person").Element("Address").Element("Street").Value.All(x => x == ' ' || char.IsLetter(x))
+                  && item.Element("Person").Element("Address").Element("BuildingNumber") != null && item.Element("Person").Element("Address").Element("BuildingNumber").Value.All(char.IsDigit)
+                  && item.Element("Person").Element("DateOfBirth") != null && DateTime.TryParse(item.Element("Person").Element("DateOfBirth").Value, out date)
+                  && item.Element("CurrCarType") != null && Enum.TryParse(item.Element("CurrCarType").Value, out carType)
+                  && item.Element("NumOfFinishedLessons").Value.All(char.IsDigit)
+                  && item.Element("NumOfFinishedLessons") != null && item.Element("NumOfTests").Value.All(char.IsDigit)
+                  && item.Element("IsAlreadyDidTest") != null && bool.TryParse(item.Element("IsAlreadyDidTest").Value, out v)
+                  && item.Element("SchoolName") != null && item.Element("SchoolName").Value.All(x => x == ' ' || char.IsLetter(x))
+                  && item.Element("TeacherName") != null && item.Element("TeacherName").Value.All(x => x == ' ' || char.IsLetter(x))
                       select new Trainee(item.Element("Person").Element("ID").Value)
                       {
                           LastName = item.Element("Person").Element("Name").Element("LastName").Value,
@@ -385,9 +387,9 @@ namespace DL
         }
         public override List<Test> GetTestsList()
         {
-            DateTime time;
+            DateTime date;           
             CarTypeEnum carType;
-            bool chacker;
+            bool v;
             try
             {
                 Load(ref TestsRoot, TestsRootPath);
@@ -397,22 +399,22 @@ namespace DL
                 throw e;
             }
             return (from item in TestsRoot.Elements()
-                    where item.Element("TestId").Value.All(char.IsDigit)
-                    where item.Element("TesterId").Value.All(char.IsDigit)
-                    where DateTime.TryParse(item.Element("DateOfTest").Value, out time)
-                    where item.Element("HourOfTest").Value.All(char.IsDigit)
-                    where item.Element("StartTestAddress").Element("City").Value.All(x => !char.IsDigit(x))
-                    where item.Element("StartTestAddress").Element("Street").Value.All(x => !char.IsDigit(x))
-                    where item.Element("StartTestAddress").Element("BuildingNumber").Value.All(char.IsDigit)
-                    where Enum.TryParse(item.Element("CarType").Value, out carType)
-                    where bool.TryParse(item.Element("DistanceKeeping").Value, out chacker)
-                    where bool.TryParse(item.Element("ReverseParking").Value, out chacker)
-                    where bool.TryParse(item.Element("MirrorsCheck").Value, out chacker)
-                    where bool.TryParse(item.Element("Signals").Value, out chacker)
-                    where bool.TryParse(item.Element("CorrectSpeed").Value, out chacker)
-                    where bool.TryParse(item.Element("IsPassed").Value, out chacker)
-                    where bool.TryParse(item.Element("IsTesterUpdateStatus").Value, out chacker)
-                    where bool.TryParse(item.Element("IsTestAborted").Value, out chacker)
+                    where item.Element("StartTestAddress") != null && item.Element("TestId") != null && item.Element("TestId").Value.All(char.IsDigit)
+                  && item.Element("TesterId") != null && item.Element("TesterId").Value.All(char.IsDigit)
+                  && item.Element("DateOfTest") != null && DateTime.TryParse(item.Element("DateOfTest").Value, out date)
+                  && item.Element("HourOfTest") != null && item.Element("HourOfTest").Value.All(char.IsDigit)
+                  && item.Element("StartTestAddress").Element("City") != null && item.Element("StartTestAddress").Element("City").Value.All(x => x == ' ' || char.IsLetter(x))
+                  && item.Element("StartTestAddress").Element("Street") != null && item.Element("StartTestAddress").Element("Street").Value.All(x => x == ' ' || char.IsLetter(x))
+                  && item.Element("StartTestAddress").Element("BuildingNumber") != null && item.Element("StartTestAddress").Element("BuildingNumber").Value.All(char.IsDigit)
+                  && item.Element("CarType") != null && Enum.TryParse(item.Element("CarType").Value, out carType)
+                  && item.Element("DistanceKeeping") != null && bool.TryParse(item.Element("DistanceKeeping").Value, out v)
+                  && item.Element("ReverseParking") != null && bool.TryParse(item.Element("ReverseParking").Value, out v)
+                  && item.Element("MirrorsCheck") != null && bool.TryParse(item.Element("MirrorsCheck").Value, out v)
+                  && item.Element("Signals") != null && bool.TryParse(item.Element("Signals").Value, out v)
+                  && item.Element("CorrectSpeed") != null && bool.TryParse(item.Element("CorrectSpeed").Value, out v)
+                  && item.Element("IsPassed") != null && bool.TryParse(item.Element("IsPassed").Value, out v)
+                  && item.Element("IsTesterUpdateStatus") != null && bool.TryParse(item.Element("IsTesterUpdateStatus").Value, out v)
+                  && item.Element("IsTestAborted") != null && bool.TryParse(item.Element("IsTestAborted").Value, out v)
                     select new Test(item.Element("TestId").Value)
                     {
                         TesterId = item.Element("TesterId").Value,
@@ -547,25 +549,39 @@ namespace DL
                 throw e;
             }
             var it = (from item in SchedulesRoot.Elements()
-                      where item.Element("ID").Value == id
+                      where item.Element("ID") != null && item.Element("ID").Value == id
                       select item).FirstOrDefault();
             if (it == null) { throw new KeyNotFoundException("שגיאה! לא קיים במערכת מערכת שעות עבור בוחן זה."); }
             bool c;
-            foreach (var x in it.Element("WorkDays").Elements())
-            {
-                foreach (var v in x.Elements())
+            if (it.Element("WorkDays") != null )
+            {      
+                foreach (var x in it.Element("WorkDays").Elements())
                 {
-                    if (!bool.TryParse(v.Value, out c))
+                    if (x != null)
+                    {
+                        foreach (var v in x.Elements())
+                        {
+                            if (v == null || !bool.TryParse(v.Value, out c))
+                            {
+                                throw new DirectoryNotFoundException("שגיאה! כשל בטעינת נתוני מערכת שעות עבור בוחן זה.");
+                            }
+                            temp[j, i] = Convert.ToBoolean(v.Value);
+                            i++;
+                        }
+                        j++;
+                        i = 0;
+                    }
+                    else
                     {
                         throw new DirectoryNotFoundException("שגיאה! כשל בטעינת נתוני מערכת שעות עבור בוחן זה.");
                     }
-                    temp[j, i] = Convert.ToBoolean(v.Value);
-                    i++;
                 }
-                j++;
-                i = 0;
+                return temp;
             }
-            return temp;
+            else
+            {
+                throw new DirectoryNotFoundException("שגיאה! כשל בטעינת נתוני מערכת שעות עבור בוחן זה.");
+            }
         }
         public override void RemoveTesterSchedule(string id)
         {
@@ -597,26 +613,28 @@ namespace DL
             DateTime date;
             GenderEnum s;
             a = "";
-            foreach (var x in ConfigRoot.Elements())
-            {
-                if (!x.Element("Key").Value.All(Z => Z == ' ' || char.IsLetter(Z))
-                  || !bool.TryParse(x.Element("Value").Element("Readable").Value, out v)
-                  || !bool.TryParse(x.Element("Value").Element("Writable").Value, out v)
-                  || !x.Element("Value").Element("value").Value.All(char.IsDigit))
+            List<int> it = (from x in ConfigRoot.Elements()
+                            where x.Element("Key") != null && x.Element("Key").Value.All(Z => Z == ' ' || char.IsLetter(Z))
+                            && x.Element("Value") != null && x.Element("Value").Element("Readable") != null && bool.TryParse(x.Element("Value").Element("Readable").Value, out v)
+                            && x.Element("Value").Element("Writable") != null && bool.TryParse(x.Element("Value").Element("Writable").Value, out v)
+                            && x.Element("Value").Element("value") != null && x.Element("Value").Element("value").Value.All(char.IsDigit)
+                            select 1).ToList();
+           
+                if (it.Count != ConfigRoot.Elements().Count())
                 {
                     a = "שגיאה! לא מצליח לקרוא את קובץ הקונפיגורציות.";
                     return false;
                 }
-            }
-            List<int> it = (from item in TestersRoot.Elements()
+          
+           it = (from item in TestersRoot.Elements()
                             where item.Element("Person") != null && item.Element("Person").Element("Address") != null && item.Element("Person").Element("Name") != null
                             && item.Element("Person").Element("ID") != null &&  item.Element("Person").Element("ID").Value.All(char.IsDigit)
                             && item.Element("Person").Element("Name").Element("LastName") != null && item.Element("Person").Element("Name").Element("LastName").Value.All(x => x == ' ' || char.IsLetter(x))
                             && item.Element("Person").Element("Name").Element("FirstName") != null && item.Element("Person").Element("Name").Element("FirstName").Value.All(x => x == ' ' || char.IsLetter(x))
                             && item.Element("Person").Element("PhoneNumber") != null && item.Element("Person").Element("PhoneNumber").Value.All(char.IsDigit)
                             && item.Element("Person").Element("Gender") != null && Enum.TryParse(item.Element("Person").Element("Gender").Value, out s)
-                            && item.Element("Person").Element("Address").Element("City") != null && item.Element("Person").Element("Address").Element("City").Value.All(x => !char.IsDigit(x))
-                            && item.Element("Person").Element("Address").Element("Street") != null && item.Element("Person").Element("Address").Element("Street").Value.All(x => !char.IsDigit(x))
+                            && item.Element("Person").Element("Address").Element("City") != null && item.Element("Person").Element("Address").Element("City").Value.All(x => x == ' ' || char.IsLetter(x))
+                            && item.Element("Person").Element("Address").Element("Street") != null && item.Element("Person").Element("Address").Element("Street").Value.All(x => x == ' ' || char.IsLetter(x))
                             && item.Element("Person").Element("Address").Element("BuildingNumber") != null && item.Element("Person").Element("Address").Element("BuildingNumber").Value.All(char.IsDigit)
                             && item.Element("Person").Element("DateOfBirth") != null && DateTime.TryParse(item.Element("Person").Element("DateOfBirth").Value, out date)
                             && item.Element("Seniority") != null && item.Element("Seniority").Value.All(char.IsDigit)
@@ -629,48 +647,54 @@ namespace DL
                 a = "שגיאה! כשל בנתוני בוחנים. לא כל המידע נטען בהצלחה.\n";
             }
             it = (from item in TraineesRoot.Elements()
-                  where item.Element("Person").Element("ID").Value.All(char.IsDigit)
-                  where item.Element("Person").Element("Name").Element("LastName").Value.All(x => x == ' ' || char.IsLetter(x))
-                  where item.Element("Person").Element("Name").Element("FirstName").Value.All(x => x == ' ' || char.IsLetter(x))
-                  where item.Element("Person").Element("PhoneNumber").Value.All(char.IsDigit)
-                  where Enum.TryParse(item.Element("Person").Element("Gender").Value, out s)
-                  where item.Element("Person").Element("Address").Element("City").Value.All(x => !char.IsDigit(x))
-                  where item.Element("Person").Element("Address").Element("Street").Value.All(x => !char.IsDigit(x))
-                  where item.Element("Person").Element("Address").Element("BuildingNumber").Value.All(char.IsDigit)
-                  where DateTime.TryParse(item.Element("Person").Element("DateOfBirth").Value, out date)
-                  where Enum.TryParse(item.Element("CurrCarType").Value, out carType)
-                  where item.Element("NumOfFinishedLessons").Value.All(char.IsDigit)
-                  where item.Element("NumOfTests").Value.All(char.IsDigit)
-                  where bool.TryParse(item.Element("IsAlreadyDidTest").Value, out v)
-                  where item.Element("SchoolName").Value.All(x => x == ' ' || char.IsLetter(x))
-                  where item.Element("TeacherName").Value.All(x => x == ' ' || char.IsLetter(x))
+                  where item.Element("Person") != null && item.Element("Person").Element("Address") != null && item.Element("Person").Element("Name") != null
+                  && item.Element("Person").Element("ID") != null && item.Element("Person").Element("ID").Value.All(char.IsDigit)
+                  && item.Element("Person").Element("Name").Element("LastName") != null && item.Element("Person").Element("Name").Element("LastName").Value.All(x => x == ' ' || char.IsLetter(x))
+                  && item.Element("Person").Element("Name").Element("FirstName") != null && item.Element("Person").Element("Name").Element("FirstName").Value.All(x => x == ' ' || char.IsLetter(x))
+                  && item.Element("Person").Element("PhoneNumber") != null && item.Element("Person").Element("PhoneNumber").Value.All(char.IsDigit)
+                  && item.Element("Person").Element("Gender") != null && Enum.TryParse(item.Element("Person").Element("Gender").Value, out s)
+                  && item.Element("Person").Element("Address").Element("City") != null && item.Element("Person").Element("Address").Element("City").Value.All(x => x == ' ' || char.IsLetter(x))
+                  && item.Element("Person").Element("Address").Element("Street") != null && item.Element("Person").Element("Address").Element("Street").Value.All(x => x == ' ' || char.IsLetter(x))
+                  && item.Element("Person").Element("Address").Element("BuildingNumber") != null && item.Element("Person").Element("Address").Element("BuildingNumber").Value.All(char.IsDigit)
+                  && item.Element("Person").Element("DateOfBirth") != null && DateTime.TryParse(item.Element("Person").Element("DateOfBirth").Value, out date)
+                  && item.Element("CurrCarType") != null && Enum.TryParse(item.Element("CurrCarType").Value, out carType)
+                  && item.Element("NumOfFinishedLessons").Value.All(char.IsDigit)
+                  && item.Element("NumOfFinishedLessons") != null && item.Element("NumOfTests").Value.All(char.IsDigit)
+                  && item.Element("IsAlreadyDidTest") != null && bool.TryParse(item.Element("IsAlreadyDidTest").Value, out v)
+                  && item.Element("SchoolName") != null && item.Element("SchoolName").Value.All(x => x == ' ' || char.IsLetter(x))
+                  && item.Element("TeacherName") != null && item.Element("TeacherName").Value.All(x => x == ' ' || char.IsLetter(x))
                   select 1).ToList();
             if (it.Count != TraineesRoot.Elements().Count())
             {
                 a += "שגיאה! כשל בנתוני תלמידים. לא כל המידע נטען בהצלחה.\n";
             }
             it = (from item in TestsRoot.Elements()
-                  where item.Element("TestId").Value.All(char.IsDigit)
-                  where item.Element("TesterId").Value.All(char.IsDigit)
-                  where DateTime.TryParse(item.Element("DateOfTest").Value, out date)
-                  where item.Element("HourOfTest").Value.All(char.IsDigit)
-                  where item.Element("StartTestAddress").Element("City").Value.All(x => !char.IsDigit(x))
-                  where item.Element("StartTestAddress").Element("Street").Value.All(x => !char.IsDigit(x))
-                  where item.Element("StartTestAddress").Element("BuildingNumber").Value.All(char.IsDigit)
-                  where Enum.TryParse(item.Element("CarType").Value, out carType)
-                  where bool.TryParse(item.Element("DistanceKeeping").Value, out v)
-                  where bool.TryParse(item.Element("ReverseParking").Value, out v)
-                  where bool.TryParse(item.Element("MirrorsCheck").Value, out v)
-                  where bool.TryParse(item.Element("Signals").Value, out v)
-                  where bool.TryParse(item.Element("CorrectSpeed").Value, out v)
-                  where bool.TryParse(item.Element("IsPassed").Value, out v)
-                  where bool.TryParse(item.Element("IsTesterUpdateStatus").Value, out v)
-                  where bool.TryParse(item.Element("IsTestAborted").Value, out v)
+                  where item.Element("StartTestAddress") != null && item.Element("TestId") != null && item.Element("TestId").Value.All(char.IsDigit)
+                 && item.Element("TesterId") != null && item.Element("TesterId").Value.All(char.IsDigit)
+                 && item.Element("DateOfTest") != null && DateTime.TryParse(item.Element("DateOfTest").Value, out date)
+                 && item.Element("HourOfTest")!= null && item.Element("HourOfTest").Value.All(char.IsDigit)
+                 && item.Element("StartTestAddress").Element("City") != null && item.Element("StartTestAddress").Element("City").Value.All(x => x == ' ' || char.IsLetter(x))
+                 && item.Element("StartTestAddress").Element("Street") != null && item.Element("StartTestAddress").Element("Street").Value.All(x => x == ' ' || char.IsLetter(x))
+                 && item.Element("StartTestAddress").Element("BuildingNumber") != null && item.Element("StartTestAddress").Element("BuildingNumber").Value.All(char.IsDigit)
+                 && item.Element("CarType") != null && Enum.TryParse(item.Element("CarType").Value, out carType)
+                 && item.Element("DistanceKeeping") != null && bool.TryParse(item.Element("DistanceKeeping").Value, out v)
+                 && item.Element("ReverseParking") != null && bool.TryParse(item.Element("ReverseParking").Value, out v)
+                 && item.Element("MirrorsCheck") != null && bool.TryParse(item.Element("MirrorsCheck").Value, out v)
+                 && item.Element("Signals") != null && bool.TryParse(item.Element("Signals").Value, out v)
+                 && item.Element("CorrectSpeed") != null && bool.TryParse(item.Element("CorrectSpeed").Value, out v)
+                 && item.Element("IsPassed") != null && bool.TryParse(item.Element("IsPassed").Value, out v)
+                 && item.Element("IsTesterUpdateStatus") != null && bool.TryParse(item.Element("IsTesterUpdateStatus").Value, out v)
+                 && item.Element("IsTestAborted") != null && bool.TryParse(item.Element("IsTestAborted").Value, out v)
                   select 1).ToList();
             if (it.Count != TestsRoot.Elements().Count())
             {
                 a += "שגיאה! כשל בנתוני מבחנים. לא כל המידע נטען בהצלחה.\n";
             }
+
+        it = (from item in SchedulesRoot.Elements()
+                     where item.Element("ID") != null && item.Element("ID").Value.All(char.IsDigit) && item.Element("ID").Value.Length ==9
+                     && item.Element("WorkDays") != null && item.Element("WorkDays").Elements().Count() == 5
+                     && item.Element("WorkDays").Elements()
             if (a != "")
             {
                 return false;
