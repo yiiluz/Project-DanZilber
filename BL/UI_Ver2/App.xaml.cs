@@ -66,5 +66,12 @@ namespace UI_Ver2
                 }
             }
         }
+
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show("שגיאה פנימית. " + e.Exception.Message, "שגיאה שלא טופלה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+            e.Handled = true;
+            (new MainWindow()).Show();
+        }
     }
 }

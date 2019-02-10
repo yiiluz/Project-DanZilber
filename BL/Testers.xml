@@ -19,6 +19,27 @@
     <Seniority>20</Seniority>
     <MaxDistance>100</MaxDistance>
     <MaxTestsPerWeek>50</MaxTestsPerWeek>
-    <TypeCarToTest>PrivateCar</TypeCarToTest>
+    <TypeCarToTest>TruckUnlimited</TypeCarToTest>
+  </Tester>
+  <Tester>
+    <Person>
+      <ID>111111111</ID>
+      <Name>
+        <FirstName>אבי</FirstName>
+        <LastName>יגודיוב</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>תל אביב - יפו</City>
+        <Street>אלנבי</Street>
+        <BuildingNumber>10</BuildingNumber>
+      </Address>
+      <DateOfBirth>1974-02-10T00:00:00</DateOfBirth>
+      <PhoneNumber>8767968969</PhoneNumber>
+    </Person>
+    <Seniority>10</Seniority>
+    <MaxDistance>79</MaxDistance>
+    <MaxTestsPerWeek>51</MaxTestsPerWeek>
+    <TypeCarToTest>MotorCycle</TypeCarToTest>
   </Tester>
 </Testers>

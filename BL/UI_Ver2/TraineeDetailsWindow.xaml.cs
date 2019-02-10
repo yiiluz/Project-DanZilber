@@ -51,6 +51,7 @@ namespace UI_Ver2
             CmbBx_City.Text = t.City;
             CmbBx_City.SelectedItem = t.City;
             CmbBx_Street.Text = t.Street;
+            CmbBx_Street.SelectedItem = t.Street;
             switch (oper)
             {
                 case "Update":
@@ -112,7 +113,7 @@ namespace UI_Ver2
                     {
                         MainWindow.bl.AddTrainee(traineeToAdd);
                     }
-                    catch (DuplicateWaitObjectException ex)
+                    catch (DuplicateWaitObjectException)
                     {
                         MessageBox.Show("תלמיד עם תעודת זהות זו כבר נמצא במערכת.", "בעיית כפילויות", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         this.Close();

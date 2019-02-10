@@ -110,4 +110,136 @@
     <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
     <IsTestAborted>false</IsTestAborted>
   </Test>
+  <Test>
+    <TestId>10000011</TestId>
+    <TesterId>209492065</TesterId>
+    <TraineeId>555555555</TraineeId>
+    <DateOfTest>2019-02-11T00:00:00</DateOfTest>
+    <HourOfTest>9</HourOfTest>
+    <StartTestAddress>
+      <City>פתח תקווה</City>
+      <Street>יהודה הלוי</Street>
+      <BuildingNumber>6</BuildingNumber>
+    </StartTestAddress>
+    <CarType>TruckUnlimited</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>true</IsPassed>
+    <TesterNotes />
+    <IsTesterUpdateStatus>true</IsTesterUpdateStatus>
+    <IsTestAborted>false</IsTestAborted>
+  </Test>
+  <Test>
+    <TestId>10000013</TestId>
+    <TesterId>209492065</TesterId>
+    <TraineeId>555555555</TraineeId>
+    <DateOfTest>2019-02-11T00:00:00</DateOfTest>
+    <HourOfTest>9</HourOfTest>
+    <StartTestAddress>
+      <City>פתח תקווה</City>
+      <Street>יהודה הלוי</Street>
+      <BuildingNumber>6</BuildingNumber>
+    </StartTestAddress>
+    <CarType>TruckUnlimited</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes />
+    <IsTesterUpdateStatus>true</IsTesterUpdateStatus>
+    <IsTestAborted>false</IsTestAborted>
+  </Test>
+  <Test>
+    <TestId>10000014</TestId>
+    <TesterId>209492065</TesterId>
+    <TraineeId>555555555</TraineeId>
+    <DateOfTest>2019-02-11T00:00:00</DateOfTest>
+    <HourOfTest>9</HourOfTest>
+    <StartTestAddress>
+      <City>פתח תקווה</City>
+      <Street>יהודה הלוי</Street>
+      <BuildingNumber>6</BuildingNumber>
+    </StartTestAddress>
+    <CarType>TruckUnlimited</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes />
+    <IsTesterUpdateStatus>true</IsTesterUpdateStatus>
+    <IsTestAborted>false</IsTestAborted>
+  </Test>
+  <Test>
+    <TestId>10000014</TestId>
+    <TesterId>209492065</TesterId>
+    <TraineeId>555555555</TraineeId>
+    <DateOfTest>2019-02-11T00:00:00</DateOfTest>
+    <HourOfTest>9</HourOfTest>
+    <StartTestAddress>
+      <City>פתח תקווה</City>
+      <Street>יהודה הלוי</Street>
+      <BuildingNumber>6</BuildingNumber>
+    </StartTestAddress>
+    <CarType>TruckUnlimited</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes />
+    <IsTesterUpdateStatus>true</IsTesterUpdateStatus>
+    <IsTestAborted>false</IsTestAborted>
+  </Test>
+  <Test>
+    <TestId>10000014</TestId>
+    <TesterId>209492065</TesterId>
+    <TraineeId>555555555</TraineeId>
+    <DateOfTest>2019-02-11T00:00:00</DateOfTest>
+    <HourOfTest>9</HourOfTest>
+    <StartTestAddress>
+      <City>פתח תקווה</City>
+      <Street>יהודה הלוי</Street>
+      <BuildingNumber>6</BuildingNumber>
+    </StartTestAddress>
+    <CarType>TruckUnlimited</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes />
+    <IsTesterUpdateStatus>true</IsTesterUpdateStatus>
+    <IsTestAborted>false</IsTestAborted>
+  </Test>
+  <Test>
+    <TestId>10000014</TestId>
+    <TesterId>209492065</TesterId>
+    <TraineeId>555555555</TraineeId>
+    <DateOfTest>2019-02-11T00:00:00</DateOfTest>
+    <HourOfTest>9</HourOfTest>
+    <StartTestAddress>
+      <City>פתח תקווה</City>
+      <Street>יהודה הלוי</Street>
+      <BuildingNumber>6</BuildingNumber>
+    </StartTestAddress>
+    <CarType>TruckUnlimited</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes />
+    <IsTesterUpdateStatus>true</IsTesterUpdateStatus>
+    <IsTestAborted>false</IsTestAborted>
+  </Test>
 </Tests>

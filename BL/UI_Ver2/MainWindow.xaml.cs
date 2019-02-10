@@ -30,8 +30,6 @@ namespace UI_Ver2
     public partial class MainWindow : Window
     {
         static int numOfActivatedMainWindow = 0;
-        //passwords
-
 
         //List To View
         public static IBL bl = BO.Factory.GetBLObj();
@@ -52,7 +50,7 @@ namespace UI_Ver2
             if (!bl.IsProgramCanRun(ref filesWithErrors))
             {
                 {
-                    MessageBox.Show(filesWithErrors , "שגיאה חמורה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    MessageBox.Show(filesWithErrors, "שגיאה חמורה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     Close();
                     Environment.Exit(Environment.ExitCode);
                 }
@@ -82,6 +80,7 @@ namespace UI_Ver2
             XElement streetsRoot = XElement.Load(streetPath);
             streetsGroupedByCity = (from item in streetsRoot.Elements() group item.Element("Street").Value by item.Element("City").Value).ToList();
             SystemCommands.MaximizeWindow(this);
+
         }
 
         private void When_Window_CLosed(object sender, EventArgs e)

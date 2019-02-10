@@ -55,9 +55,9 @@ namespace BO
         public static int NumOfSuccessedTests { get => numOfSuccessedTests; set => numOfSuccessedTests = value; }
         public static int NumOfFailedTest { get => numOfFailedTest; set => numOfFailedTest = value; }
 
-        public static double AverageNumOfTestToSuccess { get => NumOfTests != 0 ? NumOfSuccessedTests / NumOfTests : 0; }
-        public static double AverageTesterDistanceToTest { get => NumOfTesters != 0 ? sumTesterDistanceToTest / NumOfTesters : 0; }
-        public static double AverageNumOfTestsPerWeek { get => NumOfTesters != 0 ? sumNumOfTestsPerWeek / NumOfTesters : 0; }
+        public static double AverageNumOfTestToSuccess { get => NumOfTests != 0 ? (double)NumOfSuccessedTests*100 / NumOfFailedTest : 0; }
+        public static double AverageTesterDistanceToTest { get => NumOfTesters != 0 ? (double)sumTesterDistanceToTest / NumOfTesters : 0; }
+        public static double AverageNumOfTestsPerWeek { get => NumOfTesters != 0 ? (double)sumNumOfTestsPerWeek / NumOfTesters : 0; }
         public static int NumOfTraineesMotorCycle { get => numOfTraineesMotorCycle; set => numOfTraineesMotorCycle = value; }
         public static int NumOfTraineesPrivateCar { get => numOfTraineesPrivateCar; set => numOfTraineesPrivateCar = value; }
         public static int NumOfTraineesAutoPrivateCar { get => numOfTraineesAutoPrivateCar; set => numOfTraineesAutoPrivateCar = value; }
@@ -98,9 +98,9 @@ namespace BO
         }
         public int _NumOfSuccessedTests { get => numOfSuccessedTests; set => numOfSuccessedTests = value; }
         public int _NumOfFailedTest { get => numOfFailedTest; set => numOfFailedTest = value; }
-        public double _AverageNumOfTestToSuccess { get => NumOfTests != 0 ? NumOfSuccessedTests / NumOfTests : 0; }
-        public double _AverageTesterDistanceToTest { get => NumOfTesters != 0 ? sumTesterDistanceToTest / NumOfTesters : 0; }
-        public double _AverageNumOfTestsPerWeek { get => NumOfTesters != 0 ? sumNumOfTestsPerWeek / NumOfTesters : 0; }
+        public double _AverageNumOfTestToSuccess { get => NumOfTests != 0 ? (double)NumOfSuccessedTests*100 / NumOfFailedTest : 0; }
+        public double _AverageTesterDistanceToTest { get => NumOfTesters != 0 ? (double)sumTesterDistanceToTest / NumOfTesters : 0; }
+        public double _AverageNumOfTestsPerWeek { get => NumOfTesters != 0 ? (double)sumNumOfTestsPerWeek / NumOfTesters : 0; }
         public int _NumOfTraineesMotorCycle { get => numOfTraineesMotorCycle; set => numOfTraineesMotorCycle = value; }
         public int _NumOfTraineesPrivateCar { get => numOfTraineesPrivateCar; set => numOfTraineesPrivateCar = value; }
         public int _NumOfTraineesAutoPrivateCar { get => numOfTraineesAutoPrivateCar; set => numOfTraineesAutoPrivateCar = value; }

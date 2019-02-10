@@ -108,8 +108,24 @@
                             <Border x:Name="AdminMainWindowBorder" Margin="10" Visibility="Visible" Grid.RowSpan="2">
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 0 18 0">
-                                        <Button Content="שנה סיסמה"  Width="100" Click="Button_Click_ChangePassword"/>
-                                        <Button Content="התנתק"  Width="100" Click="Button_Click_LogOut"/>
+                                        <Button Content="שנה סיסמה"  Width="100" Click="Button_Click_ChangePassword" ToolTipService.ShowDuration="8000">
+                                            <Button.ToolTip>
+                                                <StackPanel>
+                                                    <TextBlock FontWeight="Bold">הקש כדי לשנות סיסמה</TextBlock>
+                                                    <TextBlock>יפתח חלון בו תבחר את הסיסמה שברצונך לשנות (מנהל מערכת/ניהול משרדי).</TextBlock>
+                                                    <TextBlock>תתבקש להזין את הסיסמה הנוכחית, ופעמיים את הסיסמה החדשה.</TextBlock>
+
+                                                </StackPanel>
+                                            </Button.ToolTip>
+                                        </Button>
+                                        <Button Content="התנתק"  Width="100" Click="Button_Click_LogOut" ToolTipService.ShowDuration="8000">
+                                            <Button.ToolTip>
+                                                <StackPanel>
+                                                    <TextBlock FontWeight="Bold">הקש כדי להתנתק מהמערכת</TextBlock>
+                                                    <TextBlock>לחיצה על מקש זה תנתק אותך מהמערכת. תוכל להתחבר שוב בכל עת.</TextBlock>
+                                                </StackPanel>
+                                            </Button.ToolTip>
+                                        </Button>
 
                                     </StackPanel>
                                     <TextBlock Text="עודכן לאחרונה בתאריך:" Margin="20 10" HorizontalAlignment="left"/>
@@ -481,9 +497,13 @@
                                     <TextBlock Grid.Row="2" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfSuccessedTests, Mode=OneWay}"/>
                                     <TextBlock Grid.Row="3" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfFailedTest, Mode=OneWay}"/>
                                     <TextBlock Grid.Row="4" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _NumOfTestWaitForUpdate, Mode=OneWay}"/>
-                                    <TextBlock Grid.Row="5" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _AverageNumOfTestToSuccess, Mode=OneWay}"/>
-                                    <TextBlock Grid.Row="6" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _AverageTesterDistanceToTest, Mode=OneWay}"/>
-                                    <TextBlock Grid.Row="7" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _AverageNumOfTestsPerWeek, Mode=OneWay}"/>
+                                    <StackPanel Grid.Row="5" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal">
+                                        <TextBlock Text="% "/>
+                                        <TextBlock Text="{Binding _AverageNumOfTestToSuccess, StringFormat=0.##}"/>
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Row="6" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _AverageTesterDistanceToTest, Mode=OneWay, StringFormat=0.##}"/>
+                                    <TextBlock Grid.Row="7" Grid.Column="7" Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding _AverageNumOfTestsPerWeek, Mode=OneWay, StringFormat=0.##}"/>
 
                                 </Grid>
                             </Border>
@@ -583,12 +603,41 @@
                                         <Border Grid.Column="2" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
                                             <Grid>
                                                 <StackPanel>
-                                                    <Button Content="עדכן תוצאות מבחן לפי מספר מבחן" Click="Button_Click_UpdateTestResultByID"/>
-                                                    <Button Content="הצג פרטים אישיים" Click="Button_Click_ViewTesterDetails"/>
-                                                    <Button Content="מהי משמעות הצבעים?" Click="Button_Click_TesterColorsMeaning"/>
+                                                    <Button Content="עדכן תוצאות מבחן לפי מספר מבחן" Click="Button_Click_UpdateTestResultByID" ToolTipService.ShowDuration="8000">
+                                                        <Button.ToolTip>
+                                                            <StackPanel>
+                                                                <TextBlock FontWeight="Bold">הקש כדי לעדכן תוצאות מבחן</TextBlock>
+                                                                <TextBlock>יפתח חלון, בו תתבקש להכניס את מספר המבחן.</TextBlock>
+                                                                <TextBlock>אם המבחן קיים, יפתח חלון עידכון תוצאות המבחן.</TextBlock>
+                                                            </StackPanel>
+                                                        </Button.ToolTip>
+                                                    </Button>
+                                                    <Button Content="הצג פרטים אישיים" Click="Button_Click_ViewTesterDetails" ToolTipService.ShowDuration="8000">
+                                                        <Button.ToolTip>
+                                                            <StackPanel>
+                                                                <TextBlock FontWeight="Bold">הקש כדי להציג את פרטיך האישיים</TextBlock>
+                                                                <TextBlock>יפתח חלון, בו יוצגו פרטיך האישיים.</TextBlock>
+                                                            </StackPanel>
+                                                        </Button.ToolTip>
+                                                    </Button>
+                                                    <Button Content="מהי משמעות הצבעים?" Click="Button_Click_TesterColorsMeaning" ToolTipService.ShowDuration="8000">
+                                                        <Button.ToolTip>
+                                                            <StackPanel>
+                                                                <TextBlock FontWeight="Bold">הקש כדי לקבל מידע על צבעי הרשומות</TextBlock>
+                                                                <TextBlock>יפתח חלון, בו יוצג מידע שיעזור לך לפרש את משמעות הצבעים.</TextBlock>
+                                                            </StackPanel>
+                                                        </Button.ToolTip>
+                                                    </Button>
 
-                                                    <Button Content="התנתק" Click="Button_Click_LogOut"/>
-                                                                     </StackPanel>
+                                                    <Button Content="התנתק" Click="Button_Click_LogOut" ToolTipService.ShowDuration="8000">
+                                                        <Button.ToolTip>
+                                                            <StackPanel>
+                                                                <TextBlock FontWeight="Bold">הקש כדי להתנתק מהמערכת</TextBlock>
+                                                                <TextBlock>לחיצה על מקש זה תנתק אותך מהמערכת. תוכל להתחבר שוב בכל עת.</TextBlock>
+                                                            </StackPanel>
+                                                        </Button.ToolTip>
+                                                    </Button>
+                                                </StackPanel>
                                             </Grid>
                                         </Border>
                                         <Border x:Name="TesterStatisticsBorder" Grid.Column="2" Grid.Row="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
@@ -616,7 +665,10 @@
                                                 <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NumOfTests, Mode=OneWay}"/>
                                                 <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SuccessTests, Mode=OneWay}"/>
                                                 <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding FailedTests, Mode=OneWay}"/>
-                                                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding SuccessProportion, Mode=OneWay}"/>
+                                                <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
+                                                    <TextBlock Text="% "/>
+                                                    <TextBlock Text="{Binding SuccessProportion, StringFormat=0.##}"/>
+                                                </StackPanel>
                                                 <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding FutureTests, Mode=OneWay}"/>
                                                 <TextBlock Grid.Column="1" Grid.Row="6" Name="TextBlock_Statistics_NumOfTestPerWeek"/>
                                             </Grid>
@@ -722,11 +774,39 @@
                                         <Border Grid.Column="1" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3" Padding="10">
                                             <Grid>
                                                 <StackPanel>
-                                                    <Button Content="הצג פרטים אישיים" Click="Button_Click_ViewTraineeDetails"/>
-                                                    <Button Content="קבע מועד מבחן" Click="Button_Click_TraineeAddTest"/>
-                                                    <Button Content="מהי משמעות הצבעים?" Click="Button_Click_TreaineeColorsMeaning"/>
-                                                    <Button Content="התנתק" Click="Button_Click_LogOut"/>
-
+                                                    <Button Content="הצג פרטים אישיים" Click="Button_Click_ViewTraineeDetails" ToolTipService.ShowDuration="8000">
+                                                        <Button.ToolTip>
+                                                            <StackPanel>
+                                                                <TextBlock FontWeight="Bold">הקש כדי להציג את פרטיך האישיים</TextBlock>
+                                                                <TextBlock>יפתח חלון, בו יוצגו פרטיך האישיים.</TextBlock>
+                                                            </StackPanel>
+                                                        </Button.ToolTip>
+                                                    </Button>
+                                                    <Button Content="קבע מועד מבחן" Click="Button_Click_TraineeAddTest" ToolTipService.ShowDuration="8000">
+                                                        <Button.ToolTip>
+                                                            <StackPanel>
+                                                                <TextBlock FontWeight="Bold">הקש כדי לקבוע מבחן חדש</TextBlock>
+                                                                <TextBlock>יפתח חלון, בו תתבקש להזין כתובת התחלת הטסט.</TextBlock>
+                                                                <TextBlock>תוכל לבחור מועד למבחן ע"פ תאריך רצוי, או ע"פ שעה רצויה.</TextBlock>
+                                                            </StackPanel>
+                                                        </Button.ToolTip>
+                                                    </Button>
+                                                    <Button Content="מהי משמעות הצבעים?" Click="Button_Click_TreaineeColorsMeaning" ToolTipService.ShowDuration="8000">
+                                                        <Button.ToolTip>
+                                                            <StackPanel>
+                                                                <TextBlock FontWeight="Bold">הקש כדי לקבל מידע על צבעי הרשומות</TextBlock>
+                                                                <TextBlock>יפתח חלון, בו יוצג מידע שיעזור לך לפרש את משמעות הצבעים.</TextBlock>
+                                                            </StackPanel>
+                                                        </Button.ToolTip>
+                                                    </Button>
+                                                    <Button Content="התנתק" Click="Button_Click_LogOut" ToolTipService.ShowDuration="8000">
+                                                        <Button.ToolTip>
+                                                            <StackPanel>
+                                                                <TextBlock FontWeight="Bold">הקש כדי להתנתק מהמערכת</TextBlock>
+                                                                <TextBlock>לחיצה על מקש זה תנתק אותך מהמערכת. תוכל להתחבר שוב בכל עת.</TextBlock>
+                                                            </StackPanel>
+                                                        </Button.ToolTip>
+                                                    </Button>
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -768,7 +848,10 @@
                                                     <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NumOfTests}"/>
                                                     <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SuccessTests}"/>
                                                     <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding FailedTests}"/>
-                                                    <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding SuccessProportion}"/>
+                                                    <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
+                                                        <TextBlock Text="% "/>
+                                                        <TextBlock Text="{Binding SuccessProportion, StringFormat=0.##}"/>
+                                                    </StackPanel>
                                                 </Grid>
                                             </Border>
                                         </Border>

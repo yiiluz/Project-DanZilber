@@ -9,7 +9,7 @@ namespace DL
 {
     internal class DLObject : BaseDL
     {
-        protected static DLObject instance = new DLObject();
+        protected static readonly DLObject instance = new DLObject();
         protected DLObject()
         {
             (new Thread(ConfigUpdatedThreadFunc)).Start();

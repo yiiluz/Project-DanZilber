@@ -45,4 +45,49 @@
       </Day>
     </WorkDays>
   </Schedule>
+  <Schedule>
+    <ID>111111111</ID>
+    <WorkDays>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+      </Day>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+      </Day>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+      </Day>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+      </Day>
+      <Day>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+        <Hour>false</Hour>
+      </Day>
+    </WorkDays>
+  </Schedule>
 </Schedules>
