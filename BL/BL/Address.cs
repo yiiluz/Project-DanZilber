@@ -18,7 +18,7 @@ namespace BO
         /// <param name="city"></param>
         /// <param name="street"></param>
         /// <param name="building number"></param>
-        public Address(string c = "City", string s = "City", int n = 0)
+        public Address(string c = "עיר", string s = "רחוב", int n = 0)
         {
             city = c;
             street = s;
@@ -70,7 +70,7 @@ namespace BO
         }
         public override string ToString()
         {
-            string tmp = "City: " + City + ". Street: " + Street + ". Building number: " + BuildingNumber + ".\n";
+            string tmp = Street + " " + BuildingNumber + ", " + City + ".";
             return tmp;
         }
     }

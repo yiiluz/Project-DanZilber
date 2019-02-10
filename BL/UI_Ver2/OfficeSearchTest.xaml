@@ -1,0 +1,77 @@
+﻿<Window x:Class="UI_Ver2.OfficeSearchTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI_Ver2"
+        mc:Ignorable="d" Icon="Icons/Wheel.png"
+          Title="SearchTester" Height="700" Width="700" WindowStyle="None" FlowDirection="RightToLeft"
+        AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown">
+
+    <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20" Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="1.88*"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0 10"><Span><Run Text="חלון הצגת, חיפוש וקיבוץ "/></Span><Span><Run FlowDirection="RightToLeft" Text="מבחנים"/></Span></TextBlock>
+                <TextBlock Text="התחל להזין פרטים לחיפוש. הרשימה תתעדכן מיד." HorizontalAlignment="Left" FontSize="15"/>
+                <Border BorderBrush="LightBlue" BorderThickness="1" Margin="0 10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label x:Name="label" FontSize="16" Content="הכנס מספר מבחן:" />
+                        <TextBox Name="TestID" MaxLength="8" Grid.Column="1" Text=""  Margin="1" VerticalContentAlignment="Center" TextChanged="SearchFilterChanged"/>
+                        <Label Grid.Row="2" Grid.Column="0" x:Name="label2" FontSize="16" Content="הכנס תעודת זהות של בוחן:" VerticalContentAlignment="Center"/>
+                        <TextBox Name="TraineeID" MaxLength="9" Grid.Row="1" Grid.Column="1" Text=""  Margin="1" VerticalContentAlignment="Center" TextChanged="SearchFilterChanged"/>
+                        <Label Grid.Row="1" Grid.Column="0" FontSize="16" Content="הכנס תעודת זהות של נבחן:"/>
+                        <TextBox Name="TesterID" MaxLength="9" Grid.Row="2" Grid.Column="1" Margin="1" TextChanged="SearchFilterChanged"/>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="LightBlue" Padding="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock VerticalAlignment="Center"><Run FlowDirection="RightToLeft" Text="בחר כיצד לקבץ:"/></TextBlock>
+                        <ComboBox x:Name="ComboBox_GroupOptions" Grid.Column="1" Margin="5 0" VerticalAlignment="Center" SelectionChanged="ComboBox_GroupOptions_SelectionChanged" />
+                        <TextBlock Grid.Column="2" VerticalAlignment="Center"><Run FlowDirection="RightToLeft" Text="בחר תת קבוצה להצגה:"/></TextBlock>
+                        <ComboBox x:Name="ComboBox_GroupNames" Grid.Column="3" SelectionChanged="ComboBox_GroupNames_SelectionChanged"/>
+                    </Grid>
+                </Border>
+                <TextBlock Margin="0 10"><Run Text="לחץ פעמיים על רשומה כדי להציג יותר פרטים. לחץ קליק ימני על "/><Run Text="רשומה כדי לבצע פעולות."/></TextBlock>
+
+            </StackPanel>
+            <ListView Grid.Row="1" x:Name="TestsList" BorderBrush="Green" Margin="0 0 0 50" GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" MouseDoubleClick="MenuItem_Click_TestDetails">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="מספר מבחן" DisplayMemberBinding="{Binding TestId}" Width="100"/>
+                        <GridViewColumn Header="ת.ז. בוחן" DisplayMemberBinding="{Binding ExTester.Id}" Width="100"/>
+                        <GridViewColumn Header="ת.ז. נבחן" DisplayMemberBinding="{Binding ExTrainee.Id}" Width="100"/>
+                        <GridViewColumn Header="תאריך המבחן" DisplayMemberBinding="{Binding DateOfTest, StringFormat=d}" Width="100"/>
+                        <GridViewColumn Header="עיר המבחן" DisplayMemberBinding="{Binding City}" Width="100"/>
+                        <GridViewColumn Header="סוג רכב" DisplayMemberBinding="{Binding CarType}" Width="100"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.ContextMenu >
+                    <ContextMenu>
+                        <MenuItem Header="מידע נוסף" Click="MenuItem_Click_TestDetails"  />
+                        <MenuItem Header="ביטול מבחן" Click="MenuItem_Click_Abort"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+            <Button Name="CloseButton" Grid.Row="2" HorizontalAlignment="Stretch" Content="סגור"  Margin="0 5" VerticalAlignment="Bottom" Click="CloseButton_Click"/>
+        </Grid>
+    </Border>
+</Window>

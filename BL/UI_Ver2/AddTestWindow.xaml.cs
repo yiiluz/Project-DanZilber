@@ -28,6 +28,7 @@ namespace UI_Ver2
         BackgroundWorker worker = new BackgroundWorker();
         public AddTestWindow(Trainee trainee = null)
         {
+            this.trainee = trainee;
             this.FlowDirection = FlowDirection.RightToLeft;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
@@ -106,6 +107,28 @@ namespace UI_Ver2
                 try
                 {
                     string serialOfTest = MainWindow.bl.AddTest(CombBx_TestsListByDate.SelectedItem as Test);
+                    MessageBox.Show("המבחן נקבע בהצלחה. מספר המבחן: " + serialOfTest, "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    var result = MessageBox.Show("שגיאה פנימית. " + ex.Message + "\nהאם ברצונך לנסות שוב?", "שגיאה", MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    if (result == MessageBoxResult.No)
+                    {
+                        MessageBox.Show("המבחן לא נקבע", "פעולה בוטלה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        Close();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+            if (CombBx_TestsListByHour.SelectedItem != null)
+            {
+                try
+                {
+                    string serialOfTest = MainWindow.bl.AddTest(CombBx_TestsListByHour.SelectedItem as Test);
                     MessageBox.Show("המבחן נקבע בהצלחה. מספר המבחן: " + serialOfTest, "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     Close();
                 }

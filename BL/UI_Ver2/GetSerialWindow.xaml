@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_Ver2"
-        mc:Ignorable="d"
-        Title="Serial Number" Height="420" Width="300" ResizeMode="NoResize" Icon="Icons/UserIcon2.png" WindowStyle="None"
+        mc:Ignorable="d" Icon="Icons/Wheel.png"
+        Title="Serial Number" Height="420" Width="300" ResizeMode="NoResize" WindowStyle="None"
         AllowsTransparency="True" Background="Transparent" FlowDirection="RightToLeft">
     <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20" Padding="10">
         <Grid>

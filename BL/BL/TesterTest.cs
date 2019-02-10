@@ -48,31 +48,15 @@ namespace BO
         public override string ToString()
         {
             string tmp = "";
-            tmp += "Test Serial Number: " + TestId + "\n"
-                + "Test Date: " + DateOfTest.ToShortDateString() + "\n"
-                + "Test Hour: " + HourOfTest + ":00\n"
-                + "Start Test Address: " + StartTestAddress + "\n";
-            if (!IsTestAborted)
-            {
-                tmp += "Test Status: Active\n";
-                if (DateOfTest < DateTime.Now)
-                    if (IsTesterUpdateStatus)
-                    {
-                        tmp += base.ToString();
-                    }
-                    else
-                    {
-                        tmp += "You need to update this test results!!.\n";
-                    }
-                else
-                {
-                    tmp += "That is all for now. After the test, Update test result as quickly as you can.\n";
-                }
-            }
-            else
-            {
-                tmp += "Test Status: Aborted";
-            }
+            tmp += "מספר מבחן: " + TestId + "\n"
+                + "תאריך המבחן: " + DateOfTest.ToShortDateString() + "\n"
+                + "שעת התחלה: " + HourOfTest + ":00\n"
+                + "כתובת התחלת המבחן: " + StartTestAddress + "\n"
+                + "סטטוס המבחן: " + (IsTestAborted ? "בוטל." :
+                (DateOfTest > DateTime.Now ? "נכון לעכשיו, זה הכל. בסיום המבחן, עדכן תוצאות במהירות האפשרית." :
+                (IsTesterUpdateStatus ? "עידכת תוצאות עבור מבחן זה." : "המבחן מחכה לעידכון תוצאות!!"))) + "\n";
+            if (IsTesterUpdateStatus)
+                tmp += "תוצאות המבחן כפי שעידכנת:\n" + base.ToString();
             return tmp;
         }
     }

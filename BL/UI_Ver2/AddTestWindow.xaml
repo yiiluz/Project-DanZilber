@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_Ver2"
-        
+        Icon="Icons/Wheel.png"
         mc:Ignorable="d" FlowDirection="RightToLeft"
         Title="Add Test" Height="650" Width="600" ResizeMode="NoResize" WindowStyle="None"
         AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown">
@@ -90,9 +90,9 @@
             <Label Content="מס' ת.ז. של הנבחן:" Grid.Row="1" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_ID" Grid.Column="1" Grid.Row="1" MaxLength="9" LostFocus="TxtBx_ID_LostFocus" GotFocus="TxtBx_ID_GotFocus" Text="{Binding Path=Id, Mode=OneWay}" Grid.ColumnSpan="3"/>
             <Label Content="בחר כתובת התחלה לטסט:" Grid.Row="2" Grid.Column="0"/>
-            <ComboBox x:Name="CmbBx_City" Grid.Column="1" Grid.Row="2" SelectedItem="{Binding Path=City, Mode=TwoWay}" IsEditable="True" Text="בחר עיר" SelectionChanged="CmbBx_City_SelectionChanged"/>
-            <ComboBox x:Name="CmbBx_Street" Grid.Column="2" Grid.Row="2" SelectedItem="{Binding Path=Street, Mode=TwoWay}" IsEditable="True" Text="בחר רחוב"/>
-            <TextBox x:Name="TxtBx_BuildNum" Grid.Column="3" Grid.Row="2" Text="{Binding Path=BuildingNumber, Mode=TwoWay}" LostFocus="TxtBx_BuildNum_LostFocus" GotFocus="TxtBx_BuildNum_GotFocus"/>
+            <ComboBox x:Name="CmbBx_City" Grid.Column="1" Grid.Row="2" SelectedItem="{Binding Path=City, Mode=OneWayToSource}" IsEditable="True" Text="בחר עיר" SelectionChanged="CmbBx_City_SelectionChanged"/>
+            <ComboBox x:Name="CmbBx_Street" Grid.Column="2" Grid.Row="2" SelectedItem="{Binding Path=Street, Mode=OneWayToSource}" IsEditable="True" Text="בחר רחוב"/>
+            <TextBox x:Name="TxtBx_BuildNum" Grid.Column="3" Grid.Row="2" Text="{Binding Path=BuildingNumber, Mode=OneWayToSource}" LostFocus="TxtBx_BuildNum_LostFocus" GotFocus="TxtBx_BuildNum_GotFocus"/>
 
 
 
@@ -117,8 +117,9 @@
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="שעת המבחן:  "/>
+                                                <TextBlock Text="00:"/>
                                                 <TextBlock Text="{Binding HourOfTest, Mode=TwoWay}"/>
-                                                <TextBlock Text=":00"/>
+                                                
                                             </StackPanel>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>

@@ -28,7 +28,7 @@ namespace UI_Ver2
             tester = new BO.Tester();
             this.DataContext = tester;
             InitializeComponent();
-            DatePicker_BirthDay.DisplayDate = DateTime.Now.AddYears(-30);
+            DatePicker_BirthDay.DisplayDate = DateTime.Now.AddYears(-45);
             CombBx_TypeCarToTest.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
             CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
             CombBx_TypeCarToTest.SelectedItem = BO.CarTypeEnum.אופנוע;
@@ -50,7 +50,6 @@ namespace UI_Ver2
             tester = t;
             this.DataContext = tester;
             InitializeComponent();
-            DatePicker_BirthDay.DisplayDate = DateTime.Now.AddYears(-30);
             TxtBx_ID.IsEnabled = false;
             foreach (var item in HoursWork.Children.OfType<CheckBox>())//initial checkBoxs
             {
@@ -59,7 +58,8 @@ namespace UI_Ver2
                 item.IsChecked = tester.AvailiableWorkTime[row, column];
             }
             CmbBx_City.ItemsSource = MainWindow.cities;
-            CmbBx_Street.Text = t.City;
+            CmbBx_City.Text = t.City;
+            CmbBx_City.SelectedItem = t.City;
             CmbBx_Street.Text = t.Street;
             switch (oper)
             {

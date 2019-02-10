@@ -75,7 +75,7 @@ namespace DL
             }
             catch
             {
-                throw new DirectoryNotFoundException( " שגיאה! בעיית טעינת קובץ:"+a);
+                throw new DirectoryNotFoundException(" שגיאה! בעיית טעינת קובץ:" + a);
             }
 
         }
@@ -115,7 +115,7 @@ namespace DL
                       select item).FirstOrDefault();
             if (it != null)
             {
-                throw new DuplicateWaitObjectException("שגיאה! בוחן עם תעודת זהות זו כבר קיים במערכת: " +it.Element("Person").Element("ID").Value);
+                throw new DuplicateWaitObjectException("שגיאה! בוחן עם תעודת זהות זו כבר קיים במערכת: " + it.Element("Person").Element("ID").Value);
             }
             TestersRoot.Add(new XElement("Tester", PersonCreatorToXML(T), new XElement("Seniority", T.Seniority),
             new XElement("MaxDistance", T.MaxDistance), new XElement("MaxTestsPerWeek", T.MaxTestsPerWeek),
@@ -142,14 +142,13 @@ namespace DL
             }
             catch
             {
-                throw new KeyNotFoundException("שגיאה! לא קיים בוחן במערכת עם תעודת זהות זו: " );
+                throw new KeyNotFoundException("שגיאה! לא קיים בוחן במערכת עם תעודת זהות זו: ");
             }
         }
         public override void UpdateTesterDetails(Tester T)
         {
             RemoveTester(T.Id);
             AddTester(T);
-            TestersRoot.Save(testersRootPath);
         }
         public override void AddTrainee(Trainee T)
         {
@@ -166,7 +165,7 @@ namespace DL
                       select item).FirstOrDefault();
             if (it != null)
             {
-                throw new DuplicateWaitObjectException("שגיאה! תלמיד עם תעודת זהות זו כבר קיים במערכת:" );
+                throw new DuplicateWaitObjectException("שגיאה! תלמיד עם תעודת זהות זו כבר קיים במערכת:");
             }
             TraineesRoot.Add(new XElement("Trainee", PersonCreatorToXML(T), new XElement("CurrCarType", T.CurrCarType),
                 new XElement("NumOfFinishedLessons", T.NumOfFinishedLessons), new XElement("NumOfTests", T.NumOfTests),
@@ -203,7 +202,6 @@ namespace DL
             {
                 RemoveTrainee(T.Id);
                 AddTrainee(T);
-                TraineesRoot.Save(TraineesRootPath);
             }
             catch (KeyNotFoundException e) { throw e; }
             catch (DirectoryNotFoundException d) { throw d; }
@@ -233,7 +231,7 @@ namespace DL
             if (it == null)
             {
                 throw new KeyNotFoundException("שגיאה! תלמיד עם תעודת זהות זו לא קיים במערכת.");
-                           
+
             }
             it = (from item in TestersRoot.Elements()
                   where item.Element("Person").Element("ID").Value == t.TesterId
@@ -241,7 +239,7 @@ namespace DL
             if (it == null)
             {
                 throw new KeyNotFoundException("שגיאה! בוחן עם תעודת זהות זו לא קיים במערכת.");
-                            
+
             }
             TestsRoot.Add(new XElement("Test", new XElement("TestId", t.TestId), new XElement("TesterId", t.TesterId),
                 new XElement("TraineeId", t.TraineeId), new XElement("DateOfTest", t.DateOfTest),
@@ -252,7 +250,7 @@ namespace DL
                 new XElement("MirrorsCheck", t.MirrorsCheck), new XElement("Signals", t.Signals),
                 new XElement("CorrectSpeed", t.CorrectSpeed), new XElement("IsPassed", t.IsPassed),
                 new XElement("TesterNotes", t.TesterNotes), new XElement("IsTesterUpdateStatus", t.IsTesterUpdateStatus),
-                new XElement("IsTestAborted", t.IsTestAborted)));        
+                new XElement("IsTestAborted", t.IsTestAborted)));
             TestsRoot.Save(TestsRootPath);
         }
         public override void RemoveTest(string id)
@@ -284,7 +282,6 @@ namespace DL
             {
                 RemoveTest(t.TestId);
                 AddTest(t);
-                TestsRoot.Save(TestsRootPath);
             }
             catch (KeyNotFoundException e) { throw e; }
             catch (DirectoryNotFoundException d) { throw d; }
@@ -357,27 +354,28 @@ namespace DL
             {
                 throw e;
             }
-            return  (from item in TestsRoot.Elements()
-                      select new Test(item.Element("TestId").Value)
-                      {
-                          TesterId = item.Element("TesterId").Value,
-                          TraineeId = item.Element("TraineeId").Value,
-                          DateOfTest = DateTime.Parse(item.Element("DateOfTest").Value),
-                          HourOfTest = int.Parse(item.Element("HourOfTest").Value),
-                          StartTestAddress = new Address(item.Element("StartTestAddress").Element("City").Value,
-                          item.Element("StartTestAddress").Element("Street").Value,
-                          int.Parse(item.Element("StartTestAddress").Element("BuildingNumber").Value)),
-                          CarType = (CarTypeEnum)Enum.Parse(typeof(CarTypeEnum), item.Element("CarType").Value),
-                          DistanceKeeping = Convert.ToBoolean(item.Element("DistanceKeeping").Value),
-                          ReverseParking = Convert.ToBoolean(item.Element("ReverseParking").Value),
-                          MirrorsCheck = Convert.ToBoolean(item.Element("MirrorsCheck").Value),
-                          Signals = Convert.ToBoolean(item.Element("Signals").Value),
-                          CorrectSpeed = Convert.ToBoolean(item.Element("CorrectSpeed").Value),
-                          IsPassed = Convert.ToBoolean(item.Element("IsPassed").Value),
-                          TesterNotes = item.Element("TesterNotes").Value,
-                          IsTesterUpdateStatus = Convert.ToBoolean(item.Element("IsTesterUpdateStatus").Value),
-                          IsTestAborted = Convert.ToBoolean(item.Element("IsTestAborted").Value)
-                      }).ToList();                       
+
+            return (from item in TestsRoot.Elements() 
+                    select new Test(item.Element("TestId").Value)
+                    {
+                        TesterId = item.Element("TesterId").Value,
+                        TraineeId = item.Element("TraineeId").Value,
+                        DateOfTest = DateTime.Parse(item.Element("DateOfTest").Value),
+                        HourOfTest = int.Parse(item.Element("HourOfTest").Value),
+                        StartTestAddress = new Address(item.Element("StartTestAddress").Element("City").Value,
+                        item.Element("StartTestAddress").Element("Street").Value,
+                        int.Parse(item.Element("StartTestAddress").Element("BuildingNumber").Value)),
+                        CarType = (CarTypeEnum)Enum.Parse(typeof(CarTypeEnum), item.Element("CarType").Value),
+                        DistanceKeeping = Convert.ToBoolean(item.Element("DistanceKeeping").Value),
+                        ReverseParking = Convert.ToBoolean(item.Element("ReverseParking").Value),
+                        MirrorsCheck = Convert.ToBoolean(item.Element("MirrorsCheck").Value),
+                        Signals = Convert.ToBoolean(item.Element("Signals").Value),
+                        CorrectSpeed = Convert.ToBoolean(item.Element("CorrectSpeed").Value),
+                        IsPassed = Convert.ToBoolean(item.Element("IsPassed").Value),
+                        TesterNotes = item.Element("TesterNotes").Value,
+                        IsTesterUpdateStatus = Convert.ToBoolean(item.Element("IsTesterUpdateStatus").Value),
+                        IsTestAborted = Convert.ToBoolean(item.Element("IsTestAborted").Value)
+                    }).ToList();
         }
         public override Dictionary<String, Object> GetConfig()
         {
@@ -396,7 +394,7 @@ namespace DL
                 {
                     keyValues.Add(item.Element("Key").Value, int.Parse(item.Element("Value").Element("value").Value));
                 }
-            }           
+            }
             return keyValues;
         }
         public override Object GetConfig(String s)
@@ -441,7 +439,7 @@ namespace DL
                         isConfigUpdated = true;
                         return;
                     }
-                    throw new AccessViolationException( "שגיאה! אין הרשאה לשנות מאפיין קונפיגורציה זה.");
+                    throw new AccessViolationException("שגיאה! אין הרשאה לשנות מאפיין קונפיגורציה זה.");
                 }
             }
             throw new KeyNotFoundException("שגיאה! לא קיים מאפיין קונפיגורציה בשם זה במערכת.");

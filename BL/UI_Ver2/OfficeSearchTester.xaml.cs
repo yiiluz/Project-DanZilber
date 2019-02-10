@@ -20,7 +20,7 @@ namespace UI_Ver2
     /// Interaction logic for SearchTester.xaml
     /// </summary>
 
-    enum TesterGroupCategorys { All, Seniority, City, MaxDistance }
+    enum TesterGroupCategorys { הכל, שנות_וותק, עיר_מגורים, מרחק_מקסימלי_ממבחן, התמחות }
     public partial class OfficeSearchTester : Window
     {
         private ObservableCollection<Tester> mainList =
@@ -28,6 +28,7 @@ namespace UI_Ver2
         ObservableCollection<IGrouping<int, Tester>> groupedBySeniority;
         ObservableCollection<IGrouping<string, Tester>> groupedByCity;
         ObservableCollection<IGrouping<int, Tester>> groupedByMaxDistance;
+        ObservableCollection<IGrouping<CarTypeEnum, Tester>> groupedBySpecialization;
         private ObservableCollection<Tester> listToFilter;
 
         public OfficeSearchTester()
@@ -80,7 +81,7 @@ namespace UI_Ver2
             tester = MainWindow.bl.GetTesterByID((TestersList.SelectedItem as Tester).Id);
             TesterDetailsWindow testerDetailsWindow = new TesterDetailsWindow(tester, "Update");
             testerDetailsWindow.ShowDialog();
-            ComboBox_GroupOptions.SelectedIndex = (int)TraineeGroupCategorys.All;
+            ComboBox_GroupOptions.SelectedIndex = (int)TesterGroupCategorys.הכל;
             ComboBox_GroupOptions_SelectionChanged(null, null);
             SearchFilterChanged(null, null);
         }
@@ -88,7 +89,7 @@ namespace UI_Ver2
         {
             if ((Tester)TestersList.SelectedItem == null)
                 return;
-            if (MessageBox.Show("Are yoe sure you want to delete this Tester?", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show("האם אתה בטוח שברצונך למחוק בוחן זה מהמערכת? פעולה זו אינה הפיכה!", "מחיקת בוחן", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == MessageBoxResult.Yes)
             {
                 List<TesterTest> abortedTests;
                 try
@@ -97,23 +98,23 @@ namespace UI_Ver2
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    MessageBox.Show(ex.Message, "ID not Exist", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(ex.Message, "נתון לא קיים", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     return;
                 }
                 string aborted = "";
                 foreach (var item in abortedTests)
-                    aborted += "Test Serial: " + item.TestId + ". Date: " + item.DateOfTest.ToShortDateString() + ". Hour: " + item.HourOfTest + ":00.\n";
-                MessageBox.Show("Tester with ID " + (((Tester)TestersList.SelectedItem).Id) + " successfuly deleted.\n"
-                    + "Aborted Tests:\n" + aborted, "Delete Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                    aborted += "מספר מבחן: " + item.TestId + ". תאריך המבחן: " + item.DateOfTest.ToShortDateString() + ". שעת התחלה: " + item.HourOfTest + ":00.\n";
+                MessageBox.Show("בוחן בעל ת.ז. " + (((Tester)TestersList.SelectedItem).Id) + " נמחק בהצלחה מהמערכת!.\n"
+                    + "רשימת הטסטים שהתבטלו בעקבות המחיקה:\n" + aborted, "סטטוס מחיקה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 listToFilter.Remove((Tester)TestersList.SelectedItem);
                 mainList.Remove((Tester)TestersList.SelectedItem);
                 SearchFilterChanged(null, null);
             }
         }
-        private void MenuItem_Click_Information(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_InformationOfTester(object sender, RoutedEventArgs e)
         {
             if (TestersList.SelectedItem != null)
-                MessageBox.Show(TestersList.SelectedItem.ToString(), "SearchItem", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(TestersList.SelectedItem.ToString(), "פרטי בוחן", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
         }
 
         private void ButtonClick_Close(object sender, RoutedEventArgs e)
@@ -124,29 +125,31 @@ namespace UI_Ver2
         {
             switch (ComboBox_GroupOptions.SelectedIndex)
             {
-                case (int)TesterGroupCategorys.All:
+                case (int)TesterGroupCategorys.הכל:
                     ComboBox_GroupNames.IsEnabled = false;
                     ComboBox_GroupNames.SelectedItem = null;
                     listToFilter = mainList;
                     TestersList.ItemsSource = listToFilter;
                     return;
-                case (int)TesterGroupCategorys.Seniority:
+                case (int)TesterGroupCategorys.שנות_וותק:
                     groupedBySeniority = new ObservableCollection<IGrouping<int, Tester>>(MainWindow.bl.GetTestersGropedBySeniority());
-                    //ComboBox_GroupNames.ItemsSource = groupedBySeniority;
                     int[] keysOfSeniority = (from item in groupedBySeniority select item.Key).ToArray();
                     ComboBox_GroupNames.ItemsSource = keysOfSeniority;
                     break;
-                case (int)TesterGroupCategorys.City:
+                case (int)TesterGroupCategorys.עיר_מגורים:
                     groupedByCity = new ObservableCollection<IGrouping<string, Tester>>(MainWindow.bl.GetTestersGroupedByCity());
-                    //ComboBox_GroupNames.ItemsSource = groupedByCity;
                     string[] keysOfCity = (from item in groupedByCity select item.Key).ToArray();
                     ComboBox_GroupNames.ItemsSource = keysOfCity;
                     break;
-                case (int)TesterGroupCategorys.MaxDistance:
+                case (int)TesterGroupCategorys.מרחק_מקסימלי_ממבחן:
                     groupedByMaxDistance = new ObservableCollection<IGrouping<int, Tester>>(MainWindow.bl.GetTestersGropedByMaxDistance());
-                    //ComboBox_GroupNames.ItemsSource = groupedByMaxDistance;
                     int[] keysOfMaxDistance = (from item in groupedByMaxDistance select item.Key).ToArray();
                     ComboBox_GroupNames.ItemsSource = keysOfMaxDistance;
+                    break;
+                case (int)TesterGroupCategorys.התמחות:
+                    groupedBySpecialization = new ObservableCollection<IGrouping<CarTypeEnum, Tester>>(MainWindow.bl.GetTestersGrupedBySpecialization());
+                    CarTypeEnum[] keysOfSpecialization = (from item in groupedBySpecialization select item.Key).ToArray();
+                    ComboBox_GroupNames.ItemsSource = keysOfSpecialization;
                     break;
             }
             ComboBox_GroupNames.IsEnabled = true;
@@ -156,14 +159,14 @@ namespace UI_Ver2
         {
             switch (ComboBox_GroupOptions.SelectedIndex)
             {
-                case (int)TesterGroupCategorys.All:
+                case (int)TesterGroupCategorys.הכל:
                     ComboBox_GroupNames.IsEnabled = false;
                     ComboBox_GroupNames.SelectedItem = null;
                     mainList = new ObservableCollection<Tester>(MainWindow.bl.GetTestersList());
                     listToFilter = mainList;
                     SearchFilterChanged(null, null);
                     break;
-                case (int)TesterGroupCategorys.Seniority:
+                case (int)TesterGroupCategorys.שנות_וותק:
                     foreach (var item in groupedBySeniority)
                         if (ComboBox_GroupNames.SelectedItem != null && item.Key == (int)ComboBox_GroupNames.SelectedItem)
                         {
@@ -171,7 +174,7 @@ namespace UI_Ver2
                             break;
                         }
                     break;
-                case (int)TesterGroupCategorys.City:
+                case (int)TesterGroupCategorys.עיר_מגורים:
                     foreach (var item in groupedByCity)
                         if (ComboBox_GroupNames.SelectedItem != null && item.Key == (string)ComboBox_GroupNames.SelectedItem)
                         {
@@ -179,9 +182,17 @@ namespace UI_Ver2
                             break;
                         }
                     break;
-                case (int)TesterGroupCategorys.MaxDistance:
+                case (int)TesterGroupCategorys.מרחק_מקסימלי_ממבחן:
                     foreach (var item in groupedByMaxDistance)
                         if (ComboBox_GroupNames.SelectedItem != null && item.Key == (int)ComboBox_GroupNames.SelectedItem)
+                        {
+                            listToFilter = new ObservableCollection<Tester>(item.ToList());
+                            break;
+                        }
+                    break;
+                case (int)TesterGroupCategorys.התמחות:
+                    foreach (var item in groupedBySpecialization)
+                        if (ComboBox_GroupNames.SelectedItem != null && item.Key == (CarTypeEnum)ComboBox_GroupNames.SelectedItem)
                         {
                             listToFilter = new ObservableCollection<Tester>(item.ToList());
                             break;

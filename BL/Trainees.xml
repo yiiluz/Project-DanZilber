@@ -2,29 +2,6 @@
 <Trainees>
   <Trainee>
     <Person>
-      <ID>206914301</ID>
-      <Name>
-        <FirstName>שלמה חיים</FirstName>
-        <LastName>פרלוב</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>בני ברק</City>
-        <Street>צירלסון</Street>
-        <BuildingNumber>13</BuildingNumber>
-      </Address>
-      <DateOfBirth>0001-01-01T00:00:00</DateOfBirth>
-      <PhoneNumber>0585609045</PhoneNumber>
-    </Person>
-    <CurrCarType>MotorCycle</CurrCarType>
-    <NumOfFinishedLessons>30</NumOfFinishedLessons>
-    <NumOfTests>0</NumOfTests>
-    <IsAlreadyDidTest>false</IsAlreadyDidTest>
-    <SchoolName>מבחר</SchoolName>
-    <TeacherName>דן זילברשטיין</TeacherName>
-  </Trainee>
-  <Trainee>
-    <Person>
       <ID>675875875</ID>
       <Name>
         <FirstName>עיהעיהיעה</FirstName>
@@ -71,29 +48,6 @@
   </Trainee>
   <Trainee>
     <Person>
-      <ID>666666666</ID>
-      <Name>
-        <FirstName>כוס </FirstName>
-        <LastName>עמק</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>לכיש</City>
-        <Street>זמורה</Street>
-        <BuildingNumber>0</BuildingNumber>
-      </Address>
-      <DateOfBirth>1999-02-08T00:00:00</DateOfBirth>
-      <PhoneNumber>8888888888</PhoneNumber>
-    </Person>
-    <CurrCarType>MotorCycle</CurrCarType>
-    <NumOfFinishedLessons>243</NumOfFinishedLessons>
-    <NumOfTests>0</NumOfTests>
-    <IsAlreadyDidTest>false</IsAlreadyDidTest>
-    <SchoolName>די כבר</SchoolName>
-    <TeacherName>נשבר הזין</TeacherName>
-  </Trainee>
-  <Trainee>
-    <Person>
       <ID>555555553</ID>
       <Name>
         <FirstName>ארי </FirstName>
@@ -105,14 +59,60 @@
         <Street>יגור</Street>
         <BuildingNumber>0</BuildingNumber>
       </Address>
-      <DateOfBirth>1999-02-08T06:14:55.7770358+02:00</DateOfBirth>
+      <DateOfBirth>1999-02-10T01:50:34.1722018+02:00</DateOfBirth>
       <PhoneNumber>0455555555</PhoneNumber>
     </Person>
-    <CurrCarType>TruckUnlimited</CurrCarType>
+    <CurrCarType>PrivateCar</CurrCarType>
     <NumOfFinishedLessons>30</NumOfFinishedLessons>
     <NumOfTests>0</NumOfTests>
     <IsAlreadyDidTest>false</IsAlreadyDidTest>
     <SchoolName>הוגוורטס</SchoolName>
     <TeacherName>סיריוס סנייפ</TeacherName>
+  </Trainee>
+  <Trainee>
+    <Person>
+      <ID>206914301</ID>
+      <Name>
+        <FirstName>שלמה</FirstName>
+        <LastName>פרלובה</LastName>
+      </Name>
+      <Gender>Female</Gender>
+      <Address>
+        <City>בני ברק</City>
+        <Street>רבי אבא</Street>
+        <BuildingNumber>14</BuildingNumber>
+      </Address>
+      <DateOfBirth>1987-02-10T00:00:00</DateOfBirth>
+      <PhoneNumber>7687678678</PhoneNumber>
+    </Person>
+    <CurrCarType>PrivateCar</CurrCarType>
+    <NumOfFinishedLessons>32</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>מכון לב</SchoolName>
+    <TeacherName>אפי</TeacherName>
+  </Trainee>
+  <Trainee>
+    <Person>
+      <ID>666666666</ID>
+      <Name>
+        <FirstName>שמואל</FirstName>
+        <LastName>וואזנה</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>אילת</City>
+        <Street>אביב</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1999-02-10T00:00:00</DateOfBirth>
+      <PhoneNumber>8888888888</PhoneNumber>
+    </Person>
+    <CurrCarType>PrivateCar</CurrCarType>
+    <NumOfFinishedLessons>243</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>מכון לב</SchoolName>
+    <TeacherName>דן</TeacherName>
   </Trainee>
 </Trainees>
