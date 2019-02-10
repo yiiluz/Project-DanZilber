@@ -61,5 +61,7 @@ namespace BO
         IEnumerable<IGrouping<string, Test>> GetTestsGroupedByCity();
 
         IEnumerable<IGrouping<TestStatus, Test>> GetTestsGroupedByStatus();
+
+        bool IsProgramCanRun(ref string a);
     }
 }

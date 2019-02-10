@@ -1469,5 +1469,101 @@ namespace BL
         {
             return t.TestList.Count;
         }
+        public bool IsProgramCanRun(ref string a)
+        {
+            string filesWithErrors = "", configurationsWithErrors = "";
+            if (!instance.CheckTheIntegrityOfSystemDataInXml(ref filesWithErrors))
+            {
+                if (filesWithErrors == "שגיאה! לא מצליח לקרוא את קובץ הקונפיגורציות.")
+                {
+                    filesWithErrors = filesWithErrors + "\nקובץ זה הינו קובץ בסיסי למהלך ריצת התכנית כולה, ולכן התכנית עכשיו תיסגר.\nקרא לתמיכה טכנית ע''מ לטפל בעניין.\nאיתכם הסליחה.";
+                    return false;
+                }
+            }
+            else
+            {
+                Object obj;
+                try
+                {
+                    obj = GetConfig()["סיסמת מנהל המערכת"];
+                }
+                catch
+                {
+                    configurationsWithErrors += "סיסמת מנהל המערכת\n";
+                }
+                try
+                {
+                    obj = GetConfig()["סיסמת ניהול משרדי"];
+                }
+                catch
+                {
+                    configurationsWithErrors += "סיסמת ניהול משרדי\n";
+                }
+                try
+                {
+                    obj = GetConfig()["גיל בוחן מינימלי"];
+                }
+                catch
+                {
+                    configurationsWithErrors += "גיל בוחן מינימלי\n";
+                }
+                try
+                {
+                    obj = GetConfig()["גיל בוחן מקסימלי"];
+                }
+                catch
+                {
+                    configurationsWithErrors += "גיל בוחן מקסימלי\n";
+                }
+                try
+                {
+                    obj = GetConfig()["גיל נבחן מינימלי"];
+                }
+                catch
+                {
+                    configurationsWithErrors += "גיל נבחן מינימלי\n";
+                }
+                try
+                {
+                    obj = GetConfig()["גיל נבחן מקסימלי"];
+                }
+                catch
+                {
+                    configurationsWithErrors += "גיל נבחן מקסימלי\n";
+                }
+                try
+                {
+                    obj = GetConfig()["מינימום ימים בין מבחנים"];
+                }
+                catch
+                {
+                    configurationsWithErrors += "מינימום ימים בין מבחנים\n";
+                }
+                try
+                {
+                    obj = GetConfig()["מספר שיעורים מינימלי"];
+                }
+                catch
+                {
+                    configurationsWithErrors += "מספר שיעורים מינימלי\n";
+                }
+                try
+                {
+                    obj = GetConfig()["מספר מבחן"];
+                }
+                catch
+                {
+                    configurationsWithErrors += "מספר מבחן\n";
+                }
+                if (configurationsWithErrors != "")
+                {
+                    a = configurationsWithErrors;
+                    return false;
+                }
+            }
+            if (filesWithErrors != "")
+                a = filesWithErrors;
+            return true;
+        }
     }
 }

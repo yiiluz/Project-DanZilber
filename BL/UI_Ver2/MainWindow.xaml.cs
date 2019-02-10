@@ -31,7 +31,7 @@ namespace UI_Ver2
     {
         static int numOfActivatedMainWindow = 0;
         //passwords
-        
+
 
         //List To View
         public static IBL bl = BO.Factory.GetBLObj();
@@ -48,6 +48,23 @@ namespace UI_Ver2
 
         public MainWindow()
         {
+            string filesWithErrors = "";
+            if (!bl.IsProgramCanRun(ref filesWithErrors))
+            {
+                {
+                    MessageBox.Show(filesWithErrors , "שגיאה חמורה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    Close();
+                    Environment.Exit(Environment.ExitCode);
+                }
+            }
+            else
+            {
+                if (filesWithErrors != "")
+                {
+                    MessageBox.Show(filesWithErrors + "המערכת תפעל, אך שים לב שלא כל הנתונים הוטענו, וייתכנו שגיאות במהלך הריצה.", "שגיאה בקריאת נתונים", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                }
+            }
+            App.SetPasswords();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             numOfActivatedMainWindow++;
             this.FlowDirection = FlowDirection.RightToLeft;
@@ -142,7 +159,7 @@ namespace UI_Ver2
             }
             catch (KeyNotFoundException a)
             {
-                MessageBox.Show(a.Message, "שגיאה פנימית", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, 
+                MessageBox.Show(a.Message, "שגיאה פנימית", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None,
                     MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
         }
@@ -186,7 +203,7 @@ namespace UI_Ver2
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    MessageBox.Show(ex.Message, "נתון לא קיים", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, 
+                    MessageBox.Show(ex.Message, "נתון לא קיים", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None,
                         MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     return;
                 }
@@ -213,7 +230,7 @@ namespace UI_Ver2
                     }
                     catch (KeyNotFoundException ex)
                     {
-                        MessageBox.Show(ex.Message, "נתון חסר", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, 
+                        MessageBox.Show(ex.Message, "נתון חסר", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None,
                             MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         return;
                     }
@@ -380,7 +397,7 @@ namespace UI_Ver2
             }
             if (temp.IsTestAborted)
             {
-                MessageBox.Show("אי אפשר לעדכן תוצאות עבור מבחן זה, היות והוא בוטל.", "מבחן בוטל", MessageBoxButton.OK, MessageBoxImage.Information, 
+                MessageBox.Show("אי אפשר לעדכן תוצאות עבור מבחן זה, היות והוא בוטל.", "מבחן בוטל", MessageBoxButton.OK, MessageBoxImage.Information,
                     MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 return;
             }
@@ -430,7 +447,7 @@ namespace UI_Ver2
         private void ListView_TesterTests_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (((ListView)sender).SelectedItem != null)
-                MessageBox.Show((((ListView)sender).SelectedItem as TesterTest).ToString(), "פרטי מבחן", MessageBoxButton.OK, 
+                MessageBox.Show((((ListView)sender).SelectedItem as TesterTest).ToString(), "פרטי מבחן", MessageBoxButton.OK,
                     MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
         }
         private void ListView_TesterTests_MouseDoubleClick(object sender, RoutedEventArgs e)
@@ -445,7 +462,6 @@ namespace UI_Ver2
             meanings += "צבע המסגרת:\n";
             meanings += "אדום:" + "\t" + "מסגרת אדומה משמעותה שהמבחן ברשומה התבטל.\n";
             meanings += "ירוק:" + "\t" + "מסגרת ירוקה משמעותה שהמבחן ברשומה לא התבטל.\n\n";
-
             meanings += "צבע רקע פנימי:\n";
             meanings += "צהוב:" + "\t" + "רקע צהוב משמעותו מבחן שעוד לא עודכנו תוצאותיו.\n";
             meanings += "ירוק:" + "\t" + "רקע ירוק משמעותו שעידכנת תוצאות עבור מבחו זה, ומבחינתך הוא מטופל לחלוטין!\n";
@@ -589,7 +605,7 @@ namespace UI_Ver2
                 }
                 if (x.Key == "מספר מבחן")
                 {
-                    MessageBox.Show("לא ניתן לעדכן הגדרה זו באופן ידני.", "שגיאת הרשאה", MessageBoxButton.OK, MessageBoxImage.Stop, 
+                    MessageBox.Show("לא ניתן לעדכן הגדרה זו באופן ידני.", "שגיאת הרשאה", MessageBoxButton.OK, MessageBoxImage.Stop,
                         MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     return;
                 }
@@ -756,6 +772,6 @@ namespace UI_Ver2
                 this.DragMove();
         }
 
-        
+
     }
 }

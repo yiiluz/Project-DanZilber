@@ -16,7 +16,7 @@
     <ReverseParking>true</ReverseParking>
     <MirrorsCheck>true</MirrorsCheck>
     <Signals>true</Signals>
-    <CorrectSpeed>jbihb</CorrectSpeed>
+    <CorrectSpeed>false</CorrectSpeed>
     <IsPassed>true</IsPassed>
     <TesterNotes>'עיבניקנדיבנחניניהנחגנראניענחהנינחלרלנעאארנהגליראניטר5י6</TesterNotes>
     <IsTesterUpdateStatus>false</IsTesterUpdateStatus>

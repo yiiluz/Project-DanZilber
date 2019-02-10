@@ -590,7 +590,7 @@ namespace DL
                 throw new KeyNotFoundException(" שגיאה! לא קיים במערכת מערכת שעות עבור בוחן זה.");
             }
         }
-        public bool CheckTheIntegrityOfSystemDataInXml(ref string a)
+        public override bool CheckTheIntegrityOfSystemDataInXml(ref string a)
         {
             bool v;
             CarTypeEnum carType;
@@ -600,32 +600,33 @@ namespace DL
             foreach (var x in ConfigRoot.Elements())
             {
                 if (!x.Element("Key").Value.All(Z => Z == ' ' || char.IsLetter(Z))
-                  || bool.TryParse(x.Element("Value").Element("Readable").Value, out v)
-                  || bool.TryParse(x.Element("Value").Element("Writable").Value, out v)
+                  || !bool.TryParse(x.Element("Value").Element("Readable").Value, out v)
+                  || !bool.TryParse(x.Element("Value").Element("Writable").Value, out v)
                   || !x.Element("Value").Element("value").Value.All(char.IsDigit))
                 {
-                    a = "שגיאה! כשל בנתוני מאפיין קונפיגורציה.";
+                    a = "שגיאה! לא מצליח לקרוא את קובץ הקונפיגורציות.";
                     return false;
                 }
             }
             List<int> it = (from item in TestersRoot.Elements()
-                            where item.Element("Person").Element("ID").Value.All(char.IsDigit)
-                            where item.Element("Person").Element("Name").Element("LastName").Value.All(x => x == ' ' || char.IsLetter(x))
-                            where item.Element("Person").Element("Name").Element("FirstName").Value.All(x => x == ' ' || char.IsLetter(x))
-                            where item.Element("Person").Element("PhoneNumber").Value.All(char.IsDigit)
-                            where Enum.TryParse(item.Element("Person").Element("Gender").Value, out s)
-                            where item.Element("Person").Element("Address").Element("City").Value.All(x => x == ' ' || char.IsLetter(x))
-                            where item.Element("Person").Element("Address").Element("Street").Value.All(x => x == ' ' || char.IsLetter(x))
-                            where item.Element("Person").Element("Address").Element("BuildingNumber").Value.All(char.IsDigit)
-                            where DateTime.TryParse(item.Element("Person").Element("DateOfBirth").Value, out date)
-                            where item.Element("Seniority").Value.All(char.IsDigit)
-                            where item.Element("MaxDistance").Value.All(char.IsDigit)
-                            where item.Element("MaxTestsPerWeek").Value.All(char.IsDigit)
-                            where Enum.TryParse(item.Element("TypeCarToTest").Value, out carType)
+                            where item.Element("Person") != null && item.Element("Person").Element("Address") != null && item.Element("Person").Element("Name") != null
+                            && item.Element("Person").Element("ID") != null &&  item.Element("Person").Element("ID").Value.All(char.IsDigit)
+                            && item.Element("Person").Element("Name").Element("LastName") != null && item.Element("Person").Element("Name").Element("LastName").Value.All(x => x == ' ' || char.IsLetter(x))
+                            && item.Element("Person").Element("Name").Element("FirstName") != null && item.Element("Person").Element("Name").Element("FirstName").Value.All(x => x == ' ' || char.IsLetter(x))
+                            && item.Element("Person").Element("PhoneNumber") != null && item.Element("Person").Element("PhoneNumber").Value.All(char.IsDigit)
+                            && item.Element("Person").Element("Gender") != null && Enum.TryParse(item.Element("Person").Element("Gender").Value, out s)
+                            && item.Element("Person").Element("Address").Element("City") != null && item.Element("Person").Element("Address").Element("City").Value.All(x => x == ' ' || char.IsLetter(x))
+                            && item.Element("Person").Element("Address").Element("Street") != null && item.Element("Person").Element("Address").Element("Street").Value.All(x => x == ' ' || char.IsLetter(x))
+                            && item.Element("Person").Element("Address").Element("BuildingNumber") != null && item.Element("Person").Element("Address").Element("BuildingNumber").Value.All(char.IsDigit)
+                            && item.Element("Person").Element("DateOfBirth") != null && DateTime.TryParse(item.Element("Person").Element("DateOfBirth").Value, out date)
+                            && item.Element("Seniority") != null && item.Element("Seniority").Value.All(char.IsDigit)
+                            && item.Element("MaxDistance") != null && item.Element("MaxDistance").Value.All(char.IsDigit)
+                            && item.Element("MaxTestsPerWeek") != null && item.Element("MaxTestsPerWeek").Value.All(char.IsDigit)
+                            && item.Element("TypeCarToTest") != null && Enum.TryParse(item.Element("TypeCarToTest").Value, out carType)
                             select 1).ToList();
             if (it.Count != TestersRoot.Elements().Count())
             {
-                a = "שגיאה! כשל בנתוני בוחנים. לא כל המידע נטען בהצלחה/n";
+                a = "שגיאה! כשל בנתוני בוחנים. לא כל המידע נטען בהצלחה.\n";
             }
             it = (from item in TraineesRoot.Elements()
                   where item.Element("Person").Element("ID").Value.All(char.IsDigit)
@@ -646,7 +647,7 @@ namespace DL
                   select 1).ToList();
             if (it.Count != TraineesRoot.Elements().Count())
             {
-                a += "שגיאה! כשל בנתוני תלמידים לא כל המידע נטען בהצלחה.\n";
+                a += "שגיאה! כשל בנתוני תלמידים. לא כל המידע נטען בהצלחה.\n";
             }
             it = (from item in TestsRoot.Elements()
                   where item.Element("TestId").Value.All(char.IsDigit)
@@ -668,7 +669,7 @@ namespace DL
                   select 1).ToList();
             if (it.Count != TestsRoot.Elements().Count())
             {
-                a += "שגיאה! כשל בנתוני מבחנים. לא כל המידע נטען הבהצלחה/n";
+                a += "שגיאה! כשל בנתוני מבחנים. לא כל המידע נטען בהצלחה.\n";
             }
             if (a != "")
             {
