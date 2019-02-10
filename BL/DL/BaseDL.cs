@@ -29,5 +29,7 @@ namespace DL
         public abstract void UpdateTesterSchedule(string id, bool[,] sched);
         public abstract bool[,] GetTesterSchedule(string id);
         public abstract void RemoveTesterSchedule(string id);
+        public abstract bool CheckTheIntegrityOfSystemDataInXml(ref string a);
     }
+
 }

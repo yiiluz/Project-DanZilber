@@ -20,6 +20,10 @@ namespace UI_Ver2
 
         static App()
         {
+            
+        }
+        public static void SetPasswords()
+        {
             try
             {
                 adminPass = bl.GetConfig()["סיסמת מנהל המערכת"].ToString();
@@ -28,9 +32,9 @@ namespace UI_Ver2
             catch
             {
                 MessageBox.Show("לא מצליח לטעון סיסמאות", "שגיאה פנימית", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                Environment.Exit(Environment.ExitCode);
             }
         }
-
         public static string AdminPass
         {
             get => adminPass; set

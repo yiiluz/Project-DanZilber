@@ -243,6 +243,10 @@ namespace DL
             }
             return tmp;
         }
+        public override bool CheckTheIntegrityOfSystemDataInXml(ref string a)
+        {
+            return true;
+        }
     }
 }
 

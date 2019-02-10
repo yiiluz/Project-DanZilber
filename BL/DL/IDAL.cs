@@ -26,7 +26,7 @@ namespace DO
         void UpdateTesterSchedule(string id, bool[,] sched);
         bool[,] GetTesterSchedule(string id);
         void RemoveTesterSchedule(string id);
-        
+        bool CheckTheIntegrityOfSystemDataInXml(ref string a);
     }
 
 }
