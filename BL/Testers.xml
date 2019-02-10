@@ -2,44 +2,23 @@
 <Testers>
   <Tester>
     <Person>
-      <ID>209492065</ID>
-      <Name>
-        <FirstName>איציק</FirstName>
-        <LastName>משה</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>חיפה</City>
-        <Street>באבל יצחק</Street>
-        <BuildingNumber>10</BuildingNumber>
-      </Address>
-      <DateOfBirth>1975-02-10T00:00:00</DateOfBirth>
-      <PhoneNumber>7897987987</PhoneNumber>
-    </Person>
-    <Seniority>20</Seniority>
-    <MaxDistance>100</MaxDistance>
-    <MaxTestsPerWeek>50</MaxTestsPerWeek>
-    <TypeCarToTest>TruckUnlimited</TypeCarToTest>
-  </Tester>
-  <Tester>
-    <Person>
       <ID>111111111</ID>
       <Name>
-        <FirstName>אבי</FirstName>
-        <LastName>יגודיוב</LastName>
+        <FirstName>מוטי</FirstName>
+        <LastName>אהרונוביץ</LastName>
       </Name>
       <Gender>Male</Gender>
       <Address>
-        <City>תל אביב - יפו</City>
-        <Street>אלנבי</Street>
-        <BuildingNumber>10</BuildingNumber>
+        <City>בני ברק</City>
+        <Street>השומר</Street>
+        <BuildingNumber>28</BuildingNumber>
       </Address>
       <DateOfBirth>1974-02-10T00:00:00</DateOfBirth>
-      <PhoneNumber>8767968969</PhoneNumber>
+      <PhoneNumber>0506742558</PhoneNumber>
     </Person>
     <Seniority>10</Seniority>
-    <MaxDistance>79</MaxDistance>
-    <MaxTestsPerWeek>51</MaxTestsPerWeek>
-    <TypeCarToTest>MotorCycle</TypeCarToTest>
+    <MaxDistance>80</MaxDistance>
+    <MaxTestsPerWeek>30</MaxTestsPerWeek>
+    <TypeCarToTest>PrivateCarAuto</TypeCarToTest>
   </Tester>
 </Testers>

@@ -21,7 +21,7 @@
                     <LinearGradientBrush>
                         <GradientStop Offset="0" Color="Lavender"/>
                         <GradientStop Offset="0.33" Color="Turquoise"/>
-                        <GradientStop Offset="0.66" Color="DarkOliveGreen"/>
+                        <GradientStop Offset="0.66" Color="LightGreen"/>
                         <GradientStop Offset="1" Color="DarkBlue"/>
                     </LinearGradientBrush>
                 </Border.Background>
@@ -88,7 +88,9 @@
                                 <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="לצפות בתוצאות מבחנים שעברו, להציג פרטים אישיים וכו'."/>
                                 <TextBlock/>
                                 <TextBlock  HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Text="© כל הזכויות שמורות ליצחק אילוז ושלמה פרלוב, המרכז האקדמי לב, 2019." />
-                            </StackPanel>
+                                <TextBlock/>
+                                <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="20" Text="*מטעמי נוחות, המערכת נכתבה בלשון זכר, אך מיועדת לנשים וגברים כאחד."/>
+                                </StackPanel>
                         </Grid>
                     </TabItem>
                     <TabItem Header="מנהל מערכת" Width="180" Height="30" FontSize="16">
@@ -860,6 +862,7 @@
                             </Grid>
                         </Grid>
                     </TabItem>
+                    
                 </TabControl>
             </Grid>
         </Grid>

@@ -235,5 +235,12 @@
   <ItemGroup>
     <Resource Include="Icons\Wheel.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestersImages\" />
+    <Folder Include="TraineesImages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\user_icon.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

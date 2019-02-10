@@ -48,13 +48,16 @@
             <TextBox x:Name="TxtBx_FirstName" Grid.Column="1" Grid.Row="2" LostFocus="TxtBx_FirstName_LostFocus" GotFocus="TxtBx_FirstName_GotFocus" Text="{Binding Path=FirstName, Mode=TwoWay}" Grid.ColumnSpan="3"/>
             <Label x:Name="Label_LastName" Content="שם משפחה:" Grid.Row="3" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_LastName" Grid.Column="1" Grid.Row="3" LostFocus="TxtBx_LastName_LostFocus" GotFocus="TxtBx_LastName_GotFocus" Text="{Binding Path=LastName, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-            <Label x:Name="Label_Seniority" Content="שנות ניסיון:" Grid.Row="4" Grid.Column="0"/>
-            <TextBox x:Name="TxtBx_Seniority" Grid.Column="1" Grid.Row="4" LostFocus="TxtBx_Seniority_LostFocus" GotFocus="TxtBx_Seniority_GotFocus" Text="{Binding Path=Seniority, Mode=TwoWay}" Grid.ColumnSpan="3" />
+            <Label x:Name="Label_Phone" Content="מס' פלאפון:" Grid.Row="4" Grid.Column="0"/>
+            <TextBox x:Name="TxtBx_Phone" Grid.Column="1" Grid.Row="4" LostFocus="TxtBx_Phone_LostFocus" GotFocus="TxtBx_Phone_GotFocus" Text="{Binding Path=PhoneNumber, Mode=TwoWay}" MaxLength="10" Grid.ColumnSpan="3"/>
+
             <Label x:Name="Label_MaxTestPerWeek" Content="מס' מבחנים מקסימלי בשבוע:" Grid.Row="5" Grid.Column="0"/>
             <TextBox x:Name="TxtBx_MaxTestPerWeek" Grid.Column="1" Grid.Row="5" LostFocus="TxtBx_MaxTestPerWeek_LostFocus" GotFocus="TxtBx_MaxTestPerWeek_GotFocus" Text="{Binding Path=MaxTestsPerWeek, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-            <Label x:Name="Label_Phone" Content="מס' פלאפון:" Grid.Row="6" Grid.Column="0"/>
-            <TextBox x:Name="TxtBx_Phone" Grid.Column="1" Grid.Row="6" LostFocus="TxtBx_Phone_LostFocus" GotFocus="TxtBx_Phone_GotFocus" Text="{Binding Path=PhoneNumber, Mode=TwoWay}" MaxLength="10" Grid.ColumnSpan="3"/>
+            <Label x:Name="Label_Seniority" Content="שנות ניסיון:" Grid.Row="6" Grid.Column="0"/>
+            <TextBox x:Name="TxtBx_Seniority" Grid.Column="1" Grid.Row="6" LostFocus="TxtBx_Seniority_LostFocus" GotFocus="TxtBx_Seniority_GotFocus" Text="{Binding Path=Seniority, Mode=TwoWay}" Grid.ColumnSpan="3" />
+
             <Label x:Name="Label_MaxDistance" Content="מרחק (בק&quot;מ) מקסימלי לבחינה:" Grid.Row="7" Grid.Column="0"/>
+            
             <TextBox x:Name="TxtBx_MaxDistance"  Grid.Column="1" Grid.Row="7" LostFocus="TxtBx_MaxDistance_LostFocus" GotFocus="TxtBx_MaxDistance_GotFocus" Text="{Binding Path=MaxDistance, Mode=TwoWay}" Grid.ColumnSpan="3"/>
             <Label x:Name="Label_Address" Content="כתובות:" Grid.Row="8" Grid.Column="0"/>
             <ComboBox x:Name="CmbBx_City" Margin="2" Grid.Column="1" Grid.Row="8" SelectedItem="{Binding Path=City, Mode=TwoWay}" Text="בחר עיר" IsEditable="True" VerticalContentAlignment="Center" SelectionChanged="CmbBx_City_SelectionChanged"/>

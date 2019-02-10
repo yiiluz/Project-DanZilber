@@ -37,7 +37,7 @@
                     </Grid>
                 </Border>
 
-                <Border BorderThickness="1" BorderBrush="blue" Padding="2">
+                <Border BorderThickness="1" BorderBrush="LightBlue" Padding="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>

@@ -588,11 +588,11 @@ namespace BL
                 }
                 catch (DirectoryNotFoundException e)
                 {
-                    throw e;
+                    break;
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    throw new KeyNotFoundException(" שגיאה!" + ex.Message);
+                    break;
                 }
                 lst.Add(temp);
             }
@@ -813,20 +813,20 @@ namespace BL
             }
         }
 
-        public List<Test> GetOptionalTestsByHour(Test dataSourse, Trainee trainee)
+        public List<Test> GetOptionalTestsByHour(Test dataSource, Trainee trainee)
         {
             List<Test> optionalTests = new List<Test>();
-            List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType);
+            List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSource.CarType);
             if (optionalTesters.Count == 0)
                 throw new KeyNotFoundException("לא קיים בוחן עבור סוג רכב זה.");
-            optionalTesters = (from tester in optionalTesters where (IsTestersWorkAtSpesificHour(tester, dataSourse.HourOfTest)) select tester).ToList();
+            optionalTesters = (from tester in optionalTesters where (IsTestersWorkAtSpesificHour(tester, dataSource.HourOfTest)) select tester).ToList();
             if (optionalTesters.Count == 0)
                 throw new KeyNotFoundException("לא קיים בוחן העובד בשעה הרצויה, אנא נסה בשעה אחרת.");
             bool IsAddressErrorOccur = false;
             try
             {
                 optionalTesters = (from tester in optionalTesters
-                                   let x = GetDistanceBetweenTwoAddresses(dataSourse.StartTestAddress, tester.Address, ref IsAddressErrorOccur)
+                                   let x = GetDistanceBetweenTwoAddresses(dataSource.StartTestAddress, tester.Address, ref IsAddressErrorOccur)
                                    where x <= tester.MaxDistance && x >= 0
                                    select tester).ToList();
             }
@@ -846,13 +846,13 @@ namespace BL
             int counter = 0, loopNumber = 0;
             while (counter < 7)
             {
-                DateTime temp = dataSourse.DateOfTest.AddDays(-(loopNumber + 1)), temp2 = dataSourse.DateOfTest.AddDays(loopNumber);
+                DateTime temp = dataSource.DateOfTest.AddDays(-(loopNumber + 1)), temp2 = dataSource.DateOfTest.AddDays(loopNumber);
                 foreach (var item in optionalTesters)
                 {
                     if (temp > DateTime.Now.AddDays(1) && temp.DayOfWeek != DayOfWeek.Friday && temp.DayOfWeek != DayOfWeek.Saturday)
-                        if (!optionalTests.Exists(x => x.DateOfTest == temp) && IsTesterAvailiableOnDateAndHour(item, temp, dataSourse.HourOfTest))
+                        if (!optionalTests.Exists(x => x.DateOfTest == temp) && IsTesterAvailiableOnDateAndHour(item, temp, dataSource.HourOfTest))
                         {
-                            Test test = new Test(dataSourse);
+                            Test test = new Test(dataSource);
                             test.DateOfTest = temp;
                             test.ExTester = new ExternalTester(item);
                             test.ExTrainee = new ExternalTrainee(trainee);
@@ -860,9 +860,9 @@ namespace BL
                             counter++;
                         }
                     if (temp2.DayOfWeek != DayOfWeek.Friday && temp2.DayOfWeek != DayOfWeek.Saturday)
-                        if (!optionalTests.Exists(x => x.DateOfTest == temp2) && IsTesterAvailiableOnDateAndHour(item, temp2, dataSourse.HourOfTest))
+                        if (!optionalTests.Exists(x => x.DateOfTest == temp2) && IsTesterAvailiableOnDateAndHour(item, temp2, dataSource.HourOfTest))
                         {
-                            Test test = new Test(dataSourse);
+                            Test test = new Test(dataSource);
                             test.DateOfTest = temp2;
                             test.ExTester = new ExternalTester(item);
                             test.ExTrainee = new ExternalTrainee(trainee);
@@ -875,16 +875,14 @@ namespace BL
             optionalTests.Sort((x, y) => x.DateOfTest.CompareTo(y.DateOfTest));
             return optionalTests;
         }
-        public List<Test> GetOptionalTestsByDate(Test dataSourse, Trainee trainee)
+        public List<Test> GetOptionalTestsByDate(Test dataSource, Trainee trainee)
         {
             List<Test> optionalTests = new List<Test>();
-
-
-            List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType);
+            List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSource.CarType);
             if (optionalTesters.Count == 0)
                 throw new KeyNotFoundException("לא קיים בוחן עבור סוג רכב זה.");
             optionalTesters = (from tester in optionalTesters
-                               where IsTesterAvailiableOnDateAndHour(tester, dataSourse.DateOfTest) && GetAvailiableHoursOfTesterForSpesificDate(tester, dataSourse.DateOfTest).Count != 0
+                               where IsTesterAvailiableOnDateAndHour(tester, dataSource.DateOfTest) && GetAvailiableHoursOfTesterForSpesificDate(tester, dataSource.DateOfTest).Count != 0
                                select tester).ToList();
             if (optionalTesters.Count == 0)
                 throw new KeyNotFoundException("לא קיים בוחן העובד בתאריך הרצוי, אנא נסה תאריך אחר.");
@@ -892,7 +890,7 @@ namespace BL
             try
             {
                 optionalTesters = (from tester in optionalTesters
-                                   let x = GetDistanceBetweenTwoAddresses(dataSourse.StartTestAddress, tester.Address, ref IsAddressErrorOccur)
+                                   let x = GetDistanceBetweenTwoAddresses(dataSource.StartTestAddress, tester.Address, ref IsAddressErrorOccur)
                                    where x <= tester.MaxDistance && x >= 0
                                    select tester).ToList();
             }
@@ -913,13 +911,13 @@ namespace BL
 
             foreach (var item in optionalTesters)
             {
-                List<int> currHour = GetAvailiableHoursOfTesterForSpesificDate(item, dataSourse.DateOfTest);
+                List<int> currHour = GetAvailiableHoursOfTesterForSpesificDate(item, dataSource.DateOfTest);
                 foreach (var item1 in currHour)
                 {
                     if (tmp[item1 - 9] == false)
                     {
                         tmp[item1 - 9] = true;
-                        Test test = new Test(dataSourse);
+                        Test test = new Test(dataSource);
                         test.ExTester = new ExternalTester(item);
                         test.ExTrainee = new ExternalTrainee(trainee);
                         test.HourOfTest = item1;
@@ -931,6 +929,46 @@ namespace BL
             }
             optionalTests.Sort((x, y) => x.HourOfTest.CompareTo(y.HourOfTest));
             return optionalTests;
+        }
+        public Test GetClosetTest(Test dataSource, Trainee trainee)
+        {
+            List<Test> optionalTests = new List<Test>();
+            List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSource.CarType);
+            if (optionalTesters.Count == 0)
+                throw new KeyNotFoundException("לא קיים בוחן עבור סוג רכב זה.");
+            bool IsAddressErrorOccur = false;
+            try
+            {
+                optionalTesters = (from tester in optionalTesters
+                                   let x = GetDistanceBetweenTwoAddresses(dataSource.StartTestAddress, tester.Address, ref IsAddressErrorOccur)
+                                   where x <= tester.MaxDistance && x >= 0
+                                   select tester).ToList();
+            }
+            catch (InternalBufferOverflowException)
+            {
+                throw new InternalBufferOverflowException();
+            }
+            if (optionalTesters.Count == 0)
+            {
+                if (IsAddressErrorOccur)
+                    throw new KeyNotFoundException("שגיאה! אחת מהכתובות במשך תהליך החיפוש אחר טסטר לא הייתה תקינה.");
+                throw new KeyNotFoundException("שגיאה!  אין בוחנים עבור כתובת זו.");
+            }
+            Test dataSourceTemp = dataSource;
+            for (int i = 0; true; ++i)
+            {
+                dataSourceTemp.DateOfTest = dataSource.DateOfTest.AddDays(i);
+                try
+                {
+                    optionalTests = GetOptionalTestsByDate(dataSource, trainee);
+                }
+                catch { }
+                if (optionalTests.Count != 0)
+                {
+                    optionalTests.Sort((x, y) => x.HourOfTest.CompareTo(y.HourOfTest));
+                    return optionalTests.First();
+                }
+            }
         }
 
         public List<Test> GetTestsPartialListByPredicate(Func<BO.Test, bool> func)

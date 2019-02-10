@@ -19,6 +19,7 @@ using System.Threading;
 using BO;
 using System.Xml.Linq;
 using System.Globalization;
+using Microsoft.Win32;
 
 namespace UI_Ver2
 {
@@ -121,6 +122,8 @@ namespace UI_Ver2
             PassBox_passOffice.Password = "";
             TextBox_TesterID.Text = "";
             TextBox_TraineeID.Text = "";
+            tester = null;
+            trainee = null;
             try
             {
                 TabControl tabControl = sender as TabControl;
@@ -289,6 +292,11 @@ namespace UI_Ver2
                 try
                 {
                     MainWindow.bl.RemoveTrainee(getIDWindow.TxtBx_ID.Text);
+                    try
+                    {
+                        File.Delete(System.IO.Path.GetFullPath(@"..\..\TraineesImages\" + getIDWindow.TxtBx_ID.Text + @".jpg"));
+                    }
+                    catch { }
                 }
                 catch (KeyNotFoundException ex)
                 {
@@ -674,16 +682,16 @@ namespace UI_Ver2
         private void Sort(string sortBy, ListSortDirection direction)
         {
             ICollectionView dataView = null;
-            if (TabControl_Login.SelectedIndex == 0)
+            if (TabControl_Login.SelectedIndex == 1)
             {
                 dataView = CollectionViewSource.GetDefaultView(ListView_Configurations.ItemsSource);
             }
-            if (TabControl_Login.SelectedIndex == 2)
+            if (TabControl_Login.SelectedIndex == 3)
             {
                 dataView = CollectionViewSource.GetDefaultView(ListView_TesterTests.ItemsSource);
 
             }
-            if (TabControl_Login.SelectedIndex == 3)
+            if (TabControl_Login.SelectedIndex == 4)
             {
                 dataView = CollectionViewSource.GetDefaultView(ListView_TraineeTests.ItemsSource);
             }
@@ -771,6 +779,20 @@ namespace UI_Ver2
                 this.DragMove();
         }
 
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    OpenFileDialog op = new OpenFileDialog();
+        //    op.Title = "Select a picture";
+        //    op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+        //      "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+        //      "Portable Network Graphic (*.png)|*.png";
+        //    if (op.ShowDialog() == true)
+        //    {
+        //        System.IO.File.Copy(op.FileName, @"..\..\TestersImages\image1.jpg");
+        //        MessageBox.Show(op.FileName);
+        //    }
 
+
+        //}
     }
 }

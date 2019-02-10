@@ -98,8 +98,8 @@
 
             <!-- tab Grid -->
             <Grid Grid.Row="4" Grid.ColumnSpan="4">
-                <TabControl>
-                    <TabItem Header="בחר מועד לפי תאריך" Height="21" Margin="0,0,0,-0.2" VerticalAlignment="Top">
+                <TabControl SelectionChanged="TabControl_SelectionChanged">
+                    <TabItem Header="בחר מועד לפי תאריך" Height="21" Margin="0,0,0,-0.2" VerticalAlignment="Top" >
                         <Border Padding="5">
                             <StackPanel x:Name="SelectByDate">
                                 <Label Content="בחר את התאריך בו הנך מעוניין לקבוע מבחן"/>
@@ -111,8 +111,8 @@
                                 <Label Content="לחץ כדי לקבל רשימת שעות אופציונלית"/>
                                 <Button Content="מצא שעות  למבחן בתאריך זה" Click="Button_Click_GetTestsListByDate"/>
                                 <ProgressBar x:Name="AddTestProgressBarByDate" IsIndeterminate="True" Minimum="0" Maximum="100" Grid.Row="4" Grid.ColumnSpan="4" Margin="0 10 0 0" Height="30" Visibility="Hidden"/>
-                                <Label Content="בחר שעה מתאימה מהרשימה"/>
-                                <ComboBox x:Name="CombBx_TestsListByDate">
+                                <Label x:Name="TxtBlock_ChooseByDate" Content="בחר שעה מתאימה מהרשימה"/>
+                                <ComboBox x:Name="CombBx_TestsListByDate" SelectionChanged="CombBx_SelectionChanged">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
@@ -141,14 +141,11 @@
                                 <Label Content="הכנס שעה מבוקשת למבחן (מספר שלם בין 9 ל 14)." />
                                 <TextBox x:Name="TxtBx_HourByHour" LostFocus="TxtBx_HourByHour_LostFocus" GotFocus="TxtBx_HourByHour_GotFocus" 
                                          Text="{Binding Path=HourOfTest, Mode=TwoWay}" Grid.ColumnSpan="3"/>
-
                                 <Label Content="לחץ על הכפתור על מנת לקבל תאריכים אופציונלים"/>
-                                
                                 <Button Content="מצא תאריכים אפשריים" Click="Button_Click_GetTestsListByHour"/>
                                 <ProgressBar x:Name="AddTestProgressBarByHour" IsIndeterminate="True" Minimum="0" Maximum="100" Grid.Row="4" Grid.ColumnSpan="4" Margin="0 10 0 0" Height="30" Visibility="Hidden"/>
-
-                                <Label Content="בחר את התאריך המתאים ביותר למבחן מהרשימה"/>
-                                <ComboBox x:Name="CombBx_TestsListByHour">
+                                <Label x:Name="TxtBlock_ChooseByHour" Content="בחר את התאריך המתאים ביותר למבחן מהרשימה"/>
+                                <ComboBox x:Name="CombBx_TestsListByHour" SelectionChanged="CombBx_SelectionChanged">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
@@ -161,6 +158,29 @@
                                 <Button x:Name="Button_AddByHour" Content="לחץ להוספת מבחן בתאריך שנבחר" Margin="0 15" Height="30" Click="Button_AddChosenTest" 
                                         IsEnabled="{Binding ElementName=CombBx_TestsListByHour, Path=SelectedIndex, Converter={StaticResource comboBoxIsSelectedToEnable}, 
                                     Mode=OneWay}"/>
+                            </StackPanel>
+                        </Border>
+                    </TabItem>
+                    <TabItem Header="המועד הקרוב ביותר">
+                        <Border Padding="5">
+                            <StackPanel x:Name="SelectByCloset">
+                                <Button Content="מצא את מועד המבחן הפנוי הקרוב ביותר" Click="Button_Click_GetClosestTest"/>
+                                <ProgressBar x:Name="AddTestProgressBarByCloset" IsIndeterminate="True" Minimum="0" Maximum="100" Grid.Row="4" Grid.ColumnSpan="4" Margin="0 10 0 0" Height="30" Visibility="Hidden"/>
+                                <TextBlock x:Name="TxtBlock_ClosestDate" Text="המועד הקרוב ביותר הוא:" FontSize="20"/>
+                                <ComboBox x:Name="CombBx_ClosetTest" SelectionChanged="CombBx_SelectionChanged">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="תאריך המבחן: "/>
+                                                <TextBlock Text="{Binding Path=DateOfTest, Mode=TwoWay, Converter={StaticResource dateTimeToShortString}}"/>
+                                                <TextBlock Text=" שעת התחלה: "/>
+                                                <TextBlock Text="00:"/>
+                                                <TextBlock Text="{Binding HourOfTest, Mode=TwoWay}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Button x:Name="Button_AddByCloset" Content="לחץ להוספת מבחן בתאריך ושעה שנבחרו" Margin="0 15" Height="30" Click="Button_AddChosenTest" />
                             </StackPanel>
                         </Border>
                     </TabItem>

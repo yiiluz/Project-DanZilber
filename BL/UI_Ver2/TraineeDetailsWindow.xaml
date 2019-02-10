@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UI_Ver2"
         xmlns:BO="clr-namespace:BO;assembly=BL" 
         mc:Ignorable="d" Icon="Icons/Wheel.png"
-        Title="Trainee Details Window" Height="550" Width="480" ResizeMode="NoResize" WindowStyle="None"
+        Title="Trainee Details Window" Height="550" Width="800" ResizeMode="NoResize" WindowStyle="None"
         AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" FlowDirection="RightToLeft">
 
 
@@ -69,6 +69,7 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -112,10 +113,13 @@
             <ComboBox x:Name="CombBx_CurrCar" Grid.Row="10" Grid.ColumnSpan="3" Grid.Column="1" SelectedValue="{Binding Path=CurrCarType}"/>
             <Label x:Name="Label_Gender" Content="מין התלמיד:" Grid.Row="11" Grid.Column="0"/>
             <ComboBox x:Name="CombBx_Gender" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" SelectedValue="{Binding Path=Gender}"/>
-            <Button x:Name="Button_Add" Content="הוסף" Grid.ColumnSpan="4" Grid.Row="12" Margin="2" Click="Button_Click_Add"/>
-            <Button x:Name="Button_Cancel" Content="ביטול" Grid.ColumnSpan="4" Grid.Row="13" Margin="2" Click="Button_Click_Cancel"/>
-            <Button x:Name="Button_OK" Content="סגור" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="13" Margin="2" Visibility="Collapsed" Click="Button_OK_Click"/>
-
+            <Button x:Name="Button_Add" Content="הוסף" Grid.ColumnSpan="5" Grid.Row="12" Margin="2" Click="Button_Click_Add"/>
+            <Button x:Name="Button_Cancel" Content="ביטול" Grid.ColumnSpan="5" Grid.Row="13" Margin="2" Click="Button_Click_Cancel"/>
+            <Button x:Name="Button_OK" Content="סגור" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="13" Margin="2" Visibility="Collapsed" Click="Button_OK_Click"/>
+            <Border BorderThickness="3" BorderBrush="Black" Grid.Column="4" Grid.RowSpan="6" Grid.Row="1" Margin="10">
+                <Image x:Name="TraineeImage" Source="Icons/user_icon.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            </Border>
+            <Button x:Name="Butto_UploadImage" Content="העלה תמונה" Grid.Column="4" Grid.Row="7" Click="Button_Click_UploadImage" Grid.RowSpan="2"/>
 
 
         </Grid>

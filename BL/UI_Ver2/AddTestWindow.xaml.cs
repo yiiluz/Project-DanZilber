@@ -21,7 +21,7 @@ namespace UI_Ver2
     /// </summary>
     public partial class AddTestWindow : Window
     {
-        Test test = new Test();
+        Test test = new Test(), temp;
         Trainee trainee = null;
         List<Test> lst = new List<Test>();
         //List<Tester> lst;
@@ -42,6 +42,7 @@ namespace UI_Ver2
             DatePicker_DateOfTest_ByDate.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now));
             CombBx_TestsListByHour.IsEnabled = false;
             CombBx_TestsListByDate.IsEnabled = false;
+            CombBx_ClosetTest.IsEnabled = false;
             if (trainee != null)
             {
                 TxtBx_ID.Text = trainee.Id;
@@ -129,6 +130,28 @@ namespace UI_Ver2
                 try
                 {
                     string serialOfTest = MainWindow.bl.AddTest(CombBx_TestsListByHour.SelectedItem as Test);
+                    MessageBox.Show("המבחן נקבע בהצלחה. מספר המבחן: " + serialOfTest, "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    var result = MessageBox.Show("שגיאה פנימית. " + ex.Message + "\nהאם ברצונך לנסות שוב?", "שגיאה", MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    if (result == MessageBoxResult.No)
+                    {
+                        MessageBox.Show("המבחן לא נקבע", "פעולה בוטלה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        Close();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+            if (CombBx_ClosetTest.SelectedItem != null)
+            {
+                try
+                {
+                    string serialOfTest = MainWindow.bl.AddTest(CombBx_ClosetTest.SelectedItem as Test);
                     MessageBox.Show("המבחן נקבע בהצלחה. מספר המבחן: " + serialOfTest, "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     Close();
                 }
@@ -246,6 +269,54 @@ namespace UI_Ver2
             }
         }
 
+        private void Button_Click_GetClosestTest(object sender, RoutedEventArgs e)
+        {
+            if (worker.IsBusy || CmbBx_City.SelectedItem == null || CmbBx_Street.SelectedItem == null)
+            {
+                return;
+            }
+
+            if (
+                (TxtBx_HourByHour.Text.All(char.IsDigit) && (int.Parse(TxtBx_HourByHour.Text) < 15 && (int.Parse(TxtBx_HourByHour.Text)) >= 9)) &&
+                (TxtBx_BuildNum.Text.All(char.IsDigit) && (TxtBx_BuildNum.Text.Length != 0)) &&
+                (TxtBx_ID.Text.All(char.IsDigit) && (TxtBx_ID.Text.Length == 9))
+                )
+            {
+                if (!MainWindow.cities.Exists(x => x == (string)CmbBx_City.SelectedItem) || !MainWindow.streetsGroupedByCity.Find(x => x.Key == (string)CmbBx_City.SelectedItem).ToList().Exists(x => x == (string)CmbBx_Street.SelectedItem))
+                {
+                    MessageBox.Show("קלט הכתובת שגוי", "קלט לא תקין", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    return;
+                }
+                Trainee trainee = null;
+                try
+                {
+                    trainee = MainWindow.bl.GetTraineeByID(TxtBx_ID.Text);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    var result = MessageBox.Show("תעודת הזהות של התלמיד שהוזנה אינה קיימת במערכת. האם ברצונך לנסות שוב?", "נתון חסר", MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    if (result == MessageBoxResult.No)
+                    {
+                        MessageBox.Show("הטסט לא נקבע.\n" + ex.Message, "פעולה בוטלה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        Close();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                test.CarType = trainee.CurrCarType;
+                if (!worker.IsBusy)
+                {
+                    worker.RunWorkerAsync("Add Test By Closest");
+                    AddTestProgressBarByCloset.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                MessageBox.Show("הקלט לא תקין. אם לא הזנת, הזן. אם הזנת, השדות עם הקלט שלא תקין מסומנים באדום.", "קלט שגוי", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+            }
+        }
         private void TxtBx_HourByHour_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!TxtBx_HourByHour.Text.All(char.IsDigit) || (int.Parse(TxtBx_HourByHour.Text) > 14 || (int.Parse(TxtBx_HourByHour.Text)) < 9))
@@ -260,28 +331,6 @@ namespace UI_Ver2
             TxtBx_HourByHour.BorderBrush = Brushes.Gray;
         }
 
-        //private void Button_AddByHour_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        string serialOfTest = MainWindow.bl.AddTest((CombBx_TestsListByHour.SelectedItem) as Test);
-        //        MessageBox.Show("Test added successfuly. Test ID: " + serialOfTest, "Add Status", MessageBoxButton.OK, MessageBoxImage.Information);
-        //        Close();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        var result = MessageBox.Show("Internal ERROR: " + ex.Message + ". Do you want to try agein?", "ERROR", MessageBoxButton.YesNo, MessageBoxImage.Error);
-        //        if (result == MessageBoxResult.No)
-        //        {
-        //            MessageBox.Show("The test has'nt Added.", "Operation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
-        //            Close();
-        //        }
-        //        else
-        //        {
-        //            return;
-        //        }
-        //    }
-        //}
         private void CmbBx_City_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CmbBx_City.SelectedItem != null)
@@ -339,6 +388,19 @@ namespace UI_Ver2
                         e.Result = "Add Test By Hour";
                     }
                     break;
+                case "Add Test By Closest":
+                    try
+                    {
+                        temp = MainWindow.bl.GetClosetTest(this.test, trainee);
+                    }
+                    catch (KeyNotFoundException ex)
+                    {
+                        MessageBox.Show("לא נמצא מבחן.\n" + ex.Message + "\nאתה יכול לנסות שוב.", "נכשל", MessageBoxButton.OK, MessageBoxImage.Hand, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                        worker.CancelAsync();
+                        break;
+                    }
+                    e.Result = "Add Test By Closest";
+                    break;
             }
             if (worker.CancellationPending)
                 e.Cancel = true;
@@ -349,11 +411,13 @@ namespace UI_Ver2
             {
                 AddTestProgressBarByDate.Visibility = Visibility.Hidden;
                 AddTestProgressBarByHour.Visibility = Visibility.Hidden;
+                AddTestProgressBarByCloset.Visibility = Visibility.Hidden;
             }
             else if (e.Error != null)
             {
                 AddTestProgressBarByDate.Visibility = Visibility.Hidden;
                 AddTestProgressBarByHour.Visibility = Visibility.Hidden;
+                AddTestProgressBarByCloset.Visibility = Visibility.Hidden;
                 MessageBox.Show("המערכת לא מצליחה לאתר מועדי מבחנים אפשריים. בדוק את חיבור האינטרנט שלך.", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
 
             }
@@ -366,12 +430,23 @@ namespace UI_Ver2
                         CombBx_TestsListByHour.SelectedItem = lst[0];
                         CombBx_TestsListByHour.IsEnabled = true;
                         AddTestProgressBarByHour.Visibility = Visibility.Hidden;
+                        TxtBlock_ChooseByHour.Foreground = Brushes.Black;
                         break;
                     case "Add Test By Date":
                         CombBx_TestsListByDate.ItemsSource = lst;
                         CombBx_TestsListByDate.SelectedItem = lst[0];
                         CombBx_TestsListByDate.IsEnabled = true;
                         AddTestProgressBarByDate.Visibility = Visibility.Hidden;
+                        TxtBlock_ChooseByDate.Foreground = Brushes.Black;
+                        break;
+                    case "Add Test By Closest":
+                        lst.Clear();
+                        lst.Add(temp);
+                        CombBx_ClosetTest.ItemsSource = lst;
+                        CombBx_ClosetTest.SelectedItem = lst[0];
+                        CombBx_ClosetTest.IsEnabled = true;
+                        AddTestProgressBarByCloset.Visibility = Visibility.Hidden;
+                        TxtBlock_ClosestDate.Foreground = Brushes.Black;
                         break;
                 }
 
@@ -379,10 +454,31 @@ namespace UI_Ver2
 
         }
 
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CombBx_TestsListByHour.IsEnabled = false;
+            CombBx_TestsListByDate.IsEnabled = false;
+            CombBx_ClosetTest.IsEnabled = false;
+            lst = new List<Test>();
+            CombBx_TestsListByHour.SelectedItem = null;
+            CombBx_TestsListByDate.SelectedItem = null;
+            CombBx_ClosetTest.SelectedItem = null;
+            TxtBlock_ChooseByHour.Foreground = Brushes.Gray;
+            TxtBlock_ChooseByDate.Foreground = Brushes.Gray;
+            TxtBlock_ClosestDate.Foreground = Brushes.Gray;
+        }
+
+        private void CombBx_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            e.Handled = true;
+        }
+
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
+
+
     }
 }

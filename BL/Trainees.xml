@@ -16,11 +16,57 @@
       <DateOfBirth>1999-02-10T00:00:00</DateOfBirth>
       <PhoneNumber>1232143254</PhoneNumber>
     </Person>
-    <CurrCarType>TruckUnlimited</CurrCarType>
+    <CurrCarType>PrivateCarAuto</CurrCarType>
     <NumOfFinishedLessons>300</NumOfFinishedLessons>
     <NumOfTests>0</NumOfTests>
     <IsAlreadyDidTest>false</IsAlreadyDidTest>
     <SchoolName>hhvuוהוהו</SchoolName>
     <TeacherName>האגריד</TeacherName>
+  </Trainee>
+  <Trainee>
+    <Person>
+      <ID>888888888</ID>
+      <Name>
+        <FirstName>hbbi</FirstName>
+        <LastName>hbibih</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>פתח תקווה</City>
+        <Street>א ד ג</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1999-02-10T00:00:00</DateOfBirth>
+      <PhoneNumber>7987897897</PhoneNumber>
+    </Person>
+    <CurrCarType>Bus</CurrCarType>
+    <NumOfFinishedLessons>90</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>vviviy</SchoolName>
+    <TeacherName>viyv</TeacherName>
+  </Trainee>
+  <Trainee>
+    <Person>
+      <ID>999999999</ID>
+      <Name>
+        <FirstName>vihv</FirstName>
+        <LastName>ivguvu</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>תל אביב - יפו</City>
+        <Street>אב</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1999-02-10T00:00:00</DateOfBirth>
+      <PhoneNumber>8978978978</PhoneNumber>
+    </Person>
+    <CurrCarType>MotorCycle</CurrCarType>
+    <NumOfFinishedLessons>80</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>vuv</SchoolName>
+    <TeacherName>ugvgu</TeacherName>
   </Trainee>
 </Trainees>

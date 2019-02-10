@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
+using Microsoft.Win32;
 
 namespace UI_Ver2
 {
@@ -21,6 +23,7 @@ namespace UI_Ver2
     public partial class TraineeDetailsWindow : Window
     {
         public Trainee trainee;
+        OpenFileDialog op;
         public string operation = "Add";
         public TraineeDetailsWindow()
         {
@@ -36,6 +39,7 @@ namespace UI_Ver2
             CombBx_Gender.SelectedItem = BO.GenderEnum.זכר;
             CmbBx_City.ItemsSource = MainWindow.cities;
             CmbBx_Street.IsEnabled = false;
+
         }
         public TraineeDetailsWindow(Trainee t, string oper)
         {
@@ -52,13 +56,18 @@ namespace UI_Ver2
             CmbBx_City.SelectedItem = t.City;
             CmbBx_Street.Text = t.Street;
             CmbBx_Street.SelectedItem = t.Street;
+            try
+            {
+                TraineeImage.Source = new BitmapImage(new Uri(System.IO.Path.GetFullPath(@"..\..\TraineesImages\" + @trainee.Id + @".jpg")));
+            }
+            catch { }
             switch (oper)
             {
                 case "Update":
                     TxtBx_ID.IsEnabled = false;
                     Button_Add.Content = "שמור שינויים";
                     Label_Header.Content = "שנה את הפרטים הדורשים שינוי";
-                    
+
                     break;
                 case "View":
                     TxtBx_ID.IsEnabled = false;
@@ -76,6 +85,7 @@ namespace UI_Ver2
                     DatePicker_BirthDay.IsEnabled = false;
                     CombBx_CurrCar.IsEnabled = false;
                     CombBx_Gender.IsEnabled = false;
+                    Butto_UploadImage.Visibility = Visibility.Collapsed;
 
                     Button_Add.Visibility = Visibility.Collapsed;
                     Button_Cancel.Visibility = Visibility.Collapsed;
@@ -138,6 +148,7 @@ namespace UI_Ver2
                         return;
                     }
                     MessageBox.Show("תלמיד התווסף בהצלחה!", "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    System.IO.File.Copy(op.FileName, @"..\..\TraineesImages\" + traineeToAdd.Id + @".jpg", true);
                     Close();
                     break;
                 case "Update":
@@ -152,6 +163,7 @@ namespace UI_Ver2
                         return;
                     }
                     MessageBox.Show("פרטי תלמיד עודכנו בהצלחה!", "סטטוס עידכון", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                    System.IO.File.Copy(op.FileName, @"..\..\TraineesImages\" + @trainee.Id + @".jpg", true);
                     Close();
                     break;
             }
@@ -285,6 +297,18 @@ namespace UI_Ver2
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
+        }
+        private void Button_Click_UploadImage(object sender, RoutedEventArgs e)
+        {
+            op = new OpenFileDialog();
+            op.Title = "Select a picture";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                TraineeImage.Source = new BitmapImage(new Uri(op.FileName));
+            }
         }
     }
 }
