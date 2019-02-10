@@ -48,6 +48,7 @@ namespace UI_Ver2
 
         public MainWindow()
         {
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             numOfActivatedMainWindow++;
             this.FlowDirection = FlowDirection.RightToLeft;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -309,7 +310,7 @@ namespace UI_Ver2
         }
         private void SearchTestsButton_Click(object sender, RoutedEventArgs e)
         {
-            (new OfficeTestSearchWindow()).ShowDialog();
+            (new OfficeSearchTest()).ShowDialog();
         }
 
         //------------------------------------------------------------------------------------------------------------
@@ -432,6 +433,24 @@ namespace UI_Ver2
                 MessageBox.Show((((ListView)sender).SelectedItem as TesterTest).ToString(), "פרטי מבחן", MessageBoxButton.OK, 
                     MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
         }
+        private void ListView_TesterTests_MouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+            if (ListView_TesterTests.SelectedItem != null)
+                MessageBox.Show((ListView_TesterTests.SelectedItem as TesterTest).ToString(), "פרטי מבחן", MessageBoxButton.OK,
+                    MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+        }
+        private void Button_Click_TesterColorsMeaning(object sender, RoutedEventArgs e)
+        {
+            string meanings = "שלום! בחלון זה תקבל הסבר מה משמעות הצבעים ברשומות הטסט שבחלונך, וכיצד הם יקלו עליך בקריאת הנתנונים!\n\n";
+            meanings += "צבע המסגרת:\n";
+            meanings += "אדום:" + "\t" + "מסגרת אדומה משמעותה שהמבחן ברשומה התבטל.\n";
+            meanings += "ירוק:" + "\t" + "מסגרת ירוקה משמעותה שהמבחן ברשומה לא התבטל.\n\n";
+
+            meanings += "צבע רקע פנימי:\n";
+            meanings += "צהוב:" + "\t" + "רקע צהוב משמעותו מבחן שעוד לא עודכנו תוצאותיו.\n";
+            meanings += "ירוק:" + "\t" + "רקע ירוק משמעותו שעידכנת תוצאות עבור מבחו זה, ומבחינתך הוא מטופל לחלוטין!.\n";
+            MessageBox.Show(meanings, "משמעות הצבעים", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+        }
         //------------------------------------------------------------------------------------------------------------
 
         //Existing trainee implement
@@ -497,6 +516,12 @@ namespace UI_Ver2
                 MessageBox.Show((((ListView)sender).SelectedItem as TraineeTest).ToString(), "פרטי מבחן", MessageBoxButton.OK, MessageBoxImage.Information,
                     MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
         }
+        private void ListView_TraineeTests_MouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+            if (ListView_TraineeTests.SelectedItem != null)
+                MessageBox.Show((ListView_TraineeTests.SelectedItem as TraineeTest).ToString(), "פרטי מבחן", MessageBoxButton.OK, MessageBoxImage.Information,
+                    MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+        }
         private void ListView_TraineeExistingLicenses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             e.Handled = true;
@@ -507,6 +532,20 @@ namespace UI_Ver2
             testWindow.ShowDialog();
             trainee = bl.GetTraineeByID(trainee.Id);
             ListView_TraineeTests.ItemsSource = trainee.TestList;
+        }
+        private void Button_Click_TreaineeColorsMeaning(object sender, RoutedEventArgs e)
+        {
+            string meanings = "שלום! בחלון זה תקבל הסבר מה משמעות הצבעים ברשומות הטסט שבחלונך, וכיצד הם יקלו עליך בקריאת הנתנונים!\n\n";
+            meanings += "צבע המסגרת:\n";
+            meanings += "אדום:" + "\t" + "מסגרת אדומה משמעותה שהמבחן ברשומה התבטל.\n";
+            meanings += "ירוק:" + "\t" + "מסגרת ירוקה משמעותה שהמבחן ברשומה לא התבטל.\n\n";
+
+            meanings += "צבע רקע פנימי:\n";
+            meanings += "אדום:" + "\t" + "רקע אדום משמעותו מבחן שנכשלת בו.\n";
+            meanings += "ירוק:" + "\t" + "רקע ירוק משמעותו מבחן שעברת בהצלחה.\n";
+            meanings += "צהוב:" + "\t" + "רקע צהוב משמעותו מבחן שעוד לא עודכנו תוצאותיו.\n\n";
+            MessageBox.Show(meanings, "משמעות הצבעים", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+
         }
 
         //Admin implement

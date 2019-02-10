@@ -45,11 +45,11 @@ namespace UI_Ver2
             trainee = t;
             this.DataContext = trainee;
             InitializeComponent();
-            DatePicker_BirthDay.DisplayDate = DateTime.Now.AddYears(-20);
             CombBx_CurrCar.ItemsSource = Enum.GetValues(typeof(BO.CarTypeEnum));
             CombBx_Gender.ItemsSource = Enum.GetValues(typeof(BO.GenderEnum));
             CmbBx_City.ItemsSource = MainWindow.cities;
             CmbBx_City.Text = t.City;
+            CmbBx_City.SelectedItem = t.City;
             CmbBx_Street.Text = t.Street;
             switch (oper)
             {
@@ -104,7 +104,6 @@ namespace UI_Ver2
                 MessageBox.Show("קלט הכתובת שגוי.", "פעולה נכשלה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 return;
             }
-            trainee.IsAlreadyDidTest = trainee.LastTest.ToShortDateString() != "01/01/0001" && trainee.LastTest < DateTime.Now;
             switch (operation)
             {
                 case "Add":

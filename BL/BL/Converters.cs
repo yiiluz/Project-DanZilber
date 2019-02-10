@@ -37,8 +37,8 @@ namespace BL
             trainee.DateOfBirth = other.DateOfBirth;
             trainee.CurrCarType = (DO.CarTypeEnum)other.CurrCarType;
             trainee.NumOfFinishedLessons = other.NumOfFinishedLessons;
-            trainee.NumOfTests = other.NumOfTests;
-            trainee.IsAlreadyDidTest = other.IsAlreadyDidTest;
+            //trainee.NumOfTests = other.NumOfTests;
+            //trainee.IsAlreadyDidTest = other.IsAlreadyDidTest;
             return trainee;
         }
         public static DO.Test CreateDOTest(BO.Test other, string id)
@@ -111,8 +111,8 @@ namespace BL
             temp.DateOfBirth = other.DateOfBirth;
             temp.CurrCarType = (CarTypeEnum)other.CurrCarType;
             temp.NumOfFinishedLessons = other.NumOfFinishedLessons;
-            temp.NumOfTests = other.NumOfTests;
-            temp.IsAlreadyDidTest = other.IsAlreadyDidTest;
+            //temp.NumOfTests = other.NumOfTests;
+            //temp.IsAlreadyDidTest = other.IsAlreadyDidTest;
             temp.ExistingLicenses = new List<CarTypeEnum>();
 
             return temp;

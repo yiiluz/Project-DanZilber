@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_Ver2"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Icon="Icons/Wheel.png"
         Title="SearchTrainee" Height="700" Width="700" WindowStyle="None" FlowDirection="RightToLeft"
         AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown">
 
@@ -12,10 +12,11 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1.88*"/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBlock Text="Start enter details" HorizontalAlignment="Center" FontSize="18" Margin="0 10"/>
+                <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0 10"><Run Text="חלון הצגת, חיפוש וקיבוץ "/><Run Text="תלמידים"/></TextBlock>
+                <TextBlock Text="התחל להזין פרטים לחיפוש. הרשימה תתעדכן מיד." HorizontalAlignment="Left" FontSize="15"/>
                 <Border BorderBrush="LightBlue" BorderThickness="1" Margin="0 10">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -27,9 +28,9 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" FontSize="18" Content="Enter first name: "/>
-                        <Label Grid.Row="1" Grid.Column="0" FontSize="18" Content="Enter Lest name: "/>
-                        <Label Grid.Row="2" Grid.Column="0" FontSize="18" Content="Enter ID: " />
+                        <Label Grid.Row="0" Grid.Column="0" FontSize="16" Content="הכנס שם פרטי:"/>
+                        <Label Grid.Row="1" Grid.Column="0" FontSize="16" Content="הכנס שם משפחה:"/>
+                        <Label Grid.Row="2" Grid.Column="0" FontSize="16" Content="הכנס מספר תעודת זהות:" />
                         <TextBox Name="FirstName" Grid.Row="0" Grid.Column="1" TextChanged="SearchFilterChanged" Margin="1" VerticalContentAlignment="Center"/>
                         <TextBox Name="LestName" Grid.Row="1" Grid.Column="1" TextChanged="SearchFilterChanged"  Margin="1" VerticalContentAlignment="Center"/>
                         <TextBox Name="ID" Grid.Row="2" MaxLength="9" Grid.Column="1" TextChanged="SearchFilterChanged" Margin="1" VerticalContentAlignment="Center"/>
@@ -44,34 +45,35 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Choose how to group" VerticalAlignment="Center"/>
+                        <TextBlock VerticalAlignment="Center"><Run FlowDirection="RightToLeft" Text="בחר כיצד לקבץ:"/></TextBlock>
                         <ComboBox x:Name="ComboBox_GroupOptions" Grid.Column="1" Margin="5 0" VerticalAlignment="Center" SelectionChanged="ComboBox_GroupOptions_SelectionChanged"/>
-                        <TextBlock Text="Choose group name:" Grid.Column="2" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="2" VerticalAlignment="Center"><Run FlowDirection="RightToLeft" Text="בחר תת קבוצה להצגה:"/></TextBlock>
                         <ComboBox x:Name="ComboBox_GroupNames" Grid.Column="3" SelectionChanged="ComboBox_GroupNames_SelectionChanged"/>
                     </Grid>
                 </Border>
-                <TextBlock Text="Double Click on specific Tester for more operations."/>
+                <TextBlock Margin="0 10"><Run FlowDirection="RightToLeft" Text="לחץ פעמיים על רשומה כדי להציג יותר פרטים. לחץ קליק ימני על "/><Run FlowDirection="RightToLeft" Text="רשומה כדי לבצע פעולות."/></TextBlock>
 
             </StackPanel>
-            <ListView Grid.Row="1" x:Name="TraineeList" BorderBrush="Green" Margin="0 0 0 50" GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
+            <ListView Grid.Row="1" x:Name="TraineeList" BorderBrush="Green" Margin="0 0 0 50" GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" MouseDoubleClick="MenuItem_Click_TraineeInformation">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="100"/>
-                        <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}" Width="100"/>
-                        <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" Width="100"/>
-                        <GridViewColumn Header="Birth Date" DisplayMemberBinding="{Binding DateOfBirth, StringFormat=d}" Width="100"/>
-                        <GridViewColumn Header="City" DisplayMemberBinding="{Binding City}" Width="100"/>
+                        <GridViewColumn Header="תעודת זהות" DisplayMemberBinding="{Binding Id}" Width="100"/>
+                        <GridViewColumn Header="שם פרטי" DisplayMemberBinding="{Binding FirstName}" Width="100"/>
+                        <GridViewColumn Header="שם משפחה" DisplayMemberBinding="{Binding LastName}" Width="100"/>
+                        <GridViewColumn Header="תאריך לידה" DisplayMemberBinding="{Binding DateOfBirth, StringFormat=d}" Width="100"/>
+                        <GridViewColumn Header="עיר מגורים" DisplayMemberBinding="{Binding City}" Width="100"/>
+                        <GridViewColumn Header="סוג רכב" DisplayMemberBinding="{Binding CurrCarType}" Width="100"/>
                     </GridView>
                 </ListView.View>
-                <ListView.ContextMenu >
+                <ListView.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Update trainee details " Click="MenuItem_Click_UpdateTraineeDetails" />
-                        <MenuItem Header="Remove trainee " Click="MenuItem_ClickRemoveTrainee" />
-                        <MenuItem Header="Information" Click="MenuItem_Click_Information" />
+                        <MenuItem Header="מידע נוסף" Click="MenuItem_Click_TraineeInformation" />
+                        <MenuItem Header="עדכן פרטי תלמיד" Click="MenuItem_Click_UpdateTraineeDetails" />
+                        <MenuItem Header="מחק תלמיד מהמערכת" Click="MenuItem_ClickRemoveTrainee" />
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>
-            <Button Grid.Row="2" HorizontalAlignment="Stretch" Content="Close" Click="ButtonClick_Close" Margin="0 5" VerticalAlignment="Bottom"/>
+            <Button Grid.Row="2" HorizontalAlignment="Stretch" Content="סגור" Click="ButtonClick_Close" Margin="0 5" VerticalAlignment="Bottom"/>
         </Grid>
     </Border>
 </Window>

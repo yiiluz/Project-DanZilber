@@ -49,15 +49,15 @@ namespace BO
         public override string ToString()
         {
             string tmp = "";
-            tmp += "Test Serial Number: " + TestId + "\n"
-                + "Test Date: " + DateOfTest.ToShortDateString() + "\n"
-                + "Test Hour: " + HourOfTest + ":00\n"
-                + "Start Test Address: " + StartTestAddress + "\n";
+            tmp += "מספר מבחן: " + TestId + "\n"
+                + "תאריך המבחן: " + DateOfTest.ToShortDateString() + "\n"
+                + "שעת התחלת המבחן: " + HourOfTest + ":00\n"
+                + "כתובת התחלת המבחן: " + StartTestAddress + "\n";
             if (!IsTestAborted)
             {
                 if (DateOfTest > DateTime.Now)
                 {
-                    tmp += "GoodLuck!!\n";
+                    tmp += "בהצלחה!!\n";
                     return tmp;
                 }
                 if (IsTesterUpdateStatus)
@@ -66,12 +66,12 @@ namespace BO
                 }
                 else
                 {
-                    tmp += "Be Patient. The Tester has'nt update the test results.\n";
+                    tmp += "המתן בסבלנות. הבוחן עדיין לא עידכן תוצאות. אם עבר יותר מיומיים ממועד הבחינה ולא התקבלו תוצאות, צור קשר עם המשרד.";
                 }
             }
             else
             {
-                tmp += "Attention:\nTest Status: Aborted\n";
+                tmp += "שים לב: המבחן בוטל!";
             }
             return tmp;
         }

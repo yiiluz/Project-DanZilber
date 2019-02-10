@@ -76,11 +76,11 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException( "שגיאה! לא ניתן לעדכן מאפיין קונפגורציה זה.\n"+ ex.Message);
+                throw new KeyNotFoundException("שגיאה! לא ניתן לעדכן מאפיין קונפגורציה זה.\n" + ex.Message);
             }
             catch (AccessViolationException ex)
             {
-                throw new AccessViolationException( "שגיאה! לא ניתן לעדכן מאפיין קונפגורציה זה.\n"+ ex.Message );
+                throw new AccessViolationException("שגיאה! לא ניתן לעדכן מאפיין קונפגורציה זה.\n" + ex.Message);
             }
         }
 
@@ -109,8 +109,8 @@ namespace BL
             {
                 try
                 {
-                    instance.AddTester(Converters.CreateDOTester(t));
                     instance.AddTesterSchedule(t.Id, t.AvailiableWorkTime);
+                    instance.AddTester(Converters.CreateDOTester(t));
                     isStatisticsChanged = true;
                 }
                 catch (KeyNotFoundException e)
@@ -185,7 +185,7 @@ namespace BL
             }
             catch (KeyNotFoundException ex)
             {
-                throw new KeyNotFoundException("שגיאה פנימית! לא ניתן לעדכן בוחן עם תעודת זהות:" + t.Id +ex.Message);
+                throw new KeyNotFoundException("שגיאה פנימית! לא ניתן לעדכן בוחן עם תעודת זהות:" + t.Id + ex.Message);
             }
             catch (DirectoryNotFoundException e)
             {
@@ -208,7 +208,7 @@ namespace BL
                 int testerAge = (DateTime.Now.Year - t.DateOfBirth.Year);
                 if (testerAge < minAge || testerAge > maxAge)
                 {
-                    throw new ArgumentOutOfRangeException("שגיאה! גיל הבוחן לא בטווח המתאים:" +minAge + "-" + maxAge);
+                    throw new ArgumentOutOfRangeException("שגיאה! גיל הבוחן לא בטווח המתאים:" + minAge + "-" + maxAge);
                 }
                 try
                 {
@@ -246,7 +246,7 @@ namespace BL
             int traineeAge = (DateTime.Now.Year - t.DateOfBirth.Year);
             if (traineeAge < minAge)
             {
-                throw new ArgumentOutOfRangeException( "שגיאה! גיל התלמיד מתחת לגיל המינימום:"+ minAge );
+                throw new ArgumentOutOfRangeException("שגיאה! גיל התלמיד מתחת לגיל המינימום:" + minAge);
             }
             else try
                 {
@@ -322,7 +322,7 @@ namespace BL
                 int traineeAge = (DateTime.Now.Year - t.DateOfBirth.Year);
                 if (traineeAge < minAge)
                 {
-                    throw new ArgumentOutOfRangeException("שגיאה! גיל התלמיד מתחת לגיל המינימום:"+ minAge);
+                    throw new ArgumentOutOfRangeException("שגיאה! גיל התלמיד מתחת לגיל המינימום:" + minAge);
                 }
                 try
                 {
@@ -380,14 +380,14 @@ namespace BL
                 Tester tester = GetTesterByID(t.ExTester.Id);
                 //find last test object
                 Test lastTest;
-                if (trainee.LastTest != DateTime.MinValue)
+                if (trainee.LastTest > DateTime.Now)
                 {
                     lastTest = GetTestsList().Find(x => x.IsTestAborted == false && x.DateOfTest == trainee.LastTest
                                     && x.ExTrainee.Id == trainee.Id && x.CarType == tester.TypeCarToTest);
                     if (lastTest != null && !lastTest.IsTesterUpdateStatus)
                     {
-                        errors +="-שגיאה! לא ניתן להוסיף לתלמיד מבחן עד אשר התוצאה במבחן ב " + trainee.LastTest.ToShortDateString() + "תיהיה זמינה.";
-                        errors += "/n";
+                        errors += "-שגיאה! לא ניתן להוסיף לתלמיד מבחן עד אשר התוצאה במבחן ב " + trainee.LastTest.ToShortDateString() + " תהיה זמינה.";
+                        errors += "\n";
                     }
                 }
                 else
@@ -404,17 +404,17 @@ namespace BL
                     if (minDaysBetweenTests != -1) //if success on bring in the configuration of "Minimum days between tests"
                     {
                         bool flag = false;
-                        foreach (var item in trainee.TestList) //check if the new test too close to other
+                        foreach (var existingTraineeTest in trainee.TestList) //check if the new test too close to other
                         {
-                            if (t.CarType == item.CarType && t.IsTestAborted == false
-                                && Math.Abs((t.DateOfTest - item.DateOfTest).Days) < minDaysBetweenTests)
+                            if (t.CarType == existingTraineeTest.CarType && existingTraineeTest.IsTestAborted == false
+                                && Math.Abs((t.DateOfTest - existingTraineeTest.DateOfTest).Days) < minDaysBetweenTests)
                             {
                                 flag = true;
                                 break;
                             }
                         }
                         if (flag)
-                            errors += "שגיאה! לא ניתן להוסיף מבחן. התלמיד ניגש לבחינה ממש לאחרונה.\n";
+                            errors += "שגיאה! לא ניתן להוסיף מבחן. התלמיד ניגש לבחינה לפני פחות מ- " + minDaysBetweenTests + " ימים.\n";
                     }
                 }
                 int minLesson = -1;
@@ -429,7 +429,7 @@ namespace BL
                 if (minLesson != -1 && trainee.NumOfFinishedLessons < minLesson) //if trainee didnt did enough lessons
                 {
                     errors += "שגיאה! לא ניתן להוסיף מבחן. התלמיד לא השלים מספר שיעורים כנדרש.\n";
-                }                 
+                }
                 if (trainee.ExistingLicenses.Exists(x => (x == t.CarType) || (x == CarTypeEnum.רכב_פרטי && t.CarType == CarTypeEnum.רכב_פרטי_אוטומט))) //if trainee already have license on the test type car
                     errors += "שגיאה! לא ניתן להוסיף מבחן. התלמיד  כבר בעל רישיון מדרגה זו.\n";
                 if (errors == "") //if there was no errors
@@ -468,26 +468,6 @@ namespace BL
                                 errors += (e.Message + "\n");
                             }
                             //update trainee deteils
-                            if (t.DateOfTest < DateTime.Now) //if the test was
-                            {
-                                if (!trainee.IsAlreadyDidTest)
-                                {
-                                    trainee.IsAlreadyDidTest = true;
-                                    try
-                                    {
-                                        UpdateTraineeDetails(trainee);
-                                    }
-                                    catch (DirectoryNotFoundException e)
-                                    {
-                                        throw e;
-                                    }
-                                    catch (KeyNotFoundException e)
-                                    {
-                                        throw new MemberAccessException( "\nשגיאה! לא ניתן לעדכן פרטי תלמיד."+e.Message);
-                                    }
-                                }
-                            }
-                            //finish update trainee
                         }
                     }
                 }
@@ -800,7 +780,7 @@ namespace BL
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    throw new KeyNotFoundException( ex.Message + " שגיאה פנימית לא ניתן להטעין מערכת שעות של הבוחן.\n");
+                    throw new KeyNotFoundException(ex.Message + " שגיאה פנימית לא ניתן להטעין מערכת שעות של הבוחן.\n");
                 }
                 return tester;
             }
@@ -836,10 +816,12 @@ namespace BL
         public List<Test> GetOptionalTestsByHour(Test dataSourse, Trainee trainee)
         {
             List<Test> optionalTests = new List<Test>();
-            List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType &&
-                                                IsTestersWorkAtSpesificHour(x, dataSourse.HourOfTest));
+            List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType);
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException("שגיאה! לא קיים בוחן העובד בשעה הרצויה, אנא נסה בשעה אחרת.");
+                throw new KeyNotFoundException("לא קיים בוחן עבור סוג רכב זה.");
+            optionalTesters = (from tester in optionalTesters where (IsTestersWorkAtSpesificHour(tester, dataSourse.HourOfTest)) select tester).ToList();
+            if (optionalTesters.Count == 0)
+                throw new KeyNotFoundException("לא קיים בוחן העובד בשעה הרצויה, אנא נסה בשעה אחרת.");
             bool IsAddressErrorOccur = false;
             try
             {
@@ -896,11 +878,16 @@ namespace BL
         public List<Test> GetOptionalTestsByDate(Test dataSourse, Trainee trainee)
         {
             List<Test> optionalTests = new List<Test>();
-            List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType &&
-                                            IsTesterAvailiableOnDateAndHour(x, dataSourse.DateOfTest) &&
-                                            GetAvailiableHoursOfTesterForSpesificDate(x, dataSourse.DateOfTest).Count != 0);
+
+
+            List<Tester> optionalTesters = GetTestersPartialListByPredicate(x => x.TypeCarToTest == dataSourse.CarType);
             if (optionalTesters.Count == 0)
-                throw new KeyNotFoundException("אין בוחן העובד בתאריך שהתבקש.");
+                throw new KeyNotFoundException("לא קיים בוחן עבור סוג רכב זה.");
+            optionalTesters = (from tester in optionalTesters
+                               where IsTesterAvailiableOnDateAndHour(tester, dataSourse.DateOfTest) && GetAvailiableHoursOfTesterForSpesificDate(tester, dataSourse.DateOfTest).Count != 0
+                               select tester).ToList();
+            if (optionalTesters.Count == 0)
+                throw new KeyNotFoundException("לא קיים בוחן העובד בתאריך הרצוי, אנא נסה תאריך אחר.");
             bool IsAddressErrorOccur = false;
             try
             {
@@ -919,7 +906,7 @@ namespace BL
                     throw new KeyNotFoundException("שגיאה! אחת מהכתובות במשך תהליך החיפוש אחר טסטר לא הייתה תקינה.");
                 throw new KeyNotFoundException("שגיאה!  אין בוחנים עבור כתובת זו.");
             }
-                
+
             bool[] tmp = new bool[6]; //tmp array for delete dublicates.
             for (int i = 0; i < 6; ++i)
                 tmp[i] = false;
@@ -1009,23 +996,10 @@ namespace BL
             }
             return existing;
         }
-        public int GetTraineeNumTestedTest(string id)
+        public int GetTraineeNumTestedTest(Trainee t)
         {
-            Trainee trainee;
-            try
-            {
-                trainee = GetTraineeByID(id);
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                throw e;
-            }
-            catch (KeyNotFoundException)
-            {
-                throw;
-            }
             int num = 0;
-            foreach (var item in trainee.TestList)
+            foreach (var item in t.TestList)
             {
                 if (item.DateOfTest < DateTime.Now)
                     num++;
@@ -1048,7 +1022,6 @@ namespace BL
                 throw e;
             }
         }
-
         public IEnumerable<IGrouping<string, Test>> GetTestsGroupedByCity()
         {
             try
@@ -1065,6 +1038,16 @@ namespace BL
                 throw e;
             }
         }
+        public IEnumerable<IGrouping<TestStatus, Test>> GetTestsGroupedByStatus()
+        {
+            return from item in GetTestsList()
+                   orderby item.TestId
+                   group item by item.Status
+                       into g
+                   orderby g.Key
+                   select g;
+        }
+
         public IEnumerable<IGrouping<string, Tester>> GetTestersGroupedByCity()
         {
             try
@@ -1089,6 +1072,22 @@ namespace BL
                        orderby item.LastName, item.FirstName
                        group item by item.Seniority
                             into g
+                       orderby g.Key
+                       select g;
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+        }
+        public IEnumerable<IGrouping<CarTypeEnum, Trainee>> GetTraineesGroupedByCarType()
+        {
+            try
+            {
+                return from item in GetTraineeList()
+                       orderby item.LastName, item.FirstName
+                       group item by item.CurrCarType
+                       into g
                        orderby g.Key
                        select g;
             }
@@ -1168,7 +1167,7 @@ namespace BL
             {
                 return from item in GetTraineeList()
                        orderby item.LastName, item.FirstName
-                       group item by item.NumOfTests
+                       group item by GetTraineeNumTestedTest(item)
                        into g
                        orderby g.Key
                        select g;
@@ -1287,52 +1286,6 @@ namespace BL
             test.IsPassed = other.IsPassed;
             test.TesterNotes = other.TesterNotes;
             test.IsTesterUpdateStatus = true;
-        }
-        public IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByAbortedOrNonAborted()
-        {
-            try
-            {
-                return from item in GetTestsList()
-                       orderby item.TestId
-                       group item by item.IsTestAborted
-                       into G
-                       orderby G.Key
-                       select G;
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                throw e;
-            }
-        }
-        public IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByUpdateStatusOrNonUpdateStatus()
-        {
-            try
-            {
-                return from item in GetTestsList()
-                       orderby item.TestId
-                       group item by item.IsTesterUpdateStatus
-                       into G
-                       orderby G.Key
-                       select G;
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                throw e;
-            }
-        }
-        public IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByPassedOrNonPassed()
-        {
-            try
-            {
-                return from item in GetTestsList()
-                       where item.IsTesterUpdateStatus
-                       orderby item.TestId
-                       group item by item.IsPassed;
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                throw e;
-            }
         }
 
         //public IEnumerable<IGrouping<Object, Test>> GetTestsGroupedByredicate(Func<BO.Test, bool> func)
@@ -1511,6 +1464,10 @@ namespace BL
         public void AddStatisticsChangedObserve(Action action)
         {
             StatisticsChanged += action;
+        }
+        public int GetTraineeNumOfTotalTests(Trainee t)
+        {
+            return t.TestList.Count;
         }
     }
 }

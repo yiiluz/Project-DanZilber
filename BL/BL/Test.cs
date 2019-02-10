@@ -17,6 +17,7 @@ namespace BO
         private Address startTestAddress = new Address();
         private bool isTesterUpdateStatus;
         private bool isTestAborted = false;
+        private TestStatus status;
 
         public Test() { }
 
@@ -61,17 +62,18 @@ namespace BO
         public string Street { get => StartTestAddress.Street; set => startTestAddress.Street = value; }
         public int BuildingNumber { get => StartTestAddress.BuildingNumber; set => startTestAddress.BuildingNumber = value; }
         public bool IsTestAborted { get => isTestAborted; set => isTestAborted = value; }
+        public TestStatus Status { get => isTestAborted ? TestStatus.מבוטל : (dateOfTest > DateTime.Now ? TestStatus.מבחן_עתידי : (!isTesterUpdateStatus ? TestStatus.מחכה_לעידכון : (IsPassed ? TestStatus.עבר : TestStatus.לא_עבר))); }
 
         public override string ToString()
         {
-            string tmp = "Test ID: " + TestId + "\n\n"
-                + "Tester Details:\n" + ExTester + "\n"
-                + "Trainee Details:\n" + ExTrainee + "\n"
-                + "Date of Test: " + DateOfTest.ToShortDateString() + "\n"
-                + "Hour of Test: " + HourOfTest + ":00\n"
-                + "Test's start address: " + StartTestAddress + "\n"
-                + (IsTesterUpdateStatus ? "Test Results:\n" + base.ToString() : "")
-                + "Test Status: " + (IsTestAborted ? "Aborted" : "Active") + "\n";
+            string tmp = "מספר מבחן: " + TestId + "\n\n"
+                + "פרטי בוחן:\n" + ExTester + "\n"
+                + "פרטי נבחן:\n" + ExTrainee + "\n"
+                + "תאריך המבחן: " + DateOfTest.ToShortDateString() + "\n"
+                + "שעת התחלת המבחן: " + HourOfTest + ":00\n"
+                + "כתובת התחלת המבחן: " + StartTestAddress + "\n"
+                + (IsTesterUpdateStatus ? "תוצאות המבחן:\n" + base.ToString() : "")
+                + "סטטוס המבחן: " + (IsTestAborted ? "בוטל." : (!IsTesterUpdateStatus ? "ממתין לעידכון תוצאות." : (IsPassed ? "התלמיד הצליח במבחן." : "התלמיד נכשל במבחן."))) + "\n";
             return tmp;
         }
     }

@@ -26,7 +26,7 @@ namespace BO
 
         public ExternalTrainee(Trainee other)
         {
-            this.id = other.Id;
+            id = other.Id;
             LastName = other.LastName;
             FirstName = other.FirstName;
             SchoolName = other.SchoolName;

@@ -12,10 +12,8 @@ namespace BO
         private DateTime lastTest = DateTime.MinValue;//////////////////////
         private CarTypeEnum currCarType;
         private int numOfFinishedLessons;
-        private int numOfTests;
         private string schoolName;
         private string teacherName;
-        private bool isAlreadyDidTest;
         private List<CarTypeEnum> existingLicenses = new List<CarTypeEnum>();
         private List<TraineeTest> testList = new List<TraineeTest>();
         private TraineeStatistics statistics;
@@ -32,11 +30,8 @@ namespace BO
             Gender = other.Gender;
             Address = new Address(other.Address);
             DateOfBirth = other.DateOfBirth;
-            LastTest = new DateTime(other.LastTest.Ticks);
             CurrCarType = other.CurrCarType;
             NumOfFinishedLessons = other.NumOfFinishedLessons;
-            NumOfTests = other.NumOfTests;
-            IsAlreadyDidTest = other.IsAlreadyDidTest;
             ExistingLicenses = new List<CarTypeEnum>(other.ExistingLicenses);
             statistics = other.statistics;
             testList = other.TestList;
@@ -45,8 +40,6 @@ namespace BO
         public DateTime LastTest { get => lastTest; set => lastTest = value; }
         public CarTypeEnum CurrCarType { get => currCarType; set => currCarType = value; }
         public int NumOfFinishedLessons { get => numOfFinishedLessons; set => numOfFinishedLessons = value; }
-        public int NumOfTests { get => testList != null? testList.Count:0; set => numOfTests = value; }
-        public bool IsAlreadyDidTest { get => isAlreadyDidTest; set => isAlreadyDidTest = value; }
         public List<CarTypeEnum> ExistingLicenses { get => existingLicenses; set => existingLicenses = value; }
         public List<TraineeTest> TestList { get => testList; set => testList = value; }
         public string SchoolName { get => schoolName; set => schoolName = value; }
@@ -71,10 +64,10 @@ namespace BO
             {
                 existingLic = "Non";
             }
-            string tmp = "Trainee name: " + FirstName + " " + LastName + ".\nID: " + Id + ".\nGender: " + Gender + ".\nDate Of Birth: " + DateOfBirth.ToShortDateString() +
-                ".\nPhone number: " + PhoneNumber + ".\nAddress: " + Address + "Existing linsences: " + existingLic +
-                ".\nType of current Car: " + CurrCarType + ".\nSchool name: " + SchoolName +
-                ".\nTeacher name: " + TeacherName + ".\nSum of pased lessons: " + numOfFinishedLessons + ".\n";
+            string tmp = "שם התלמיד: " + FirstName + " " + LastName + ".\nת.ז.: " + Id + ".\nמין: " + Gender + ".\nתאריך לידה: " + DateOfBirth.ToShortDateString() +
+                ".\nמספר פלאפון: " + PhoneNumber + ".\nכתובת מגורים: " + Address + "רשיונות קיימים: " + existingLic +
+                ".\nסוג רכב ללמידה נוכחי: " + CurrCarType + ".\nשם בית ספר לנהיגה: " + SchoolName +
+                ".\nשם המורה לנהיגה: " + TeacherName + ".\nמספר שיעורים שעשה: " + numOfFinishedLessons + ".\n";
             return tmp;
         }
     }

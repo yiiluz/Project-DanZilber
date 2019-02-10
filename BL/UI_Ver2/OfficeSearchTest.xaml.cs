@@ -19,18 +19,15 @@ namespace UI_Ver2
     /// <summary>
     /// Interaction logic for OfficeTestSearchWindow.xaml
     /// </summary>
-    enum HowToGroupTest { ALL, City, Status, typeOfCAR };
-    enum Status { Aborted, NonAborted, Passed, NonPassed, UpdateStatus, NonUpdateStatus };
-    public partial class OfficeTestSearchWindow : Window
+    enum HowToGroupTest { הכל, עיר, סטטוס_הטסט, סוג_רכב };
+    public partial class OfficeSearchTest : Window
     {
         ObservableCollection<Test> mainList = new ObservableCollection<Test>(BO.Factory.GetBLObj().GetTestsList());
         ObservableCollection<IGrouping<string, Test>> groupedByCity;
         ObservableCollection<IGrouping<CarTypeEnum, Test>> GroupedByCarType;
-        ObservableCollection<IGrouping<bool, Test>> GroupByPassedOrNonPassed;
-        ObservableCollection<IGrouping<bool, Test>> GroupedByAbortedOrNonAborted;
-        ObservableCollection<IGrouping<bool, Test>> GroupedByUpdateStatusOrNonUpdateStatus;
+        ObservableCollection<IGrouping<TestStatus, Test>> GroupByTestStatus;
         ObservableCollection<Test> listToFilter;
-        public OfficeTestSearchWindow()
+        public OfficeSearchTest()
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -72,7 +69,7 @@ namespace UI_Ver2
         {
             switch (ComboBox_GroupOptions.SelectedIndex)
             {
-                case (int)HowToGroupTest.ALL:
+                case (int)HowToGroupTest.הכל:
                     mainList = new ObservableCollection<Test>(BO.Factory.GetBLObj().GetTestsList());
                     listToFilter = mainList;
                     ComboBox_GroupOptions.ItemsSource = listToFilter;
@@ -80,20 +77,18 @@ namespace UI_Ver2
                     ComboBox_GroupNames.SelectedItem = null;
                     ComboBox_GroupNames.IsEnabled = false;
                     return;
-                case (int)HowToGroupTest.City:
+                case (int)HowToGroupTest.עיר:
                     //renewListTest();
                     groupedByCity = new ObservableCollection<IGrouping<string, Test>>(MainWindow.bl.GetTestsGroupedByCity());
                     string[] keysOfCity = (from item in groupedByCity select item.Key).ToArray();
                     ComboBox_GroupNames.ItemsSource = keysOfCity;
                     break;
-                case (int)HowToGroupTest.Status:
+                case (int)HowToGroupTest.סטטוס_הטסט:
                     //renewListTest();
-                    GroupByPassedOrNonPassed = new ObservableCollection<IGrouping<bool, Test>>(MainWindow.bl.GetTestsGroupedByPassedOrNonPassed());
-                    GroupedByUpdateStatusOrNonUpdateStatus = new ObservableCollection<IGrouping<bool, Test>>(MainWindow.bl.GetTestsGroupedByUpdateStatusOrNonUpdateStatus());
-                    GroupedByAbortedOrNonAborted = new ObservableCollection<IGrouping<bool, Test>>(MainWindow.bl.GetTestsGroupedByAbortedOrNonAborted());
-                    ComboBox_GroupNames.ItemsSource = Enum.GetValues(typeof(Status));
+                    GroupByTestStatus = new ObservableCollection<IGrouping<TestStatus, Test>>(MainWindow.bl.GetTestsGroupedByStatus());
+                    ComboBox_GroupNames.ItemsSource = Enum.GetValues(typeof(TestStatus));
                     break;
-                case (int)HowToGroupTest.typeOfCAR:
+                case (int)HowToGroupTest.סוג_רכב:
                     //renewListTest();
                     GroupedByCarType = new ObservableCollection<IGrouping<CarTypeEnum, Test>>(MainWindow.bl.GetTestsGroupedByCarType());
                     CarTypeEnum[] keysOfCars = (from item in GroupedByCarType select item.Key).ToArray();
@@ -110,7 +105,7 @@ namespace UI_Ver2
             {
                 switch (ComboBox_GroupOptions.SelectedIndex)
                 {
-                    case (int)HowToGroupTest.City:
+                    case (int)HowToGroupTest.עיר:
                         foreach (var item in groupedByCity)
                             if (ComboBox_GroupNames.SelectedItem != null && item.Key == (string)ComboBox_GroupNames.SelectedItem)
                             {
@@ -118,80 +113,19 @@ namespace UI_Ver2
                                 break;
                             }
                         break;
-                    //listToFilter = new ObservableCollection<Test>((from item in groupedByCity
-                    //                                               where item.Key == (string)ComboBox_GroupNames.SelectedItem
-                    //                                               select item).FirstOrDefault().ToList());
-                    //break;
-                    case (int)HowToGroupTest.Status:
+                    case (int)HowToGroupTest.סטטוס_הטסט:
                         if (ComboBox_GroupNames.SelectedItem != null)
                         {
                             listToFilter = null;
-                            switch (ComboBox_GroupNames.SelectedIndex)
-                            {
-                                case (int)Status.Aborted:
-                                    foreach (var item in GroupedByAbortedOrNonAborted)
-                                    {
-                                        if (item.Key)
-                                        {
-                                            listToFilter = new ObservableCollection<Test>(item.ToList());
-                                            break;
-                                        }
-                                    }
+                            foreach (var item in GroupByTestStatus)
+                                if (item.Key == (TestStatus)Enum.Parse(typeof(TestStatus), ComboBox_GroupNames.SelectedItem.ToString()))
+                                {
+                                    listToFilter = new ObservableCollection<Test>(item.ToList());
                                     break;
-                                case (int)Status.NonAborted:
-                                    foreach (var item in GroupedByAbortedOrNonAborted)
-                                    {
-                                        if (!item.Key)
-                                        {
-                                            listToFilter = new ObservableCollection<Test>(item.ToList());
-                                            break;
-                                        }
-                                    }
-                                    break;
-                                case (int)Status.Passed:
-                                    foreach (var item in GroupByPassedOrNonPassed)
-                                    {
-                                        if (item.Key)
-                                        {
-                                            listToFilter = new ObservableCollection<Test>(item.ToList());
-                                            break;
-                                        }
-                                    }
-                                    break;
-                                case (int)Status.NonPassed:
-                                    foreach (var item in GroupByPassedOrNonPassed)
-                                    {
-                                        if (!item.Key)
-                                        {
-                                            listToFilter = new ObservableCollection<Test>(item.ToList());
-                                            break;
-                                        }
-                                    }
-                                    break;
-                                case (int)Status.UpdateStatus:
-                                    foreach (var item in GroupedByUpdateStatusOrNonUpdateStatus)
-                                    {
-                                        if (item.Key)
-                                        {
-                                            listToFilter = new ObservableCollection<Test>(item.ToList());
-                                            break;
-                                        }
-                                    }
-                                    break;
-                                case (int)Status.NonUpdateStatus:
-                                    foreach (var item in GroupedByUpdateStatusOrNonUpdateStatus)
-                                    {
-                                        if (!item.Key)
-                                        {
-                                            listToFilter = new ObservableCollection<Test>(item.ToList());
-                                            break;
-                                        }
-                                    }
-                                    break;
-                            }
+                                }
                         }
                         break;
-                    case (int)HowToGroupTest.typeOfCAR:
+                    case (int)HowToGroupTest.סוג_רכב:
                         foreach (var item in GroupedByCarType)
                             if (ComboBox_GroupNames.SelectedItem != null && item.Key == (CarTypeEnum)ComboBox_GroupNames.SelectedItem)
                             {
@@ -211,10 +145,10 @@ namespace UI_Ver2
             Close();
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_TestDetails(object sender, RoutedEventArgs e)
         {
             if (TestsList.SelectedItem != null)
-                MessageBox.Show(TestsList.SelectedItem.ToString(), "OfficeTestSearchWindow", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(TestsList.SelectedItem.ToString(), "פרטי מבחן", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
 
         GridViewColumnHeader _lastHeaderClicked = null;
@@ -287,13 +221,13 @@ namespace UI_Ver2
             Test test = MainWindow.bl.GetTestByID((TestsList.SelectedItem as Test).TestId);
             if (test.IsTestAborted)
             {
-                MessageBox.Show("The test allready Aborted!", "Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("מבחן זה כבר מבוטל!", "שגיאה",
+                    MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 return;
             }
-            var isWantToAbort = MessageBox.Show("Test details are:\n" + test.ToString() + "Are you sure you want to abort this test?" +
-                " This action is not reversible."
-                , "Abort Test", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var isWantToAbort = MessageBox.Show("פרטי מבחן:\n" + test.ToString() + "\nפעולת ביטול המבחן אינה הפיכה.\n" +
+                "האם אתה בטוח שברצונך לבטל מבחן זה?"
+                , "ביטול מבחן", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             if (isWantToAbort == MessageBoxResult.Yes)
             {
                 try
@@ -302,14 +236,14 @@ namespace UI_Ver2
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    var result = MessageBox.Show("internal error\n" + ex.Message + "\nDo you want to try again?",
-                        "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    var result = MessageBox.Show("שגיאה פנימית\n" + ex.Message + "\nהאם ברצונך לנסות שוב?",
+                        "שגיאה פנימית", MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     if (result == MessageBoxResult.No)
                         //Close();
                         return;
                 }
-                MessageBox.Show("The test with id " + test.TestId + " successfuly Aborted", "Operation Status",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("מבחן מספר " + test.TestId + " בוטל בהצלחה.", "סטטוס ביטול",
+                    MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
         }
 

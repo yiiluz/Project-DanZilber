@@ -26,14 +26,13 @@ namespace BO
 
         public override string ToString()
         {
-            return "Test Result: " + (isPassed ? "Passed" : "Not Passed") + "\n"
-                + "Distance Keeping: " + (DistanceKeeping ? "V" : "X") + "\n"
-                + "Reverse Parking: " + (ReverseParking ? "V" : "X") + "\n"
-                + "Mirrors Check: " + (MirrorsCheck ? "V" : "X") + "\n"
-                + "Signaling: " + (signals ? "V" : "X") + "\n"
-                + "Correct Speed: " + (CorrectSpeed ? "V" : "X") + "\n"
-                + "Reverse Parking: " + (ReverseParking ? "V" : "X") + "\n"
-                + "Tester Notes: " + TesterNotes + "\n";
+            return "תוצאת המבחן: " + "\t" + (isPassed ? "התלמיד הצליח." : "התלמיד נכשל.") + "\n"
+                + "שמירת מרחק: " + "\t" + (DistanceKeeping ? "V" : "X") + "\n"
+                + "חניה ברוורס: " + "\t" + (ReverseParking ? "V" : "X") + "\n"
+                + "בדיקת מראות: " + "\t" + (MirrorsCheck ? "V" : "X") + "\n"
+                + "איתות: " + "\t" + "\t" + (signals ? "V" : "X") + "\n"
+                + "מהירות נכונה: " + "\t" + (CorrectSpeed ? "V" : "X") + "\n"
+                + "הערות הבוחן: " + "\t" + TesterNotes + "\n";
         }
     }
 }

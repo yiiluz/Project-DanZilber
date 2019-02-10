@@ -36,7 +36,8 @@ namespace BO
         List<Tester> GetTestersPartialListByPredicate(Func<BO.Tester, bool> func);
         List<Trainee> GetTraineesPartialListByPredicate(Func<BO.Trainee, bool> func);
         string GetStringOfTraineeLicenses(string id);
-        int GetTraineeNumTestedTest(string id);
+        int GetTraineeNumTestedTest(Trainee t);
+        int GetTraineeNumOfTotalTests(Trainee t);
 
         int GetTesterNumOfTestForDateWeek(Tester tester, DateTime a);
 
@@ -45,7 +46,7 @@ namespace BO
         IEnumerable<IGrouping<string, Trainee>> GetTraineesGroupsByTeacher();
         IEnumerable<IGrouping<int, Trainee>> GetTraineesGroupedByNumOfTests();
         IEnumerable<IGrouping<string, Trainee>> GetTraineessGroupedByCity();
-
+        IEnumerable<IGrouping<CarTypeEnum, Trainee>> GetTraineesGroupedByCarType();
 
 
 
@@ -57,9 +58,8 @@ namespace BO
 
 
         IEnumerable<IGrouping<CarTypeEnum, Test>> GetTestsGroupedByCarType();
-        IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByPassedOrNonPassed();
         IEnumerable<IGrouping<string, Test>> GetTestsGroupedByCity();
-        IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByAbortedOrNonAborted();
-        IEnumerable<IGrouping<bool, Test>> GetTestsGroupedByUpdateStatusOrNonUpdateStatus();
+
+        IEnumerable<IGrouping<TestStatus, Test>> GetTestsGroupedByStatus();
     }
 }

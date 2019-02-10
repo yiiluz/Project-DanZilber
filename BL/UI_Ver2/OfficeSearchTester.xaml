@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI_Ver2"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Icon="Icons/Wheel.png"
         Title="SearchTester" Height="700" Width="700" WindowStyle="None" FlowDirection="RightToLeft"
         AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown">
 
@@ -12,10 +12,12 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1.88*"/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBlock Text="Start enter details" HorizontalAlignment="Center" FontSize="18" Margin="0 10"/>
+                
+                <TextBlock Text="חלון הצגת, חיפוש וקיבוץ בוחנים" HorizontalAlignment="Center" FontSize="18" Margin="0 10"/>
+                <TextBlock Text="התחל להזין פרטים לחיפוש. הרשימה תתעדכן מיד." HorizontalAlignment="Left" FontSize="15"/>
                 <Border BorderBrush="LightBlue" BorderThickness="1" Margin="0 10">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -27,16 +29,16 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label x:Name="label" FontSize="16" Content="Enter first name: " />
+                        <Label x:Name="label" FontSize="16" Content="הזן שם פרטי:" />
                         <TextBox Name="FirstName" Grid.Column="1" Text="" TextChanged="SearchFilterChanged" Margin="1" VerticalContentAlignment="Center"/>
-                        <Label Grid.Row="2" Grid.Column="0" x:Name="label2" FontSize="16" Content="Enter ID: " VerticalContentAlignment="Center"/>
+                        <Label Grid.Row="2" Grid.Column="0" x:Name="label2" FontSize="16" Content="הזן מספר תעודת זהות:" VerticalContentAlignment="Center"/>
                         <TextBox Name="LestName" Grid.Row="1" Grid.Column="1" Text="" TextChanged="SearchFilterChanged" Margin="1" VerticalContentAlignment="Center"/>
-                        <Label Grid.Row="1" Grid.Column="0" FontSize="16" Content="Enter Lest name: "/>
+                        <Label Grid.Row="1" Grid.Column="0" FontSize="16" Content="הזן שם משפחה:"/>
                         <TextBox Name="ID" Grid.Row="2" MaxLength="9" Grid.Column="1" TextChanged="SearchFilterChanged" Margin="1"/>
                     </Grid>
                 </Border>
 
-                <Border BorderThickness="1" BorderBrush="blue" Padding="2">
+                <Border BorderThickness="1" BorderBrush="LightBlue" Padding="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -44,34 +46,35 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Choose how to group" VerticalAlignment="Center"/>
+                        <TextBlock VerticalAlignment="Center"><Run FlowDirection="RightToLeft" Text="בחר כיצד לקבץ:"/></TextBlock>
                         <ComboBox x:Name="ComboBox_GroupOptions" Grid.Column="1" Margin="5 0" VerticalAlignment="Center" SelectionChanged="ComboBox_GroupOptions_SelectionChanged"/>
-                        <TextBlock Text="Choose group name:" Grid.Column="2" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="2" VerticalAlignment="Center"><Run FlowDirection="RightToLeft" Text="בחר תת קבוצה להצגה:"/></TextBlock>
                         <ComboBox x:Name="ComboBox_GroupNames" Grid.Column="3" SelectionChanged="ComboBox_GroupNames_SelectionChanged"/>
                     </Grid>
                 </Border>
-                <TextBlock Text="Double Click on specific Tester for more operations."/>
+                <TextBlock Margin="0 10"><Run FlowDirection="RightToLeft" Text="לחץ פעמיים על רשומה כדי להציג יותר פרטים. לחץ קליק ימני על "/><Run FlowDirection="RightToLeft" Text="רשומה כדי לבצע פעולות."/></TextBlock>
 
             </StackPanel>
-            <ListView Grid.Row="1" x:Name="TestersList" BorderBrush="Green" Margin="0 0 0 50" GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
+            <ListView Grid.Row="1" x:Name="TestersList" BorderBrush="Green" Margin="0 0 0 50" GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" MouseDoubleClick="MenuItem_Click_InformationOfTester">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="100"/>
-                        <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}" Width="100"/>
-                        <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" Width="100"/>
-                        <GridViewColumn Header="Birth Date" DisplayMemberBinding="{Binding DateOfBirth, StringFormat=d}" Width="100"/>
-                        <GridViewColumn Header="City" DisplayMemberBinding="{Binding City}" Width="100"/>
+                        <GridViewColumn Header="תעודת זהות" DisplayMemberBinding="{Binding Id}" Width="100"/>
+                        <GridViewColumn Header="שם פרטי" DisplayMemberBinding="{Binding FirstName}" Width="100"/>
+                        <GridViewColumn Header="שם משפחה" DisplayMemberBinding="{Binding LastName}" Width="100"/>
+                        <GridViewColumn Header="תאריך לידה" DisplayMemberBinding="{Binding DateOfBirth, StringFormat=d}" Width="100"/>
+                        <GridViewColumn Header="עיר מגורים" DisplayMemberBinding="{Binding City}" Width="100"/>
+                        <GridViewColumn Header="התמחות" DisplayMemberBinding="{Binding TypeCarToTest}" Width="120"/>
                     </GridView>
                 </ListView.View>
                 <ListView.ContextMenu >
                     <ContextMenu>
-                        <MenuItem Header="Update tester details " Click="MenuItem_Click_UpdateTesterDetails" />
-                        <MenuItem Header="Remove tester " Click="MenuItem_ClickRemoveTester" />
-                        <MenuItem Header="Information" Click="MenuItem_Click_Information" />
+                        <MenuItem Header="מידע נוסף" Click="MenuItem_Click_InformationOfTester" />
+                        <MenuItem Header="עדכן פרטי בוחן" Click="MenuItem_Click_UpdateTesterDetails" />
+                        <MenuItem Header="מחק בוחן" Click="MenuItem_ClickRemoveTester" />
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>
-            <Button Grid.Row="2" HorizontalAlignment="Stretch" Content="Close" Click="ButtonClick_Close" Margin="0 5" VerticalAlignment="Bottom"/>
+            <Button Grid.Row="2" HorizontalAlignment="Stretch" Content="סגור" Click="ButtonClick_Close" Margin="0 5" VerticalAlignment="Bottom"/>
         </Grid>
     </Border>
 </Window>

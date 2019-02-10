@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UI_Ver2"
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="700" MinWidth="1000" Height="700" Width="1000"  WindowStyle="None" Closed="When_Window_CLosed" FlowDirection="RightToLeft"
-        AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" WindowState="Maximized">
+        AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" WindowState="Maximized" Icon="Icons/Wheel.png">
 
     <!-- Window Border -->
     <Border BorderThickness="2" BorderBrush="LightBlue" Background="AliceBlue" CornerRadius="20">
@@ -67,7 +67,7 @@
                                     <ImageBrush ImageSource="Icons/Mustung.png"  Opacity="0.2"/>
                                 </Grid.Background>
                             </Grid>
-                            <StackPanel Margin="20">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <TextBlock/>
                                 <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="30" FontWeight="ExtraBlack" Text="שלום! ברוכים הבאים למערכת ניהול מבחני נהיגה!"/>
                                 <TextBlock HorizontalAlignment="Center" FontFamily="David" FontSize="25" Text="מערכת זו נועדה לנהל מבחני נהיגה בצורה יעילה ונוחה."/>
@@ -110,7 +110,7 @@
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 0 18 0">
                                         <Button Content="שנה סיסמה"  Width="100" Click="Button_Click_ChangePassword"/>
                                         <Button Content="התנתק"  Width="100" Click="Button_Click_LogOut"/>
-                                        
+
                                     </StackPanel>
                                     <TextBlock Text="עודכן לאחרונה בתאריך:" Margin="20 10" HorizontalAlignment="left"/>
                                     <TextBlock x:Name="TextBlock_LastUpdate" Text="{Binding}" Margin="200 10"/>
@@ -554,21 +554,24 @@
                                                     </ListView.ItemContainerStyle>
                                                     <ListView.View>
                                                         <GridView>
-                                                            <GridViewColumn Header="מספר מבחן" DisplayMemberBinding="{Binding TestId}" Width="100"/>
-                                                            <GridViewColumn Header="תאריך המבחן" DisplayMemberBinding="{Binding DateOfTest, StringFormat=d}" Width="100"/>
-                                                            <GridViewColumn Header="שעת המבחן" Width="100">
+                                                            <GridViewColumn Header="מספר מבחן" DisplayMemberBinding="{Binding TestId}" Width="110"/>
+                                                            <GridViewColumn Header="תאריך המבחן" DisplayMemberBinding="{Binding DateOfTest, StringFormat=d}" Width="110"/>
+                                                            <GridViewColumn Header="שעת המבחן" Width="110">
                                                                 <GridViewColumn.DisplayMemberBinding>
                                                                     <MultiBinding StringFormat="{}{0}:00">
                                                                         <Binding Path="HourOfTest"/>
                                                                     </MultiBinding>
                                                                 </GridViewColumn.DisplayMemberBinding>
                                                             </GridViewColumn>
-                                                            <GridViewColumn Header="מיקום מבחן" DisplayMemberBinding="{Binding City}" Width="100"/>
+                                                            <GridViewColumn Header="מיקום מבחן" DisplayMemberBinding="{Binding City}" Width="110"/>
+                                                            <GridViewColumn Header="סוג רכב" DisplayMemberBinding="{Binding CarType}" Width="110"/>
                                                         </GridView>
                                                     </ListView.View>
                                                     <ListView.ContextMenu >
                                                         <ContextMenu>
+                                                            <MenuItem Header="מידע נוסף" Click="ListView_TesterTests_MouseDoubleClick"/>
                                                             <MenuItem Header="עדכן תוצאות מבחן" Click="MenuItem_Click_UpdateTestResult"/>
+
                                                         </ContextMenu>
                                                     </ListView.ContextMenu>
                                                 </ListView>
@@ -583,6 +586,8 @@
                                                     <Button Content="עדכן תוצאות מבחן לפי מספר מבחן" Click="Button_Click_UpdateTestResultByID"/>
                                                     <Button Content="הצג פרטים אישיים" Click="Button_Click_ViewTesterDetails"/>
                                                     <Button Content="התנתק" Click="Button_Click_LogOut"/>
+                                                    <Button Content="מהי משמעות הצבעים?" Click="Button_Click_TesterColorsMeaning"/>
+
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -601,12 +606,12 @@
                                                     <ColumnDefinition Width="5*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Text="הסטטיסטיקה שלך:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+                                                <TextBlock Text="הנתונים שלך:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
                                                 <TextBlock Grid.Row="1" Text="מספר מבחנים:"/>
                                                 <TextBlock Grid.Row="2" Text="מספר מבחנים מוצלחים:"/>
                                                 <TextBlock Grid.Row="3" Text="מספר מבחנים כושלים:"/>
                                                 <TextBlock Grid.Row="4" Text="אחוזי הצלחה:"/>
-                                                <TextBlock Grid.Row="5" Text="בדיקות עתידיות:"/>
+                                                <TextBlock Grid.Row="5" Text="מבחנים עתידיים:"/>
                                                 <TextBlock Grid.Row="6" Text="מספר המבחנים בשבוע זה:"/>
                                                 <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NumOfTests, Mode=OneWay}"/>
                                                 <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SuccessTests, Mode=OneWay}"/>
@@ -648,7 +653,7 @@
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="0.8*"/>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
                                         <Border Grid.Column="0" Grid.RowSpan="3" BorderThickness="2" BorderBrush="LightBlue" CornerRadius="15" Margin="3">
@@ -700,8 +705,14 @@
                                                                 </GridViewColumn.DisplayMemberBinding>
                                                             </GridViewColumn>
                                                             <GridViewColumn Header="עיר המבחן" DisplayMemberBinding="{Binding City}" Width="110"/>
+                                                            <GridViewColumn Header="סוג רכב" DisplayMemberBinding="{Binding CarType}" Width="100"/>
                                                         </GridView>
                                                     </ListView.View>
+                                                    <ListView.ContextMenu >
+                                                        <ContextMenu>
+                                                            <MenuItem Header="מידע נוסף" Click="ListView_TraineeTests_MouseDoubleClick"  />
+                                                        </ContextMenu>
+                                                    </ListView.ContextMenu>
                                                 </ListView>
                                             </Grid>
                                         </Border>
@@ -713,7 +724,9 @@
                                                 <StackPanel>
                                                     <Button Content="הצג פרטים אישיים" Click="Button_Click_ViewTraineeDetails"/>
                                                     <Button Content="קבע מועד מבחן" Click="Button_Click_TraineeAddTest"/>
+                                                    <Button Content="מהי משמעות הצבעים?" Click="Button_Click_TreaineeColorsMeaning"/>
                                                     <Button Content="התנתק" Click="Button_Click_LogOut"/>
+
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
