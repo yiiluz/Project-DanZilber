@@ -26,7 +26,7 @@ namespace BL
             }
             catch(Exception)
             {
-                throw new FileLoadException("שגיאה! בעיה בטעינת תקיית קונפיגורציה.");
+                throw new FileLoadException("שגיאה! לא מצליח לטעון את קובץ ההגדרות.");
             }
         }
 

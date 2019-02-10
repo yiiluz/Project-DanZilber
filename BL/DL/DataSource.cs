@@ -41,6 +41,8 @@ namespace DL
             Configuration.Add("גיל בוחן מקסימל", new ConfigurationParameter() { Readable = true, Writable = false, Value = 67 });
             Configuration.Add("מספר מבחן", new ConfigurationParameter() { Readable = true, Writable = true, Value = 10000000 });
             Configuration.Add("גיל נבחן מקסימלי", new ConfigurationParameter() { Readable = true, Writable = true, Value = 80 });
+            Configuration.Add("סיסמת מנהל המערכת", new ConfigurationParameter() { Readable = true, Writable = true, Value = 1111 });
+            Configuration.Add("סיסמת ניהול משרדי", new ConfigurationParameter() { Readable = true, Writable = true, Value = 1111 });
             //*********************************************************************
             Tester tester = new Tester("111111111");
             tester.FirstName = "אברהם";
