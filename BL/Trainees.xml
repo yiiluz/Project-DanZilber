@@ -46,4 +46,50 @@
     <SchoolName>ציונות רוויזיוניסטית</SchoolName>
     <TeacherName>זאב זבוטינסקי</TeacherName>
   </Trainee>
+  <Trainee>
+    <Person>
+      <ID>222222211</ID>
+      <Name>
+        <FirstName>מוישה</FirstName>
+        <LastName>הומוביץ</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>תקוע</City>
+        <Street>תקוע</Street>
+        <BuildingNumber>1</BuildingNumber>
+      </Address>
+      <DateOfBirth>1999-02-11T00:00:00</DateOfBirth>
+      <PhoneNumber>0011000000</PhoneNumber>
+    </Person>
+    <CurrCarType>MotorCycle</CurrCarType>
+    <NumOfFinishedLessons>54</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>אלא ברכב ואנחנו בסוסים</SchoolName>
+    <TeacherName>אריאל חרוש</TeacherName>
+  </Trainee>
+  <Trainee>
+    <Person>
+      <ID>321444444</ID>
+      <Name>
+        <FirstName>שמחה בונם</FirstName>
+        <LastName>לוזר</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>חיפה</City>
+        <Street>אל אדריסי</Street>
+        <BuildingNumber>1</BuildingNumber>
+      </Address>
+      <DateOfBirth>1999-02-11T00:00:00</DateOfBirth>
+      <PhoneNumber>4234242423</PhoneNumber>
+    </Person>
+    <CurrCarType>Truck12Tons</CurrCarType>
+    <NumOfFinishedLessons>32</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>נקי כפיים עם חור בכיס</SchoolName>
+    <TeacherName>חצקל דה גנעב</TeacherName>
+  </Trainee>
 </Trainees>

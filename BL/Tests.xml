@@ -44,4 +44,48 @@
     <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
     <IsTestAborted>false</IsTestAborted>
   </Test>
+  <Test>
+    <TestId>10000015</TestId>
+    <TesterId>206914301</TesterId>
+    <TraineeId>222222211</TraineeId>
+    <DateOfTest>2019-02-12T00:00:00+02:00</DateOfTest>
+    <HourOfTest>12</HourOfTest>
+    <StartTestAddress>
+      <City>תל אביב - יפו</City>
+      <Street>הא באייר</Street>
+      <BuildingNumber>1</BuildingNumber>
+    </StartTestAddress>
+    <CarType>MotorCycle</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes />
+    <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
+    <IsTestAborted>false</IsTestAborted>
+  </Test>
+  <Test>
+    <TestId>10000016</TestId>
+    <TesterId>777777777</TesterId>
+    <TraineeId>321444444</TraineeId>
+    <DateOfTest>2019-02-12T00:00:00+02:00</DateOfTest>
+    <HourOfTest>10</HourOfTest>
+    <StartTestAddress>
+      <City>כפר אביב</City>
+      <Street>התמר</Street>
+      <BuildingNumber>1</BuildingNumber>
+    </StartTestAddress>
+    <CarType>Truck12Tons</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes />
+    <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
+    <IsTestAborted>false</IsTestAborted>
+  </Test>
 </Tests>
