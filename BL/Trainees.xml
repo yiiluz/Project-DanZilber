@@ -23,4 +23,27 @@
     <SchoolName>מכון לב</SchoolName>
     <TeacherName>דן</TeacherName>
   </Trainee>
+  <Trainee>
+    <Person>
+      <ID>000555000</ID>
+      <Name>
+        <FirstName>בנימין</FirstName>
+        <LastName>נתניהו</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>ירושלים</City>
+        <Street>בלפור</Street>
+        <BuildingNumber>1</BuildingNumber>
+      </Address>
+      <DateOfBirth>1949-10-21T00:00:00</DateOfBirth>
+      <PhoneNumber>0000000993</PhoneNumber>
+    </Person>
+    <CurrCarType>TruckUnlimited</CurrCarType>
+    <NumOfFinishedLessons>41</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>ציונות רוויזיוניסטית</SchoolName>
+    <TeacherName>זאב זבוטינסקי</TeacherName>
+  </Trainee>
 </Trainees>

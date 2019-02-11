@@ -21,4 +21,46 @@
     <MaxTestsPerWeek>10</MaxTestsPerWeek>
     <TypeCarToTest>MotorCycle</TypeCarToTest>
   </Tester>
+  <Tester>
+    <Person>
+      <ID>038500088</ID>
+      <Name>
+        <FirstName>יעקוב שמעון פנחס</FirstName>
+        <LastName>פרלוב</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>בני ברק</City>
+        <Street>צירלסון</Street>
+        <BuildingNumber>13</BuildingNumber>
+      </Address>
+      <DateOfBirth>1976-04-30T00:00:00</DateOfBirth>
+      <PhoneNumber>0525715555</PhoneNumber>
+    </Person>
+    <Seniority>20</Seniority>
+    <MaxDistance>100</MaxDistance>
+    <MaxTestsPerWeek>12</MaxTestsPerWeek>
+    <TypeCarToTest>PrivateCarAuto</TypeCarToTest>
+  </Tester>
+  <Tester>
+    <Person>
+      <ID>999999999</ID>
+      <Name>
+        <FirstName>דונאלד גון</FirstName>
+        <LastName>טראמפ</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>ירושלים</City>
+        <Street>ירמיהו</Street>
+        <BuildingNumber>1</BuildingNumber>
+      </Address>
+      <DateOfBirth>1974-02-11T00:00:00</DateOfBirth>
+      <PhoneNumber>0000010000</PhoneNumber>
+    </Person>
+    <Seniority>2</Seniority>
+    <MaxDistance>140</MaxDistance>
+    <MaxTestsPerWeek>22</MaxTestsPerWeek>
+    <TypeCarToTest>TruckUnlimited</TypeCarToTest>
+  </Tester>
 </Testers>

@@ -22,4 +22,26 @@
     <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
     <IsTestAborted>false</IsTestAborted>
   </Test>
+  <Test>
+    <TestId>10000014</TestId>
+    <TesterId>999999999</TesterId>
+    <TraineeId>000555000</TraineeId>
+    <DateOfTest>2019-02-12T00:00:00+02:00</DateOfTest>
+    <HourOfTest>9</HourOfTest>
+    <StartTestAddress>
+      <City>ירושלים</City>
+      <Street>בלפור</Street>
+      <BuildingNumber>1</BuildingNumber>
+    </StartTestAddress>
+    <CarType>TruckUnlimited</CarType>
+    <DistanceKeeping>false</DistanceKeeping>
+    <ReverseParking>false</ReverseParking>
+    <MirrorsCheck>false</MirrorsCheck>
+    <Signals>false</Signals>
+    <CorrectSpeed>false</CorrectSpeed>
+    <IsPassed>false</IsPassed>
+    <TesterNotes />
+    <IsTesterUpdateStatus>false</IsTesterUpdateStatus>
+    <IsTestAborted>false</IsTestAborted>
+  </Test>
 </Tests>
