@@ -2,6 +2,29 @@
 <Trainees>
   <Trainee>
     <Person>
+      <ID>321444444</ID>
+      <Name>
+        <FirstName>שמחה בונם</FirstName>
+        <LastName>לוזר</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>חיפה</City>
+        <Street>אל אדריסי</Street>
+        <BuildingNumber>1</BuildingNumber>
+      </Address>
+      <DateOfBirth>1999-02-11T00:00:00</DateOfBirth>
+      <PhoneNumber>4234242423</PhoneNumber>
+    </Person>
+    <CurrCarType>Truck12Tons</CurrCarType>
+    <NumOfFinishedLessons>32</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>נקי כפיים עם חור בכיס</SchoolName>
+    <TeacherName>חצקל דה גנעב</TeacherName>
+  </Trainee>
+  <Trainee>
+    <Person>
       <ID>209492065</ID>
       <Name>
         <FirstName>איציק</FirstName>
@@ -25,26 +48,72 @@
   </Trainee>
   <Trainee>
     <Person>
-      <ID>000555000</ID>
+      <ID>889987878</ID>
       <Name>
-        <FirstName>בנימין</FirstName>
-        <LastName>נתניהו</LastName>
+        <FirstName>אברהם</FirstName>
+        <LastName>חיימוביץ</LastName>
       </Name>
       <Gender>Male</Gender>
       <Address>
-        <City>ירושלים</City>
-        <Street>בלפור</Street>
-        <BuildingNumber>1</BuildingNumber>
+        <City>אלעד</City>
+        <Street>רבי מאיר</Street>
+        <BuildingNumber>0</BuildingNumber>
       </Address>
-      <DateOfBirth>1949-10-21T00:00:00</DateOfBirth>
-      <PhoneNumber>0000000993</PhoneNumber>
+      <DateOfBirth>1999-02-11T00:00:00</DateOfBirth>
+      <PhoneNumber>8787897987</PhoneNumber>
     </Person>
-    <CurrCarType>TruckUnlimited</CurrCarType>
-    <NumOfFinishedLessons>41</NumOfFinishedLessons>
+    <CurrCarType>MotorCycle</CurrCarType>
+    <NumOfFinishedLessons>34</NumOfFinishedLessons>
     <NumOfTests>0</NumOfTests>
     <IsAlreadyDidTest>false</IsAlreadyDidTest>
-    <SchoolName>ציונות רוויזיוניסטית</SchoolName>
-    <TeacherName>זאב זבוטינסקי</TeacherName>
+    <SchoolName>האקדמית תל אביב</SchoolName>
+    <TeacherName>לסנר</TeacherName>
+  </Trainee>
+  <Trainee>
+    <Person>
+      <ID>387458743</ID>
+      <Name>
+        <FirstName>אליה</FirstName>
+        <LastName>חיון</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>אלעד</City>
+        <Street>ריטב"א</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1999-02-11T00:00:00</DateOfBirth>
+      <PhoneNumber>0587064041</PhoneNumber>
+    </Person>
+    <CurrCarType>Truck12Tons</CurrCarType>
+    <NumOfFinishedLessons>10</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>עיריית אלעד</SchoolName>
+    <TeacherName>ישראל פרוש</TeacherName>
+  </Trainee>
+  <Trainee>
+    <Person>
+      <ID>987655678</ID>
+      <Name>
+        <FirstName>יעקב</FirstName>
+        <LastName>פרלוב</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>בני ברק</City>
+        <Street>אבו חצירא ישראל</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1999-02-11T00:00:00</DateOfBirth>
+      <PhoneNumber>0589839878</PhoneNumber>
+    </Person>
+    <CurrCarType>PrivateCar</CurrCarType>
+    <NumOfFinishedLessons>10</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>אוהל יעקב</SchoolName>
+    <TeacherName>אלעד</TeacherName>
   </Trainee>
   <Trainee>
     <Person>
@@ -71,25 +140,48 @@
   </Trainee>
   <Trainee>
     <Person>
-      <ID>321444444</ID>
+      <ID>123456789</ID>
       <Name>
-        <FirstName>שמחה בונם</FirstName>
-        <LastName>לוזר</LastName>
+        <FirstName>יוחאי</FirstName>
+        <LastName>אילוז</LastName>
       </Name>
       <Gender>Male</Gender>
       <Address>
-        <City>חיפה</City>
-        <Street>אל אדריסי</Street>
-        <BuildingNumber>1</BuildingNumber>
+        <City>אלעד</City>
+        <Street>רבי מאיר</Street>
+        <BuildingNumber>0</BuildingNumber>
       </Address>
       <DateOfBirth>1999-02-11T00:00:00</DateOfBirth>
-      <PhoneNumber>4234242423</PhoneNumber>
+      <PhoneNumber>0548888777</PhoneNumber>
     </Person>
-    <CurrCarType>Truck12Tons</CurrCarType>
-    <NumOfFinishedLessons>32</NumOfFinishedLessons>
+    <CurrCarType>TruckUnlimited</CurrCarType>
+    <NumOfFinishedLessons>10</NumOfFinishedLessons>
     <NumOfTests>0</NumOfTests>
     <IsAlreadyDidTest>false</IsAlreadyDidTest>
-    <SchoolName>נקי כפיים עם חור בכיס</SchoolName>
-    <TeacherName>חצקל דה גנעב</TeacherName>
+    <SchoolName>מנורת המאור</SchoolName>
+    <TeacherName>גדסי</TeacherName>
+  </Trainee>
+  <Trainee>
+    <Person>
+      <ID>000555000</ID>
+      <Name>
+        <FirstName>בנימין</FirstName>
+        <LastName>נתניהו</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>ירושלים</City>
+        <Street>בלפור</Street>
+        <BuildingNumber>1</BuildingNumber>
+      </Address>
+      <DateOfBirth>1949-10-21T00:00:00</DateOfBirth>
+      <PhoneNumber>0000000993</PhoneNumber>
+    </Person>
+    <CurrCarType>TruckUnlimited</CurrCarType>
+    <NumOfFinishedLessons>41</NumOfFinishedLessons>
+    <NumOfTests>0</NumOfTests>
+    <IsAlreadyDidTest>false</IsAlreadyDidTest>
+    <SchoolName>ציונות רוויזיוניסטית</SchoolName>
+    <TeacherName>זאב זבוטינסקי</TeacherName>
   </Trainee>
 </Trainees>

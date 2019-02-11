@@ -23,48 +23,6 @@
   </Tester>
   <Tester>
     <Person>
-      <ID>038500088</ID>
-      <Name>
-        <FirstName>יעקוב שמעון פנחס</FirstName>
-        <LastName>פרלוב</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>בני ברק</City>
-        <Street>צירלסון</Street>
-        <BuildingNumber>13</BuildingNumber>
-      </Address>
-      <DateOfBirth>1976-04-30T00:00:00</DateOfBirth>
-      <PhoneNumber>0525715555</PhoneNumber>
-    </Person>
-    <Seniority>20</Seniority>
-    <MaxDistance>100</MaxDistance>
-    <MaxTestsPerWeek>12</MaxTestsPerWeek>
-    <TypeCarToTest>PrivateCarAuto</TypeCarToTest>
-  </Tester>
-  <Tester>
-    <Person>
-      <ID>999999999</ID>
-      <Name>
-        <FirstName>דונלד גון</FirstName>
-        <LastName>טראמפ</LastName>
-      </Name>
-      <Gender>Male</Gender>
-      <Address>
-        <City>ירושלים</City>
-        <Street>ירמיהו</Street>
-        <BuildingNumber>1</BuildingNumber>
-      </Address>
-      <DateOfBirth>1974-02-11T00:00:00</DateOfBirth>
-      <PhoneNumber>0000010000</PhoneNumber>
-    </Person>
-    <Seniority>2</Seniority>
-    <MaxDistance>140</MaxDistance>
-    <MaxTestsPerWeek>22</MaxTestsPerWeek>
-    <TypeCarToTest>TruckUnlimited</TypeCarToTest>
-  </Tester>
-  <Tester>
-    <Person>
       <ID>555533333</ID>
       <Name>
         <FirstName>חיים שייע עוזר</FirstName>
@@ -104,5 +62,110 @@
     <MaxDistance>56</MaxDistance>
     <MaxTestsPerWeek>23</MaxTestsPerWeek>
     <TypeCarToTest>Truck12Tons</TypeCarToTest>
+  </Tester>
+  <Tester>
+    <Person>
+      <ID>987634567</ID>
+      <Name>
+        <FirstName>דורון</FirstName>
+        <LastName>יהודה</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>פתח תקווה</City>
+        <Street>רבי יהודה הנשיא</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1974-02-11T00:00:00</DateOfBirth>
+      <PhoneNumber>0543372886</PhoneNumber>
+    </Person>
+    <Seniority>3</Seniority>
+    <MaxDistance>100</MaxDistance>
+    <MaxTestsPerWeek>10</MaxTestsPerWeek>
+    <TypeCarToTest>MotorCycle</TypeCarToTest>
+  </Tester>
+  <Tester>
+    <Person>
+      <ID>678954787</ID>
+      <Name>
+        <FirstName>נתנאל</FirstName>
+        <LastName>שפירא</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>אלעד</City>
+        <Street>הר"ן</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1974-02-11T00:00:00</DateOfBirth>
+      <PhoneNumber>0527692124</PhoneNumber>
+    </Person>
+    <Seniority>10</Seniority>
+    <MaxDistance>100</MaxDistance>
+    <MaxTestsPerWeek>10</MaxTestsPerWeek>
+    <TypeCarToTest>MotorCycle</TypeCarToTest>
+  </Tester>
+  <Tester>
+    <Person>
+      <ID>384908395</ID>
+      <Name>
+        <FirstName>חיים</FirstName>
+        <LastName>אקסקלוב</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>אלעד</City>
+        <Street>רמ"ה</Street>
+        <BuildingNumber>0</BuildingNumber>
+      </Address>
+      <DateOfBirth>1974-02-11T00:00:00</DateOfBirth>
+      <PhoneNumber>0548979687</PhoneNumber>
+    </Person>
+    <Seniority>4</Seniority>
+    <MaxDistance>56</MaxDistance>
+    <MaxTestsPerWeek>10</MaxTestsPerWeek>
+    <TypeCarToTest>MotorCycle</TypeCarToTest>
+  </Tester>
+  <Tester>
+    <Person>
+      <ID>038500088</ID>
+      <Name>
+        <FirstName>יעקוב שמעון פנחס</FirstName>
+        <LastName>פרלוב</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>בני ברק</City>
+        <Street>צירלסון</Street>
+        <BuildingNumber>13</BuildingNumber>
+      </Address>
+      <DateOfBirth>1976-04-30T00:00:00</DateOfBirth>
+      <PhoneNumber>0525715555</PhoneNumber>
+    </Person>
+    <Seniority>20</Seniority>
+    <MaxDistance>100</MaxDistance>
+    <MaxTestsPerWeek>12</MaxTestsPerWeek>
+    <TypeCarToTest>PrivateCarAuto</TypeCarToTest>
+  </Tester>
+  <Tester>
+    <Person>
+      <ID>999999999</ID>
+      <Name>
+        <FirstName>דונלד גון</FirstName>
+        <LastName>טראמפ</LastName>
+      </Name>
+      <Gender>Male</Gender>
+      <Address>
+        <City>ירושלים</City>
+        <Street>ירמיהו</Street>
+        <BuildingNumber>1</BuildingNumber>
+      </Address>
+      <DateOfBirth>1974-02-11T00:00:00</DateOfBirth>
+      <PhoneNumber>0000010000</PhoneNumber>
+    </Person>
+    <Seniority>2</Seniority>
+    <MaxDistance>140</MaxDistance>
+    <MaxTestsPerWeek>22</MaxTestsPerWeek>
+    <TypeCarToTest>TruckUnlimited</TypeCarToTest>
   </Tester>
 </Testers>

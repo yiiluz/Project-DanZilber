@@ -70,7 +70,7 @@ namespace UI_Ver2
             CmbBx_Street.SelectedItem = t.Street;
             try
             {
-                TesterImage.Source = new BitmapImage(new Uri(System.IO.Path.GetFullPath(@"..\..\..\TestersImages\" + tester.Id + @".jpg"), UriKind.Absolute));
+                TesterImage.Source = new BitmapImage(new Uri(System.IO.Path.GetFullPath(@"..\..\TestersImages\" + tester.Id + @".jpg"), UriKind.Absolute));
             }
             catch { }
             switch (oper)
@@ -170,13 +170,17 @@ namespace UI_Ver2
                         return;
                     }
                     Close();
-                    try
+                    if (isImageChanged)
                     {
-                        System.IO.File.Copy(op.FileName, @"..\..\..\TestersImages\" + @testerToAdd.Id + @".jpg", true);
+                        try
+                        {
+                            string photoPath = @"..\..\TestersImages\" + @testerToAdd.Id + @".jpg";
+                            (File.Create(photoPath)).Close();
+                            System.IO.File.Copy(op.FileName, photoPath, true);
+                        }
+                        catch { }
                     }
-                    catch { }
                     MessageBox.Show("הבוחן התווסף בהצלחה למערכת!", "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-
                     break;
                 case "Update":
                     try
@@ -188,22 +192,19 @@ namespace UI_Ver2
                         MessageBox.Show(ex.Message, "שגיאה פנימית", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                         return;
                     }
-
-                    MessageBox.Show("פרטי בוחן עודכנו בהצלחה!", "סטטוס עידכון", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     Close();
                     if (isImageChanged)
                     {
-                        string destination = @"..\..\..\TestersImages\" + tester.Id + @".jpg";
-                        for (int i = 0; i < 100; ++i) //try 100 times to overrite image.
+                        string destination = @"..\..\TestersImages\" + @tester.Id + @".jpg";
+                        try
                         {
-                            try
-                            {
-                                System.IO.File.Copy(op.FileName, System.IO.Path.GetFullPath(destination), true);
-                                break;
-                            }
-                            catch { }
+                            System.IO.File.Copy(op.FileName, destination, true);
+                            break;
                         }
+                        catch { }////////////////////////////////////////////////////
                     }
+                    MessageBox.Show("פרטי בוחן עודכנו בהצלחה!", "סטטוס עידכון", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+
                     break;
             }
         }

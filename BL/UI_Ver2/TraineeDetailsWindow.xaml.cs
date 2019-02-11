@@ -61,7 +61,7 @@ namespace UI_Ver2
             {
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
-                bitmap.UriSource = new Uri(System.IO.Path.GetFullPath(@"..\..\..\TraineesImages\" + trainee.Id + @".jpg"), UriKind.Absolute);
+                bitmap.UriSource = new Uri(System.IO.Path.GetFullPath(@"..\..\TraineesImages\" + trainee.Id + @".jpg"));
                 bitmap.EndInit();
                 TraineeImage.Source = bitmap;
             }
@@ -153,16 +153,20 @@ namespace UI_Ver2
                         return;
                     }
 
-                    MessageBox.Show("תלמיד התווסף בהצלחה!", "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
-                    Close();
-                    string dest = @"..\..\..\TraineesImages\" + @traineeToAdd.Id + @".jpg";
-                    File.SetAttributes(dest, FileAttributes.NotContentIndexed);
-                    File.SetAttributes(op.FileName, FileAttributes.NotContentIndexed);
-                    try
+                     Close();
+                    if (isImageChanged)
                     {
-                        System.IO.File.Copy(op.FileName, dest, true);
+                        string dest = @"..\..\TraineesImages\" + @traineeToAdd.Id + @".jpg";
+                        try
+                        {
+                            string photoPath = @"..\..\TraineesImages\" + @traineeToAdd.Id + @".jpg";
+                            (File.Create(photoPath)).Close();
+                            System.IO.File.Copy(op.FileName, photoPath, true);
+                        }
+                        catch { }
                     }
-                    catch { }
+                    MessageBox.Show("תלמיד התווסף בהצלחה!", "סטטוס הוספה", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+
                     break;
                 case "Update":
                     try
@@ -175,22 +179,19 @@ namespace UI_Ver2
                         Close();
                         return;
                     }
-
-                    MessageBox.Show("פרטי תלמיד עודכנו בהצלחה!", "סטטוס עידכון", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     Close();
                     TraineeImage.Source = null;
                     if (isImageChanged)
                     {
-                        string destination = @"..\..\..\TraineesImages\" + @trainee.Id + @".jpg";
-                        for (int i = 0; i < 100; ++i) //try 100 times to overrite image.
+                        string destination = @"..\..\TraineesImages\" + @trainee.Id + @".jpg";
+                        try
                         {
-                            try
-                            {
-                                System.IO.File.Copy(op.FileName, System.IO.Path.GetFullPath(destination), true);
-                            }
-                            catch { }
+                            
+                            System.IO.File.Copy(op.FileName, destination, true);
                         }
+                        catch { }////////////////////////////////////////////////////////////
                     }
+                    MessageBox.Show("פרטי תלמיד עודכנו בהצלחה!", "סטטוס עידכון", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                     break;
             }
         }
